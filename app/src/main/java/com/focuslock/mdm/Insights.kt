@@ -221,7 +221,9 @@ object UsageAnalytics {
      */
     fun suggestedDistractions(context: Context, limit: Int = 8): List<String> {
         val usage = last7Days(context).apps.map { it.packageName to it.category }
-        val installedSeeds = Seed.distractions.filter { AppCatalog.isInstalled(context, it) }
+        val installedSeeds = Seed.distractions
+            .filter { AppCatalog.isInstalled(context, it) }
+            .map { it to AppCatalog.categoryOf(context, it) }
         return pickSuggestions(usage, AppCatalog.detectEssentials(context).toSet(), installedSeeds, limit)
     }
 
@@ -232,12 +234,13 @@ object UsageAnalytics {
     fun pickSuggestions(
         usage: List<Pair<String, AppCategory>>,
         essentials: Set<String>,
-        installedSeeds: List<String>,
+        installedSeeds: List<Pair<String, AppCategory>>,
         limit: Int,
     ): List<String> {
         val fromUsage = usage
             .filter { (_, category) -> category in setOf(AppCategory.SOCIAL, AppCategory.VIDEO, AppCategory.GAMES) }
             .map { it.first }
-        return (fromUsage + installedSeeds).filterNot { it in essentials }.distinct().take(limit)
+        val seeds = installedSeeds.filter { (_, category) -> category != AppCategory.BROWSING }.map { it.first }
+        return (fromUsage + seeds).filterNot { it in essentials }.distinct().take(limit)
     }
 }

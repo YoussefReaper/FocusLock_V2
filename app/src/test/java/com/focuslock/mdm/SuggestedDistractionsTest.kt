@@ -18,9 +18,19 @@ class SuggestedDistractionsTest {
     }
 
     @Test
+    fun seededBrowsersAreNotPreselectedEither() {
+        val seeds = listOf(
+            "com.android.vending" to AppCategory.BROWSING,
+            "com.android.chrome" to AppCategory.BROWSING,
+            "com.spotify.music" to AppCategory.OTHER,
+        )
+        assertEquals(listOf("com.spotify.music"), UsageAnalytics.pickSuggestions(emptyList(), none, seeds, 8))
+    }
+
+    @Test
     fun essentialsAreSkippedAndSeedsFillTheRest() {
         val usage = listOf("com.whatsapp" to AppCategory.SOCIAL, "com.tiktok" to AppCategory.VIDEO)
-        val picked = UsageAnalytics.pickSuggestions(usage, setOf("com.whatsapp"), listOf("com.tiktok", "com.reddit"), 8)
+        val picked = UsageAnalytics.pickSuggestions(usage, setOf("com.whatsapp"), listOf("com.tiktok" to AppCategory.VIDEO, "com.reddit" to AppCategory.SOCIAL), 8)
         assertEquals(listOf("com.tiktok", "com.reddit"), picked)
     }
 
