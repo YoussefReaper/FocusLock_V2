@@ -30,7 +30,9 @@ object UiPrefs {
         val accent: Int,
         val track: Int,
         val divider: Int,
-        val input: Int
+        val input: Int,
+        /** Captions and hints. Set per theme so it always clears 4.5:1. */
+        val muted: Int
     )
 
     data class UiFont(val id: String, @StringRes val labelRes: Int, val typeface: Typeface)
@@ -65,7 +67,9 @@ object UiPrefs {
         val id: String,
         @StringRes val labelRes: Int,
         val color: Int,
-        val deepColor: Int? = null
+        val deepColor: Int? = null,
+        /** The lighter tone used on dark themes, where [color] would be too dim. */
+        val darkColor: Int? = null
     )
 
     data class UiBackground(val id: String, @StringRes val labelRes: Int, val color: Int)
@@ -93,7 +97,16 @@ object UiPrefs {
         val danger: Int,
         val success: Int,
         val warning: Int,
+        /** Apricot: earned minutes, streaks, Earn mode. Never an error colour. */
+        val warm: Int,
+        val warmSoft: Int,
+        /** Text on [warmSoft]. */
+        val warmInk: Int,
+        /** Erase-only red, softened for its tinted background. */
+        val dangerSoft: Int,
         val typeface: Typeface,
+        /** Bricolage Grotesque: page titles, timers, big numbers. */
+        val displayTypeface: Typeface,
         /**
          * Numerals, timers, counts, state-chip labels and section overlines
          * use this - always IBM Plex Mono, regardless of [typeface]. That is
@@ -116,7 +129,7 @@ object UiPrefs {
         // Radius roles. The user's one slider (radiusDp, default 20 = the
         // card role below) offsets all four together, proportionally, so
         // "make corners rounder" still means one dial rather than four.
-        val chipRadiusDp: Int get() = (radiusDp * 9 / 20).coerceIn(2, 18)
+        val chipRadiusDp: Int get() = 999
         val rowRadiusDp: Int get() = (radiusDp * 15 / 20).coerceIn(4, 26)
         // Not one of the doc's four named roles, but every button mockup in
         // it consistently uses r16 - close to but distinct from row(15).
@@ -130,16 +143,16 @@ object UiPrefs {
     private fun prefs(context: Context) =
         context.applicationContext.getSharedPreferences(Constants.PREFS_MAIN, Context.MODE_PRIVATE)
 
-    private const val DEFAULT_THEME_ID = "obsidian"
+    private const val DEFAULT_THEME_ID = "paper"
     private const val DEFAULT_FONT_ID = "figtree"
     private const val DEFAULT_DENSITY_ID = "comfortable"
     private const val DEFAULT_WALLPAPER_ID = "none"
-    private const val DEFAULT_ACCENT_ID = "accent_blue"
+    private const val DEFAULT_ACCENT_ID = "accent_green"
     private const val DEFAULT_BACKGROUND_ID = "bg_default"
     // Card radius default moved 18->20 to match the design system's card
     // role exactly; chip/row/hero are derived proportionally from whatever
     // this slider is set to - see chipRadiusDp/rowRadiusDp/heroRadiusDp.
-    private const val DEFAULT_CARD_RADIUS_DP = 20
+    private const val DEFAULT_CARD_RADIUS_DP = 22
     private const val DEFAULT_TEXT_SCALE = 1.0f
 
     // ── Palettes ──────────────────────────────────────────────────
@@ -158,48 +171,55 @@ object UiPrefs {
     // Nocturne is untouched - it already had a distinct, deliberately quiet
     // job (the auto theme at bedtime) and didn't need retuning.
 
+    // Quiet Pine (FocusLock 2 redesign): "paper" is the warm Stone light
+    // theme and the new default; "obsidian" is its dark twin. The ids are kept
+    // so nobody's saved choice breaks; only the colours changed. Every pair
+    // was checked at 4.5:1 or better for body text.
     val themes: List<UiTheme> = listOf(
         UiTheme(
             id = "obsidian",
             labelRes = R.string.appearance_theme_obsidian,
             isLight = false,
-            background = Color.parseColor("#0A0C10"),
-            card = Color.parseColor("#12151B"),
-            cardAlt = Color.parseColor("#1A1F27"),
-            textPrimary = Color.parseColor("#EDF1F7"),
-            textSecondary = Color.parseColor("#98A3B4"),
-            accent = Color.parseColor("#4C93FF"),
-            track = Color.parseColor("#1E2532"),
-            divider = Color.parseColor("#232935"),
-            input = Color.parseColor("#1E2532")
+            background = Color.parseColor("#0F1412"),
+            card = Color.parseColor("#18201D"),
+            cardAlt = Color.parseColor("#222B27"),
+            textPrimary = Color.parseColor("#ECF0ED"),
+            textSecondary = Color.parseColor("#B4BDB8"),
+            accent = Color.parseColor("#6CCBA8"),
+            track = Color.parseColor("#2B3530"),
+            divider = Color.parseColor("#26302C"),
+            input = Color.parseColor("#222B27"),
+            muted = Color.parseColor("#8F9994")
         ),
         UiTheme(
             id = "nocturne",
             labelRes = R.string.appearance_theme_nocturne,
             isLight = false,
             background = Color.parseColor("#000000"),
-            card = Color.parseColor("#0D0D10"),
-            cardAlt = Color.parseColor("#141419"),
-            textPrimary = Color.parseColor("#D8D8DC"),
-            textSecondary = Color.parseColor("#7A7A82"),
-            accent = Color.parseColor("#8B7CF6"),
-            track = Color.parseColor("#17171C"),
-            divider = Color.parseColor("#17171C"),
-            input = Color.parseColor("#101014")
+            card = Color.parseColor("#0B100E"),
+            cardAlt = Color.parseColor("#141A17"),
+            textPrimary = Color.parseColor("#D6DCD8"),
+            textSecondary = Color.parseColor("#9AA49F"),
+            accent = Color.parseColor("#6CCBA8"),
+            track = Color.parseColor("#1A211E"),
+            divider = Color.parseColor("#161C19"),
+            input = Color.parseColor("#101512"),
+            muted = Color.parseColor("#7F8984")
         ),
         UiTheme(
             id = "paper",
             labelRes = R.string.appearance_theme_paper,
             isLight = true,
-            background = Color.parseColor("#F7F8FA"),
+            background = Color.parseColor("#F3F2EE"),
             card = Color.parseColor("#FFFFFF"),
-            cardAlt = Color.parseColor("#EFF2F6"),
-            textPrimary = Color.parseColor("#10141A"),
-            textSecondary = Color.parseColor("#5A6472"),
-            accent = Color.parseColor("#1D6FE8"),
-            track = Color.parseColor("#EDF1F6"),
-            divider = Color.parseColor("#E2E7EE"),
-            input = Color.parseColor("#EDF1F6")
+            cardAlt = Color.parseColor("#EAE8E2"),
+            textPrimary = Color.parseColor("#171C1A"),
+            textSecondary = Color.parseColor("#454D49"),
+            accent = Color.parseColor("#1E6A54"),
+            track = Color.parseColor("#E0DDD5"),
+            divider = Color.parseColor("#E4E1DA"),
+            input = Color.parseColor("#EAE8E2"),
+            muted = Color.parseColor("#5F6763")
         )
     )
 
@@ -267,22 +287,17 @@ object UiPrefs {
         UiWallpaper("ocean", R.string.appearance_wallpaper_ocean, R.drawable.bg_wallpaper_ocean)
     )
 
+    // Quiet Pine accents. Each has a light-theme tone (white text on it
+    // passes 4.5:1) and a dark-theme tone (dark text on it passes). The ids
+    // are the old ones so saved choices still resolve; pink and teal were
+    // dropped and fall back to Pine.
     val accents: List<UiAccent> = listOf(
-        // Retinted to the brand blue (2026-09, design system pass): neon
-        // pink on near-black read as a gaming utility. #4C93FF is the flat
-        // accent the design doc uses everywhere - icons, active states,
-        // borders, text - across every mockup in the set. #1D4ED8 (the
-        // marketing site/app-icon shade) is the doc-specified deep stop of the
-        // primary-button gradient and only ever appears there; the other seven
-        // accents have no doc-specified deep tone, so they darken instead.
-        UiAccent("accent_blue", R.string.appearance_accent_blue, Color.parseColor("#4C93FF"), Color.parseColor("#1D4ED8")),
-        UiAccent("accent_green", R.string.appearance_accent_green, Color.parseColor("#22C55E")),
-        UiAccent("accent_orange", R.string.appearance_accent_orange, Color.parseColor("#F97316")),
-        UiAccent("accent_pink", R.string.appearance_accent_pink, Color.parseColor("#EC4899")),
-        UiAccent("accent_teal", R.string.appearance_accent_teal, Color.parseColor("#14B8A6")),
-        UiAccent("accent_gold", R.string.appearance_accent_gold, Color.parseColor("#F59E0B")),
-        UiAccent("accent_violet", R.string.appearance_accent_violet, Color.parseColor("#8B5CF6")),
-        UiAccent("accent_slate", R.string.appearance_accent_slate, Color.parseColor("#64748B"))
+        UiAccent("accent_green", R.string.appearance_accent_green, Color.parseColor("#1E6A54"), darkColor = Color.parseColor("#6CCBA8")),
+        UiAccent("accent_blue", R.string.appearance_accent_blue, Color.parseColor("#2F5DA8"), darkColor = Color.parseColor("#8DB4F0")),
+        UiAccent("accent_violet", R.string.appearance_accent_violet, Color.parseColor("#6B4AA8"), darkColor = Color.parseColor("#BBA6EC")),
+        UiAccent("accent_orange", R.string.appearance_accent_orange, Color.parseColor("#A63F29"), darkColor = Color.parseColor("#F0A08C")),
+        UiAccent("accent_gold", R.string.appearance_accent_gold, Color.parseColor("#7A5E14"), darkColor = Color.parseColor("#D9BD72")),
+        UiAccent("accent_slate", R.string.appearance_accent_slate, Color.parseColor("#4B5563"), darkColor = Color.parseColor("#B4BDC9"))
     )
 
     val backgrounds: List<UiBackground> = listOf(
@@ -525,6 +540,7 @@ object UiPrefs {
         val backgroundChoice = getBackground(context).color
         val background = if (backgroundChoice == Color.TRANSPARENT) base.background else backgroundChoice
         val highContrast = highContrast(context)
+        val accent = if (base.isLight) accentChoice.color else (accentChoice.darkColor ?: accentChoice.color)
 
         val textPrimary = if (highContrast) {
             if (base.isLight) Color.parseColor("#000000") else Color.parseColor("#FFFFFF")
@@ -536,6 +552,8 @@ object UiPrefs {
         } else {
             base.textSecondary
         }
+        val warm = if (base.isLight) Color.parseColor("#E08A4F") else Color.parseColor("#F2AE78")
+        val danger = if (base.isLight) Color.parseColor("#B3261E") else Color.parseColor("#F2B8B5")
 
         return Tokens(
             isLight = base.isLight,
@@ -544,19 +562,25 @@ object UiPrefs {
             surfaceAlt = base.cardAlt,
             textPrimary = textPrimary,
             textSecondary = textSecondary,
-            textMuted = blend(textSecondary, background, 0.35f),
-            accent = accentChoice.color,
-            accentDeep = accentChoice.deepColor ?: blend(accentChoice.color, Color.BLACK, 0.25f),
-            onAccent = readableOn(accentChoice.color),
-            accentSoft = blend(accentChoice.color, background, 0.82f),
+            textMuted = if (highContrast) textSecondary else base.muted,
+            accent = accent,
+            // Text and icons on accentSoft: a deeper (light) or paler (dark) accent.
+            accentDeep = if (base.isLight) blend(accent, Color.BLACK, 0.35f) else blend(accent, Color.WHITE, 0.45f),
+            onAccent = readableOn(accent),
+            accentSoft = blend(accent, background, if (base.isLight) 0.84f else 0.78f),
             divider = if (highContrast) blend(textPrimary, background, 0.6f) else base.divider,
             input = base.input,
             track = base.track,
-            danger = if (base.isLight) Color.parseColor("#DC2626") else Color.parseColor("#F87171"),
-            success = if (base.isLight) Color.parseColor("#15803D") else Color.parseColor("#4ADE80"),
-            warning = if (base.isLight) Color.parseColor("#B45309") else Color.parseColor("#FBBF24"),
+            danger = danger,
+            success = accent,
+            warning = if (base.isLight) Color.parseColor("#8F4512") else Color.parseColor("#F6C9A3"),
+            warm = warm,
+            warmSoft = blend(warm, background, if (base.isLight) 0.8f else 0.78f),
+            warmInk = if (base.isLight) Color.parseColor("#8F4512") else Color.parseColor("#F6C9A3"),
+            dangerSoft = blend(danger, background, if (base.isLight) 0.86f else 0.8f),
             typeface = resolveTypeface(context, getFont(context).id),
             monoTypeface = resolveMonoTypeface(context),
+            displayTypeface = resolveDisplayTypeface(context),
             radiusDp = getCardRadiusDp(context).coerceIn(0, 32),
             textScale = getTextScale(context).coerceIn(0.8f, 1.4f),
             density = getDensity(context),
@@ -597,6 +621,13 @@ object UiPrefs {
             "mono" -> Typeface.MONOSPACE
             else -> Typeface.DEFAULT
         }
+    }
+
+    /** Titles and numerals. Arabic keeps Plex Sans Arabic, which carries the glyphs. */
+    private fun resolveDisplayTypeface(context: Context): Typeface {
+        if (isArabicLocale(context)) return resolveTypeface(context, "figtree")
+        return androidx.core.content.res.ResourcesCompat.getFont(context, R.font.bricolage_family)
+            ?: Typeface.DEFAULT_BOLD
     }
 
     private fun resolveMonoTypeface(context: Context): Typeface =

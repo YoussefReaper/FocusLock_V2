@@ -8,9 +8,9 @@
     English in every locale.
 -->
 <resources>
-    <string name="appearance_theme_obsidian">Obsidian</string>
-    <string name="appearance_theme_nocturne">Nocturne</string>
-    <string name="appearance_theme_paper">Paper</string>
+    <string name="appearance_theme_obsidian">Dark</string>
+    <string name="appearance_theme_nocturne">Night</string>
+    <string name="appearance_theme_paper">Light</string>
 
     <string name="appearance_font_figtree">Figtree</string>
     <string name="appearance_font_system">System</string>
@@ -25,13 +25,13 @@
     <string name="appearance_wallpaper_sunset">Sunset</string>
     <string name="appearance_wallpaper_ocean">Ocean</string>
 
-    <string name="appearance_accent_blue">Electric Blue</string>
-    <string name="appearance_accent_green">Lime Green</string>
-    <string name="appearance_accent_orange">Sunset Orange</string>
+    <string name="appearance_accent_blue">Lake</string>
+    <string name="appearance_accent_green">Pine</string>
+    <string name="appearance_accent_orange">Clay</string>
     <string name="appearance_accent_pink">Neon Pink</string>
     <string name="appearance_accent_teal">Teal</string>
-    <string name="appearance_accent_gold">Gold</string>
-    <string name="appearance_accent_violet">Violet</string>
+    <string name="appearance_accent_gold">Olive</string>
+    <string name="appearance_accent_violet">Plum</string>
     <string name="appearance_accent_slate">Slate</string>
 
     <string name="appearance_bg_default">Theme default</string>

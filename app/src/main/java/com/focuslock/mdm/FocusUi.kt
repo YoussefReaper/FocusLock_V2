@@ -342,11 +342,14 @@ object FocusUi {
         layout.setPadding(padding, padding, padding, padding)
 
         val fill = if (elevated) tokens.surfaceAlt else tokens.surface
+        // Quiet Pine: cards sit on the stone ground with no border or shadow;
+        // the colour step alone separates them. Dark themes keep a hairline,
+        // where a 6% lightness step is too faint to see on some screens.
         val shape = roundedShape(
             context,
             fill,
             tokens.cardRadiusDp,
-            tokens.divider
+            if (tokens.isLight) null else tokens.divider
         )
 
         if (onClick != null) {
@@ -377,8 +380,22 @@ object FocusUi {
      * than a synthetic bold.
      */
     fun applyFont(view: TextView, tokens: UiPrefs.Tokens, mono: Boolean = false, weight: Int = 400) {
-        val base = if (mono) tokens.monoTypeface else tokens.typeface
+        // Quiet Pine: the old "mono" role (numbers, counts, small structural
+        // labels) splits by size. Big numbers and timers get the Bricolage
+        // display face; small labels stay in the prose face, where a
+        // grotesque display cut would only look cramped. Real code blocks set
+        // Typeface.MONOSPACE themselves and never come through here.
+        val large = view.textSize >= 18f * view.resources.displayMetrics.scaledDensity
+        val base = when {
+            mono && large -> tokens.displayTypeface
+            else -> tokens.typeface
+        }
         view.typeface = Typeface.create(base, weight, false)
+    }
+
+    /** Titles and big numbers: the Bricolage display face. */
+    fun applyDisplayFont(view: TextView, tokens: UiPrefs.Tokens, weight: Int = 650) {
+        view.typeface = Typeface.create(tokens.displayTypeface, weight, false)
     }
 
     private fun text(
@@ -411,14 +428,21 @@ object FocusUi {
     // body 15/22 400, caption 13/18 500, overline 11/14 600 mono +9%,
     // numeral 46/46 500 mono.
 
+    // Quiet Pine type scale: display 44 and title 30 in Bricolage Grotesque,
+    // heading 17/650 in Figtree, body 15.5, caption 13.5.
     fun display(context: Context, tokens: UiPrefs.Tokens, value: CharSequence): TextView =
-        text(context, tokens, value, 34f, tokens.textPrimary, 700, letterSpacing = -0.02f)
+        text(context, tokens, value, 44f, tokens.textPrimary, 650, letterSpacing = -0.025f).also {
+            applyDisplayFont(it, tokens)
+            it.setLineSpacing(0f, 1f)
+        }
 
     fun title(context: Context, tokens: UiPrefs.Tokens, value: CharSequence): TextView =
-        text(context, tokens, value, 26f, tokens.textPrimary, 800, letterSpacing = -0.02f)
+        text(context, tokens, value, 30f, tokens.textPrimary, 650, letterSpacing = -0.015f).also {
+            applyDisplayFont(it, tokens)
+        }
 
     fun heading(context: Context, tokens: UiPrefs.Tokens, value: CharSequence): TextView =
-        text(context, tokens, value, 19f, tokens.textPrimary, 700)
+        text(context, tokens, value, 17f, tokens.textPrimary, 650)
 
     fun body(context: Context, tokens: UiPrefs.Tokens, value: CharSequence): TextView =
         text(context, tokens, value, 15f, tokens.textPrimary, 400)
@@ -431,19 +455,19 @@ object FocusUi {
         text(context, tokens, value, 15f, tokens.textPrimary, 600)
 
     fun caption(context: Context, tokens: UiPrefs.Tokens, value: CharSequence): TextView =
-        text(context, tokens, value, 13f, tokens.textMuted, 500)
+        text(context, tokens, value, 13.5f, tokens.textMuted, 500)
 
     /** Small all-caps label that opens a group of cards. Mono, per the "mono retreats to structure" rule. */
     fun sectionLabel(context: Context, tokens: UiPrefs.Tokens, value: String): TextView {
+        // Sentence case in the prose face: a quiet group title, not a shout.
         val view = text(
             context,
             tokens,
-            value.uppercase(),
-            11f,
+            value,
+            13f,
             tokens.textMuted,
-            600,
-            mono = true,
-            letterSpacing = 0.09f
+            650,
+            letterSpacing = 0.01f
         )
         view.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
@@ -452,8 +476,9 @@ object FocusUi {
             // Fixed per the Components doc ("margin 24 above, 12 below"), not density-derived -
             // a section label separates groups of content, which doesn't get tighter just
             // because the density setting shrank button heights and card padding.
-            topMargin = dp(context, 24)
-            bottomMargin = dp(context, 12)
+            topMargin = dp(context, 26)
+            bottomMargin = dp(context, 10)
+            marginStart = dp(context, 4)
         }
         return view
     }
@@ -493,7 +518,7 @@ object FocusUi {
         }
         view.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
-            dp(context, tokens.density.buttonHeightDp)
+            dp(context, tokens.density.buttonHeightDp + 2)
         )
         return view
     }
@@ -508,7 +533,15 @@ object FocusUi {
         tokens: UiPrefs.Tokens,
         label: CharSequence,
         onClick: () -> Unit
-    ): TextView = baseButton(context, tokens, label, tokens.accent, tokens.onAccent, null, gradient = true, onClick = onClick)
+    ): TextView = baseButton(context, tokens, label, tokens.accent, tokens.onAccent, null, weight = 650, onClick = onClick)
+
+    /** Soft accent fill: an important action that is not the screen's one primary. */
+    fun tonalButton(
+        context: Context,
+        tokens: UiPrefs.Tokens,
+        label: CharSequence,
+        onClick: () -> Unit
+    ): TextView = baseButton(context, tokens, label, tokens.accentSoft, tokens.accentDeep, null, weight = 650, onClick = onClick)
 
     /**
      * No fill, a plain 1dp divider border, muted text - the doc's "Set it up"
@@ -525,10 +558,10 @@ object FocusUi {
         context,
         tokens,
         label,
-        UiPrefs.withAlpha(tokens.surface, 0),
-        tokens.textSecondary,
-        tokens.divider,
-        weight = 500,
+        tokens.surface,
+        tokens.textPrimary,
+        UiPrefs.blend(tokens.divider, tokens.textMuted, 0.25f),
+        weight = 650,
         onClick = onClick
     )
 
@@ -562,10 +595,10 @@ object FocusUi {
         context,
         tokens,
         label,
-        UiPrefs.withAlpha(tokens.danger, 0),
-        tokens.danger,
-        UiPrefs.withAlpha(tokens.danger, 102),
-        weight = 600,
+        tokens.dangerSoft,
+        if (tokens.isLight) UiPrefs.blend(tokens.danger, android.graphics.Color.BLACK, 0.2f) else tokens.danger,
+        null,
+        weight = 650,
         onClick = onClick
     )
 
@@ -579,13 +612,18 @@ object FocusUi {
             context,
             tokens,
             label,
-            tokens.surfaceAlt,
+            tokens.surface,
             tokens.textPrimary,
-            UiPrefs.blend(tokens.divider, tokens.surfaceAlt, 0.2f),
-            weight = 500,
+            UiPrefs.blend(tokens.divider, tokens.textMuted, 0.25f),
+            weight = 600,
             onClick = onClick
         )
-        view.setTextSize(TypedValue.COMPLEX_UNIT_SP, tokens.scaled(13f))
+        view.background = withRipple(
+            context,
+            roundedShape(context, tokens.surface, 12, UiPrefs.blend(tokens.divider, tokens.textMuted, 0.25f)),
+            tokens
+        )
+        view.setTextSize(TypedValue.COMPLEX_UNIT_SP, tokens.scaled(14f))
         val horizontal = dp(context, 14)
         view.setPadding(horizontal, 0, horizontal, 0)
         // No trailing margin.
@@ -738,9 +776,9 @@ object FocusUi {
     ) : FrameLayout(context) {
         private val trackView = View(context)
         private val knobView = View(context)
-        private val knobPx = dp(context, 20)
+        private val knobPx = dp(context, 24)
         private val insetPx = dp(context, 3)
-        private val travelPx = (dp(context, 44) - knobPx - insetPx * 2).toFloat()
+        private val travelPx = (dp(context, 50) - knobPx - insetPx * 2).toFloat()
         private val rtl = context.resources.configuration.layoutDirection == View.LAYOUT_DIRECTION_RTL
 
         var onCheckedChange: ((Boolean) -> Unit)? = null
@@ -757,7 +795,7 @@ object FocusUi {
             }
 
         init {
-            layoutParams = ViewGroup.LayoutParams(dp(context, 44), dp(context, 26))
+            layoutParams = ViewGroup.LayoutParams(dp(context, 50), dp(context, 30))
             trackView.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
             addView(trackView)
             knobView.layoutParams = LayoutParams(knobPx, knobPx).apply {
@@ -772,11 +810,16 @@ object FocusUi {
         }
 
         private fun applyState(animate: Boolean) {
-            trackView.background = roundedShape(context, if (isChecked) tokens.accent else tokens.track, 20)
+            trackView.background = roundedShape(
+                context,
+                if (isChecked) tokens.accent else UiPrefs.blend(tokens.track, tokens.textMuted, 0.25f),
+                20
+            )
             knobView.background = roundedShape(
                 context,
-                if (isChecked) tokens.background else UiPrefs.blend(tokens.textMuted, tokens.surface, 0.3f),
-                10
+                if (isChecked) tokens.onAccent.let { if (tokens.isLight) android.graphics.Color.WHITE else it }
+                else android.graphics.Color.WHITE,
+                12
             )
             val forward = if (rtl) -1f else 1f
             val target = if (isChecked) travelPx * forward else 0f
@@ -987,16 +1030,16 @@ object FocusUi {
      * stayed platform-sized no matter what colour it was given.
      */
     private fun sliderTrack(context: Context, tokens: UiPrefs.Tokens): LayerDrawable {
-        val backgroundTrack = roundedShape(context, tokens.track, 2)
+        val backgroundTrack = roundedShape(context, tokens.track, 3)
         val progressTrack = ClipDrawable(
-            roundedShape(context, tokens.accent, 2),
+            roundedShape(context, tokens.accent, 3),
             Gravity.START,
             ClipDrawable.HORIZONTAL
         )
         val layer = LayerDrawable(arrayOf<Drawable>(backgroundTrack, progressTrack))
         layer.setId(0, android.R.id.background)
         layer.setId(1, android.R.id.progress)
-        val trackHeightPx = dp(context, 4)
+        val trackHeightPx = dp(context, 6)
         layer.setLayerHeight(0, trackHeightPx)
         layer.setLayerHeight(1, trackHeightPx)
         layer.setLayerGravity(0, Gravity.CENTER_VERTICAL)
@@ -1005,10 +1048,11 @@ object FocusUi {
     }
 
     private fun sliderThumb(context: Context, tokens: UiPrefs.Tokens): GradientDrawable {
-        val size = dp(context, 20)
+        val size = dp(context, 24)
         return GradientDrawable().apply {
             shape = GradientDrawable.OVAL
             setColor(tokens.accent)
+            setStroke(dp(context, 3), tokens.surface)
             setSize(size, size)
         }
     }
@@ -1033,15 +1077,18 @@ object FocusUi {
         view.text = label
         view.isAllCaps = false
         view.gravity = Gravity.CENTER
-        view.setTextSize(TypedValue.COMPLEX_UNIT_SP, tokens.scaled(13f))
-        view.setTextColor(if (selected) tokens.textPrimary else tokens.textSecondary)
-        applyFont(view, tokens, weight = if (selected) 600 else 500)
-        val horizontal = dp(context, 13)
-        val vertical = dp(context, 8)
+        // Quiet Pine: a chip is a choice, so the chosen one is filled with the
+        // accent, and the rest are outlined paper.
+        view.setTextSize(TypedValue.COMPLEX_UNIT_SP, tokens.scaled(14.5f))
+        view.setTextColor(if (selected) tokens.onAccent else tokens.textSecondary)
+        applyFont(view, tokens, weight = 600)
+        val horizontal = dp(context, 15)
+        val vertical = dp(context, 9)
         view.setPadding(horizontal, vertical, horizontal, vertical)
+        view.minHeight = dp(context, 38)
 
-        val fill = if (selected) tokens.surfaceAlt else UiPrefs.withAlpha(tokens.surface, 0)
-        val stroke = if (selected) null else tokens.divider
+        val fill = if (selected) tokens.accent else tokens.surface
+        val stroke = if (selected) null else UiPrefs.blend(tokens.divider, tokens.textMuted, 0.25f)
         view.background = withRipple(context, roundedShape(context, fill, tokens.chipRadiusDp, stroke), tokens)
         view.isClickable = true
         view.isFocusable = true
@@ -1049,7 +1096,7 @@ object FocusUi {
         view.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
-        ).apply { marginEnd = dp(context, 6) }
+        ).apply { marginEnd = dp(context, 8) }
         return view
     }
 
@@ -1089,13 +1136,13 @@ object FocusUi {
     fun pill(context: Context, tokens: UiPrefs.Tokens, label: CharSequence, color: Int): TextView {
         val view = TextView(context)
         view.text = label
-        view.setTextSize(TypedValue.COMPLEX_UNIT_SP, tokens.scaled(11.5f))
+        view.setTextSize(TypedValue.COMPLEX_UNIT_SP, tokens.scaled(12.5f))
         view.setTextColor(color)
-        applyFont(view, tokens, mono = true, weight = 600)
+        applyFont(view, tokens, weight = 650)
         val horizontal = dp(context, 10)
-        val vertical = dp(context, 5)
+        val vertical = dp(context, 4)
         view.setPadding(horizontal, vertical, horizontal, vertical)
-        view.background = roundedShape(context, UiPrefs.withAlpha(color, 36), tokens.chipRadiusDp)
+        view.background = roundedShape(context, UiPrefs.withAlpha(color, 34), 999)
         view.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
@@ -1160,14 +1207,15 @@ object FocusUi {
         tile.background = roundedShape(
             context,
             tokens.surface,
-            (tokens.cardRadiusDp - 2).coerceAtLeast(4), // "r18" against a card default of 20
-            tokens.divider
+            (tokens.cardRadiusDp - 4).coerceAtLeast(4),
+            if (tokens.isLight) null else tokens.divider
         )
 
         // Mono numeral - a count being reported, not a word. One line,
         // shrunk to fit: "2h 25m" broke into two lines in a third of a
         // phone's width, and the tile beside it did not.
-        val valueView = text(context, tokens, value, 24f, tokens.textPrimary, 500, mono = true)
+        val valueView = text(context, tokens, value, 25f, tokens.textPrimary, 650)
+        applyDisplayFont(valueView, tokens)
         valueView.gravity = Gravity.CENTER
         valueView.maxLines = 1
         fitOneLine(valueView)
@@ -1301,7 +1349,7 @@ object FocusUi {
         tokens: UiPrefs.Tokens,
         sizeDp: Int = 152
     ): CircularProgressIndicator {
-        val strokeDp = if (sizeDp >= 200) 10 else 8
+        val strokeDp = if (sizeDp >= 200) 14 else 9
         val ring = CircularProgressIndicator(context)
         ring.isIndeterminate = false
         ring.max = 100
@@ -1313,19 +1361,66 @@ object FocusUi {
         return ring
     }
 
-    /** Dashed border, body text at textMuted - not the smaller/dimmer `secondary()` treatment. */
+    /** A calm empty card: centred muted text on a plain surface, never a dashed "error" box. */
     fun emptyState(context: Context, tokens: UiPrefs.Tokens, message: CharSequence): TextView {
-        val view = text(context, tokens, message, 15f, tokens.textMuted, 400)
+        val view = text(context, tokens, message, 15f, tokens.textSecondary, 400)
         view.gravity = Gravity.CENTER
-        view.setPadding(dp(context, 20), dp(context, 28), dp(context, 20), dp(context, 28))
-        val dashed = GradientDrawable().apply {
-            shape = GradientDrawable.RECTANGLE
-            cornerRadius = dpf(context, tokens.cardRadiusDp)
-            setColor(android.graphics.Color.TRANSPARENT)
-            setStroke(dp(context, 1), tokens.divider, dpf(context, 4), dpf(context, 3))
-        }
-        view.background = dashed
+        view.setPadding(dp(context, 22), dp(context, 30), dp(context, 22), dp(context, 30))
+        view.background = roundedShape(context, tokens.surface, tokens.cardRadiusDp, if (tokens.isLight) null else tokens.divider)
         return view
+    }
+
+    /**
+     * A leading icon on a soft tinted square - the Quiet Pine row icon.
+     * [tone] picks the tint: accent (default), warm for Earn, muted for neutral.
+     */
+    enum class IconTone { ACCENT, WARM, MUTED, SOLID }
+
+    fun iconTile(
+        context: Context,
+        tokens: UiPrefs.Tokens,
+        @DrawableRes resId: Int,
+        tone: IconTone = IconTone.ACCENT,
+        sizeDp: Int = 40
+    ): FrameLayout {
+        val (fill, tint) = when (tone) {
+            IconTone.ACCENT -> tokens.accentSoft to tokens.accentDeep
+            IconTone.WARM -> tokens.warmSoft to tokens.warmInk
+            IconTone.MUTED -> tokens.surfaceAlt to tokens.textSecondary
+            IconTone.SOLID -> tokens.accent to tokens.onAccent
+        }
+        val box = FrameLayout(context)
+        box.background = roundedShape(context, fill, (sizeDp * 0.32f).toInt())
+        val size = dp(context, sizeDp)
+        box.layoutParams = LinearLayout.LayoutParams(size, size)
+        box.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
+        val icon = categoryIcon(context, tokens, resId, tint, (sizeDp * 0.55f).toInt())
+        icon.layoutParams = FrameLayout.LayoutParams(dp(context, (sizeDp * 0.55f).toInt()), dp(context, (sizeDp * 0.55f).toInt()), Gravity.CENTER)
+        box.addView(icon)
+        return box
+    }
+
+    /**
+     * Four bars of rising height, the first [filled] solid: the strength
+     * ladder glyph for Gentle (1) through Kiosk (4). Strength is told by
+     * height and fill, never by colour alone.
+     */
+    fun strengthBars(context: Context, color: Int, filled: Int, scale: Float = 1f): LinearLayout {
+        val bars = LinearLayout(context)
+        bars.orientation = LinearLayout.HORIZONTAL
+        bars.gravity = Gravity.BOTTOM
+        val heights = intArrayOf(6, 9, 12, 16)
+        heights.forEachIndexed { index, h ->
+            val bar = View(context)
+            bar.background = roundedShape(context, if (index < filled) color else UiPrefs.withAlpha(color, 56), 2)
+            bar.layoutParams = LinearLayout.LayoutParams(dp(context, (5 * scale).toInt()), dp(context, (h * scale).toInt())).apply {
+                if (index < heights.size - 1) marginEnd = dp(context, (3 * scale).toInt().coerceAtLeast(2))
+            }
+            bars.addView(bar)
+        }
+        bars.importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
+        bars.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, dp(context, (16 * scale).toInt()))
+        return bars
     }
 
     fun appIcon(context: Context, tokens: UiPrefs.Tokens, packageName: String, sizeDp: Int = 36): View {
@@ -1372,10 +1467,10 @@ object FocusUi {
         applyFont(field, tokens, mono = numeric, weight = if (numeric) 500 else 400)
         fun fieldShape(focused: Boolean) = roundedShape(
             context,
-            tokens.input,
-            tokens.rowRadiusDp,
-            if (focused) tokens.accent else UiPrefs.blend(tokens.divider, tokens.input, 0.2f),
-            strokeWidthDp = if (focused) 2 else 1 // nearest whole dp to the doc's 1.5dp focus ring
+            tokens.surface,
+            16,
+            if (focused) tokens.accent else UiPrefs.blend(tokens.divider, tokens.textMuted, 0.25f),
+            strokeWidthDp = 2
         )
         field.background = fieldShape(false)
         field.setOnFocusChangeListener { _, hasFocus -> field.background = fieldShape(hasFocus) }
@@ -1546,7 +1641,7 @@ object FocusUi {
 
         if (onBack != null) {
             val back = TextView(context)
-            back.text = context.getString(R.string.dialog_back)
+            back.text = "‹  " + context.getString(R.string.dialog_back)
             back.setTextSize(TypedValue.COMPLEX_UNIT_SP, tokens.scaled(14f))
             back.setTextColor(tokens.accent)
             applyFont(back, tokens, weight = 600)

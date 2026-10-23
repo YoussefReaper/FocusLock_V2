@@ -8,9 +8,9 @@
     وبرتقالي الغروب، وأسود صريح.
 -->
 <resources>
-    <string name="appearance_theme_obsidian">أوبسيديان</string>
-    <string name="appearance_theme_nocturne">نوكتورن</string>
-    <string name="appearance_theme_paper">ورقي</string>
+    <string name="appearance_theme_obsidian">داكن</string>
+    <string name="appearance_theme_nocturne">ليلي</string>
+    <string name="appearance_theme_paper">فاتح</string>
 
     <string name="appearance_font_figtree">فيجتري</string>
     <string name="appearance_font_system">خط النظام</string>
@@ -25,13 +25,13 @@
     <string name="appearance_wallpaper_sunset">غروب</string>
     <string name="appearance_wallpaper_ocean">محيط</string>
 
-    <string name="appearance_accent_blue">أزرق كهربائي</string>
-    <string name="appearance_accent_green">أخضر ليموني</string>
-    <string name="appearance_accent_orange">برتقالي الغروب</string>
+    <string name="appearance_accent_blue">أزرق البحيرة</string>
+    <string name="appearance_accent_green">أخضر الصنوبر</string>
+    <string name="appearance_accent_orange">طيني</string>
     <string name="appearance_accent_pink">وردي نيون</string>
     <string name="appearance_accent_teal">أزرق مخضرّ</string>
-    <string name="appearance_accent_gold">ذهبي</string>
-    <string name="appearance_accent_violet">بنفسجي</string>
+    <string name="appearance_accent_gold">زيتوني</string>
+    <string name="appearance_accent_violet">برقوقي</string>
     <string name="appearance_accent_slate">إردوازي</string>
 
     <string name="appearance_bg_default">افتراضي السمة</string>

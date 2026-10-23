@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bricolage Grotesque (SIL OFL 1.1), static instances at opsz 36 for
+     titles and numerals. See licenses/ for the font licence. -->
+<font-family xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <font android:fontStyle="normal" android:fontWeight="500" android:font="@font/bricolage_500"
+        app:fontStyle="normal" app:fontWeight="500" app:font="@font/bricolage_500" />
+    <font android:fontStyle="normal" android:fontWeight="600" android:font="@font/bricolage_600"
+        app:fontStyle="normal" app:fontWeight="600" app:font="@font/bricolage_600" />
+    <font android:fontStyle="normal" android:fontWeight="700" android:font="@font/bricolage_700"
+        app:fontStyle="normal" app:fontWeight="700" app:font="@font/bricolage_700" />
+</font-family>

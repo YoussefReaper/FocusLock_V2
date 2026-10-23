@@ -40,7 +40,7 @@ object FocusDialog {
         val card = LinearLayout(context)
         card.orientation = LinearLayout.VERTICAL
         val padH = FocusUi.dp(context, 20)
-        card.setPadding(padH, FocusUi.dp(context, 22), padH, FocusUi.dp(context, 20))
+        card.setPadding(padH, FocusUi.dp(context, 10), padH, FocusUi.dp(context, 24))
         card.background = FocusUi.cornersShape(
             context,
             tokens.surface,
@@ -49,6 +49,15 @@ object FocusDialog {
             bottomRightDp = 0,
             bottomLeftDp = 0
         )
+
+        // Quiet Pine grab handle: says "this slides away" without words.
+        val grab = android.view.View(context)
+        grab.background = FocusUi.roundedShape(context, UiPrefs.blend(tokens.divider, tokens.textMuted, 0.3f), 3)
+        grab.importantForAccessibility = android.view.View.IMPORTANT_FOR_ACCESSIBILITY_NO
+        card.addView(grab, LinearLayout.LayoutParams(FocusUi.dp(context, 38), FocusUi.dp(context, 5)).apply {
+            gravity = Gravity.CENTER_HORIZONTAL
+            bottomMargin = FocusUi.dp(context, 16)
+        })
 
         dialog.setContentView(card)
         dialog.window?.apply {
@@ -69,7 +78,10 @@ object FocusDialog {
     /** Heading role (19/25/700) - the dialog title, distinct from a screen's own larger title. */
     private fun addTitle(context: Context, tokens: UiPrefs.Tokens, card: LinearLayout, title: String) {
         if (title.isBlank()) return
-        card.addView(FocusUi.heading(context, tokens, title))
+        val heading = FocusUi.heading(context, tokens, title)
+        heading.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, tokens.scaled(22f))
+        FocusUi.applyDisplayFont(heading, tokens)
+        card.addView(heading)
     }
 
     private fun addMessage(

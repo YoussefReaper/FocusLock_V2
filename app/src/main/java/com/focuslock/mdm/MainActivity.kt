@@ -331,6 +331,7 @@ class MainActivity : AppCompatActivity() {
 
         val topLine = View(this)
         topLine.setBackgroundColor(tokens.divider)
+        // Quiet Pine: 9dp top / 18dp bottom inside the bar, as in the design.
         bar.addView(
             topLine,
             LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, FocusUi.dp(this, 1))
@@ -338,7 +339,7 @@ class MainActivity : AppCompatActivity() {
 
         val strip = LinearLayout(this)
         strip.orientation = LinearLayout.HORIZONTAL
-        strip.setPadding(0, FocusUi.dp(this, 6), 0, FocusUi.dp(this, 8))
+        strip.setPadding(FocusUi.dp(this, 12), FocusUi.dp(this, 9), FocusUi.dp(this, 12), FocusUi.dp(this, 12))
 
         TAB_SPECS.forEachIndexed { index, spec ->
             val item = LinearLayout(this)
@@ -360,8 +361,8 @@ class MainActivity : AppCompatActivity() {
             // line under the label: it survives any text scale the user picks.
             val iconHolder = FrameLayout(this)
             iconHolder.layoutParams = LinearLayout.LayoutParams(
-                FocusUi.dp(this, 58),
-                FocusUi.dp(this, 30)
+                FocusUi.dp(this, 60),
+                FocusUi.dp(this, 32)
             )
 
             val icon = ImageView(this)
@@ -375,7 +376,7 @@ class MainActivity : AppCompatActivity() {
             val label = TextView(this)
             label.text = getString(spec.labelRes)
             label.gravity = Gravity.CENTER
-            label.setTextSize(TypedValue.COMPLEX_UNIT_SP, tokens.scaled(11.5f))
+            label.setTextSize(TypedValue.COMPLEX_UNIT_SP, tokens.scaled(12.5f))
             label.typeface = tokens.typeface
             label.layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -404,21 +405,17 @@ class MainActivity : AppCompatActivity() {
         navButtons.forEachIndexed { index, button ->
             val spec = TAB_SPECS[index]
             val active = spec.tabId == activeNavTab
-            val color = if (active) tokens.accent else tokens.textMuted
+            val color = if (active) tokens.accentDeep else tokens.textMuted
 
             button.icon.imageTintList = android.content.res.ColorStateList.valueOf(color)
             button.iconHolder.background = if (active) {
-                FocusUi.roundedShape(this, UiPrefs.withAlpha(tokens.accent, 38), 15)
+                FocusUi.roundedShape(this, tokens.accentSoft, 16)
             } else {
                 null
             }
 
             button.label.setTextColor(color)
-            button.label.typeface = if (active) {
-                Typeface.create(tokens.typeface, Typeface.BOLD)
-            } else {
-                tokens.typeface
-            }
+            button.label.typeface = Typeface.create(tokens.typeface, 650, false)
         }
     }
 
