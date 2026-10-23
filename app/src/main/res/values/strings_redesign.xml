@@ -18,7 +18,7 @@
     <string name="redesign_ends_at_line">Ends at %1$s. Distracting apps will not open until then.</string>
     <string name="redesign_opens_stopped">opens stopped</string>
     <string name="redesign_focused_so_far">focused so far</string>
-    <string name="redesign_apps_open">apps still open</string>
+    <string name="redesign_apps_open">apps allowed</string>
     <string name="redesign_end_early">End session early</string>
     <string name="redesign_time_counts">The time you already did still counts.</string>
     <string name="redesign_more_info">More about this strength</string>
@@ -46,4 +46,6 @@
     </plurals>
     <string name="redesign_loading_apps">Loading your apps…</string>
     <string name="countdown_days">%1$dd</string>
+    <string name="redesign_ends_at_line_gentle">Ends at %1$s. Reach for a distracting app and you\'ll get a pause first.</string>
+    <string name="redesign_nudges_given">pauses today</string>
 </resources>

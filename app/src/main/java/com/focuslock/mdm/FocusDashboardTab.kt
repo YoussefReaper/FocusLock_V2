@@ -243,10 +243,7 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
         ).apply { gravity = Gravity.CENTER }
         val timeLeft = FocusUi.display(activity, tokens, SessionManager.formatCountdown(activity, SessionManager.remainingMs(activity)))
         timeLeft.gravity = Gravity.CENTER
-        timeLeft.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
+        FocusUi.fitInRing(timeLeft, 236)
         countdownView = timeLeft
         progressView = null
         centre.addView(timeLeft)
@@ -273,10 +270,15 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
             LinearLayout.LayoutParams.WRAP_CONTENT
         ).apply { topMargin = FocusUi.dp(activity, 18) }
         column.addView(stay)
+        // Gentle never holds an app shut, so it must not promise that it will.
+        val holdsShut = CapabilityRegistry.isEnabled(activity, Capabilities.HARD_BLOCK)
         val ends = FocusUi.caption(
             activity,
             tokens,
-            activity.getString(R.string.redesign_ends_at_line, TimeText.dateTime(activity, SessionManager.endsAt(activity)))
+            activity.getString(
+                if (holdsShut) R.string.redesign_ends_at_line else R.string.redesign_ends_at_line_gentle,
+                TimeText.dateTime(activity, SessionManager.endsAt(activity))
+            )
         )
         ends.gravity = Gravity.CENTER
         ends.layoutParams = LinearLayout.LayoutParams(
@@ -290,9 +292,9 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
             FocusUi.tileRow(
                 activity,
                 listOf(
-                    FocusUi.statTile(activity, tokens, Streaks.blocksStoppedToday(activity).toString(), activity.getString(R.string.redesign_opens_stopped)),
+                    FocusUi.statTile(activity, tokens, Streaks.blocksStoppedToday(activity).toString(), activity.getString(if (holdsShut) R.string.redesign_opens_stopped else R.string.redesign_nudges_given)),
                     FocusUi.statTile(activity, tokens, SessionManager.formatDuration(SessionManager.elapsedMs(activity)), activity.getString(R.string.redesign_focused_so_far)),
-                    FocusUi.statTile(activity, tokens, AppRules.alwaysAllowed(activity).size.toString(), activity.getString(R.string.redesign_apps_open))
+                    FocusUi.statTile(activity, tokens, AppRules.alwaysAllowed(activity).count { AppCatalog.isInstalled(activity, it) }.toString(), activity.getString(R.string.redesign_apps_open))
                 ),
                 gapDp = 10
             )
@@ -322,7 +324,8 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
 
         column.addView(FocusUi.spacer(activity, 14))
         if (SessionManager.canEndEarly(activity)) {
-            val end = FocusUi.ghostButton(activity, tokens, activity.getString(R.string.redesign_end_early)) { confirmEndSession() }
+            // Outlined, so it reads as a button and not as a line of text.
+            val end = FocusUi.secondaryButton(activity, tokens, activity.getString(R.string.redesign_end_early)) { confirmEndSession() }
             end.setTextColor(tokens.textSecondary)
             column.addView(end)
             val counts = FocusUi.caption(activity, tokens, activity.getString(R.string.redesign_time_counts))
@@ -385,10 +388,7 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
         if (kiosk) {
             val timeLeft = FocusUi.display(activity, tokens, SessionManager.formatCountdown(activity, SessionManager.remainingMs(activity)))
             timeLeft.gravity = Gravity.CENTER
-            timeLeft.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
+            FocusUi.fitInRing(timeLeft, 208)
             countdownView = timeLeft
 
             val label = FocusUi.caption(activity, tokens, activity.getString(R.string.dashboard_time_left))

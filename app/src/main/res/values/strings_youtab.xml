@@ -9,9 +9,8 @@
     <string name="youtab_setup_and_help">Setup and help</string>
 
     <string name="youtab_so_far">So far</string>
-    <string name="youtab_sessions_finished">Sessions finished</string>
     <string name="youtab_time_held">Time held</string>
-    <string name="youtab_best_run">Best run (days)</string>
+    <string name="youtab_best_run">Best streak (days)</string>
     <string name="youtab_screen_time">Screen time</string>
     <string name="youtab_app_opens">App opens</string>
     <string name="youtab_apps_blocked">Apps blocked</string>
@@ -95,4 +94,8 @@
     <string name="update_available_message">A newer version is on the website. Install it over this one - your settings stay.</string>
     <string name="update_get_it">Get it</string>
     <string name="update_later">Later</string>
+    <plurals name="youtab_sessions_finished">
+        <item quantity="one">Session finished</item>
+        <item quantity="other">Sessions finished</item>
+    </plurals>
 </resources>

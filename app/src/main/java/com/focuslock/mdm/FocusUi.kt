@@ -436,6 +436,17 @@ object FocusUi {
             it.setLineSpacing(0f, 1f)
         }
 
+    /**
+     * Keeps a countdown inside its ring. The text gets a fixed width that clears the
+     * stroke and shrinks to fit, so "2:59:59" or a day count never spills over the arc.
+     */
+    fun fitInRing(view: TextView, ringDp: Int, maxSp: Int = 44) {
+        val inner = (ringDp * 0.76f).toInt()
+        view.layoutParams = LinearLayout.LayoutParams(dp(view.context, inner), LinearLayout.LayoutParams.WRAP_CONTENT)
+        view.maxLines = 1
+        view.setAutoSizeTextTypeUniformWithConfiguration(18, maxSp, 1, android.util.TypedValue.COMPLEX_UNIT_SP)
+    }
+
     fun title(context: Context, tokens: UiPrefs.Tokens, value: CharSequence): TextView =
         text(context, tokens, value, 30f, tokens.textPrimary, 650, letterSpacing = -0.015f).also {
             applyDisplayFont(it, tokens)

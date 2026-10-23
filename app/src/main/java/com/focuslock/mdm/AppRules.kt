@@ -401,4 +401,8 @@ object AppRules {
         }
         PolicySync.request(context, "appRules:import")
     }
+
+    /** Blocked apps that are actually on this phone: the number a person can check. */
+    fun blockedInstalledCount(context: Context): Int =
+        blockedPackages(context).count { AppCatalog.isInstalled(context, it) }
 }

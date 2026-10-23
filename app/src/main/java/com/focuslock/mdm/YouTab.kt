@@ -74,7 +74,10 @@ class YouTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activity
         // there, once, with the price and the list in front of the person.
         val pro = DemoMode.isPro(activity)
         val card = FocusUi.card(activity, tokens)
-        card.setPadding(0, 0, 0, 0)
+        // List rows carry no side padding of their own, so the card supplies it.
+        // Zeroing it put the icon tile flush against the border and the chevron on it.
+        val inset = FocusUi.dp(activity, tokens.density.cardPaddingDp)
+        card.setPadding(inset, FocusUi.dp(activity, 2), inset, FocusUi.dp(activity, 2))
         card.addView(
             FocusUi.listRow(
                 activity,
@@ -111,7 +114,7 @@ class YouTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activity
                 activity,
                 tokens,
                 SessionManager.totalSessions(activity).toString(),
-                activity.getString(R.string.youtab_sessions_finished)
+                activity.resources.getQuantityString(R.plurals.youtab_sessions_finished, SessionManager.totalSessions(activity))
             )
         )
         tiles.add(
@@ -160,7 +163,7 @@ class YouTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activity
                 FocusUi.statTile(
                     activity,
                     tokens,
-                    AppRules.blockedPackages(activity).size.toString(),
+                    AppRules.blockedInstalledCount(activity).toString(),
                     activity.getString(R.string.youtab_apps_blocked)
                 )
             )

@@ -12,7 +12,6 @@
     <string name="youtab_setup_and_help">الإعداد والمساعدة</string>
 
     <string name="youtab_so_far">حتى الآن</string>
-    <string name="youtab_sessions_finished">جلسات مكتملة</string>
     <string name="youtab_time_held">وقت مثبَّت</string>
     <string name="youtab_best_run">أفضل سلسلة (أيام)</string>
     <string name="youtab_screen_time">وقت الشاشة</string>
@@ -98,4 +97,12 @@
     <string name="update_available_message">يوجد إصدار أحدث على الموقع. ثبّته فوق هذا الإصدار - تبقى إعداداتك كما هي.</string>
     <string name="update_get_it">احصل عليه</string>
     <string name="update_later">لاحقًا</string>
+    <plurals name="youtab_sessions_finished">
+        <item quantity="one">جلسة مكتملة</item>
+        <item quantity="zero">جلسات مكتملة</item>
+        <item quantity="two">جلسات مكتملة</item>
+        <item quantity="few">جلسات مكتملة</item>
+        <item quantity="many">جلسات مكتملة</item>
+        <item quantity="other">جلسات مكتملة</item>
+    </plurals>
 </resources>
