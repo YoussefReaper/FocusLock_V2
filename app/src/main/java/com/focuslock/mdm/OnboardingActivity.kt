@@ -9,6 +9,7 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.NestedScrollView
 
 /**
  * First-run setup: 3 questions, then go.
@@ -31,6 +32,10 @@ class OnboardingActivity : AppCompatActivity() {
 
     private val essentials = LinkedHashSet<String>()
     private val chosenDistractions = LinkedHashSet<String>()
+    // Frozen on first show so a row never jumps while someone is toggling it.
+    private var candidates: MutableList<InstalledApp>? = null
+    private var scrollView: NestedScrollView? = null
+    private var renderedStep = -1
     private var strictness = 1 // 0 = Gentle, 1 = Block, 2 = Strict (no early exit)
     private var whenChoice = "now" // "now", "evening", "study", "bedtime"
 
@@ -67,6 +72,9 @@ class OnboardingActivity : AppCompatActivity() {
     }
 
     private fun render() {
+        // A toggle re-renders the same step: keep the list where the finger is.
+        val sameStep = step == renderedStep
+        val keepY = if (sameStep) scrollView?.scrollY ?: 0 else 0
         tokens = UiPrefs.resolve(this)
         FocusUi.applySystemBars(window, tokens)
 
@@ -90,8 +98,11 @@ class OnboardingActivity : AppCompatActivity() {
         host.addView(scroll)
         root.addView(host)
         setContentView(root)
+        scrollView = scroll
+        if (keepY > 0) scroll.post { scroll.scrollTo(0, keepY) }
 
-        Motion.fadeIn(column, tokens)
+        if (!sameStep) Motion.fadeIn(column, tokens)
+        renderedStep = step
     }
 
     private fun buildProgress(): View {
@@ -152,7 +163,7 @@ class OnboardingActivity : AppCompatActivity() {
         // screen; the three questions already build the same setups.
         // Installed apps list
         val appsCard = FocusUi.card(this, tokens)
-        val candidates = candidateDistractionApps()
+        val candidates = this.candidates ?: candidateDistractionApps().toMutableList().also { this.candidates = it }
         if (candidates.isEmpty()) {
             appsCard.addView(FocusUi.secondary(this, tokens, getString(R.string.onboarding_nothing_blocked)))
         } else {
@@ -189,6 +200,10 @@ class OnboardingActivity : AppCompatActivity() {
                 ) { selected ->
                     chosenDistractions.clear()
                     chosenDistractions.addAll(selected)
+                    // New picks join the bottom of the list; nothing already shown moves.
+                    val shown = candidates.map { it.packageName }.toSet()
+                    val byPkg = AppCatalog.launchable(this).associateBy { it.packageName }
+                    selected.filterNot { it in shown }.mapNotNull { byPkg[it] }.forEach { candidates.add(it) }
                     render()
                 }
             }
