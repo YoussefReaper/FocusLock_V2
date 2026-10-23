@@ -171,6 +171,18 @@ object DemoMode {
     }
 
     /**
+     * A valid code the person just copied from the payment page, so the box is
+     * already filled in. Anything else on the clipboard is ignored, never shown.
+     */
+    private fun codeOnClipboard(activity: Activity): String? = try {
+        val clipboard = activity.getSystemService(Context.CLIPBOARD_SERVICE) as? android.content.ClipboardManager
+        val text = clipboard?.primaryClip?.takeIf { it.itemCount > 0 }?.getItemAt(0)?.coerceToText(activity)?.toString()
+        if (LicenceVerifier.verify(text)) LicenceVerifier.format(text) else null
+    } catch (_: Exception) {
+        null
+    }
+
+    /**
      * Prompts the user to enter their offline-verified licence code.
      */
     fun showEnterCodeDialog(
@@ -182,6 +194,10 @@ object DemoMode {
             title = activity.getString(R.string.pro_code_dialog_title),
             subtitle = activity.getString(R.string.pro_code_dialog_subtitle),
             hint = activity.getString(R.string.pro_code_dialog_hint),
+            value = codeOnClipboard(activity).orEmpty(),
+            // Codes are about 140 characters; let them wrap instead of
+            // scrolling a single line out of sight.
+            multiline = true,
             confirmLabel = activity.getString(R.string.pro_code_verify_button)
         ) { input ->
             if (redeemLicenceCode(activity, input)) {

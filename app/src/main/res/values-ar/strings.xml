@@ -27,16 +27,16 @@
     <string name="pro_card_subtitle_free">مجاني دائمًا: كل أنواع حجب التطبيقات والمواقع، والجداول، والحدود اليومية، والحُرّاس. ونسخة Pro (‏$9.99 لمرة واحدة): Sanctuary وKiosk، ووضع الكسب، ووقت النوم، والأماكن، والقواعد المخصّصة.</string>
     <string name="pro_upgrade_button">اطّلع على مزايا Pro (‏$9.99)</string>
     <string name="pro_buy_button">شراء Pro (‏$9.99 لمرة واحدة)</string>
-    <string name="pro_enter_code_button">لديّ رمز ترخيص</string>
+    <string name="pro_enter_code_button">لديّ رمز بالفعل</string>
     <string name="pro_dialog_title">FocusLock Pro — ‏$9.99 لمرة واحدة</string>
     <string name="pro_dialog_subtitle">شراء لمرة واحدة بـ $9.99 مع تحديثات مجانية دائمًا. بلا اشتراكات وبلا حسابات، ويُتحقق منه دون إنترنت.</string>
     <string name="pro_dialog_feature_prompt">ميزة «%1$s» جزء من FocusLock Pro (‏$9.99 لمرة واحدة).</string>
     <string name="pro_dialog_bullets">• Sanctuary وKiosk، أقوى درجتين\n• وضع الكسب: مهام تمنحك وقت شاشة\n• وقت نوم يعتّم الشاشة ويهدّئها كل ليلة\n• الأماكن وWi-Fi والقواعد المخصّصة</string>
     <string name="pro_dialog_unlock_cta">شراء Pro (‏$9.99)</string>
     <string name="pro_unlocked_toast">تم تفعيل FocusLock Pro — شكرًا لك!</string>
-    <string name="pro_code_dialog_title">أدخل رمز ترخيص Pro</string>
-    <string name="pro_code_dialog_subtitle">الصق الرمز FL2-XXXX-XXXX-XXXX-SSSS من إيصال الدفع. يتم التحقق منه على هاتفك دون إنترنت.</string>
-    <string name="pro_code_dialog_hint">FL2-XXXX-XXXX-XXXX-SSSS</string>
+    <string name="pro_code_dialog_title">أدخل رمزك</string>
+    <string name="pro_code_dialog_subtitle">ستجده في الصفحة التي ظهرت بعد الدفع. اضغط «افتح في FocusLock» هناك، أو انسخ الرمز كاملًا والصقه هنا. يتم التحقق منه على هاتفك دون إنترنت.</string>
+    <string name="pro_code_dialog_hint">الصق رمز FL2</string>
     <string name="pro_code_verify_button">تحقق وفعّل</string>
     <string name="pro_code_invalid_toast">رمز الترخيص غير صالح. تأكد من كتابته بشكل صحيح وحاول مرة أخرى.</string>
 

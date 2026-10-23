@@ -29,16 +29,16 @@
     <string name="pro_card_subtitle_free">Free forever: every kind of app &amp; web blocking, schedules, daily limits, and guards. Pro ($9.99 once): Sanctuary &amp; Kiosk, Earn mode, Bedtime, Places and custom rules.</string>
     <string name="pro_upgrade_button">See what is in Pro ($9.99)</string>
     <string name="pro_buy_button">Buy Pro ($9.99 one-time)</string>
-    <string name="pro_enter_code_button">I have a licence code</string>
+    <string name="pro_enter_code_button">I already have a code</string>
     <string name="pro_dialog_title">FocusLock Pro — $9.99 one-time</string>
     <string name="pro_dialog_subtitle">$9.99 one-time purchase with free updates forever. No subscriptions, no accounts, verified offline.</string>
     <string name="pro_dialog_feature_prompt">%1$s is part of FocusLock Pro ($9.99 one-time).</string>
     <string name="pro_dialog_bullets">• Sanctuary &amp; Kiosk, the two firmest strengths\n• Earn mode: tasks that pay screen time\n• Bedtime that dims and quiets every night\n• Places, Wi-Fi and custom rules</string>
     <string name="pro_dialog_unlock_cta">Buy Pro ($9.99)</string>
     <string name="pro_unlocked_toast">FocusLock Pro unlocked — thank you!</string>
-    <string name="pro_code_dialog_title">Enter your Pro licence code</string>
-    <string name="pro_code_dialog_subtitle">Paste the FL2-XXXX-XXXX-XXXX-SSSS code from your checkout receipt. Verified offline on your phone.</string>
-    <string name="pro_code_dialog_hint">FL2-XXXX-XXXX-XXXX-SSSS</string>
+    <string name="pro_code_dialog_title">Enter your code</string>
+    <string name="pro_code_dialog_subtitle">It is on the page you got after paying. Tap Open in FocusLock there, or copy the whole code and paste it here. Checked on this phone, no internet needed.</string>
+    <string name="pro_code_dialog_hint">Paste your FL2 code</string>
     <string name="pro_code_verify_button">Verify &amp; Unlock</string>
     <string name="pro_code_invalid_toast">That licence code is not valid. Check for typos and try again.</string>
 

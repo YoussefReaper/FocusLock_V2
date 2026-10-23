@@ -40,4 +40,8 @@
     <string name="redesign_rules_test_title">Try your rules for a few minutes</string>
     <string name="redesign_rules_test_body">Open apps and see what would happen. Nothing really locks.</string>
     <string name="redesign_first_session_cap">Your first session with no early exit is held to 1 hour, so you can feel what it is like. Longer ones open up after it ends.</string>
+    <plurals name="redesign_continue_with_apps">
+        <item quantity="one">Continue with %1$d app</item>
+        <item quantity="other">Continue with %1$d apps</item>
+    </plurals>
 </resources>

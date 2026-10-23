@@ -39,4 +39,12 @@
     <string name="redesign_rules_test_title">جرّب قواعدك لبضع دقائق</string>
     <string name="redesign_rules_test_body">افتح التطبيقات وشاهد ما سيحدث. لا شيء يُقفل فعلًا.</string>
     <string name="redesign_first_session_cap">أول جلسة بلا خروج مبكر تقتصر على ساعة واحدة لتجرّب كيف تكون. تصبح الجلسات الأطول متاحة بعد انتهائها.</string>
+    <plurals name="redesign_continue_with_apps">
+        <item quantity="zero">متابعة</item>
+        <item quantity="one">متابعة مع تطبيق واحد</item>
+        <item quantity="two">متابعة مع تطبيقين</item>
+        <item quantity="few">متابعة مع %1$d تطبيقات</item>
+        <item quantity="many">متابعة مع %1$d تطبيقًا</item>
+        <item quantity="other">متابعة مع %1$d تطبيق</item>
+    </plurals>
 </resources>

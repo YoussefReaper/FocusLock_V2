@@ -147,46 +147,9 @@ class OnboardingActivity : AppCompatActivity() {
         column.addView(FocusUi.secondary(this, tokens, getString(R.string.onboarding_q1_apps_subtitle)))
         column.addView(FocusUi.spacer(this, 16))
 
-        // One-tap presets card
-        val presetCard = FocusUi.card(this, tokens, elevated = true)
-        presetCard.addView(FocusUi.caption(this, tokens, getString(R.string.onboarding_presets_heading)))
-        presetCard.addView(FocusUi.spacer(this, 4))
-        presetCard.addView(FocusUi.secondary(this, tokens, getString(R.string.onboarding_presets_subtitle)))
-        presetCard.addView(FocusUi.spacer(this, 10))
-
-        presetCard.addView(
-            FocusUi.listRow(
-                this,
-                tokens,
-                getString(R.string.preset_study_title),
-                getString(R.string.preset_study_subtitle),
-                trailing = FocusUi.pill(this, tokens, getString(R.string.common_start), tokens.accent)
-            ) { applyOneTapPreset("study") }
-        )
-        presetCard.addView(FocusUi.divider(this, tokens))
-        presetCard.addView(
-            FocusUi.listRow(
-                this,
-                tokens,
-                getString(R.string.preset_sleep_title),
-                getString(R.string.preset_sleep_subtitle),
-                trailing = FocusUi.pill(this, tokens, getString(R.string.common_start), tokens.accent)
-            ) { applyOneTapPreset("sleep") }
-        )
-        presetCard.addView(FocusUi.divider(this, tokens))
-        presetCard.addView(
-            FocusUi.listRow(
-                this,
-                tokens,
-                getString(R.string.preset_detox_title),
-                getString(R.string.preset_detox_subtitle),
-                trailing = FocusUi.pill(this, tokens, getString(R.string.common_start), tokens.accent)
-            ) { applyOneTapPreset("detox") }
-        )
-        column.addView(presetCard)
-
-        column.addView(FocusUi.spacer(this, 14))
-
+        // Quiet Pine: one question per screen. The three preset cards that
+        // used to sit above this list were a second decision on the first
+        // screen; the three questions already build the same setups.
         // Installed apps list
         val appsCard = FocusUi.card(this, tokens)
         val candidates = candidateDistractionApps()
@@ -203,6 +166,7 @@ class OnboardingActivity : AppCompatActivity() {
                         app.packageName in chosenDistractions
                     ) { checked ->
                         if (checked) chosenDistractions.add(app.packageName) else chosenDistractions.remove(app.packageName)
+                        render()
                     }
                 )
                 if (index < candidates.size - 1) appsCard.addView(FocusUi.divider(this, tokens))
@@ -233,7 +197,12 @@ class OnboardingActivity : AppCompatActivity() {
 
         column.addView(FocusUi.spacer(this, 16))
         column.addView(
-            FocusUi.primaryButton(this, tokens, getString(R.string.common_continue)) {
+            FocusUi.primaryButton(
+                this,
+                tokens,
+                if (chosenDistractions.isEmpty()) getString(R.string.common_continue)
+                else resources.getQuantityString(R.plurals.redesign_continue_with_apps, chosenDistractions.size, chosenDistractions.size)
+            ) {
                 step = 1
                 render()
             }
@@ -372,50 +341,6 @@ class OnboardingActivity : AppCompatActivity() {
 
     // ── Presets & Completion ──────────────────────────────────────
 
-    private fun applyOneTapPreset(presetId: String) {
-        val launchable = AppCatalog.launchable(this).filterNot { it.packageName in essentials }
-        when (presetId) {
-            "study" -> {
-                chosenDistractions.clear()
-                chosenDistractions.addAll(
-                    launchable.filter {
-                        it.category in setOf(AppCategory.SOCIAL, AppCategory.VIDEO, AppCategory.GAMES)
-                    }.map { it.packageName }
-                )
-                if (chosenDistractions.isEmpty()) chosenDistractions.addAll(Seed.obviousDistractions)
-                strictness = 1
-                whenChoice = "now"
-            }
-            "sleep" -> {
-                chosenDistractions.clear()
-                chosenDistractions.addAll(
-                    launchable.filter {
-                        it.category in setOf(AppCategory.SOCIAL, AppCategory.VIDEO, AppCategory.GAMES, AppCategory.BROWSING)
-                    }.map { it.packageName }
-                )
-                if (chosenDistractions.isEmpty()) chosenDistractions.addAll(Seed.obviousDistractions)
-                strictness = 1
-                whenChoice = "bedtime"
-            }
-            "detox" -> {
-                chosenDistractions.clear()
-                chosenDistractions.addAll(
-                    launchable.filter {
-                        it.category in setOf(AppCategory.SOCIAL, AppCategory.VIDEO)
-                    }.map { it.packageName }
-                )
-                if (chosenDistractions.isEmpty()) chosenDistractions.addAll(Seed.obviousDistractions)
-                strictness = 0
-                whenChoice = "evening"
-            }
-        }
-        requestUsageAccessIfNeededAndFinish()
-    }
-
-    /**
-     * Asks only for Usage Access, and gives one plain sentence on FocusLock's
-     * own screen before opening Android's permission page.
-     */
     private fun requestUsageAccessIfNeededAndFinish() {
         if (SetupChecks.hasUsageAccess(this)) {
             completeAndStart()
