@@ -220,13 +220,24 @@ object UsageAnalytics {
      * the last week that are not essentials. Suggestions only, never applied.
      */
     fun suggestedDistractions(context: Context, limit: Int = 8): List<String> {
-        val essentials = AppCatalog.detectEssentials(context).toSet()
-        val fromUsage = last7Days(context).apps
-            .filter { it.category in setOf(AppCategory.SOCIAL, AppCategory.VIDEO, AppCategory.GAMES, AppCategory.BROWSING) }
-            .filterNot { it.packageName in essentials }
-            .map { it.packageName }
-
+        val usage = last7Days(context).apps.map { it.packageName to it.category }
         val installedSeeds = Seed.distractions.filter { AppCatalog.isInstalled(context, it) }
-        return (fromUsage + installedSeeds).distinct().take(limit)
+        return pickSuggestions(usage, AppCatalog.detectEssentials(context).toSet(), installedSeeds, limit)
+    }
+
+    /**
+     * Browsing is left out on purpose: a pre-ticked Chrome or Play Store makes the
+     * phone feel broken on day one. People can still add them by hand.
+     */
+    fun pickSuggestions(
+        usage: List<Pair<String, AppCategory>>,
+        essentials: Set<String>,
+        installedSeeds: List<String>,
+        limit: Int,
+    ): List<String> {
+        val fromUsage = usage
+            .filter { (_, category) -> category in setOf(AppCategory.SOCIAL, AppCategory.VIDEO, AppCategory.GAMES) }
+            .map { it.first }
+        return (fromUsage + installedSeeds).filterNot { it in essentials }.distinct().take(limit)
     }
 }

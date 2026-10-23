@@ -11,7 +11,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 
 /**
- * First-run setup: 3 questions, or 1-tap presets, then go.
+ * First-run setup: 3 questions, then go.
  *
  *  1. Which apps pull you? (Pick from installed apps, or tap Study / Sleep / Social detox)
  *  2. How firm? (Gentle · Block · Strict)
@@ -139,7 +139,7 @@ class OnboardingActivity : AppCompatActivity() {
         return container
     }
 
-    // ── Step 1: One-tap presets + Pick apps ───────────────────────
+    // ── Step 1: Pick apps ───────────────────────
 
     private fun buildStep1AppsAndPresets(column: LinearLayout) {
         column.addView(FocusUi.title(this, tokens, getString(R.string.onboarding_q1_apps_title)))

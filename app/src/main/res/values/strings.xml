@@ -55,7 +55,7 @@
     <string name="onboarding_perms_subtitle">FocusLock needs Usage Access so it can tell when a blocked app opens.</string>
     <string name="onboarding_perms_optional_note">You can grant optional permissions anytime in Rules.</string>
     <string name="onboarding_q1_apps_title">Which apps pull you in?</string>
-    <string name="onboarding_q1_apps_subtitle">Pick from your installed apps below, or start immediately with a one-tap preset.</string>
+    <string name="onboarding_q1_apps_subtitle">We ticked the ones you use most. Untick anything you need.</string>
     <string name="onboarding_presets_heading">One-tap presets</string>
     <string name="onboarding_presets_subtitle">Set apps, schedule, and firmness in one tap.</string>
     <string name="preset_study_title">Study</string>

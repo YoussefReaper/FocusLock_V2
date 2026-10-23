@@ -53,7 +53,7 @@
     <string name="onboarding_perms_subtitle">يحتاج FocusLock إلى إذن «بيانات الاستخدام» ليعرف متى يُفتح تطبيق محجوب.</string>
     <string name="onboarding_perms_optional_note">يمكنك منح الأذونات الاختيارية في أي وقت من تبويب القواعد.</string>
     <string name="onboarding_q1_apps_title">ما التطبيقات التي تسرق وقتك؟</string>
-    <string name="onboarding_q1_apps_subtitle">اختر من تطبيقاتك المثبّتة أدناه، أو ابدأ فورًا بإعداد جاهز بضغطة واحدة.</string>
+    <string name="onboarding_q1_apps_subtitle">حدّدنا التطبيقات الأكثر استخدامًا لديك. ألغِ تحديد أي تطبيق تحتاجه.</string>
     <string name="onboarding_presets_heading">إعدادات جاهزة بضغطة واحدة</string>
     <string name="onboarding_presets_subtitle">اضبط التطبيقات والجدول ومستوى الحزم بضغطة واحدة.</string>
     <string name="preset_study_title">مذاكرة</string>
