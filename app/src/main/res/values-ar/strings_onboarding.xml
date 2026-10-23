@@ -13,7 +13,7 @@
 -->
 <resources>
     <string name="onboarding_skip_questions">تخطَّ الأسئلة</string>
-    <string name="onboarding_intro_body">يحظر FocusLock التطبيقات التي تشتتك، للمدة التي تختارها. إنه هاتفك وقواعدك: لا شيء يُرسَل لأحد، ويمكن تغيير كل إعداد.</string>
+    <string name="onboarding_intro_body">يحظر Pinehold التطبيقات التي تشتتك، للمدة التي تختارها. إنه هاتفك وقواعدك: لا شيء يُرسَل لأحد، ويمكن تغيير كل إعداد.</string>
     <string name="onboarding_intro_promise">خمسة أسئلة سريعة، ثم ترى إعدادًا مقترحًا قبل تطبيق أي شيء.</string>
     <string name="onboarding_skip_defaults">تخطَّ واستخدم إعدادات معقولة</string>
 

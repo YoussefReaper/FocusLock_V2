@@ -29,12 +29,12 @@
     <string name="device_owner_help_status_detail_not_owner">Soft, Block and most guards work without this. Kiosk, Safe Mode blocking, app suspension and uninstall protection do not.</string>
 
     <string name="device_owner_help_effect_1_title">Safe Mode can be closed</string>
-    <string name="device_owner_help_effect_1_detail">Otherwise a reboot into Safe Mode starts the phone with FocusLock switched off.</string>
+    <string name="device_owner_help_effect_1_detail">Otherwise a reboot into Safe Mode starts the phone with Pinehold switched off.</string>
     <string name="device_owner_help_effect_2_title">Blocked apps can be suspended</string>
-    <string name="device_owner_help_effect_2_detail">The system refuses to launch them, instead of FocusLock catching them a moment late.</string>
+    <string name="device_owner_help_effect_2_detail">The system refuses to launch them, instead of Pinehold catching them a moment late.</string>
     <string name="device_owner_help_effect_3_title">Blocked apps can be hidden</string>
     <string name="device_owner_help_effect_3_detail">They disappear from the launcher for the length of a session.</string>
-    <string name="device_owner_help_effect_4_title">FocusLock can be the home screen</string>
+    <string name="device_owner_help_effect_4_title">Pinehold can be the home screen</string>
     <string name="device_owner_help_effect_4_detail">During a kiosk session the home button lands here instead of the launcher.</string>
     <string name="device_owner_help_effect_5_title">Uninstalling can be blocked</string>
     <string name="device_owner_help_effect_5_detail">Removing the app stops being a way to end a session early.</string>
@@ -56,7 +56,7 @@
     <string name="device_owner_help_qr_detail">On a phone that has been factory reset, tapping the welcome screen six times opens a QR scanner. Provisioning from a QR sets Device Owner without a computer, but it needs the app hosted at a URL along with its signature checksum, and it wipes the phone as part of setup. The ADB route above is the practical one for a phone already in use.</string>
 
     <string name="device_owner_help_honesty_1_title">A factory reset always works</string>
-    <string name="device_owner_help_honesty_1_detail">Recovery-mode reset is the ultimate exit and no software tier can close it. FocusLock does not try, and never removes the reset button from the You tab.</string>
+    <string name="device_owner_help_honesty_1_detail">Recovery-mode reset is the ultimate exit and no software tier can close it. Pinehold does not try, and never removes the reset button from the You tab.</string>
     <string name="device_owner_help_honesty_2_title">ADB stays yours to close</string>
     <string name="device_owner_help_honesty_2_detail">Provisioning does not disable ADB. Only the button in the You tab does, and only when you tap it.</string>
     <string name="device_owner_help_honesty_3_title">Nothing is remote</string>
@@ -76,7 +76,7 @@
     <string name="advanced_help_idea_body">Picking a mode loads a set of switches. It does not lock those switches. Every one of them is in You → Advanced, and whatever you set there is what runs.</string>
     <string name="advanced_help_idea_secondary">Your changes stick. The template is only re-loaded when you pick a different mode, which is the one moment you have clearly asked for it.</string>
 
-    <string name="advanced_help_mode_kiosk_note">Kiosk is the only mode that pins the phone to FocusLock and closes the launcher. It needs Device Owner.</string>
+    <string name="advanced_help_mode_kiosk_note">Kiosk is the only mode that pins the phone to Pinehold and closes the launcher. It needs Device Owner.</string>
 
     <string name="advanced_help_end_early_intro">\"End a session early\" is a switch in You → Advanced, not a property of the mode.</string>
     <string name="advanced_help_end_early_on_title">On</string>
@@ -103,7 +103,7 @@
     <string name="advanced_help_escape_computer_title">3. From a computer</string>
     <string name="advanced_help_escape_computer_body">If the phone is pinned and you cannot reach Advanced, one ADB command ends the session. It refuses to run without the confirm flag, so it cannot happen by accident.</string>
     <string name="advanced_help_escape_reset_title">4. Factory reset</string>
-    <string name="advanced_help_escape_reset_body">The last resort, and the only one that always works. It releases Device Owner and wipes the phone. FocusLock never blocks it — the button is on the You tab, behind a countdown.</string>
+    <string name="advanced_help_escape_reset_body">The last resort, and the only one that always works. It releases Device Owner and wipes the phone. Pinehold never blocks it — the button is on the You tab, behind a countdown.</string>
 
     <string name="advanced_help_copy_command">Copy the command</string>
     <string name="advanced_help_copied_toast">Copied.</string>
@@ -123,6 +123,6 @@
     <string name="permission_recovery_restricted_hint">Switch greyed out? Android locks it for apps installed from a file. Open App info, tap ⋮ at the top, choose \"Allow restricted settings\", then come back and turn it on.</string>
     <string name="permission_recovery_open_app_info">Open App info</string>
     <!-- Shown by Android itself, in place of "contact your IT admin", when a paused app is tapped. -->
-    <string name="dpm_support_short">Paused by FocusLock until your session ends.</string>
+    <string name="dpm_support_short">Paused by Pinehold until your session ends.</string>
 
 </resources>

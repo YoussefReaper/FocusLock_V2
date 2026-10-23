@@ -50,7 +50,7 @@
     <string name="youtab_section_release">طريق الخروج</string>
     <string name="youtab_language">اللغة</string>
     <string name="youtab_clock">الساعة</string>
-    <string name="youtab_share_header">FocusLock، آخر 7 أيام</string>
+    <string name="youtab_share_header">Pinehold، آخر 7 أيام</string>
 
     <string name="perms_title">الأذونات</string>
 
@@ -68,7 +68,7 @@
     <string name="photo_empty_headline">لا يوجد شيء في الإطار</string>
     <string name="photo_empty_detail">جدار أو غرفة مظلمة أو إصبع على العدسة. وجّهها نحو العمل.</string>
     <string name="photo_duplicate_headline">استخدمت هذه الصورة من قبل</string>
-    <string name="photo_duplicate_detail">يتذكر FocusLock بصمة لكل صورة، لا الصورة نفسها.</string>
+    <string name="photo_duplicate_detail">يتذكر Pinehold بصمة لكل صورة، لا الصورة نفسها.</string>
     <string name="photo_mismatch_headline">لا يبدو هذا مثل المهمة</string>
     <string name="photo_mismatch_detail">لم يتعرف النموذج على الجهاز على أي شيء من %1$s. إن كان مخطئًا، التقط من زاوية أخرى.</string>
     <string name="photo_accepted_headline">قُبل الإثبات</string>

@@ -1,8 +1,8 @@
 <resources>
-    <string name="content_guard_label">حارس المحتوى في FocusLock</string>
-    <string name="content_guard_description">يقرأ النص الظاهر على الشاشة كي يتمكن FocusLock من الخروج من الأسطح التي اخترت تجنّبها، مثل Shorts وReels وقنوات واتساب أو كلماتك المفتاحية. هو يقرأ النص فقط: لا يكتب ولا ينقر ولا يرسل شيئًا إلى أي مكان، وكل ما يراه يبقى على هذا الهاتف.</string>
+    <string name="content_guard_label">حارس المحتوى في Pinehold</string>
+    <string name="content_guard_description">يقرأ النص الظاهر على الشاشة كي يتمكن Pinehold من الخروج من الأسطح التي اخترت تجنّبها، مثل Shorts وReels وقنوات واتساب أو كلماتك المفتاحية. هو يقرأ النص فقط: لا يكتب ولا ينقر ولا يرسل شيئًا إلى أي مكان، وكل ما يراه يبقى على هذا الهاتف.</string>
 
-    <string name="notification_shield_label">درع الإشعارات في FocusLock</string>
+    <string name="notification_shield_label">درع الإشعارات في Pinehold</string>
 
     <!-- ── نسخة العرض ──────────────────────────────────────────────── -->
     <string name="demo_badge">عرض</string>
@@ -14,28 +14,28 @@
 
     <!-- Accessibility Prominent Disclosure -->
     <string name="a11y_disclosure_title">إفصاح خدمة إمكانية الوصول</string>
-    <string name="a11y_disclosure_body">يستخدم FocusLock واجهة AccessibilityService في أندرويد فقط لقراءة النصوص وعناوين النوافذ الظاهرة على الشاشة حتى يكتشف دخولك إلى الأسطح المشتتة التي اخترت حجبها (مثل Shorts وReels وقنوات واتساب والمواقع المحجوبة أو كلماتك المفتاحية) ويعود بك منها.\n\n• يتم فحص جميع نصوص الشاشة محليًا في الذاكرة ولا يتم حفظها أو تسجيلها أو إرسالها خارج جهازك أبدًا.\n• لا يغيّر FocusLock إعداداتك ولا ينقر على عناصر التحكم دون إذنك.</string>
+    <string name="a11y_disclosure_body">يستخدم Pinehold واجهة AccessibilityService في أندرويد فقط لقراءة النصوص وعناوين النوافذ الظاهرة على الشاشة حتى يكتشف دخولك إلى الأسطح المشتتة التي اخترت حجبها (مثل Shorts وReels وقنوات واتساب والمواقع المحجوبة أو كلماتك المفتاحية) ويعود بك منها.\n\n• يتم فحص جميع نصوص الشاشة محليًا في الذاكرة ولا يتم حفظها أو تسجيلها أو إرسالها خارج جهازك أبدًا.\n• لا يغيّر Pinehold إعداداتك ولا ينقر على عناصر التحكم دون إذنك.</string>
     <string name="a11y_disclosure_agree">موافقة وفتح الإعدادات</string>
     <string name="a11y_disclosure_decline">ليس الآن</string>
 
     <!-- Free vs. Pro Tier ($9.99 one-time licence) -->
     <string name="pro_badge">Pro</string>
     <string name="pro_free_badge">النسخة المجانية</string>
-    <string name="pro_card_title_unlocked">نسخة FocusLock Pro مفعّلة</string>
+    <string name="pro_card_title_unlocked">نسخة Pinehold Pro مفعّلة</string>
     <string name="pro_card_subtitle_unlocked">جميع أوضاع التركيز (ملاذ وكشك) وتعتيم وقت النوم وقواعد الأماكن وواي فاي ووضع الكسب والقواعد المخصصة مفعّلة بالكامل على هذا الجهاز.</string>
-    <string name="pro_card_title_free">FocusLock Pro · ‏$9.99 لمرة واحدة</string>
+    <string name="pro_card_title_free">Pinehold Pro · ‏$9.99 لمرة واحدة</string>
     <string name="pro_card_subtitle_free">ملاذ وكشك ووقت النوم والكسب والأماكن</string>
     <string name="pro_upgrade_button">اطّلع على مزايا Pro (‏$9.99)</string>
     <string name="pro_buy_button">شراء Pro (‏$9.99 لمرة واحدة)</string>
     <string name="pro_enter_code_button">لديّ رمز بالفعل</string>
-    <string name="pro_dialog_title">FocusLock Pro — ‏$9.99 لمرة واحدة</string>
+    <string name="pro_dialog_title">Pinehold Pro — ‏$9.99 لمرة واحدة</string>
     <string name="pro_dialog_subtitle">شراء لمرة واحدة بـ $9.99 مع تحديثات مجانية دائمًا. بلا اشتراكات وبلا حسابات، ويُتحقق منه دون إنترنت.</string>
-    <string name="pro_dialog_feature_prompt">ميزة «%1$s» جزء من FocusLock Pro (‏$9.99 لمرة واحدة).</string>
+    <string name="pro_dialog_feature_prompt">ميزة «%1$s» جزء من Pinehold Pro (‏$9.99 لمرة واحدة).</string>
     <string name="pro_dialog_bullets">• ملاذ وكشك، أقوى درجتين\n• وضع الكسب: مهام تمنحك وقت شاشة\n• وقت نوم يعتّم الشاشة ويهدّئها كل ليلة\n• الأماكن وWi-Fi والقواعد المخصّصة</string>
     <string name="pro_dialog_unlock_cta">شراء Pro (‏$9.99)</string>
-    <string name="pro_unlocked_toast">تم تفعيل FocusLock Pro — شكرًا لك!</string>
+    <string name="pro_unlocked_toast">تم تفعيل Pinehold Pro — شكرًا لك!</string>
     <string name="pro_code_dialog_title">أدخل رمزك</string>
-    <string name="pro_code_dialog_subtitle">ستجده في الصفحة التي ظهرت بعد الدفع. اضغط «افتح في FocusLock» هناك، أو انسخ الرمز كاملًا والصقه هنا. يتم التحقق منه على هاتفك دون إنترنت.</string>
+    <string name="pro_code_dialog_subtitle">ستجده في الصفحة التي ظهرت بعد الدفع. اضغط «افتح في Pinehold» هناك، أو انسخ الرمز كاملًا والصقه هنا. يتم التحقق منه على هاتفك دون إنترنت.</string>
     <string name="pro_code_dialog_hint">الصق رمز FL2</string>
     <string name="pro_code_verify_button">تحقق وفعّل</string>
     <string name="pro_code_invalid_toast">الرمز غير صالح. تأكد من كتابته بشكل صحيح وحاول مرة أخرى.</string>
@@ -50,7 +50,7 @@
 
     <!-- Streamlined Onboarding & One-tap Presets -->
     <string name="onboarding_perms_title">تفعيل الحماية الأساسية</string>
-    <string name="onboarding_perms_subtitle">يحتاج FocusLock إلى إذن «بيانات الاستخدام» ليعرف متى يُفتح تطبيق محجوب.</string>
+    <string name="onboarding_perms_subtitle">يحتاج Pinehold إلى إذن «بيانات الاستخدام» ليعرف متى يُفتح تطبيق محجوب.</string>
     <string name="onboarding_perms_optional_note">يمكنك منح الأذونات الاختيارية في أي وقت من تبويب القواعد.</string>
     <string name="onboarding_q1_apps_title">ما التطبيقات التي تسرق وقتك؟</string>
     <string name="onboarding_q1_apps_subtitle">حدّدنا التطبيقات الأكثر استخدامًا لديك. ألغِ تحديد أي تطبيق تحتاجه.</string>
@@ -82,8 +82,8 @@
     <string name="intercept_opens_stopped_today">تم إيقاف %1$d محاولة فتح اليوم</string>
 
     <!-- One-tap help & Start over reset -->
-    <string name="common_why_needed_button">لماذا يحتاج FocusLock إلى هذا؟</string>
-    <string name="common_why_needed_default">تتيح لك هذه الشاشة تخصيص طريقة حماية FocusLock لوقتك وانتباهك. كل البيانات تبقى على هاتفك فقط.</string>
+    <string name="common_why_needed_button">لماذا يحتاج Pinehold إلى هذا؟</string>
+    <string name="common_why_needed_default">تتيح لك هذه الشاشة تخصيص طريقة حماية Pinehold لوقتك وانتباهك. كل البيانات تبقى على هاتفك فقط.</string>
     <string name="youtab_start_over_title">البدء من جديد</string>
     <string name="youtab_start_over_subtitle">إعادة القواعد والجداول إلى الوضع الافتراضي وفتح الإعداد السريع من 3 خطوات</string>
     <string name="youtab_start_over_confirm">سيؤدي هذا إلى إعادة المفاتيح والجداول إلى نقطة بداية نظيفة وفتح الإعداد السريع من 3 خطوات، مع الاحتفاظ بترخيص Pro الخاص بك.</string>

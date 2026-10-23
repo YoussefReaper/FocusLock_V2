@@ -20,7 +20,7 @@
     <string name="mode_sanctuary_exitline">End the session here. Apps come back within a few seconds.</string>
 
     <string name="mode_kiosk_label">Kiosk</string>
-    <string name="mode_kiosk_oneliner">FocusLock becomes the whole phone until the timer runs out.</string>
+    <string name="mode_kiosk_oneliner">Pinehold becomes the whole phone until the timer runs out.</string>
     <string name="mode_kiosk_exitline">Runs to the end. Only a factory reset stops it early, and that wipes the phone.</string>
 
     <!-- presetSummary(): "<prefix>" + the applicable fragments joined by " · ". -->

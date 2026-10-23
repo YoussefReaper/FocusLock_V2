@@ -33,7 +33,7 @@
     <string name="copy_kiosk_home_detail_plain">The launcher is disabled during a kiosk session.</string>
 
     <!-- overlayGuardHeadline / overlayGuardDetail -->
-    <string name="copy_overlay_guard_headline_kind">That page can switch FocusLock off</string>
+    <string name="copy_overlay_guard_headline_kind">That page can switch Pinehold off</string>
     <string name="copy_overlay_guard_headline_plain">Permission page blocked</string>
     <string name="copy_overlay_guard_detail_kind">It is the one screen that could end the session early by accident, so it stays shut until the session does.</string>
     <string name="copy_overlay_guard_detail_plain">Overlay permission settings are blocked during a session.</string>
@@ -177,7 +177,7 @@
     <string name="copy_content_guard_headline_plain">%1$s blocked - matched %2$s</string>
 
     <!-- contentGuardDetail: names the exact keyword rule that fired, so nobody is left guessing what tripped it -->
-    <string name="copy_content_guard_detail_kind">That is one of the words you are watching for, so FocusLock stepped back out before you had to decide anything.</string>
+    <string name="copy_content_guard_detail_kind">That is one of the words you are watching for, so Pinehold stepped back out before you had to decide anything.</string>
     <string name="copy_content_guard_detail_plain">Matched your keyword rule for %1$s.</string>
 
 </resources>

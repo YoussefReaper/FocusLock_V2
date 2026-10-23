@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name" translatable="false">FocusLock</string>
+    <string name="app_name" translatable="false">Pinehold</string>
 
-    <string name="content_guard_label">FocusLock Content Guard</string>
-    <string name="content_guard_description">Reads on-screen text so FocusLock can step back out of the surfaces you chose to avoid, such as Shorts, Reels, WhatsApp Channels, or your own keywords. It only ever reads text: it never types, taps, or sends anything anywhere, and everything it sees stays on this phone.</string>
+    <string name="content_guard_label">Pinehold Content Guard</string>
+    <string name="content_guard_description">Reads on-screen text so Pinehold can step back out of the surfaces you chose to avoid, such as Shorts, Reels, WhatsApp Channels, or your own keywords. It only ever reads text: it never types, taps, or sends anything anywhere, and everything it sees stays on this phone.</string>
 
-    <string name="notification_shield_label">FocusLock Notification Shield</string>
+    <string name="notification_shield_label">Pinehold Notification Shield</string>
 
     <!-- ── The demo tier ───────────────────────────────────────────── -->
     <string name="demo_badge">Demo</string>
@@ -16,28 +16,28 @@
 
     <!-- Accessibility Prominent Disclosure -->
     <string name="a11y_disclosure_title">Accessibility Service Disclosure</string>
-    <string name="a11y_disclosure_body">FocusLock uses the Android AccessibilityService API solely to read on-screen text and window titles so it can detect when you enter distracting surfaces you chose to block (such as Shorts, Reels, WhatsApp Channels, blocked websites, or your own keywords) and step back out.\n\n• All screen text is checked locally in memory and is never stored, logged, or transmitted off your device.\n• FocusLock never modifies your settings or taps controls without your permission.</string>
+    <string name="a11y_disclosure_body">Pinehold uses the Android AccessibilityService API solely to read on-screen text and window titles so it can detect when you enter distracting surfaces you chose to block (such as Shorts, Reels, WhatsApp Channels, blocked websites, or your own keywords) and step back out.\n\n• All screen text is checked locally in memory and is never stored, logged, or transmitted off your device.\n• Pinehold never modifies your settings or taps controls without your permission.</string>
     <string name="a11y_disclosure_agree">Agree &amp; Open Settings</string>
     <string name="a11y_disclosure_decline">Not now</string>
 
     <!-- Free vs. Pro Tier ($9.99 one-time licence) -->
     <string name="pro_badge">Pro</string>
     <string name="pro_free_badge">Free tier</string>
-    <string name="pro_card_title_unlocked">FocusLock Pro is active</string>
+    <string name="pro_card_title_unlocked">Pinehold Pro is active</string>
     <string name="pro_card_subtitle_unlocked">All session strengths (Sanctuary &amp; Kiosk), Bedtime dimming, Place &amp; Wi-Fi rules, Earn Mode, and Custom rules are unlocked on this device.</string>
-    <string name="pro_card_title_free">FocusLock Pro · $9.99 once</string>
+    <string name="pro_card_title_free">Pinehold Pro · $9.99 once</string>
     <string name="pro_card_subtitle_free">Sanctuary, Kiosk, Bedtime, Earn and Places</string>
     <string name="pro_upgrade_button">See what is in Pro ($9.99)</string>
     <string name="pro_buy_button">Buy Pro ($9.99 one-time)</string>
     <string name="pro_enter_code_button">I already have a code</string>
-    <string name="pro_dialog_title">FocusLock Pro — $9.99 one-time</string>
+    <string name="pro_dialog_title">Pinehold Pro — $9.99 one-time</string>
     <string name="pro_dialog_subtitle">$9.99 one-time purchase with free updates forever. No subscriptions, no accounts, verified offline.</string>
-    <string name="pro_dialog_feature_prompt">%1$s is part of FocusLock Pro ($9.99 one-time).</string>
+    <string name="pro_dialog_feature_prompt">%1$s is part of Pinehold Pro ($9.99 one-time).</string>
     <string name="pro_dialog_bullets">• Sanctuary &amp; Kiosk, the two firmest strengths\n• Earn mode: tasks that pay screen time\n• Bedtime that dims and quiets every night\n• Places, Wi-Fi and custom rules</string>
     <string name="pro_dialog_unlock_cta">Buy Pro ($9.99)</string>
-    <string name="pro_unlocked_toast">FocusLock Pro unlocked — thank you!</string>
+    <string name="pro_unlocked_toast">Pinehold Pro unlocked — thank you!</string>
     <string name="pro_code_dialog_title">Enter your code</string>
-    <string name="pro_code_dialog_subtitle">It is on the page you got after paying. Tap Open in FocusLock there, or copy the whole code and paste it here. Checked on this phone, no internet needed.</string>
+    <string name="pro_code_dialog_subtitle">It is on the page you got after paying. Tap Open in Pinehold there, or copy the whole code and paste it here. Checked on this phone, no internet needed.</string>
     <string name="pro_code_dialog_hint">Paste your FL2 code</string>
     <string name="pro_code_verify_button">Verify &amp; Unlock</string>
     <string name="pro_code_invalid_toast">That code is not valid. Check for typos and try again.</string>
@@ -52,7 +52,7 @@
 
     <!-- Streamlined Onboarding & One-tap Presets -->
     <string name="onboarding_perms_title">Enable core protection</string>
-    <string name="onboarding_perms_subtitle">FocusLock needs Usage Access so it can tell when a blocked app opens.</string>
+    <string name="onboarding_perms_subtitle">Pinehold needs Usage Access so it can tell when a blocked app opens.</string>
     <string name="onboarding_perms_optional_note">You can grant optional permissions anytime in Rules.</string>
     <string name="onboarding_q1_apps_title">Which apps pull you in?</string>
     <string name="onboarding_q1_apps_subtitle">We ticked the ones you use most. Untick anything you need.</string>
@@ -65,7 +65,7 @@
     <string name="preset_detox_title">Social detox</string>
     <string name="preset_detox_subtitle">Adds a calm breathing pause before social and video apps</string>
     <string name="preset_applied_toast">%1$s preset applied</string>
-    <string name="onboarding_q3_when_title">When should FocusLock hold the line?</string>
+    <string name="onboarding_q3_when_title">When should Pinehold hold the line?</string>
     <string name="onboarding_q3_when_subtitle">Start your first session right now, or set a daily window that runs on its own.</string>
     <string name="onboarding_when_now_label">Start a 1-hour session right now</string>
     <string name="onboarding_when_evening_label">Every evening (7:00 PM – 10:00 PM)</string>
@@ -84,8 +84,8 @@
     <string name="intercept_opens_stopped_today">%1$d opens stopped today</string>
 
     <!-- One-tap help & Start over reset -->
-    <string name="common_why_needed_button">Why does FocusLock need this?</string>
-    <string name="common_why_needed_default">This screen lets you customize how FocusLock protects your attention. Everything stays on your phone.</string>
+    <string name="common_why_needed_button">Why does Pinehold need this?</string>
+    <string name="common_why_needed_default">This screen lets you customize how Pinehold protects your attention. Everything stays on your phone.</string>
     <string name="youtab_start_over_title">Start over</string>
     <string name="youtab_start_over_subtitle">Reset rules and schedules to defaults and run the 3-step setup again</string>
     <string name="youtab_start_over_confirm">This resets your capability switches and schedules back to a clean starting point and opens the 3-step setup. Your Pro licence is kept.</string>

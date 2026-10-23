@@ -11,7 +11,7 @@
     Recurrence and PermissionGuard.Guarded.
 -->
 <resources>
-    <!-- AppPolicy: what FocusLock is allowed to do about one app. -->
+    <!-- AppPolicy: what Pinehold is allowed to do about one app. -->
     <string name="policy_allow_label">Open freely</string>
     <string name="policy_allow_blurb">No pause, no limit. This app is fine.</string>
     <string name="policy_allow_short">Open</string>
@@ -52,7 +52,7 @@
     <string name="guard_step_back_label">Step back out</string>
     <string name="guard_step_back_blurb">Presses back, so you land on the previous screen and keep using the app.</string>
     <string name="guard_close_app_label">Leave the app</string>
-    <string name="guard_close_app_blurb">Returns you to FocusLock. Use this when the whole app is the problem.</string>
+    <string name="guard_close_app_blurb">Returns you to Pinehold. Use this when the whole app is the problem.</string>
     <string name="guard_nudge_label">Just tell me</string>
     <string name="guard_nudge_blurb">Shows a quiet line and leaves the screen alone.</string>
 
@@ -113,7 +113,7 @@
 
     <!-- PermissionGuard.Guarded: the permissions the lock depends on. -->
     <string name="guarded_usage_access_label">Usage access</string>
-    <string name="guarded_usage_access_explanation">Every rule depends on knowing which app is in front. Without this, FocusLock cannot see anything running.</string>
+    <string name="guarded_usage_access_explanation">Every rule depends on knowing which app is in front. Without this, Pinehold cannot see anything running.</string>
     <string name="guarded_overlay_label">Display over other apps</string>
     <string name="guarded_overlay_explanation">This is what draws the block screen on top of a blocked app.</string>
     <string name="guarded_accessibility_label">Content guard</string>

@@ -10,15 +10,15 @@
     <string name="capgroup_modes_label">الأوضاع</string>
     <string name="capgroup_modes_blurb">إلى أي مدى يُسمح للقفل أن يشتد.</string>
     <string name="capgroup_blocking_label">الحجب</string>
-    <string name="capgroup_blocking_blurb">ما يُسمح لـ FocusLock بإيقافه.</string>
+    <string name="capgroup_blocking_blurb">ما يُسمح لـ Pinehold بإيقافه.</string>
     <string name="capgroup_content_label">المحتوى</string>
     <string name="capgroup_content_blurb">حرّاس يقرؤون الشاشة، لا اسم التطبيق وحده.</string>
     <string name="capgroup_environment_label">المحيط</string>
     <string name="capgroup_environment_blurb">قواعد تتبع الوقت والمكان والشبكة.</string>
     <string name="capgroup_tools_label">البدائل</string>
-    <string name="capgroup_tools_blurb">الأشياء الهادئة التي يقدّمها FocusLock بدلًا من التمرير.</string>
+    <string name="capgroup_tools_blurb">الأشياء الهادئة التي يقدّمها Pinehold بدلًا من التمرير.</string>
     <string name="capgroup_insight_label">الاطلاع</string>
-    <string name="capgroup_insight_blurb">ما يتذكره FocusLock ويعرضه لك عن نفسك.</string>
+    <string name="capgroup_insight_blurb">ما يتذكره Pinehold ويعرضه لك عن نفسك.</string>
     <string name="capgroup_hardening_label">التحصين</string>
     <string name="capgroup_hardening_blurb">منافذ خروج يمكنك اختيار إغلاقها.</string>
     <string name="capgroup_advanced_label">متقدم</string>
@@ -32,7 +32,7 @@
     <string name="cap_sanctuary_mode_blurb">تبقى شاشتك الرئيسية كما هي. تختفي منها التطبيقات المشتّتة وتهدأ.</string>
     <string name="cap_sanctuary_mode_weaken_note">عند الإطفاء: يختفي الملاذ من قائمة الأوضاع. يظل «حجب» يمنع فتح التطبيقات، لكنه يتركها على شاشتك الرئيسية.</string>
     <string name="cap_kiosk_mode_label">وضع الكشك</string>
-    <string name="cap_kiosk_mode_blurb">يصبح FocusLock الهاتف بأكمله لمدة تحددها. أقوى إعداد موجود.</string>
+    <string name="cap_kiosk_mode_blurb">يصبح Pinehold الهاتف بأكمله لمدة تحددها. أقوى إعداد موجود.</string>
     <string name="cap_kiosk_mode_weaken_note">وضع الكشك هو الوحيد الذي يُغلق الوضع الآمن والشاشة الرئيسية. من دونه يبقى هناك منفذ للخروج.</string>
     <string name="cap_can_end_early_label">دعني أُنهي الجلسة مبكرًا</string>
     <string name="cap_can_end_early_blurb">يُظهر زر «إنهاء هذه الجلسة» أثناء عمل الجلسة.</string>
@@ -70,9 +70,9 @@
     <string name="cap_earn_mode_weaken_note">عند الإطفاء: تبقى المهام قائمة مهام عادية، وإنجاز أي منها لا يمنح شيئًا. القائمة تعمل، لكنها لا تدفع.</string>
     <string name="cap_content_guard_label">حارس المحتوى</string>
     <string name="cap_content_guard_blurb">يقرأ ما على الشاشة ويتراجع عن الأسطح التي حدّدتها، داخل تطبيقات ما زلت تريدها.</string>
-    <string name="cap_content_guard_weaken_note">عند الإطفاء: يتوقف FocusLock عن قراءة الشاشة. التطبيق الذي سمحت به يصبح مسموحًا بالكامل، بما في ذلك الأجزاء التي كنت تحاول تجنّبها.</string>
+    <string name="cap_content_guard_weaken_note">عند الإطفاء: يتوقف Pinehold عن قراءة الشاشة. التطبيق الذي سمحت به يصبح مسموحًا بالكامل، بما في ذلك الأجزاء التي كنت تحاول تجنّبها.</string>
     <string name="cap_keyword_block_label">حارس الكلمات المفتاحية</string>
-    <string name="cap_keyword_block_blurb">كلماتك أنت. إن ظهرت إحداها على الشاشة، يتراجع FocusLock عن تلك الشاشة.</string>
+    <string name="cap_keyword_block_blurb">كلماتك أنت. إن ظهرت إحداها على الشاشة، يتراجع Pinehold عن تلك الشاشة.</string>
     <string name="cap_whatsapp_guard_label">حارس واتساب</string>
     <string name="cap_whatsapp_guard_blurb">يُبقي المحادثات تعمل، ويُغلق بهدوء القنوات و«التحديثات» وMeta AI.</string>
     <string name="cap_telegram_guard_label">تيليجرام: المحادثات التي حدّدتها فقط</string>
@@ -122,13 +122,13 @@
     <string name="cap_status_bar_lock_weaken_note">ترك هذا مطفأً يُبقي اللوحة في متناول اليد، وهي منفذ خروج شائع أثناء الجلسة.</string>
     <string name="cap_keyguard_lock_label">تبسيط شاشة القفل</string>
     <string name="cap_keyguard_lock_blurb">يُزيل الودجات والاختصارات من شاشة القفل أثناء عمل جلسة الكشك.</string>
-    <string name="cap_uninstall_protection_label">منع إلغاء تثبيت FocusLock</string>
-    <string name="cap_uninstall_protection_blurb">يمنع إزالة FocusLock نفسه أثناء عمل الجلسة.</string>
+    <string name="cap_uninstall_protection_label">منع إلغاء تثبيت Pinehold</string>
+    <string name="cap_uninstall_protection_blurb">يمنع إزالة Pinehold نفسه أثناء عمل الجلسة.</string>
     <string name="cap_uninstall_protection_weaken_note">مع إطفاء هذا، يمكن إنهاء الجلسة بإلغاء تثبيت التطبيق.</string>
     <string name="cap_safe_boot_block_label">تعطيل الوضع الآمن</string>
-    <string name="cap_safe_boot_block_blurb">يُغلق إعادة التشغيل إلى الوضع الآمن، الذي كان سيُشغّل الهاتف وFocusLock معطّل.</string>
+    <string name="cap_safe_boot_block_blurb">يُغلق إعادة التشغيل إلى الوضع الآمن، الذي كان سيُشغّل الهاتف وPinehold معطّل.</string>
     <string name="cap_safe_boot_block_weaken_note">الوضع الآمن هو المنفذ الكلاسيكي للخروج. تركه مفتوحًا منفذ هروب حقيقي.</string>
-    <string name="cap_persistent_home_label">FocusLock كشاشة رئيسية</string>
+    <string name="cap_persistent_home_label">Pinehold كشاشة رئيسية</string>
     <string name="cap_persistent_home_blurb">أثناء جلسة الكشك، يصل زر الرئيسية إلى هنا بدلًا من الشاشة الرئيسية.</string>
     <string name="cap_persistent_home_weaken_note">مع إطفاء هذا، يعود زر الرئيسية إلى شاشتك الرئيسية المعتادة أثناء الجلسة.</string>
 

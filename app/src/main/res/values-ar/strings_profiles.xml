@@ -2,7 +2,7 @@
 <resources>
     <string name="profiles_saved_toast">تم حفظ الإعداد.</string>
     <string name="profiles_write_failed">تعذّر كتابة ذلك الملف.</string>
-    <string name="profiles_not_a_setup">هذا الملف ليس إعدادًا لـ FocusLock.</string>
+    <string name="profiles_not_a_setup">هذا الملف ليس إعدادًا لـ Pinehold.</string>
     <string name="profiles_this_file">هذا الملف</string>
     <string name="profiles_subtitle">إعداد لكل حالة. أسبوع الامتحانات لا يحتاج الهاتف نفسه الذي تحتاجه إجازة.</string>
     <string name="profiles_saved_setups">إعدادات محفوظة</string>

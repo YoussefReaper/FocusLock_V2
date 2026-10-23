@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- FocusLock 2 "Quiet Pine" redesign: copy introduced by the new layouts. -->
+<!-- Pinehold 2 "Quiet Pine" redesign: copy introduced by the new layouts. -->
 <resources>
     <string name="redesign_start_title">Start a session</string>
     <string name="redesign_start_sub">Pick how firm, then how long.</string>

@@ -29,7 +29,7 @@ import java.util.Locale
  */
 object Diagnostics {
 
-    const val SUPPORT_EMAIL = "support@focuslock.app"
+    const val SUPPORT_EMAIL = "support@pinehold.app"
 
     private const val DIR = "crashes"
     private const val MAX_CRASH_FILES = 5

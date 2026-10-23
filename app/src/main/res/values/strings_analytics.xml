@@ -28,7 +28,7 @@
     <string name="analytics_turn_on">Turn on analytics</string>
 
     <string name="analytics_needs_usage_title">Usage access is needed</string>
-    <string name="analytics_needs_usage_body">The breakdown is read from Android\'s own records. FocusLock keeps no separate log.</string>
+    <string name="analytics_needs_usage_body">The breakdown is read from Android\'s own records. Pinehold keeps no separate log.</string>
     <string name="analytics_grant_usage">Grant usage access</string>
 
     <string name="analytics_screen_time">Screen time</string>

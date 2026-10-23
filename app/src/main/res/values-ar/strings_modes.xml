@@ -20,7 +20,7 @@
     <string name="mode_sanctuary_exitline">أنهِ الجلسة من هنا. تعود التطبيقات في غضون ثوانٍ.</string>
 
     <string name="mode_kiosk_label">كشك</string>
-    <string name="mode_kiosk_oneliner">يصبح FocusLock الهاتف بأكمله حتى ينتهي المؤقت.</string>
+    <string name="mode_kiosk_oneliner">يصبح Pinehold الهاتف بأكمله حتى ينتهي المؤقت.</string>
     <string name="mode_kiosk_exitline">يستمر حتى النهاية. لا يوقفه مبكرًا سوى إعادة ضبط المصنع، وهي تمحو الهاتف.</string>
 
     <!-- presetSummary(): بادئة + الأجزاء المنطبقة، مفصولة بـ « · ». -->

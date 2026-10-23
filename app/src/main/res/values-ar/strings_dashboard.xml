@@ -54,9 +54,9 @@
     <string name="dashboard_kiosk_surface_title">سطح الجلسة بملء الشاشة</string>
     <string name="dashboard_kiosk_surface_subtitle">يخفي شريط التبويبات. تصبح مكتبتك وقواعدك خارج المتناول حتى تنتهي الجلسة.</string>
     <string name="dashboard_release_owner_title">أعِد الهاتف في النهاية</string>
-    <string name="dashboard_release_owner_subtitle">يزيل صلاحيات «مالك الجهاز» عن FocusLock عند انتهاء المؤقت. وستحتاج إلى حاسوب لإعدادها من جديد.</string>
+    <string name="dashboard_release_owner_subtitle">يزيل صلاحيات «مالك الجهاز» عن Pinehold عند انتهاء المؤقت. وستحتاج إلى حاسوب لإعدادها من جديد.</string>
     <string name="dashboard_kiosk_needs_step_title">وضع الكشك يحتاج خطوة أخرى</string>
-    <string name="dashboard_kiosk_needs_step_message">لا يصمد وضع الكشك إلا إذا كان FocusLock مالك الجهاز، ويُضبط ذلك من حاسوب عبر ADB. وبدونه تبقى الشاشة الرئيسية والوضع الآمن مفتوحين.</string>
+    <string name="dashboard_kiosk_needs_step_message">لا يصمد وضع الكشك إلا إذا كان Pinehold مالك الجهاز، ويُضبط ذلك من حاسوب عبر ADB. وبدونه تبقى الشاشة الرئيسية والوضع الآمن مفتوحين.</string>
     <string name="dashboard_show_me_how">أرِني كيف</string>
     <string name="dashboard_can_end_early_line">يمكنك إنهاؤها مبكرًا من تبويب «التركيز».</string>
     <string name="dashboard_no_early_exit_line">لا يوجد خروج مبكر. تستمر الجلسة كامل %1$s، وفي وضع الكشك لا مخرج قبل ذلك سوى إعادة ضبط المصنع، وهي تمحو الهاتف.</string>
@@ -67,7 +67,7 @@
     <string name="dashboard_setting_unavailable">صفحة الإعدادات هذه غير متاحة على هذا الهاتف.</string>
     <string name="dashboard_grant">امنح الإذن</string>
     <string name="setup_issue_usage_access">الوصول إلى الاستخدام</string>
-    <string name="setup_issue_usage_access_detail">يتيح لـ FocusLock رؤية التطبيق الذي في المقدمة. لا شيء يغادر الهاتف.</string>
+    <string name="setup_issue_usage_access_detail">يتيح لـ Pinehold رؤية التطبيق الذي في المقدمة. لا شيء يغادر الهاتف.</string>
     <string name="setup_issue_content_guard">حارس المحتوى</string>
     <string name="setup_issue_content_guard_detail">مطلوب لحرّاس الكلمات المفتاحية وShorts وReels وواتساب.</string>
     <string name="setup_issue_notification_access">الوصول إلى الإشعارات</string>

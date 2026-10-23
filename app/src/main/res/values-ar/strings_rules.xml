@@ -76,10 +76,10 @@
     <string name="rules_editor_places_title">الأماكن والشبكات</string>
     <string name="rules_editor_custom_rules_title">قواعد مخصصة</string>
 
-    <string name="capabilities_title">ما الذي يمكن لـ FocusLock فعله</string>
+    <string name="capabilities_title">ما الذي يمكن لـ Pinehold فعله</string>
     <string name="capabilities_needs_access_chip">يحتاج إذنًا</string>
 
-    <string name="rules_capability_intro">كل سلوك يملكه FocusLock هو مفتاح واحد هنا. أطفئ أيًا منها فيتوقف فورًا. إذا احتاج مفتاح إذنًا لم يمنحه أندرويد بعد، فسيقول ذلك.</string>
+    <string name="rules_capability_intro">كل سلوك يملكه Pinehold هو مفتاح واحد هنا. أطفئ أيًا منها فيتوقف فورًا. إذا احتاج مفتاح إذنًا لم يمنحه أندرويد بعد، فسيقول ذلك.</string>
 
     <string name="rules_perm_usage_access">يحتاج إلى إذن الوصول للاستخدام قبل أن يعمل. اضغط للمنح.</string>
     <string name="rules_perm_accessibility">يحتاج إلى تفعيل حارس المحتوى في إمكانية الوصول. اضغط للمنح.</string>
@@ -100,7 +100,7 @@
     <!-- ── AppRulesActivity ───────────────────────────────────────── -->
 
     <string name="app_rules_title">التطبيقات</string>
-    <string name="app_rules_subtitle">كل تطبيق على هذا الهاتف، وما المسموح لـ FocusLock فعله حياله.</string>
+    <string name="app_rules_subtitle">كل تطبيق على هذا الهاتف، وما المسموح لـ Pinehold فعله حياله.</string>
     <string name="app_rules_individual_apps_section">تطبيقات فردية</string>
     <string name="app_rules_filter_all">الكل</string>
     <string name="app_rules_filter_blocked">محظور</string>
@@ -202,7 +202,7 @@
     <!-- ── KeywordGuardActivity ───────────────────────────────────── -->
 
     <string name="keyword_guard_title">حارس الكلمات المفتاحية</string>
-    <string name="keyword_guard_subtitle">كلمات تجعل FocusLock يخرج من شاشة، داخل تطبيقات ما زلت تريدها.</string>
+    <string name="keyword_guard_subtitle">كلمات تجعل Pinehold يخرج من شاشة، داخل تطبيقات ما زلت تريدها.</string>
     <string name="keyword_guard_section_builtin">حراس مدمجون</string>
     <string name="keyword_guard_section_telegram">تيليجرام</string>
     <string name="keyword_guard_section_your_words">كلماتك</string>
@@ -214,7 +214,7 @@
     <string name="keyword_guard_adult">محتوى للبالغين</string>
 
     <string name="keyword_guard_not_on_heading">الحارس غير مُفعَّل</string>
-    <string name="keyword_guard_not_on_body">قراءة الشاشة تحتاج خدمة إمكانية وصول. FocusLock يقرأ النص فقط؛ لا يكتب ولا يضغط ولا يرسل أي شيء إلى أي مكان أبدًا.</string>
+    <string name="keyword_guard_not_on_body">قراءة الشاشة تحتاج خدمة إمكانية وصول. Pinehold يقرأ النص فقط؛ لا يكتب ولا يضغط ولا يرسل أي شيء إلى أي مكان أبدًا.</string>
     <string name="keyword_guard_open_accessibility">فتح إعدادات إمكانية الوصول</string>
 
     <string name="keyword_guard_master_title">حارس المحتوى</string>
@@ -256,7 +256,7 @@
     <string name="keyword_guard_allow_chat_title">السماح بمحادثة تيليجرام</string>
     <string name="keyword_guard_allow_chat_subtitle">اكتب اسم المحادثة كما يعرضه تيليجرام أعلى الشاشة.</string>
     <string name="keyword_guard_allow_chat_hint">مجموعة الدراسة</string>
-    <string name="keyword_guard_telegram_not_read">لم يتمكن FocusLock من قراءة عنوان محادثة بعد. افتح محادثة تيليجرام ثم عد — إذا بقي هذا السطر، فمن المحتمل أن تحديثًا لتيليجرام غيّر الأشياء وهذا الحارس لا يعمل.</string>
+    <string name="keyword_guard_telegram_not_read">لم يتمكن Pinehold من قراءة عنوان محادثة بعد. افتح محادثة تيليجرام ثم عد — إذا بقي هذا السطر، فمن المحتمل أن تحديثًا لتيليجرام غيّر الأشياء وهذا الحارس لا يعمل.</string>
 
     <string name="keyword_guard_exceptions_intro">نص يبدو كتطابق لكنه ليس كذلك. شريط بحث واتساب يذكر Meta AI مثلًا، وينبغي ألا يُطلق الحارس.</string>
     <string name="keyword_guard_no_exceptions">لا استثناءات.</string>
@@ -272,7 +272,7 @@
     <string name="place_rules_section_right_now">الآن</string>
 
     <string name="place_rules_location_title">قواعد المكان</string>
-    <string name="place_rules_location_subtitle">يستخدم آخر موقع معروف. FocusLock لا يتعقبك باستمرار أبدًا.</string>
+    <string name="place_rules_location_subtitle">يستخدم آخر موقع معروف. Pinehold لا يتعقبك باستمرار أبدًا.</string>
     <string name="place_rules_network_title">قواعد الشبكة</string>
     <string name="place_rules_network_subtitle">يستخدم اسم الواي فاي. يعمل داخل المباني حيث لا يعمل الموقع، ولا يحتاج تعقبًا.</string>
     <string name="place_rules_grant_location">منح إذن الموقع</string>
@@ -423,7 +423,7 @@
     <string name="brightness_adaptive_title">دع الهاتف يختار</string>
     <string name="brightness_adaptive_subtitle">يتكيّف مع الإضاءة حولك. أطفئه لتثبيت المستوى الذي ضبطته.</string>
     <string name="brightness_why_here">جلسة وضع الكشك تخفي لوحة الإعدادات السريعة — ولا تتيح أندرويد طريقة للإبقاء عليها — لذا يوجد السطوع هنا بدلًا منها.</string>
-    <string name="brightness_needs_permission">يحتاج FocusLock إذنًا لتغيير إعدادات النظام قبل أن يتمكن من تعديل السطوع.</string>
+    <string name="brightness_needs_permission">يحتاج Pinehold إذنًا لتغيير إعدادات النظام قبل أن يتمكن من تعديل السطوع.</string>
     <string name="brightness_grant_button">امنحه الإذن</string>
     <string name="brightness_no_settings_page">لا توجد في هذا الهاتف صفحة لهذا الإذن.</string>
     <string name="brightness_refused">رفض أندرويد هذا التغيير.</string>
@@ -478,12 +478,12 @@
 
     <string name="schedule_overlay_toggle_title">تراكب هذه النافذة</string>
     <string name="schedule_overlay_toggle_subtitle">يقفل الهاتف فعليًا - لا حتى الشاشة الرئيسية تفتح أي شيء خارج المسموح به دائمًا وتطبيقات هذه النافذة الخاصة. لا فترة راحة، لا استثناءات، وكل قاعدة (بما فيها هذه النافذة) مجمَّدة حتى تنتهي.</string>
-    <string name="schedule_brick_toggle_title">أغلق FocusLock أيضًا</string>
+    <string name="schedule_brick_toggle_title">أغلق Pinehold أيضًا</string>
     <string name="schedule_brick_toggle_subtitle">لا شيء سوى عدّاد تنازلي وأساسياتك — لا مكتبة، لا قواعد، لا مهام. وإلا فإن نافذة التراكب تترك هذا التطبيق مكانًا يمكن الجلوس فيه.</string>
 
     <string name="bedtime_overlay_toggle_title">اجعل وقت النوم مطلقًا</string>
     <string name="bedtime_overlay_toggle_subtitle">القفل الصارم نفسه الذي يمكن لنافذة جدول استخدامه: فقط التطبيقات المسموح بها دائمًا تُفتح، بما فيها الشاشة الرئيسية. لا خروج منه بفترة راحة.</string>
-    <string name="bedtime_brick_toggle_title">أغلق FocusLock أيضًا</string>
+    <string name="bedtime_brick_toggle_title">أغلق Pinehold أيضًا</string>
     <string name="bedtime_brick_toggle_subtitle">خلال الليل، هذا التطبيق عدّاد تنازلي وأساسياتك، لا شيء غير ذلك.</string>
     <string name="bedtime_section_strength">مدى صرامة القفل</string>
 
@@ -534,14 +534,14 @@
     <string name="bedtime_quiet_theme_subtitle">أسود تقريبًا مع لمسة لون ناعمة أثناء عمل وقت النوم. سمتك النهارية لا تتأثر.</string>
 
     <string name="bedtime_greyscale_title">ذكّرني بالتدرج الرمادي</string>
-    <string name="bedtime_greyscale_subtitle">إعداد أندرويد الخاص بالتدرج الرمادي يزيل معظم جاذبية الشاشة ليلًا. FocusLock لا يستطيع تفعيله لك، لكنه يستطيع تذكيرك.</string>
+    <string name="bedtime_greyscale_subtitle">إعداد أندرويد الخاص بالتدرج الرمادي يزيل معظم جاذبية الشاشة ليلًا. Pinehold لا يستطيع تفعيله لك، لكنه يستطيع تذكيرك.</string>
 
     <!-- ── InterceptActivity ──────────────────────────────────────── -->
 
     <string name="intercept_open_anyway">فتح %1$s على أي حال</string>
     <string name="intercept_it_fallback">إياه</string>
     <string name="intercept_not_now_go_back">ليس الآن، عد</string>
-    <string name="intercept_back_to_focuslock">العودة إلى FocusLock</string>
+    <string name="intercept_back_to_focuslock">العودة إلى Pinehold</string>
     <string name="intercept_ways_through">طرق للمتابعة</string>
     <string name="intercept_break_row_title">أخذ %1$d دقيقة</string>
     <string name="intercept_break_row_subtitle">تبقى %1$d من %2$d استراحات اليوم</string>

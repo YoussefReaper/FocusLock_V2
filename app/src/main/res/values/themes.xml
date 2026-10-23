@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!--
-        A deliberately empty shell. FocusLock paints every surface from
+        A deliberately empty shell. Pinehold paints every surface from
         UiPrefs.Tokens at runtime, so anything declared here would be a value
         that ignores the user's theme. The system bars are coloured in code,
         including their icon contrast, which is why they are transparent here.

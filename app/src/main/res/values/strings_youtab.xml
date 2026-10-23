@@ -24,7 +24,7 @@
     <string name="youtab_font_system_default">System default</string>
     <string name="youtab_theme_subtitle">Changes every screen in the app - the block screens included.</string>
 
-    <string name="youtab_capabilities_title">What FocusLock may do</string>
+    <string name="youtab_capabilities_title">What Pinehold may do</string>
     <string name="youtab_device_owner_title">Device Owner setup</string>
     <string name="youtab_device_owner_active">Active. Safe Mode and uninstall can be closed.</string>
     <string name="youtab_device_owner_inactive">Not set. Kiosk and Safe-Mode blocking need this.</string>
@@ -40,7 +40,7 @@
     <string name="youtab_device_owner_needed_title">Device Owner needed</string>
     <string name="youtab_device_owner_needed_detail">Only a Device Owner can close ADB. Set that up from a computer first.</string>
     <string name="youtab_adb_confirm_title">Turn off ADB debugging?</string>
-    <string name="youtab_adb_confirm_message">This closes the developer route into the phone while FocusLock is Device Owner. You would need a factory reset, or a session that hands the phone back, to reopen it.</string>
+    <string name="youtab_adb_confirm_message">This closes the developer route into the phone while Pinehold is Device Owner. You would need a factory reset, or a session that hands the phone back, to reopen it.</string>
     <string name="youtab_adb_confirm_button">Turn it off</string>
     <string name="youtab_restriction_refused">Android refused that restriction.</string>
 
@@ -59,24 +59,24 @@
     <string name="youtab_share_dialog_title">Share summary</string>
     <string name="youtab_share_no_app">No app available to share that.</string>
 
-    <string name="youtab_reset_subtitle">A factory reset is the ultimate way out of a kiosk session, and FocusLock never blocks it. It erases the phone, so it stays behind a countdown.</string>
+    <string name="youtab_reset_subtitle">A factory reset is the ultimate way out of a kiosk session, and Pinehold never blocks it. It erases the phone, so it stays behind a countdown.</string>
     <string name="youtab_reset_button">Factory reset this phone</string>
     <string name="youtab_reset_confirm_title">Erase everything on this phone?</string>
     <string name="youtab_reset_confirm_message">Every app, photo and message goes. This is not how a session is meant to end, and there is no undo.</string>
     <string name="youtab_reset_confirm_button">Erase the phone</string>
     <string name="youtab_reset_settings_only">Reset is only reachable from Settings on this phone.</string>
 
-    <string name="youtab_about">FocusLock. Everything it knows about you stays on this phone.</string>
+    <string name="youtab_about">Pinehold. Everything it knows about you stays on this phone.</string>
 
     <!-- ══ Problem reports (Diagnostics) ══ -->
     <string name="diag_report_title">Report a problem</string>
     <string name="diag_report_subtitle">Nothing is sent until you choose where</string>
     <string name="diag_report_subtitle_crash">Last crash %1$s · nothing is sent until you choose where</string>
     <string name="diag_confirm_title">Send a problem report?</string>
-    <string name="diag_confirm_message">The report holds FocusLock\'s version, your phone model and Android version, which permissions are on, the last few crashes, and FocusLock\'s own recent log - which can name apps it blocked and Telegram chats it read. Nothing from other apps.\n\nYou pick where it goes next, and you can read all of it before you send.</string>
+    <string name="diag_confirm_message">The report holds Pinehold\'s version, your phone model and Android version, which permissions are on, the last few crashes, and Pinehold\'s own recent log - which can name apps it blocked and Telegram chats it read. Nothing from other apps.\n\nYou pick where it goes next, and you can read all of it before you send.</string>
     <string name="diag_confirm_send">Prepare report</string>
     <string name="diag_share_title">Send the report with</string>
-    <string name="diag_crash_card_title">FocusLock crashed</string>
+    <string name="diag_crash_card_title">Pinehold crashed</string>
     <string name="diag_crash_card_body">It stopped unexpectedly on %1$s. A report helps fix it - nothing is sent unless you send it.</string>
     <string name="diag_crash_card_send">Send a report</string>
     <string name="diag_crash_card_dismiss">Not now</string>
@@ -86,11 +86,11 @@
     <string name="update_subtitle_current">You have version %1$s</string>
     <string name="update_subtitle_available">Version %1$s is available</string>
     <string name="update_auto_title">Check once a week</string>
-    <string name="update_auto_subtitle">Off unless you turn it on. Reads one small public file from the FocusLock website and sends nothing about you.</string>
+    <string name="update_auto_subtitle">Off unless you turn it on. Reads one small public file from the Pinehold website and sends nothing about you.</string>
     <string name="update_checking">Checking…</string>
     <string name="update_up_to_date">You\'re up to date (%1$s).</string>
-    <string name="update_failed">Could not reach the FocusLock website. Try again when you\'re online.</string>
-    <string name="update_available_title">FocusLock %1$s is out</string>
+    <string name="update_failed">Could not reach the Pinehold website. Try again when you\'re online.</string>
+    <string name="update_available_title">Pinehold %1$s is out</string>
     <string name="update_available_message">A newer version is on the website. Install it over this one - your settings stay.</string>
     <string name="update_get_it">Get it</string>
     <string name="update_later">Later</string>

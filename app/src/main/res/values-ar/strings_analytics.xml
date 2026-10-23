@@ -27,7 +27,7 @@
     <string name="analytics_turn_on">شغّل الإحصاءات</string>
 
     <string name="analytics_needs_usage_title">الوصول إلى الاستخدام مطلوب</string>
-    <string name="analytics_needs_usage_body">التفصيل يُقرأ من سجلات أندرويد نفسها. وFocusLock لا يحتفظ بسجل منفصل.</string>
+    <string name="analytics_needs_usage_body">التفصيل يُقرأ من سجلات أندرويد نفسها. وPinehold لا يحتفظ بسجل منفصل.</string>
     <string name="analytics_grant_usage">امنح الوصول إلى الاستخدام</string>
 
     <string name="analytics_screen_time">وقت الشاشة</string>

@@ -55,7 +55,7 @@
     <string name="youtab_section_release">Release</string>
     <string name="youtab_language">Language</string>
     <string name="youtab_clock">Clock</string>
-    <string name="youtab_share_header">FocusLock, last 7 days</string>
+    <string name="youtab_share_header">Pinehold, last 7 days</string>
 
     <string name="perms_title">Permissions</string>
 
@@ -73,7 +73,7 @@
     <string name="photo_empty_headline">There is nothing in the frame</string>
     <string name="photo_empty_detail">A wall, a dark room or a thumb over the lens. Point it at the work.</string>
     <string name="photo_duplicate_headline">You have used this photo before</string>
-    <string name="photo_duplicate_detail">FocusLock remembers a fingerprint of each one, not the picture itself.</string>
+    <string name="photo_duplicate_detail">Pinehold remembers a fingerprint of each one, not the picture itself.</string>
     <string name="photo_mismatch_headline">That does not look like the task</string>
     <string name="photo_mismatch_detail">The on-device model did not recognise anything from %1$s. If it is wrong, take another angle.</string>
     <string name="photo_accepted_headline">Proof accepted</string>

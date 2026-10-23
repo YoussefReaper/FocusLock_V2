@@ -87,11 +87,11 @@
     <string name="tasks_start_title">Start %1$s?</string>
     <string name="tasks_start_confirm">Start</string>
     <string name="tasks_start_cancel">Cancel</string>
-    <string name="tasks_start_hard_enforcement">The phone locks to FocusLock and the apps this task needs, until it is done.</string>
+    <string name="tasks_start_hard_enforcement">The phone locks to Pinehold and the apps this task needs, until it is done.</string>
     <string name="tasks_start_soft_enforcement">Without Device Owner this runs as friction rather than a lock: distracting apps get intercepted, not held shut.</string>
     <string name="tasks_start_linked_session">Your %1$s session keeps running. This task narrows it further.</string>
     <string name="tasks_start_open_during_caption">OPEN DURING THIS TASK</string>
-    <string name="tasks_start_focuslock_only">FocusLock only.</string>
+    <string name="tasks_start_focuslock_only">Pinehold only.</string>
     <string name="tasks_start_rejected_warning">Held back because they are not on your standing allowlist: %1$s. Add them in Rules first if the task really needs them.</string>
 
     <!-- ── TaskEditorActivity ───────────────────────────────────── -->
@@ -145,17 +145,17 @@
     <string name="task_editor_verification_set">Set</string>
     <string name="task_editor_photo_unavailable_title">Photo proof is unavailable</string>
     <string name="task_editor_photo_unavailable_disabled">You have photo proof switched off in your deal settings.</string>
-    <string name="task_editor_photo_unavailable_no_camera">This phone has no camera app that FocusLock can call.</string>
+    <string name="task_editor_photo_unavailable_no_camera">This phone has no camera app that Pinehold can call.</string>
     <string name="task_editor_timer_no_estimate_note">No time estimate set, so this will use 25 minutes.</string>
     <string name="task_editor_subtasks_empty_note">No steps yet, so there is nothing to tick. Add some above.</string>
     <string name="task_editor_ambient_apps_note">Counts time in %1$s.</string>
     <string name="task_editor_ambient_no_apps_note">No apps named yet, so nothing is being counted.</string>
 
     <string name="task_editor_allowed_apps_label">Apps this task may use</string>
-    <string name="task_editor_allowed_apps_only_focuslock">FocusLock only</string>
+    <string name="task_editor_allowed_apps_only_focuslock">Pinehold only</string>
     <string name="task_editor_allowed_apps_rejected_suffix">%1$s — %2$d not on your standing allowlist</string>
     <string name="task_editor_pick_apps_title">Open during this task</string>
-    <string name="task_editor_pick_apps_subtitle">Leave everything off to lock down to FocusLock alone.</string>
+    <string name="task_editor_pick_apps_subtitle">Leave everything off to lock down to Pinehold alone.</string>
 
     <string name="task_editor_enjoy_label">I actually enjoy this one</string>
     <string name="task_editor_enjoy_desc">Then it earns nothing. Paying yourself for work you already like tends to make it feel like a chore instead.</string>
@@ -234,7 +234,7 @@
     <string name="earn_session_budget_keep_going">Keep going and minutes start to add up.</string>
     <string name="earn_session_pool_explainer">This pool is what your Budgeted apps spend. Finish the task and it goes up immediately.</string>
 
-    <string name="earn_session_no_apps_open">FocusLock only. Nothing else opens until this is done.</string>
+    <string name="earn_session_no_apps_open">Pinehold only. Nothing else opens until this is done.</string>
     <string name="earn_session_rejected_apps">Asked for but not on your standing allowlist: %1$s.</string>
     <string name="earn_session_lock_holding_toast">The lock is holding that one.</string>
 
@@ -287,7 +287,7 @@
     <string name="proof_empty_headline">There is nothing in the frame</string>
     <string name="proof_empty_detail">A wall, a dark room or a thumb over the lens. Point it at the work.</string>
     <string name="proof_reused_headline">You have used this photo before</string>
-    <string name="proof_reused_detail">FocusLock remembers a fingerprint of each one, not the picture itself.</string>
+    <string name="proof_reused_detail">Pinehold remembers a fingerprint of each one, not the picture itself.</string>
     <string name="proof_accepted_headline">Proof accepted</string>
     <string name="proof_accepted_detail">Nothing was uploaded. Only a fingerprint is kept, so the same photo cannot be used twice.</string>
 </resources>

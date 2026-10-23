@@ -11,7 +11,7 @@
     <string name="cap_sanctuary_mode_blurb">Your normal home screen stays. Distracting apps disappear from it and go quiet.</string>
     <string name="cap_sanctuary_mode_weaken_note">Off: Sanctuary disappears from the mode picker. Block still stops apps opening, it just leaves them sitting on your home screen.</string>
     <string name="cap_kiosk_mode_label">Kiosk mode</string>
-    <string name="cap_kiosk_mode_blurb">FocusLock becomes the whole phone for a set stretch of time. The strongest setting there is.</string>
+    <string name="cap_kiosk_mode_blurb">Pinehold becomes the whole phone for a set stretch of time. The strongest setting there is.</string>
     <string name="cap_kiosk_mode_weaken_note">Kiosk is the only mode that closes Safe Mode and the launcher. Without it there is a way back out.</string>
     <string name="cap_can_end_early_label">Let me end a session early</string>
     <string name="cap_can_end_early_blurb">Shows an \"End this session\" button while a session is running.</string>
@@ -49,9 +49,9 @@
     <string name="cap_earn_mode_weaken_note">Off: tasks stay a plain to-do list and finishing one earns nothing. The list still works, it just does not pay.</string>
     <string name="cap_content_guard_label">Content guard</string>
     <string name="cap_content_guard_blurb">Reads what is on screen and backs out of the surfaces you named, inside apps you still want.</string>
-    <string name="cap_content_guard_weaken_note">Off: FocusLock stops reading the screen. An app you allowed is allowed entirely, including the parts of it you were trying to avoid.</string>
+    <string name="cap_content_guard_weaken_note">Off: Pinehold stops reading the screen. An app you allowed is allowed entirely, including the parts of it you were trying to avoid.</string>
     <string name="cap_keyword_block_label">Keyword guard</string>
-    <string name="cap_keyword_block_blurb">Your own words. If one shows up on screen, FocusLock steps back out of that screen.</string>
+    <string name="cap_keyword_block_blurb">Your own words. If one shows up on screen, Pinehold steps back out of that screen.</string>
     <string name="cap_whatsapp_guard_label">WhatsApp guard</string>
     <string name="cap_whatsapp_guard_blurb">Keeps chats working while quietly closing Channels, Updates and Meta AI.</string>
     <string name="cap_telegram_guard_label">Telegram: only the chats you named</string>
@@ -101,26 +101,26 @@
     <string name="cap_status_bar_lock_weaken_note">Leaving this off keeps the shade reachable, a common way back out mid-session.</string>
     <string name="cap_keyguard_lock_label">Simplify the lock screen</string>
     <string name="cap_keyguard_lock_blurb">Strips widgets and shortcuts off the lock screen while a kiosk session runs.</string>
-    <string name="cap_uninstall_protection_label">Block uninstalling FocusLock</string>
-    <string name="cap_uninstall_protection_blurb">Stops FocusLock itself being removed while a session is running.</string>
+    <string name="cap_uninstall_protection_label">Block uninstalling Pinehold</string>
+    <string name="cap_uninstall_protection_blurb">Stops Pinehold itself being removed while a session is running.</string>
     <string name="cap_uninstall_protection_weaken_note">With this off, a session can be ended by uninstalling the app.</string>
     <string name="cap_safe_boot_block_label">Disable Safe Mode</string>
-    <string name="cap_safe_boot_block_blurb">Closes the Safe Mode reboot, which would otherwise start the phone with FocusLock inert.</string>
+    <string name="cap_safe_boot_block_blurb">Closes the Safe Mode reboot, which would otherwise start the phone with Pinehold inert.</string>
     <string name="cap_safe_boot_block_weaken_note">Safe Mode is the classic way out. Leaving it open is a real escape route.</string>
 
     <!-- Group headings for the same screen. -->
     <string name="capgroup_modes_label">Modes</string>
     <string name="capgroup_modes_blurb">How strong the lock is allowed to get.</string>
     <string name="capgroup_blocking_label">Blocking</string>
-    <string name="capgroup_blocking_blurb">What FocusLock is allowed to stop.</string>
+    <string name="capgroup_blocking_blurb">What Pinehold is allowed to stop.</string>
     <string name="capgroup_content_label">Content</string>
     <string name="capgroup_content_blurb">Guards that read the screen, not just the app name.</string>
     <string name="capgroup_environment_label">Environment</string>
     <string name="capgroup_environment_blurb">Rules that follow time, place and network.</string>
     <string name="capgroup_tools_label">Replacements</string>
-    <string name="capgroup_tools_blurb">The calm things FocusLock offers instead of the feed.</string>
+    <string name="capgroup_tools_blurb">The calm things Pinehold offers instead of the feed.</string>
     <string name="capgroup_insight_label">Insight</string>
-    <string name="capgroup_insight_blurb">What FocusLock remembers and shows you about yourself.</string>
+    <string name="capgroup_insight_blurb">What Pinehold remembers and shows you about yourself.</string>
     <string name="capgroup_hardening_label">Hardening</string>
     <string name="capgroup_hardening_blurb">Escape routes you can choose to close.</string>
     <string name="capgroup_advanced_label">Advanced</string>
@@ -128,7 +128,7 @@
     <string name="capgroup_experimental_label">Experimental</string>
     <string name="capgroup_experimental_blurb">Screen-reading guards for WhatsApp, Shorts, Reels, and Telegram. Off by default because app updates can change their layout.</string>
 
-    <string name="cap_persistent_home_label">FocusLock as home screen</string>
+    <string name="cap_persistent_home_label">Pinehold as home screen</string>
     <string name="cap_persistent_home_blurb">During a kiosk session the home button lands here instead of the launcher.</string>
     <string name="cap_persistent_home_weaken_note">With this off, the home button returns to your normal launcher mid-session.</string>
 

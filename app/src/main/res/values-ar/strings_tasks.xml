@@ -86,11 +86,11 @@
     <string name="tasks_start_title">بدء %1$s؟</string>
     <string name="tasks_start_confirm">ابدأ</string>
     <string name="tasks_start_cancel">إلغاء</string>
-    <string name="tasks_start_hard_enforcement">يُقفل الهاتف على FocusLock والتطبيقات التي تحتاجها هذه المهمة، حتى تنتهي.</string>
+    <string name="tasks_start_hard_enforcement">يُقفل الهاتف على Pinehold والتطبيقات التي تحتاجها هذه المهمة، حتى تنتهي.</string>
     <string name="tasks_start_soft_enforcement">بدون \"مالك الجهاز\" يعمل هذا كاحتكاك لا كقفل: التطبيقات المشتِّتة تُعترَض، لا تُغلق تمامًا.</string>
     <string name="tasks_start_linked_session">جلستك %1$s ما زالت تعمل. هذه المهمة تضيّقها أكثر.</string>
     <string name="tasks_start_open_during_caption">مفتوح أثناء هذه المهمة</string>
-    <string name="tasks_start_focuslock_only">FocusLock فقط.</string>
+    <string name="tasks_start_focuslock_only">Pinehold فقط.</string>
     <string name="tasks_start_rejected_warning">مُبقاة خارج القائمة لأنها ليست ضمن قائمتك الدائمة المسموح بها: %1$s. أضفها في القواعد أولًا إذا كانت المهمة تحتاجها فعلًا.</string>
 
     <!-- ── TaskEditorActivity ───────────────────────────────────── -->
@@ -144,17 +144,17 @@
     <string name="task_editor_verification_set">محددة</string>
     <string name="task_editor_photo_unavailable_title">إثبات الصورة غير متاح</string>
     <string name="task_editor_photo_unavailable_disabled">لقد أوقفت إثبات الصورة في إعدادات اتفاقك.</string>
-    <string name="task_editor_photo_unavailable_no_camera">لا يوجد على هذا الهاتف تطبيق كاميرا يمكن لـ FocusLock استدعاؤه.</string>
+    <string name="task_editor_photo_unavailable_no_camera">لا يوجد على هذا الهاتف تطبيق كاميرا يمكن لـ Pinehold استدعاؤه.</string>
     <string name="task_editor_timer_no_estimate_note">لا وقت مقدَّر محدد، لذا سيُستخدم ٢٥ دقيقة.</string>
     <string name="task_editor_subtasks_empty_note">لا خطوات بعد، فلا شيء ليُعلَّم. أضف بعضها أعلاه.</string>
     <string name="task_editor_ambient_apps_note">يُحسب الوقت في %1$s.</string>
     <string name="task_editor_ambient_no_apps_note">لم تسمِّ أي تطبيق بعد، فلا شيء يُحسب.</string>
 
     <string name="task_editor_allowed_apps_label">التطبيقات التي يمكن لهذه المهمة استخدامها</string>
-    <string name="task_editor_allowed_apps_only_focuslock">FocusLock فقط</string>
+    <string name="task_editor_allowed_apps_only_focuslock">Pinehold فقط</string>
     <string name="task_editor_allowed_apps_rejected_suffix">%1$s — %2$d خارج قائمتك الدائمة المسموح بها</string>
     <string name="task_editor_pick_apps_title">مفتوحة أثناء هذه المهمة</string>
-    <string name="task_editor_pick_apps_subtitle">اترك كل شيء متوقفًا لتقتصر على FocusLock وحده.</string>
+    <string name="task_editor_pick_apps_subtitle">اترك كل شيء متوقفًا لتقتصر على Pinehold وحده.</string>
 
     <string name="task_editor_enjoy_label">أنا فعلًا أستمتع بهذه</string>
     <string name="task_editor_enjoy_desc">إذًا لا تكسب شيئًا. مكافأة نفسك على عمل تحبه أصلًا غالبًا تجعله يبدو كواجب مرهق بدلًا من ذلك.</string>
@@ -233,7 +233,7 @@
     <string name="earn_session_budget_keep_going">تابع، والدقائق تبدأ بالتراكم.</string>
     <string name="earn_session_pool_explainer">هذا الرصيد هو ما تنفقه تطبيقاتك المقيّدة بميزانية. أنهِ المهمة فيرتفع فورًا.</string>
 
-    <string name="earn_session_no_apps_open">FocusLock فقط. لا شيء آخر يفتح حتى تنتهي هذه المهمة.</string>
+    <string name="earn_session_no_apps_open">Pinehold فقط. لا شيء آخر يفتح حتى تنتهي هذه المهمة.</string>
     <string name="earn_session_rejected_apps">مطلوبة لكنها ليست على قائمتك الدائمة المسموح بها: %1$s.</string>
     <string name="earn_session_lock_holding_toast">القفل يحبس ذلك التطبيق.</string>
 
@@ -286,7 +286,7 @@
     <string name="proof_empty_headline">لا يوجد شيء في الإطار</string>
     <string name="proof_empty_detail">جدار، أو غرفة مظلمة، أو إصبع على العدسة. وجّهها نحو العمل.</string>
     <string name="proof_reused_headline">لقد استخدمت هذه الصورة من قبل</string>
-    <string name="proof_reused_detail">يتذكر FocusLock بصمة لكل صورة، لا الصورة نفسها.</string>
+    <string name="proof_reused_detail">يتذكر Pinehold بصمة لكل صورة، لا الصورة نفسها.</string>
     <string name="proof_accepted_headline">قُبل الإثبات</string>
     <string name="proof_accepted_detail">لم يُرفع أي شيء. تُحفظ بصمة فقط، حتى لا تُستخدم الصورة نفسها مرتين.</string>
 </resources>

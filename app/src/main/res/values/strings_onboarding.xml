@@ -10,7 +10,7 @@
 -->
 <resources>
     <string name="onboarding_skip_questions">Skip the questions</string>
-    <string name="onboarding_intro_body">FocusLock blocks the apps that pull you away, for as long as you choose. It is your phone and your rules: nothing is reported to anyone, and every setting can be changed.</string>
+    <string name="onboarding_intro_body">Pinehold blocks the apps that pull you away, for as long as you choose. It is your phone and your rules: nothing is reported to anyone, and every setting can be changed.</string>
     <string name="onboarding_intro_promise">Five quick questions, then you see a suggested setup before anything is applied.</string>
     <string name="onboarding_skip_defaults">Skip and use sensible defaults</string>
 

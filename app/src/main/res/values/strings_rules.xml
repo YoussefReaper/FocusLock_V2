@@ -79,10 +79,10 @@
     <string name="rules_editor_places_title">Places and networks</string>
     <string name="rules_editor_custom_rules_title">Custom rules</string>
 
-    <string name="capabilities_title">What FocusLock may do</string>
+    <string name="capabilities_title">What Pinehold may do</string>
     <string name="capabilities_needs_access_chip">Needs access</string>
 
-    <string name="rules_capability_intro">Every behaviour FocusLock has is one switch here. Turn any of them off and it stops immediately. If a switch needs a permission Android has not granted yet, it says so.</string>
+    <string name="rules_capability_intro">Every behaviour Pinehold has is one switch here. Turn any of them off and it stops immediately. If a switch needs a permission Android has not granted yet, it says so.</string>
 
     <string name="rules_perm_usage_access">Needs usage access before it can do anything. Tap to grant.</string>
     <string name="rules_perm_accessibility">Needs the content guard turned on in Accessibility. Tap to grant.</string>
@@ -103,7 +103,7 @@
     <!-- ── AppRulesActivity ───────────────────────────────────────── -->
 
     <string name="app_rules_title">Apps</string>
-    <string name="app_rules_subtitle">Every app on this phone, and what FocusLock is allowed to do about it.</string>
+    <string name="app_rules_subtitle">Every app on this phone, and what Pinehold is allowed to do about it.</string>
     <string name="app_rules_individual_apps_section">Individual apps</string>
     <string name="app_rules_filter_all">All</string>
     <string name="app_rules_filter_blocked">Blocked</string>
@@ -205,7 +205,7 @@
     <!-- ── KeywordGuardActivity ───────────────────────────────────── -->
 
     <string name="keyword_guard_title">Keyword guard</string>
-    <string name="keyword_guard_subtitle">Words that make FocusLock back out of a screen, inside apps you still want.</string>
+    <string name="keyword_guard_subtitle">Words that make Pinehold back out of a screen, inside apps you still want.</string>
     <string name="keyword_guard_section_builtin">Built-in guards</string>
     <string name="keyword_guard_section_telegram">Telegram</string>
     <string name="keyword_guard_section_your_words">Your words</string>
@@ -217,7 +217,7 @@
     <string name="keyword_guard_adult">Adult content</string>
 
     <string name="keyword_guard_not_on_heading">The guard is not switched on</string>
-    <string name="keyword_guard_not_on_body">Reading the screen needs an accessibility service. FocusLock only ever reads text; it never types, taps or sends anything anywhere.</string>
+    <string name="keyword_guard_not_on_body">Reading the screen needs an accessibility service. Pinehold only ever reads text; it never types, taps or sends anything anywhere.</string>
     <string name="keyword_guard_open_accessibility">Open Accessibility settings</string>
 
     <string name="keyword_guard_master_title">Content guard</string>
@@ -255,7 +255,7 @@
     <string name="keyword_guard_allow_chat_title">Allow a Telegram chat</string>
     <string name="keyword_guard_allow_chat_subtitle">Type the chat\'s name as Telegram shows it at the top of the screen.</string>
     <string name="keyword_guard_allow_chat_hint">Study group</string>
-    <string name="keyword_guard_telegram_not_read">FocusLock has not managed to read a chat title yet. Open a Telegram chat and come back — if this line stays, a Telegram update has probably moved things and this guard is not running.</string>
+    <string name="keyword_guard_telegram_not_read">Pinehold has not managed to read a chat title yet. Open a Telegram chat and come back — if this line stays, a Telegram update has probably moved things and this guard is not running.</string>
 
     <string name="keyword_guard_exceptions_intro">Text that looks like a match but is not. The WhatsApp search bar mentions Meta AI, for instance, and should not trip the guard.</string>
     <string name="keyword_guard_no_exceptions">No exceptions.</string>
@@ -271,7 +271,7 @@
     <string name="place_rules_section_right_now">Right now</string>
 
     <string name="place_rules_location_title">Place rules</string>
-    <string name="place_rules_location_subtitle">Uses your last known location. FocusLock never tracks you continuously.</string>
+    <string name="place_rules_location_subtitle">Uses your last known location. Pinehold never tracks you continuously.</string>
     <string name="place_rules_network_title">Network rules</string>
     <string name="place_rules_network_subtitle">Uses the Wi-Fi name. Works indoors where location does not, and needs no tracking.</string>
     <string name="place_rules_grant_location">Grant location permission</string>
@@ -422,7 +422,7 @@
     <string name="brightness_adaptive_title">Let the phone choose</string>
     <string name="brightness_adaptive_subtitle">Adapts to the light around you. Turn off to hold the level you set.</string>
     <string name="brightness_why_here">A kiosk session hides the quick settings panel — Android gives no way to keep it — so brightness lives here instead.</string>
-    <string name="brightness_needs_permission">FocusLock needs permission to change system settings before it can move the brightness.</string>
+    <string name="brightness_needs_permission">Pinehold needs permission to change system settings before it can move the brightness.</string>
     <string name="brightness_grant_button">Allow it</string>
     <string name="brightness_no_settings_page">This phone has no page for that permission.</string>
     <string name="brightness_refused">Android refused that change.</string>
@@ -477,12 +477,12 @@
 
     <string name="schedule_overlay_toggle_title">Overlay this window</string>
     <string name="schedule_overlay_toggle_subtitle">Locks the phone for real - not even the home screen opens anything outside always-allowed and this window\'s own apps. No break, no exceptions, and every rule (including this window) is frozen until it ends.</string>
-    <string name="schedule_brick_toggle_title">Close FocusLock too</string>
+    <string name="schedule_brick_toggle_title">Close Pinehold too</string>
     <string name="schedule_brick_toggle_subtitle">Nothing but a countdown and your essentials — no Library, no Rules, no Tasks. Otherwise an overlay window still leaves this app to sit in.</string>
 
     <string name="bedtime_overlay_toggle_title">Make bedtime absolute</string>
     <string name="bedtime_overlay_toggle_subtitle">The same hard lock a schedule window can use: only always-allowed apps open, the launcher included. No break out of it.</string>
-    <string name="bedtime_brick_toggle_title">Close FocusLock too</string>
+    <string name="bedtime_brick_toggle_title">Close Pinehold too</string>
     <string name="bedtime_brick_toggle_subtitle">For the night, this app is a countdown and your essentials, nothing else.</string>
     <string name="bedtime_section_strength">How hard it holds</string>
 
@@ -533,14 +533,14 @@
     <string name="bedtime_quiet_theme_subtitle">Near-black with a soft accent while bedtime runs. Your daytime theme is untouched.</string>
 
     <string name="bedtime_greyscale_title">Remind me about greyscale</string>
-    <string name="bedtime_greyscale_subtitle">Android\'s own greyscale setting takes most of the pull out of a screen at night. FocusLock cannot flip it for you, but it can remind you.</string>
+    <string name="bedtime_greyscale_subtitle">Android\'s own greyscale setting takes most of the pull out of a screen at night. Pinehold cannot flip it for you, but it can remind you.</string>
 
     <!-- ── InterceptActivity ──────────────────────────────────────── -->
 
     <string name="intercept_open_anyway">Open %1$s anyway</string>
     <string name="intercept_it_fallback">it</string>
     <string name="intercept_not_now_go_back">Not now, go back</string>
-    <string name="intercept_back_to_focuslock">Back to FocusLock</string>
+    <string name="intercept_back_to_focuslock">Back to Pinehold</string>
     <string name="intercept_ways_through">Ways through</string>
     <string name="intercept_break_row_title">Take %1$d minutes</string>
     <string name="intercept_break_row_subtitle">%1$d of %2$d breaks left today</string>

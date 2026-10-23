@@ -27,7 +27,7 @@
     <string name="youtab_font_system_default">خط النظام</string>
     <string name="youtab_theme_subtitle">يغيّر كل شاشة في التطبيق — بما فيها شاشات الحجب.</string>
 
-    <string name="youtab_capabilities_title">ما يُسمح لـ FocusLock بفعله</string>
+    <string name="youtab_capabilities_title">ما يُسمح لـ Pinehold بفعله</string>
     <string name="youtab_device_owner_title">إعداد مالك الجهاز</string>
     <string name="youtab_device_owner_active">مفعّل. يمكن إغلاق الوضع الآمن وإلغاء التثبيت.</string>
     <string name="youtab_device_owner_inactive">غير مضبوط. وضع الكشك وحجب الوضع الآمن يحتاجان هذا.</string>
@@ -43,7 +43,7 @@
     <string name="youtab_device_owner_needed_title">تحتاج «مالك الجهاز»</string>
     <string name="youtab_device_owner_needed_detail">مالك الجهاز وحده يستطيع إغلاق ADB. أعدّ ذلك من حاسوب أولًا.</string>
     <string name="youtab_adb_confirm_title">إطفاء تصحيح أخطاء ADB؟</string>
-    <string name="youtab_adb_confirm_message">يُغلق هذا منفذ المطوّرين إلى الهاتف ما دام FocusLock مالك الجهاز. وستحتاج إلى إعادة ضبط المصنع، أو جلسة تُعيد الهاتف، لإعادة فتحه.</string>
+    <string name="youtab_adb_confirm_message">يُغلق هذا منفذ المطوّرين إلى الهاتف ما دام Pinehold مالك الجهاز. وستحتاج إلى إعادة ضبط المصنع، أو جلسة تُعيد الهاتف، لإعادة فتحه.</string>
     <string name="youtab_adb_confirm_button">أطفئه</string>
     <string name="youtab_restriction_refused">رفض أندرويد هذا القيد.</string>
 
@@ -62,24 +62,24 @@
     <string name="youtab_share_dialog_title">مشاركة الملخص</string>
     <string name="youtab_share_no_app">لا يوجد تطبيق متاح لمشاركة ذلك.</string>
 
-    <string name="youtab_reset_subtitle">إعادة ضبط المصنع هي المخرج الأخير من جلسة كشك، وFocusLock لا يحجبه أبدًا. لكنه يمحو الهاتف، لذا يبقى خلف عدّاد تنازلي.</string>
+    <string name="youtab_reset_subtitle">إعادة ضبط المصنع هي المخرج الأخير من جلسة كشك، وPinehold لا يحجبه أبدًا. لكنه يمحو الهاتف، لذا يبقى خلف عدّاد تنازلي.</string>
     <string name="youtab_reset_button">أعِد ضبط هذا الهاتف</string>
     <string name="youtab_reset_confirm_title">محو كل شيء على هذا الهاتف؟</string>
     <string name="youtab_reset_confirm_message">يذهب كل تطبيق وصورة ورسالة. هذه ليست الطريقة التي يُفترض أن تنتهي بها جلسة، ولا رجعة في ذلك.</string>
     <string name="youtab_reset_confirm_button">امحُ الهاتف</string>
     <string name="youtab_reset_settings_only">إعادة الضبط لا تُبلَغ إلا من الإعدادات على هذا الهاتف.</string>
 
-    <string name="youtab_about">FocusLock. كل ما يعرفه عنك يبقى على هذا الهاتف.</string>
+    <string name="youtab_about">Pinehold. كل ما يعرفه عنك يبقى على هذا الهاتف.</string>
 
     <!-- ══ تقارير المشكلات ══ -->
     <string name="diag_report_title">الإبلاغ عن مشكلة</string>
     <string name="diag_report_subtitle">لا يُرسل شيء حتى تختار إلى أين</string>
     <string name="diag_report_subtitle_crash">آخر توقف %1$s · لا يُرسل شيء حتى تختار إلى أين</string>
     <string name="diag_confirm_title">إرسال تقرير عن مشكلة؟</string>
-    <string name="diag_confirm_message">يحتوي التقرير على إصدار FocusLock وطراز هاتفك وإصدار أندرويد، والأذونات المفعّلة، وآخر حالات التوقف، وسجل FocusLock الحديث - وقد يذكر تطبيقات حظرها ومحادثات تيليجرام قرأها. لا شيء من التطبيقات الأخرى.\n\nأنت تختار وجهته، ويمكنك قراءته كاملاً قبل الإرسال.</string>
+    <string name="diag_confirm_message">يحتوي التقرير على إصدار Pinehold وطراز هاتفك وإصدار أندرويد، والأذونات المفعّلة، وآخر حالات التوقف، وسجل Pinehold الحديث - وقد يذكر تطبيقات حظرها ومحادثات تيليجرام قرأها. لا شيء من التطبيقات الأخرى.\n\nأنت تختار وجهته، ويمكنك قراءته كاملاً قبل الإرسال.</string>
     <string name="diag_confirm_send">جهّز التقرير</string>
     <string name="diag_share_title">أرسل التقرير عبر</string>
-    <string name="diag_crash_card_title">توقف FocusLock</string>
+    <string name="diag_crash_card_title">توقف Pinehold</string>
     <string name="diag_crash_card_body">توقف بشكل غير متوقع في %1$s. التقرير يساعد في الإصلاح - ولا يُرسل شيء إلا إذا أرسلته أنت.</string>
     <string name="diag_crash_card_send">أرسل تقريرًا</string>
     <string name="diag_crash_card_dismiss">ليس الآن</string>
@@ -89,11 +89,11 @@
     <string name="update_subtitle_current">لديك الإصدار %1$s</string>
     <string name="update_subtitle_available">الإصدار %1$s متاح</string>
     <string name="update_auto_title">تحقق مرة كل أسبوع</string>
-    <string name="update_auto_subtitle">متوقف ما لم تفعّله. يقرأ ملفًا عامًا صغيرًا من موقع FocusLock ولا يرسل شيئًا عنك.</string>
+    <string name="update_auto_subtitle">متوقف ما لم تفعّله. يقرأ ملفًا عامًا صغيرًا من موقع Pinehold ولا يرسل شيئًا عنك.</string>
     <string name="update_checking">جارٍ التحقق…</string>
     <string name="update_up_to_date">لديك أحدث إصدار (%1$s).</string>
-    <string name="update_failed">تعذر الوصول إلى موقع FocusLock. حاول مرة أخرى عند الاتصال بالإنترنت.</string>
-    <string name="update_available_title">صدر FocusLock %1$s</string>
+    <string name="update_failed">تعذر الوصول إلى موقع Pinehold. حاول مرة أخرى عند الاتصال بالإنترنت.</string>
+    <string name="update_available_title">صدر Pinehold %1$s</string>
     <string name="update_available_message">يوجد إصدار أحدث على الموقع. ثبّته فوق هذا الإصدار - تبقى إعداداتك كما هي.</string>
     <string name="update_get_it">احصل عليه</string>
     <string name="update_later">لاحقًا</string>

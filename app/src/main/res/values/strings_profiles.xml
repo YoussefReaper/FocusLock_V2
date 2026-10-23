@@ -2,7 +2,7 @@
 <resources>
     <string name="profiles_saved_toast">Setup saved.</string>
     <string name="profiles_write_failed">Could not write that file.</string>
-    <string name="profiles_not_a_setup">That file is not a FocusLock setup.</string>
+    <string name="profiles_not_a_setup">That file is not a Pinehold setup.</string>
     <string name="profiles_this_file">this file</string>
     <string name="profiles_subtitle">One setup per situation. Exam week does not need the same phone as a holiday.</string>
     <string name="profiles_saved_setups">Saved setups</string>

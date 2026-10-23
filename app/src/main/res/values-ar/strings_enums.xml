@@ -8,7 +8,7 @@
     معرّفات موارد على القوائم نفسها، تُحلّ عبر الـ Context.
 -->
 <resources>
-    <!-- سياسة التطبيق: ما يُسمح لـ FocusLock بفعله بشأن تطبيق واحد. -->
+    <!-- سياسة التطبيق: ما يُسمح لـ Pinehold بفعله بشأن تطبيق واحد. -->
     <string name="policy_allow_label">افتح بحرية</string>
     <string name="policy_allow_blurb">بلا وقفة وبلا حد. هذا التطبيق لا بأس به.</string>
     <string name="policy_allow_short">مفتوح</string>
@@ -49,7 +49,7 @@
     <string name="guard_step_back_label">تراجع خطوة</string>
     <string name="guard_step_back_blurb">يضغط زر الرجوع، فتعود إلى الشاشة السابقة وتواصل استخدام التطبيق.</string>
     <string name="guard_close_app_label">اترك التطبيق</string>
-    <string name="guard_close_app_blurb">يعيدك إلى FocusLock. استخدم هذا عندما يكون التطبيق كله هو المشكلة.</string>
+    <string name="guard_close_app_blurb">يعيدك إلى Pinehold. استخدم هذا عندما يكون التطبيق كله هو المشكلة.</string>
     <string name="guard_nudge_label">أخبرني فقط</string>
     <string name="guard_nudge_blurb">يُظهر سطرًا هادئًا ويترك الشاشة كما هي.</string>
 
@@ -110,7 +110,7 @@
 
     <!-- الأذونات التي يعتمد عليها القفل. -->
     <string name="guarded_usage_access_label">الوصول إلى الاستخدام</string>
-    <string name="guarded_usage_access_explanation">كل قاعدة تعتمد على معرفة التطبيق الذي في المقدمة. بدون هذا، لا يستطيع FocusLock رؤية أي شيء يعمل.</string>
+    <string name="guarded_usage_access_explanation">كل قاعدة تعتمد على معرفة التطبيق الذي في المقدمة. بدون هذا، لا يستطيع Pinehold رؤية أي شيء يعمل.</string>
     <string name="guarded_overlay_label">العرض فوق التطبيقات الأخرى</string>
     <string name="guarded_overlay_explanation">هذا ما يرسم شاشة الحجب فوق التطبيق المحجوب.</string>
     <string name="guarded_accessibility_label">حارس المحتوى</string>

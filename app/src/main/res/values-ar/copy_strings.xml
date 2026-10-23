@@ -25,7 +25,7 @@
     <string name="copy_kiosk_home_detail_kind">شاشتك الرئيسية المعتادة بانتظارك. ستعود عند انتهاء الجلسة.</string>
     <string name="copy_kiosk_home_detail_plain">مشغّل التطبيقات معطّل أثناء جلسة وضع الكشك.</string>
 
-    <string name="copy_overlay_guard_headline_kind">تلك الصفحة يمكنها إيقاف FocusLock</string>
+    <string name="copy_overlay_guard_headline_kind">تلك الصفحة يمكنها إيقاف Pinehold</string>
     <string name="copy_overlay_guard_headline_plain">صفحة الأذونات محظورة</string>
     <string name="copy_overlay_guard_detail_kind">إنها الشاشة الوحيدة التي قد تُنهي الجلسة مبكرًا عن طريق الخطأ، لذا تبقى مغلقة إلى أن تنتهي الجلسة.</string>
     <string name="copy_overlay_guard_detail_plain">إعدادات إذن التراكب محظورة أثناء الجلسة.</string>
@@ -133,7 +133,7 @@
     <string name="copy_analytics_intro_plain">بيانات استخدام محلية. لا يُرفع شيء.</string>
 
     <string name="copy_content_guard_headline_plain">%1$s محظور - طابق %2$s</string>
-    <string name="copy_content_guard_detail_kind">هذه إحدى الكلمات التي تراقبها، لذا تراجع FocusLock قبل أن تضطر لاتخاذ أي قرار.</string>
+    <string name="copy_content_guard_detail_kind">هذه إحدى الكلمات التي تراقبها، لذا تراجع Pinehold قبل أن تضطر لاتخاذ أي قرار.</string>
     <string name="copy_content_guard_detail_plain">طابق قاعدة الكلمة المفتاحية الخاصة بك: %1$s.</string>
 
 </resources>

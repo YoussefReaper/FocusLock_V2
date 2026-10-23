@@ -28,12 +28,12 @@
     <string name="device_owner_help_status_detail_not_owner">الوضع اللين والحظر ومعظم الحُرّاس تعمل بدون هذا. لكن وضع الكشك وحظر الوضع الآمن وتعليق التطبيقات والحماية من إلغاء التثبيت لا تعمل.</string>
 
     <string name="device_owner_help_effect_1_title">يمكن إغلاق الوضع الآمن</string>
-    <string name="device_owner_help_effect_1_detail">وإلا فإن إعادة التشغيل في الوضع الآمن تبدأ الهاتف مع إيقاف FocusLock.</string>
+    <string name="device_owner_help_effect_1_detail">وإلا فإن إعادة التشغيل في الوضع الآمن تبدأ الهاتف مع إيقاف Pinehold.</string>
     <string name="device_owner_help_effect_2_title">يمكن تعليق التطبيقات المحظورة</string>
-    <string name="device_owner_help_effect_2_detail">يرفض النظام تشغيلها، بدلًا من أن يمسكها FocusLock بعد فوات لحظة.</string>
+    <string name="device_owner_help_effect_2_detail">يرفض النظام تشغيلها، بدلًا من أن يمسكها Pinehold بعد فوات لحظة.</string>
     <string name="device_owner_help_effect_3_title">يمكن إخفاء التطبيقات المحظورة</string>
     <string name="device_owner_help_effect_3_detail">تختفي من مشغّل التطبيقات طوال مدة الجلسة.</string>
-    <string name="device_owner_help_effect_4_title">يمكن أن يكون FocusLock هو الشاشة الرئيسية</string>
+    <string name="device_owner_help_effect_4_title">يمكن أن يكون Pinehold هو الشاشة الرئيسية</string>
     <string name="device_owner_help_effect_4_detail">أثناء جلسة وضع الكشك، يصل زر الرئيسية إلى هنا بدلًا من مشغّل التطبيقات.</string>
     <string name="device_owner_help_effect_5_title">يمكن منع إلغاء التثبيت</string>
     <string name="device_owner_help_effect_5_detail">إزالة التطبيق لم تعد وسيلة لإنهاء الجلسة مبكرًا.</string>
@@ -55,7 +55,7 @@
     <string name="device_owner_help_qr_detail">على هاتف تمت إعادة ضبطه للمصنع، يفتح النقر على شاشة الترحيب ست مرات ماسح رموز QR. التزويد عبر رمز QR يُعيّن مالك الجهاز دون حاسوب، لكنه يحتاج التطبيق مستضافًا على رابط مع مجموع التحقق من توقيعه، ويمسح الهاتف كجزء من الإعداد. طريق ADB أعلاه هو العملي لهاتف قيد الاستخدام بالفعل.</string>
 
     <string name="device_owner_help_honesty_1_title">إعادة ضبط المصنع تعمل دائمًا</string>
-    <string name="device_owner_help_honesty_1_detail">إعادة الضبط من وضع الاسترداد هي المخرج النهائي ولا يمكن لأي مستوى برمجي إغلاقها. FocusLock لا يحاول ذلك، ولا يزيل أبدًا زر إعادة الضبط من تبويب أنت.</string>
+    <string name="device_owner_help_honesty_1_detail">إعادة الضبط من وضع الاسترداد هي المخرج النهائي ولا يمكن لأي مستوى برمجي إغلاقها. Pinehold لا يحاول ذلك، ولا يزيل أبدًا زر إعادة الضبط من تبويب أنت.</string>
     <string name="device_owner_help_honesty_2_title">ADB يبقى بيدك أنت لإغلاقه</string>
     <string name="device_owner_help_honesty_2_detail">التزويد لا يعطّل ADB. فقط الزر في تبويب أنت يفعل ذلك، وفقط عندما تضغطه.</string>
     <string name="device_owner_help_honesty_3_title">لا شيء عن بُعد</string>
@@ -76,7 +76,7 @@
     <string name="advanced_help_idea_body">اختيار وضع يحمّل مجموعة من المفاتيح. هذا لا يقفل تلك المفاتيح. كل واحد منها موجود في أنت ← متقدم، وما تضبطه هناك هو ما يعمل فعليًا.</string>
     <string name="advanced_help_idea_secondary">تغييراتك تبقى. القالب لا يُعاد تحميله إلا عندما تختار وضعًا مختلفًا، وهي اللحظة الوحيدة التي تكون قد طلبت فيها ذلك بوضوح.</string>
 
-    <string name="advanced_help_mode_kiosk_note">الكشك هو الوضع الوحيد الذي يثبّت الهاتف على FocusLock ويغلق مشغّل التطبيقات. يحتاج مالك الجهاز.</string>
+    <string name="advanced_help_mode_kiosk_note">الكشك هو الوضع الوحيد الذي يثبّت الهاتف على Pinehold ويغلق مشغّل التطبيقات. يحتاج مالك الجهاز.</string>
 
     <string name="advanced_help_end_early_intro">\"إنهاء جلسة مبكرًا\" مفتاح في أنت ← متقدم، وليس خاصية للوضع.</string>
     <string name="advanced_help_end_early_on_title">مُفعّل</string>
@@ -103,7 +103,7 @@
     <string name="advanced_help_escape_computer_title">3. من حاسوب</string>
     <string name="advanced_help_escape_computer_body">إذا كان الهاتف مثبّتًا ولا يمكنك الوصول إلى متقدم، فأمر ADB واحد ينهي الجلسة. يرفض العمل بدون علامة التأكيد، لذا لا يمكن أن يحدث بالخطأ.</string>
     <string name="advanced_help_escape_reset_title">4. إعادة ضبط المصنع</string>
-    <string name="advanced_help_escape_reset_body">الملاذ الأخير، والوحيد الذي يعمل دائمًا. يُلغي مالك الجهاز ويمسح الهاتف. FocusLock لا يحظره أبدًا - الزر موجود في تبويب أنت، خلف عدّاد تنازلي.</string>
+    <string name="advanced_help_escape_reset_body">الملاذ الأخير، والوحيد الذي يعمل دائمًا. يُلغي مالك الجهاز ويمسح الهاتف. Pinehold لا يحظره أبدًا - الزر موجود في تبويب أنت، خلف عدّاد تنازلي.</string>
 
     <string name="advanced_help_copy_command">انسخ الأمر</string>
     <string name="advanced_help_copied_toast">تم النسخ.</string>
@@ -122,6 +122,6 @@
     <string name="permission_recovery_end_session_cancel">تابع</string>
     <string name="permission_recovery_restricted_hint">المفتاح باهت؟ يقفله أندرويد للتطبيقات المثبتة من ملف. افتح معلومات التطبيق، واضغط ⋮ في الأعلى، واختر \"السماح بالإعدادات المقيدة\"، ثم عد وفعّله.</string>
     <string name="permission_recovery_open_app_info">افتح معلومات التطبيق</string>
-    <string name="dpm_support_short">أوقفه FocusLock مؤقتًا حتى تنتهي جلستك.</string>
+    <string name="dpm_support_short">أوقفه Pinehold مؤقتًا حتى تنتهي جلستك.</string>
 
 </resources>
