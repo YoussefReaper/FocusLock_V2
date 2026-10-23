@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- FocusLock 2 "Quiet Pine" redesign: copy introduced by the new layouts. -->
+<resources>
+    <string name="redesign_start_title">Start a session</string>
+    <string name="redesign_start_sub">Pick how firm, then how long.</string>
+    <string name="redesign_for_how_long">For how long</string>
+    <string name="redesign_other_duration">Other</string>
+    <string name="redesign_coming_up">Coming up</string>
+    <string name="redesign_while_you_focus">While you focus</string>
+    <string name="redesign_tasks_title">Tasks</string>
+    <string name="redesign_tasks_open">%1$d open</string>
+    <string name="redesign_tasks_none">Plan what earns time</string>
+    <string name="redesign_tools_title">Safe tools</string>
+    <string name="redesign_tools_sub">Browser, search, channels</string>
+    <string name="redesign_mode_on">%1$s is on</string>
+    <string name="redesign_stay_with_it">Stay with it</string>
+    <string name="redesign_left_of">left of %1$s</string>
+    <string name="redesign_ends_at_line">Ends at %1$s. Distracting apps will not open until then.</string>
+    <string name="redesign_opens_stopped">opens stopped</string>
+    <string name="redesign_focused_so_far">focused so far</string>
+    <string name="redesign_apps_open">apps still open</string>
+    <string name="redesign_end_early">End session early</string>
+    <string name="redesign_time_counts">The time you already did still counts.</string>
+    <string name="redesign_more_info">More about this strength</string>
+    <string name="common_selected">selected</string>
+    <string name="redesign_greeting_morning">Good morning</string>
+    <string name="redesign_greeting_afternoon">Good afternoon</string>
+    <string name="redesign_greeting_evening">Good evening</string>
+    <string name="redesign_greeting_night">Still up?</string>
+    <string name="redesign_rules_blocked">What\'s blocked</string>
+    <string name="redesign_rules_when">When it happens</string>
+    <string name="redesign_rules_limits_group">Limits &amp; exceptions</string>
+    <string name="redesign_rules_more">More</string>
+    <string name="redesign_rules_windows">Windows: %1$d</string>
+    <string name="redesign_rules_budgets">Budgets: %1$d</string>
+    <string name="redesign_rules_sites">Sites on the list: %1$d</string>
+    <string name="redesign_rules_words">Active guards and words: %1$d</string>
+    <string name="redesign_rules_rules">Rules: %1$d</string>
+    <string name="redesign_rules_places">Places: %1$d</string>
+    <string name="redesign_rules_test_title">Try your rules for a few minutes</string>
+    <string name="redesign_rules_test_body">Open apps and see what would happen. Nothing really locks.</string>
+    <string name="redesign_first_session_cap">Your first session with no early exit is held to 1 hour, so you can feel what it is like. Longer ones open up after it ends.</string>
+</resources>

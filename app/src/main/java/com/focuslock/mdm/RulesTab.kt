@@ -45,9 +45,6 @@ class RulesTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activi
         )
 
         add(buildRulesGrid())
-        add(FocusUi.spacer(activity, tokens.density.gapDp))
-        add(buildQuickLinksCard())
-
         add(FocusUi.spacer(activity, tokens.density.gapDp + 6))
         add(buildTestSection())
 
@@ -56,165 +53,152 @@ class RulesTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activi
 
     // ── The grid ──────────────────────────────────────────────────
 
-    private data class GridTile(
+    private data class RuleRow(
         val icon: Int,
         val title: String,
         val value: String,
-        val valueColor: Int,
         val intent: Intent,
-        val proOnly: Boolean = false
+        val proOnly: Boolean = false,
+        val tone: FocusUi.IconTone = FocusUi.IconTone.ACCENT
     )
 
+    /**
+     * Quiet Pine: three short groups that answer the questions people actually
+     * ask - what is blocked, when, and what is the exception - instead of a
+     * grid of nine equal tiles. Each row says its current state in words.
+     */
     private fun buildRulesGrid(): View {
         val isPro = DemoMode.isPro(activity)
-        val tiles = listOf(
-            GridTile(
-                R.drawable.ic_glyph_apps,
-                activity.getString(R.string.rules_editor_apps_title),
-                activity.getString(R.string.rules_grid_blocked_count, AppRules.blockedPackages(activity).size),
-                tokens.textMuted,
-                Intent(activity, AppRulesActivity::class.java)
-            ),
-            GridTile(
-                R.drawable.ic_glyph_schedules,
-                activity.getString(R.string.rules_editor_schedules_title),
-                ScheduleManager.getSchedules(activity).size.toString(),
-                tokens.textMuted,
-                Intent(activity, ScheduleActivity::class.java)
-            ),
-            GridTile(
-                R.drawable.ic_glyph_bedtime,
-                activity.getString(R.string.rules_editor_bedtime_title),
-                if (!isPro) {
-                    activity.getString(R.string.pro_badge)
-                } else if (CapabilityRegistry.isEnabled(activity, Capabilities.BEDTIME_MODE)) {
-                    Bedtime.formatWindow(activity)
-                } else {
-                    activity.getString(R.string.common_off)
-                },
-                if (!isPro || CapabilityRegistry.isEnabled(activity, Capabilities.BEDTIME_MODE)) tokens.accent else tokens.textMuted,
-                Intent(activity, BedtimeActivity::class.java),
-                proOnly = true
-            ),
-            GridTile(
-                R.drawable.ic_glyph_limits,
-                activity.getString(R.string.rules_editor_daily_limits_title),
-                (AppLimits.allMinuteLimits(activity).size + AppLimits.allOpenLimits(activity).size).toString(),
-                tokens.textMuted,
-                Intent(activity, AppLimitsActivity::class.java)
-            ),
-            GridTile(
-                R.drawable.ic_glyph_guard,
-                activity.getString(R.string.rules_editor_websites_title),
-                AllowlistStore.getWebAllowlistUrls(activity).size.toString(),
-                tokens.textMuted,
-                Intent(activity, WebAllowlistEditorActivity::class.java)
-            ),
-            GridTile(
-                R.drawable.ic_glyph_keywords,
-                activity.getString(R.string.rules_editor_keyword_guard_title),
-                KeywordRules.activeRules(activity).size.toString(),
-                tokens.textMuted,
-                Intent(activity, KeywordGuardActivity::class.java)
-            ),
-            GridTile(
-                R.drawable.ic_glyph_places,
-                activity.getString(R.string.rules_editor_places_title),
-                if (!isPro) {
-                    activity.getString(R.string.pro_badge)
-                } else {
-                    PlaceRules.activePlaces(activity).firstOrNull()?.label
-                        ?: PlaceRules.all(activity).size.toString()
-                },
-                if (!isPro) tokens.accent else if (PlaceRules.activePlaces(activity).isNotEmpty()) tokens.success else tokens.textMuted,
-                Intent(activity, PlaceRulesActivity::class.java),
-                proOnly = true
-            ),
-            GridTile(
-                R.drawable.ic_glyph_rules,
-                activity.getString(R.string.rules_editor_custom_rules_title),
-                if (!isPro) {
-                    activity.getString(R.string.pro_badge)
-                } else {
-                    RuleStore.all(activity).size.toString()
-                },
-                if (!isPro) tokens.accent else tokens.textMuted,
-                Intent(activity, RuleEditorActivity::class.java),
-                proOnly = true
+        val column = FocusUi.column(activity)
+
+        fun group(label: Int, rows: List<RuleRow>) {
+            column.addView(FocusUi.sectionLabel(activity, tokens, activity.getString(label)))
+            column.addView(buildGroupCard(rows, isPro))
+        }
+
+        group(
+            R.string.redesign_rules_blocked,
+            listOf(
+                RuleRow(
+                    R.drawable.ic_glyph_apps,
+                    activity.getString(R.string.rules_editor_apps_title),
+                    activity.getString(R.string.rules_grid_blocked_count, AppRules.blockedPackages(activity).size),
+                    Intent(activity, AppRulesActivity::class.java)
+                ),
+                RuleRow(
+                    R.drawable.ic_glyph_guard,
+                    activity.getString(R.string.rules_editor_websites_title),
+                    activity.getString(R.string.redesign_rules_sites, AllowlistStore.getWebAllowlistUrls(activity).size),
+                    Intent(activity, WebAllowlistEditorActivity::class.java)
+                ),
+                RuleRow(
+                    R.drawable.ic_glyph_keywords,
+                    activity.getString(R.string.rules_editor_keyword_guard_title),
+                    activity.getString(R.string.redesign_rules_words, KeywordRules.activeRules(activity).size),
+                    Intent(activity, KeywordGuardActivity::class.java)
+                )
             )
         )
-
-        val column = FocusUi.column(activity)
-        tiles.chunked(2).forEach { pair ->
-            val views = pair.map { buildGridTile(it) }
-            val row = FocusUi.tileRow(
-                activity,
-                if (views.size == 1) views + spacerTile() else views,
-                gapDp = 9
+        group(
+            R.string.redesign_rules_when,
+            listOf(
+                RuleRow(
+                    R.drawable.ic_glyph_schedules,
+                    activity.getString(R.string.rules_editor_schedules_title),
+                    activity.getString(R.string.redesign_rules_windows, ScheduleManager.getSchedules(activity).size),
+                    Intent(activity, ScheduleActivity::class.java)
+                ),
+                RuleRow(
+                    R.drawable.ic_glyph_bedtime,
+                    activity.getString(R.string.rules_editor_bedtime_title),
+                    if (CapabilityRegistry.isEnabled(activity, Capabilities.BEDTIME_MODE)) Bedtime.formatWindow(activity)
+                    else activity.getString(R.string.common_off),
+                    Intent(activity, BedtimeActivity::class.java),
+                    proOnly = true
+                ),
+                RuleRow(
+                    R.drawable.ic_glyph_places,
+                    activity.getString(R.string.rules_editor_places_title),
+                    PlaceRules.activePlaces(activity).firstOrNull()?.label
+                        ?: activity.getString(R.string.redesign_rules_places, PlaceRules.all(activity).size),
+                    Intent(activity, PlaceRulesActivity::class.java),
+                    proOnly = true
+                )
             )
-            row.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            ).apply { bottomMargin = FocusUi.dp(activity, 9) }
-            column.addView(row)
-        }
+        )
+        group(
+            R.string.redesign_rules_limits_group,
+            listOf(
+                RuleRow(
+                    R.drawable.ic_glyph_limits,
+                    activity.getString(R.string.rules_editor_daily_limits_title),
+                    activity.getString(R.string.redesign_rules_budgets, AppLimits.allMinuteLimits(activity).size + AppLimits.allOpenLimits(activity).size),
+                    Intent(activity, AppLimitsActivity::class.java),
+                    tone = FocusUi.IconTone.WARM
+                ),
+                RuleRow(
+                    R.drawable.ic_glyph_apps,
+                    activity.getString(R.string.rules_editor_always_allowed_title),
+                    activity.getString(R.string.common_apps_count, AppRules.alwaysAllowed(activity).size),
+                    Intent(activity, AlwaysAllowedActivity::class.java)
+                )
+            )
+        )
+        group(
+            R.string.redesign_rules_more,
+            listOf(
+                RuleRow(
+                    R.drawable.ic_glyph_rules,
+                    activity.getString(R.string.rules_editor_custom_rules_title),
+                    activity.getString(R.string.redesign_rules_rules, RuleStore.all(activity).size),
+                    Intent(activity, RuleEditorActivity::class.java),
+                    proOnly = true,
+                    tone = FocusUi.IconTone.MUTED
+                ),
+                RuleRow(
+                    R.drawable.ic_glyph_insight,
+                    activity.getString(R.string.rules_profiles_title),
+                    activity.getString(R.string.rules_profiles_subtitle),
+                    Intent(activity, ProfilesActivity::class.java),
+                    tone = FocusUi.IconTone.MUTED
+                )
+            )
+        )
         return column
     }
 
-    /** An invisible half-width placeholder, so a lone last tile keeps the grid's column width. */
-    private fun spacerTile(): View = View(activity)
-
-    private fun buildGridTile(tile: GridTile): View {
-        val card = FocusUi.card(activity, tokens) {
-            if (tile.proOnly) {
-                DemoMode.requirePro(activity, tile.title) {
-                    activity.startActivity(tile.intent)
-                    render()
-                }
-            } else {
-                activity.startActivity(tile.intent)
-            }
-        }
-
-        val topRow = FocusUi.row(activity)
-        topRow.addView(FocusUi.categoryIcon(activity, tokens, tile.icon, tokens.accent, 20))
-        val value = FocusUi.caption(activity, tokens, tile.value)
-        value.setTextColor(tile.valueColor)
-        value.gravity = android.view.Gravity.END
-        value.layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
-            .apply { marginStart = FocusUi.dp(activity, 8) }
-        topRow.addView(value)
-        card.addView(topRow)
-
-        card.addView(FocusUi.spacer(activity, 8))
-        card.addView(FocusUi.rowTitle(activity, tokens, tile.title))
-        return card
-    }
-
-    // ── Always allowed · Profiles ─────────────────────────────────
-
-    private fun buildQuickLinksCard(): View {
+    private fun buildGroupCard(rows: List<RuleRow>, isPro: Boolean): View {
         val card = FocusUi.card(activity, tokens)
-        card.addView(
-            FocusUi.listRow(
-                activity,
-                tokens,
-                activity.getString(R.string.rules_editor_always_allowed_title),
-                activity.getString(R.string.common_apps_count, AppRules.alwaysAllowed(activity).size),
-                trailing = FocusUi.chevron(activity, tokens)
-            ) { activity.startActivity(Intent(activity, AlwaysAllowedActivity::class.java)) }
-        )
-        card.addView(FocusUi.divider(activity, tokens))
-
-        card.addView(
-            FocusUi.listRow(
-                activity,
-                tokens,
-                activity.getString(R.string.rules_profiles_title),
-                activity.getString(R.string.rules_profiles_subtitle),
-                trailing = FocusUi.chevron(activity, tokens)
-            ) { activity.startActivity(Intent(activity, ProfilesActivity::class.java)) }
-        )
+        val padV = FocusUi.dp(activity, 4)
+        card.setPadding(FocusUi.dp(activity, 16), padV, FocusUi.dp(activity, 12), padV)
+        rows.forEachIndexed { index, row ->
+            if (index > 0) card.addView(FocusUi.divider(activity, tokens))
+            val locked = row.proOnly && !isPro
+            val trailing: View = if (locked) {
+                FocusUi.pill(activity, tokens, activity.getString(R.string.pro_badge), tokens.textPrimary)
+            } else {
+                FocusUi.chevron(activity, tokens)
+            }
+            card.addView(
+                FocusUi.listRow(
+                    activity,
+                    tokens,
+                    row.title,
+                    row.value,
+                    trailing = trailing,
+                    leading = FocusUi.iconTile(activity, tokens, row.icon, row.tone)
+                ) {
+                    if (row.proOnly) {
+                        DemoMode.requirePro(activity, row.title) {
+                            activity.startActivity(row.intent)
+                            render()
+                        }
+                    } else {
+                        activity.startActivity(row.intent)
+                    }
+                }
+            )
+        }
         return card
     }
 
@@ -248,11 +232,20 @@ class RulesTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activi
             !TestMode.canStart(activity) -> column.addView(
                 FocusUi.caption(activity, tokens, activity.getString(R.string.rules_test_session_running))
             )
-            else -> column.addView(
-                buildOutlineIconButton(R.drawable.ic_glyph_break, activity.getString(R.string.rules_test_start_button), tokens.accent) {
-                    pickTestLength()
-                }
-            )
+            else -> {
+                val card = FocusUi.card(activity, tokens) { pickTestLength() }
+                card.addView(
+                    FocusUi.listRow(
+                        activity,
+                        tokens,
+                        activity.getString(R.string.redesign_rules_test_title),
+                        activity.getString(R.string.redesign_rules_test_body),
+                        trailing = FocusUi.chevron(activity, tokens),
+                        leading = FocusUi.iconTile(activity, tokens, R.drawable.ic_glyph_break, FocusUi.IconTone.SOLID)
+                    ) { pickTestLength() }
+                )
+                column.addView(card)
+            }
         }
         return column
     }

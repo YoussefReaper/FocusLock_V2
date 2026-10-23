@@ -450,7 +450,7 @@ object UiPrefs {
     }
 
     fun showQuickSettings(context: Context): Boolean =
-        prefs(context).getBoolean(Constants.KEY_UI_SHOW_QUICK, true)
+        prefs(context).getBoolean(Constants.KEY_UI_SHOW_QUICK, false)
 
     fun setShowQuickSettings(context: Context, value: Boolean) {
         prefs(context).edit().putBoolean(Constants.KEY_UI_SHOW_QUICK, value).apply()
@@ -511,7 +511,7 @@ object UiPrefs {
             .putBoolean(Constants.KEY_UI_REDUCED_MOTION, false)
             .putBoolean(Constants.KEY_UI_HIGH_CONTRAST, false)
             .putBoolean(Constants.KEY_UI_SHOW_KIOSK, true)
-            .putBoolean(Constants.KEY_UI_SHOW_QUICK, true)
+            .putBoolean(Constants.KEY_UI_SHOW_QUICK, false)
             .putBoolean(Constants.KEY_UI_SHOW_ALLOWED_APPS, true)
             .putBoolean(Constants.KEY_UI_SHOW_WEB_BUTTON, true)
             .putBoolean(Constants.KEY_UI_SHOW_VIDEO, true)

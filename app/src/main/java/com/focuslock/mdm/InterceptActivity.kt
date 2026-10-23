@@ -154,7 +154,7 @@ class InterceptActivity : AppCompatActivity() {
         top.addView(buildOverline())
         top.addView(FocusUi.spacer(this, 6))
 
-        val headlineView = FocusUi.display(this, tokens, headline)
+        val headlineView = FocusUi.title(this, tokens, headline)
         headlineView.gravity = Gravity.CENTER
         top.addView(headlineView)
 
@@ -220,11 +220,10 @@ class InterceptActivity : AppCompatActivity() {
             else -> getString(R.string.app_rules_title)
         }
         val view = TextView(this)
-        view.text = getString(R.string.intercept_overline_format, category).uppercase()
-        view.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, tokens.scaled(11f))
-        view.setTextColor(tokens.accent)
-        FocusUi.applyFont(view, tokens, mono = true, weight = 600)
-        view.letterSpacing = 0.09f
+        view.text = getString(R.string.intercept_overline_format, category)
+        view.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, tokens.scaled(13.5f))
+        view.setTextColor(tokens.textMuted)
+        FocusUi.applyFont(view, tokens, weight = 650)
         view.gravity = Gravity.CENTER
         return view
     }
@@ -235,19 +234,15 @@ class InterceptActivity : AppCompatActivity() {
      */
     private fun buildMark(): View {
         val holder = FrameLayout(this)
-        val size = FocusUi.dp(this, 108)
+        // Quiet Pine: the app itself, resting on a soft tile. Calm, not a warning.
+        val size = FocusUi.dp(this, 104)
         holder.layoutParams = LinearLayout.LayoutParams(size, size).apply {
             gravity = Gravity.CENTER_HORIZONTAL
         }
-        holder.background = FocusUi.roundedShape(
-            this,
-            UiPrefs.withAlpha(tokens.accent, 26),
-            54,
-            UiPrefs.withAlpha(tokens.accent, 70)
-        )
+        holder.background = FocusUi.roundedShape(this, tokens.accentSoft, 30)
 
         val inner: View = if (blockedPackage.isNotBlank() && AppCatalog.icon(this, blockedPackage) != null) {
-            FocusUi.appIcon(this, tokens, blockedPackage, 46)
+            FocusUi.appIcon(this, tokens, blockedPackage, 60)
         } else {
             val glyph = TextView(this)
             glyph.text = if (isPause) "…" else "•"

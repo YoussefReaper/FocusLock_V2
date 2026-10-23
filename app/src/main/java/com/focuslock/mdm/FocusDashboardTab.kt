@@ -71,19 +71,19 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
 
         buildNoticeCard()?.let { add(it) }
 
+        // Quiet Pine: one decision per screen. Idle shows a single start card;
+        // a running session shows only its status. The preset shortcuts and
+        // the Device Owner upsell moved to Rules and You, where they are a
+        // choice rather than a wall in front of the Start button.
         if (SessionManager.isActive(activity)) {
             add(buildActiveSession())
         } else {
             add(buildStarter())
-            add(buildOneTapPresetsCard())
-            if (!SetupChecks.isDeviceOwner(activity)) {
-                add(buildUnbreakableUpgradeCard())
-            }
         }
 
         buildOnATimerCard()?.let { add(it) }
 
-        add(FocusUi.sectionLabel(activity, tokens, activity.getString(R.string.dashboard_tasks_and_tools)))
+        add(FocusUi.sectionLabel(activity, tokens, activity.getString(R.string.redesign_while_you_focus)))
         add(buildTasksAndToolsCard())
 
         if (UiPrefs.showQuickSettings(activity)) {
@@ -94,126 +94,48 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
         Motion.stagger(added, tokens)
     }
 
-    private fun buildOneTapPresetsCard(): View {
-        val card = FocusUi.card(activity, tokens)
-        card.addView(FocusUi.caption(activity, tokens, activity.getString(R.string.onboarding_presets_heading)))
-        card.addView(FocusUi.spacer(activity, 8))
-
-        val row = FocusUi.row(activity)
-        val presets = listOf(
-            "study" to activity.getString(R.string.preset_study_title),
-            "sleep" to activity.getString(R.string.preset_sleep_title),
-            "detox" to activity.getString(R.string.preset_detox_title)
-        )
-        presets.forEachIndexed { idx, (key, label) ->
-            val btn = FocusUi.smallButton(activity, tokens, label) {
-                applyQuickPreset(key)
-            }
-            btn.layoutParams = LinearLayout.LayoutParams(0, FocusUi.dp(activity, 40), 1f).apply {
-                if (idx > 0) marginStart = FocusUi.dp(activity, 8)
-            }
-            row.addView(btn)
-        }
-        card.addView(row)
-        return card
-    }
-
-    private fun applyQuickPreset(presetId: String) {
-        if (SessionLock.isFrozen(activity)) {
-            FocusDialog.toast(activity, SessionLock.refusalMessage(activity))
-            return
-        }
-        val essentials = AppCatalog.detectEssentials(activity).toSet()
-        val launchable = AppCatalog.launchable(activity).filterNot { it.packageName in essentials }
-        when (presetId) {
-            "study" -> {
-                val targets = launchable.filter {
-                    it.category in setOf(AppCategory.SOCIAL, AppCategory.VIDEO, AppCategory.GAMES)
-                }.map { it.packageName }.ifEmpty { Seed.obviousDistractions }
-                AppRules.setPolicies(activity, targets, AppPolicy.BLOCK)
-                selectedMode = FocusMode.BLOCK
-                selectedDurationMs = 60L * 60L * 1000L
-                SessionManager.start(activity, FocusMode.BLOCK, selectedDurationMs)
-                FocusDialog.toast(activity, activity.getString(R.string.preset_applied_toast, activity.getString(R.string.preset_study_title)))
-            }
-            "sleep" -> {
-                CapabilityRegistry.setEnabled(activity, Capabilities.BEDTIME_MODE, true)
-                Bedtime.setWindow(activity, 22 * 60, 6 * 60)
-                Bedtime.setBlockedCategories(
-                    activity,
-                    listOf(AppCategory.SOCIAL, AppCategory.VIDEO, AppCategory.GAMES)
-                )
-                FocusDialog.toast(activity, activity.getString(R.string.preset_applied_toast, activity.getString(R.string.preset_sleep_title)))
-            }
-            "detox" -> {
-                val targets = launchable.filter {
-                    it.category in setOf(AppCategory.SOCIAL, AppCategory.VIDEO)
-                }.map { it.packageName }.ifEmpty { Seed.obviousDistractions }
-                AppRules.setPolicies(activity, targets, AppPolicy.FRICTION)
-                CapabilityRegistry.setEnabled(activity, Capabilities.LAUNCH_FRICTION, true)
-                selectedMode = FocusMode.SOFT
-                selectedDurationMs = 2L * 60L * 60L * 1000L
-                SessionManager.start(activity, FocusMode.SOFT, selectedDurationMs)
-                FocusDialog.toast(activity, activity.getString(R.string.preset_applied_toast, activity.getString(R.string.preset_detox_title)))
-            }
-        }
-        render()
-    }
-
-    private fun buildUnbreakableUpgradeCard(): View {
-        val card = FocusUi.card(activity, tokens) {
-            activity.startActivity(Intent(activity, DeviceOwnerHelpActivity::class.java))
-        }
-        val header = FocusUi.row(activity)
-        val title = FocusUi.heading(activity, tokens, activity.getString(R.string.dashboard_unbreakable_card_title))
-        title.layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f)
-        header.addView(title)
-        header.addView(FocusUi.pill(activity, tokens, activity.getString(R.string.pro_badge), tokens.accent))
-        card.addView(header)
-        card.addView(FocusUi.spacer(activity, 4))
-        card.addView(FocusUi.secondary(activity, tokens, activity.getString(R.string.dashboard_unbreakable_card_body)))
-        card.addView(FocusUi.spacer(activity, 10))
-        card.addView(
-            FocusUi.smallButton(activity, tokens, activity.getString(R.string.dashboard_show_me_how)) {
-                activity.startActivity(Intent(activity, DeviceOwnerHelpActivity::class.java))
-            }
-        )
-        return card
-    }
-
     private fun buildTasksAndToolsCard(): View {
-        val card = FocusUi.card(activity, tokens)
         val openTasksCount = FocusTaskStore.all(activity).count { !it.completed }
-        val tasksSubtitle = if (openTasksCount > 0) {
-            activity.getString(R.string.dashboard_tasks_card_subtitle) + " · " + openTasksCount
-        } else {
-            activity.getString(R.string.dashboard_tasks_card_subtitle)
-        }
-        card.addView(
-            FocusUi.listRow(
-                activity,
-                tokens,
-                activity.getString(R.string.dashboard_tasks_card_title),
-                tasksSubtitle,
-                trailing = FocusUi.chevron(activity, tokens),
-                leading = FocusUi.categoryIcon(activity, tokens, R.drawable.ic_glyph_tasks, tokens.accent)
-            ) {
-                activity.selectTab(MainActivity.TAB_TASKS)
-            }
-        )
-        card.addView(FocusUi.divider(activity, tokens))
-        card.addView(
-            FocusUi.listRow(
-                activity,
-                tokens,
-                activity.getString(R.string.dashboard_tools_card_title),
-                activity.getString(R.string.dashboard_tools_card_subtitle),
-                trailing = FocusUi.chevron(activity, tokens),
-                leading = FocusUi.categoryIcon(activity, tokens, R.drawable.ic_glyph_library, tokens.accent)
-            ) {
-                activity.selectTab(MainActivity.TAB_LIBRARY)
-            }
-        )
+        val tasks = buildShortcutCard(
+            R.drawable.ic_glyph_tasks,
+            FocusUi.IconTone.WARM,
+            activity.getString(R.string.redesign_tasks_title),
+            if (openTasksCount > 0) activity.getString(R.string.redesign_tasks_open, openTasksCount)
+            else activity.getString(R.string.redesign_tasks_none)
+        ) { activity.selectTab(MainActivity.TAB_TASKS) }
+        val tools = buildShortcutCard(
+            R.drawable.ic_glyph_library,
+            FocusUi.IconTone.ACCENT,
+            activity.getString(R.string.redesign_tools_title),
+            activity.getString(R.string.redesign_tools_sub)
+        ) { activity.selectTab(MainActivity.TAB_LIBRARY) }
+        val row = FocusUi.tileRow(activity, listOf(tasks, tools), gapDp = 10)
+        row.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        ).apply { bottomMargin = FocusUi.dp(activity, tokens.density.gapDp) }
+        return row
+    }
+
+    /** A half-width card: icon tile, title, one line of state. */
+    private fun buildShortcutCard(
+        iconRes: Int,
+        tone: FocusUi.IconTone,
+        title: String,
+        subtitle: String,
+        onClick: () -> Unit
+    ): View {
+        val card = FocusUi.card(activity, tokens, onClick = onClick)
+        card.contentDescription = "$title. $subtitle"
+        card.addView(FocusUi.iconTile(activity, tokens, iconRes, tone))
+        card.addView(FocusUi.spacer(activity, 12))
+        card.addView(FocusUi.heading(activity, tokens, title))
+        val sub = FocusUi.caption(activity, tokens, subtitle)
+        sub.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        ).apply { topMargin = FocusUi.dp(activity, 2) }
+        card.addView(sub)
         return card
     }
 
@@ -266,16 +188,160 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
         return activity.getString(R.string.dashboard_day_period, day, period)
     }
 
-    private fun statusHeadline(): String =
-        if (SessionManager.isActive(activity)) {
-            activity.getString(R.string.mode_running_suffix, SessionManager.mode(activity).label(activity))
-        } else {
-            activity.getString(R.string.dashboard_nothing_running)
-        }
+    /** A plain greeting: the running state already has its own pill below. */
+    private fun statusHeadline(): String {
+        val hour = java.util.Calendar.getInstance().get(java.util.Calendar.HOUR_OF_DAY)
+        return activity.getString(
+            when {
+                hour < 5 -> R.string.redesign_greeting_night
+                hour < 12 -> R.string.redesign_greeting_morning
+                hour < 18 -> R.string.redesign_greeting_afternoon
+                else -> R.string.redesign_greeting_evening
+            }
+        )
+    }
 
     // ── Active session ────────────────────────────────────────────
 
     private fun buildActiveSession(): View {
+        val mode = SessionManager.mode(activity)
+        if (mode == FocusMode.KIOSK) return buildKioskSession()
+
+        // Quiet Pine running view: no card around it. A status pill, a big
+        // countdown ring, one calm line, three numbers, and the way out.
+        val column = FocusUi.column(activity)
+        column.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        ).apply { bottomMargin = FocusUi.dp(activity, tokens.density.gapDp) }
+
+        val status = FocusUi.row(activity)
+        val pill = FocusUi.pill(activity, tokens, activity.getString(R.string.redesign_mode_on, mode.label(activity)), tokens.accent)
+        status.addView(pill)
+        status.addView(View(activity).apply { layoutParams = LinearLayout.LayoutParams(0, 1, 1f) })
+        status.addView(buildInfoGlyph { showModeDetail(mode) })
+        column.addView(status)
+
+        val ringHolder = android.widget.FrameLayout(activity)
+        ringHolder.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        ).apply { topMargin = FocusUi.dp(activity, 8) }
+        val indicator = FocusUi.progressRing(activity, tokens, 236)
+        indicator.layoutParams = android.widget.FrameLayout.LayoutParams(
+            android.widget.FrameLayout.LayoutParams.WRAP_CONTENT,
+            android.widget.FrameLayout.LayoutParams.WRAP_CONTENT
+        ).apply { gravity = Gravity.CENTER }
+        ringHolder.addView(indicator)
+        ring = indicator
+
+        val centre = FocusUi.column(activity)
+        centre.gravity = Gravity.CENTER
+        centre.layoutParams = android.widget.FrameLayout.LayoutParams(
+            android.widget.FrameLayout.LayoutParams.WRAP_CONTENT,
+            android.widget.FrameLayout.LayoutParams.WRAP_CONTENT
+        ).apply { gravity = Gravity.CENTER }
+        val timeLeft = FocusUi.display(activity, tokens, SessionManager.formatCountdown(SessionManager.remainingMs(activity)))
+        timeLeft.gravity = Gravity.CENTER
+        timeLeft.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        countdownView = timeLeft
+        progressView = null
+        centre.addView(timeLeft)
+        val leftOf = FocusUi.caption(
+            activity,
+            tokens,
+            activity.getString(R.string.redesign_left_of, SessionManager.formatDuration(SessionManager.durationMs(activity)))
+        )
+        leftOf.gravity = Gravity.CENTER
+        leftOf.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        ).apply { topMargin = FocusUi.dp(activity, 4) }
+        centre.addView(leftOf)
+        ringHolder.addView(centre)
+        column.addView(ringHolder)
+        Motion.animateProgress(indicator, SessionManager.progressPercent(activity), tokens)
+
+        val stay = FocusUi.title(activity, tokens, activity.getString(R.string.redesign_stay_with_it))
+        stay.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, tokens.scaled(22f))
+        stay.gravity = Gravity.CENTER
+        stay.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        ).apply { topMargin = FocusUi.dp(activity, 18) }
+        column.addView(stay)
+        val ends = FocusUi.caption(
+            activity,
+            tokens,
+            activity.getString(R.string.redesign_ends_at_line, TimeText.dateTime(activity, SessionManager.endsAt(activity)))
+        )
+        ends.gravity = Gravity.CENTER
+        ends.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        ).apply { topMargin = FocusUi.dp(activity, 4) }
+        column.addView(ends)
+
+        column.addView(FocusUi.spacer(activity, 18))
+        column.addView(
+            FocusUi.tileRow(
+                activity,
+                listOf(
+                    FocusUi.statTile(activity, tokens, Streaks.blocksStoppedToday(activity).toString(), activity.getString(R.string.redesign_opens_stopped)),
+                    FocusUi.statTile(activity, tokens, SessionManager.formatDuration(SessionManager.elapsedMs(activity)), activity.getString(R.string.redesign_focused_so_far)),
+                    FocusUi.statTile(activity, tokens, AppRules.alwaysAllowed(activity).size.toString(), activity.getString(R.string.redesign_apps_open))
+                ),
+                gapDp = 10
+            )
+        )
+
+        val passes = TakeABreak.activePasses(activity)
+        if (passes.isNotEmpty()) {
+            column.addView(FocusUi.spacer(activity, 12))
+            val card = FocusUi.card(activity, tokens)
+            passes.forEach { entry ->
+                card.addView(
+                    FocusUi.listRow(
+                        activity,
+                        tokens,
+                        AppCatalog.label(activity, entry.key),
+                        activity.getString(R.string.dashboard_break_ends_in, SessionManager.formatDuration(entry.value)),
+                        trailing = FocusUi.smallButton(activity, tokens, activity.getString(R.string.dashboard_end_now)) {
+                            TakeABreak.endEarly(activity, entry.key)
+                            render()
+                        },
+                        leading = FocusUi.appIcon(activity, tokens, entry.key, 32)
+                    )
+                )
+            }
+            column.addView(card)
+        }
+
+        column.addView(FocusUi.spacer(activity, 14))
+        if (SessionManager.canEndEarly(activity)) {
+            val end = FocusUi.ghostButton(activity, tokens, activity.getString(R.string.redesign_end_early)) { confirmEndSession() }
+            end.setTextColor(tokens.textSecondary)
+            column.addView(end)
+            val counts = FocusUi.caption(activity, tokens, activity.getString(R.string.redesign_time_counts))
+            counts.gravity = Gravity.CENTER
+            column.addView(counts)
+        } else {
+            val note = FocusUi.caption(
+                activity,
+                tokens,
+                if (mode.isHard) activity.getString(R.string.dashboard_hard_mode_body)
+                else activity.getString(R.string.dashboard_early_exit_off_body)
+            )
+            note.gravity = Gravity.CENTER
+            column.addView(note)
+        }
+        return column
+    }
+
+    private fun buildKioskSession(): View {
         val card = FocusUi.card(activity, tokens)
         val mode = SessionManager.mode(activity)
         val kiosk = mode == FocusMode.KIOSK
@@ -498,183 +564,165 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
     // ── Starting a session ────────────────────────────────────────
 
     private fun buildStarter(): View {
-        val column = FocusUi.column(activity)
-
         val available = FocusMode.available(activity)
+        val card = FocusUi.card(activity, tokens)
         if (available.isEmpty()) {
-            val card = FocusUi.card(activity, tokens)
-            card.addView(
-                FocusUi.body(
-                    activity,
-                    tokens,
-                    activity.getString(R.string.all_modes_off_body)
-                )
-            )
+            card.addView(FocusUi.body(activity, tokens, activity.getString(R.string.all_modes_off_body)))
             card.addView(FocusUi.spacer(activity, 12))
             card.addView(
                 FocusUi.secondaryButton(activity, tokens, activity.getString(R.string.dashboard_open_rules)) {
                     activity.selectTab(MainActivity.TAB_RULES)
                 }
             )
-            column.addView(card)
-            return column
+            return card
         }
 
-        // Never leave the selection sitting on a mode that cannot be started -
-        // either because it is switched off, or because the demo locks it. The
-        // fallback is the first mode that *can* run, so the Start button below
-        // always describes something real.
+        // Never leave the selection on a mode that cannot be started, so the
+        // Start button always describes something real.
         if (selectedMode !in available || DemoMode.isModeLocked(activity, selectedMode)) {
             selectedMode = available.firstOrNull { !DemoMode.isModeLocked(activity, it) } ?: available.first()
         }
 
-        column.addView(buildModeGrid(available))
-        column.addView(FocusUi.spacer(activity, 10))
-        column.addView(buildModeSummaryLine())
-        column.addView(FocusUi.spacer(activity, 6))
-        column.addView(buildDurationPicker())
-
-        column.addView(FocusUi.spacer(activity, 10))
-        val canStart = DemoMode.hasSessionLeft(activity)
-        if (canStart) {
-            column.addView(
-                FocusUi.primaryButton(
-                    activity,
-                    tokens,
-                    activity.getString(R.string.mode_start_button, selectedMode.label(activity), SessionManager.formatDuration(selectedDurationMs))
-                ) { confirmStart() }
-            )
-        } else {
-            // The demo's session is spent. The button says so and still opens
-            // the explanation, rather than being inert - a dead control with no
-            // reason on it is the thing this whole banner exists to avoid.
-            column.addView(
-                FocusUi.primaryButton(
-                    activity,
-                    tokens,
-                    activity.getString(R.string.demo_start_used_up)
-                ) { confirmStart() }
-            )
-        }
-
-        // A link, not a card: the two toggles it opens are for the one
-        // in a hundred sessions where the default isn't right, and a
-        // full settings card for that used to out-weigh the Start button
-        // itself whenever Kiosk was picked.
-        if (selectedMode == FocusMode.KIOSK) {
-            column.addView(FocusUi.spacer(activity, 8))
-            column.addView(buildKioskOptionsLink())
-        }
-
-        // The same gap a card leaves under itself. The starter is a plain
-        // column, not a card, so it had none, and the next card sat flush
-        // against the Start button.
-        column.layoutParams = LinearLayout.LayoutParams(
+        card.addView(FocusUi.heading(activity, tokens, activity.getString(R.string.redesign_start_title)))
+        val sub = FocusUi.caption(activity, tokens, activity.getString(R.string.redesign_start_sub))
+        sub.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
-        ).apply { bottomMargin = FocusUi.dp(activity, tokens.density.gapDp) }
-        return column
-    }
+        ).apply { topMargin = FocusUi.dp(activity, 2) }
+        card.addView(sub)
+        card.addView(FocusUi.spacer(activity, 16))
 
-    /**
-     * A 2×2 grid, each tile just a strength and a name (design doc: "a row is
-     * a title and a state"). What a mode actually does, its exit line, and
-     * the device-owner warning all moved to [buildModeSummaryLine]'s ⓘ -
-     * four full explanations stacked at once was a wall before you had even
-     * picked one.
-     */
-    private fun buildModeGrid(available: List<FocusMode>): View {
-        val column = FocusUi.column(activity)
-        available.chunked(2).forEach { pair ->
-            val cards = pair.map { buildModeCard(it) }
-            // Equal heights enforced by the row rather than by hoping every
-            // mode name happens to fit on one line - at a large text scale, or
-            // in Arabic, "Sanctuary" wraps and its partner did not follow.
-            val row = FocusUi.tileRow(
-                activity,
-                if (cards.size == 1) cards + View(activity) else cards,
-                gapDp = 9
-            )
-            row.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            ).apply { bottomMargin = FocusUi.dp(activity, 9) }
-            column.addView(row)
-        }
-        return column
-    }
+        card.addView(buildModeLadder(available))
+        card.addView(FocusUi.spacer(activity, 12))
+        card.addView(buildModeSummaryLine())
+        card.addView(FocusUi.spacer(activity, 16))
 
-    private fun buildModeCard(mode: FocusMode): View {
-        if (DemoMode.isModeLocked(activity, mode)) return buildLockedModeCard(mode)
-
-        val selected = mode == selectedMode
-        val card = FocusUi.card(activity, tokens, elevated = selected) {
-            selectedMode = mode
-            render()
-        }
-        if (selected) {
-            card.background = FocusUi.roundedShape(
-                activity,
-                tokens.surfaceAlt,
-                tokens.radiusDp,
-                tokens.accent,
-                2
-            )
-        }
-
-        card.addView(buildStrengthDots(mode.strength))
+        val howLong = FocusUi.caption(activity, tokens, activity.getString(R.string.redesign_for_how_long))
+        FocusUi.applyFont(howLong, tokens, weight = 650)
+        howLong.setTextColor(tokens.textSecondary)
+        card.addView(howLong)
         card.addView(FocusUi.spacer(activity, 8))
-        card.addView(FocusUi.rowTitle(activity, tokens, mode.label(activity)))
+        card.addView(buildDurationPicker())
+        card.addView(FocusUi.spacer(activity, 16))
+
+        val canStart = DemoMode.hasSessionLeft(activity)
+        card.addView(
+            FocusUi.primaryButton(
+                activity,
+                tokens,
+                if (canStart) {
+                    activity.getString(R.string.mode_start_button, selectedMode.label(activity), SessionManager.formatDuration(selectedDurationMs))
+                } else {
+                    activity.getString(R.string.demo_start_used_up)
+                }
+            ) { confirmStart() }
+        )
+
+        if (selectedMode == FocusMode.KIOSK) {
+            card.addView(FocusUi.spacer(activity, 8))
+            card.addView(buildKioskOptionsLink())
+        }
         return card
     }
 
     /**
-     * A Pro mode shown in the grid with a "Pro" badge; tapping it opens the
-     * in-app FocusLock Pro upgrade modal so the user can unlock it in-place.
+     * The strength ladder: four equal tiles in one row, Gentle to Kiosk. Each
+     * shows rising bars, so strength reads by height and fill, not colour.
+     * A Pro step carries a small lock and opens the Pro sheet when tapped.
      */
-    private fun buildLockedModeCard(mode: FocusMode): View {
-        val card = FocusUi.card(activity, tokens) {
-            DemoMode.showUpgradeDialog(activity, mode.label(activity)) {
+    private fun buildModeLadder(available: List<FocusMode>): View {
+        val tiles = available.map { buildModeTile(it) }
+        return FocusUi.tileRow(activity, tiles, gapDp = 8)
+    }
+
+    private fun buildModeTile(mode: FocusMode): View {
+        val locked = DemoMode.isModeLocked(activity, mode)
+        val selected = !locked && mode == selectedMode
+        val fg = if (selected) tokens.onAccent else tokens.textSecondary
+
+        val tile = android.widget.FrameLayout(activity)
+        tile.background = FocusUi.withRipple(
+            activity,
+            FocusUi.roundedShape(activity, if (selected) tokens.accent else tokens.surfaceAlt, 18),
+            tokens
+        )
+        tile.isClickable = true
+        tile.isFocusable = true
+        tile.minimumHeight = FocusUi.dp(activity, 72)
+        tile.contentDescription = mode.label(activity) +
+            (if (locked) ", " + activity.getString(R.string.pro_badge) else "") +
+            (if (selected) ", " + activity.getString(R.string.common_selected) else "")
+        tile.setOnClickListener {
+            if (locked) {
+                DemoMode.showUpgradeDialog(activity, mode.label(activity)) {
+                    selectedMode = mode
+                    render()
+                }
+            } else {
                 selectedMode = mode
                 render()
             }
         }
-        card.alpha = 0.78f
 
-        val topRow = FocusUi.row(activity)
-        topRow.addView(buildStrengthDots(mode.strength).apply {
-            layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f)
-        })
-        topRow.addView(
-            FocusUi.pill(
-                activity,
-                tokens,
-                activity.getString(R.string.pro_badge),
-                tokens.accent
-            )
-        )
-        card.addView(topRow)
-        card.addView(FocusUi.spacer(activity, 8))
-        card.addView(FocusUi.rowTitle(activity, tokens, mode.label(activity)))
-        return card
+        val column = FocusUi.column(activity)
+        column.gravity = Gravity.CENTER
+        column.setPadding(FocusUi.dp(activity, 4), FocusUi.dp(activity, 13), FocusUi.dp(activity, 4), FocusUi.dp(activity, 11))
+        column.layoutParams = android.widget.FrameLayout.LayoutParams(
+            android.widget.FrameLayout.LayoutParams.MATCH_PARENT,
+            android.widget.FrameLayout.LayoutParams.WRAP_CONTENT
+        ).apply { gravity = Gravity.CENTER }
+        column.addView(FocusUi.strengthBars(activity, fg, mode.strength))
+        val label = TextView(activity)
+        label.text = mode.label(activity)
+        label.gravity = Gravity.CENTER
+        label.isSingleLine = true
+        label.setTextColor(fg)
+        label.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, tokens.scaled(13.5f))
+        FocusUi.applyFont(label, tokens, weight = 650)
+        FocusUi.fitOneLine(label, 10f)
+        label.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        ).apply { topMargin = FocusUi.dp(activity, 8) }
+        column.addView(label)
+        tile.addView(column)
+
+        if (locked) {
+            val lock = FocusUi.categoryIcon(activity, tokens, R.drawable.ic_glyph_kiosk, tokens.textMuted, 13)
+            lock.layoutParams = android.widget.FrameLayout.LayoutParams(
+                FocusUi.dp(activity, 13),
+                FocusUi.dp(activity, 13)
+            ).apply {
+                gravity = Gravity.TOP or Gravity.END
+                topMargin = FocusUi.dp(activity, 7)
+                marginEnd = FocusUi.dp(activity, 7)
+            }
+            tile.addView(lock)
+        }
+        return tile
     }
 
     /**
-     * The one line the four cards used to say four times over: what the
-     * selected mode does, its exit line, the live preset (and whether it was
-     * edited), and the device-owner warning, all one tap away behind the ⓘ.
+     * What the chosen strength will do, in one tinted sentence, with the
+     * details a tap away. Replaces the four-card wall of explanations.
      */
     private fun buildModeSummaryLine(): View {
         val row = FocusUi.row(activity)
-        row.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        ).apply { bottomMargin = FocusUi.dp(activity, 4) }
+        row.setPadding(FocusUi.dp(activity, 14), FocusUi.dp(activity, 4), FocusUi.dp(activity, 4), FocusUi.dp(activity, 4))
+        row.background = FocusUi.withRipple(
+            activity,
+            FocusUi.roundedShape(activity, tokens.accentSoft, 16),
+            tokens
+        )
+        row.isClickable = true
+        row.isFocusable = true
+        row.contentDescription = activity.getString(R.string.redesign_more_info)
+        row.setOnClickListener { showModeDetail(selectedMode) }
 
-        val text = FocusUi.caption(activity, tokens, activity.getString(R.string.mode_summary_line, selectedMode.label(activity), selectedMode.oneLiner(activity)))
+        val text = FocusUi.caption(activity, tokens, selectedMode.oneLiner(activity))
+        text.setTextColor(tokens.accentDeep)
         text.layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f)
         row.addView(text)
-        row.addView(FocusUi.spacerH(activity, 8))
         row.addView(buildInfoGlyph { showModeDetail(selectedMode) })
         return row
     }
@@ -682,16 +730,12 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
     private fun buildInfoGlyph(onClick: () -> Unit): View {
         val view = TextView(activity)
         view.text = "ⓘ"
-        view.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, tokens.scaled(13f))
-        view.setTextColor(tokens.textMuted)
+        view.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, tokens.scaled(15f))
+        view.setTextColor(tokens.accentDeep)
         view.isClickable = true
         view.isFocusable = true
-        // A 13sp glyph with 4dp around it was a target about a third of the
-        // 48dp minimum; the padding makes the tap area, not the glyph, larger.
-        val pad = FocusUi.dp(activity, 12)
-        view.setPadding(pad, pad, pad, pad)
-        view.minWidth = FocusUi.dp(activity, 48)
-        view.minHeight = FocusUi.dp(activity, 48)
+        view.minWidth = FocusUi.dp(activity, 44)
+        view.minHeight = FocusUi.dp(activity, 44)
         view.gravity = android.view.Gravity.CENTER
         view.contentDescription = activity.getString(R.string.a11y_mode_details)
         view.setOnClickListener { onClick() }
@@ -788,29 +832,6 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
         }
     }
 
-    /** Four dots, filled to the mode's strength: readable at a glance, no icon to decode. */
-    private fun buildStrengthDots(strength: Int): View {
-        val row = FocusUi.row(activity)
-        row.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-        for (i in 1..4) {
-            val dot = View(activity)
-            val size = FocusUi.dp(activity, 7)
-            dot.background = FocusUi.roundedShape(
-                activity,
-                if (i <= strength) tokens.accent else tokens.track,
-                4
-            )
-            dot.layoutParams = LinearLayout.LayoutParams(size, size).apply {
-                marginStart = FocusUi.dp(activity, 4)
-            }
-            row.addView(dot)
-        }
-        return row
-    }
-
     private val quickDurations = listOf(
         "25m" to 25L * 60 * 1000,
         "1h" to 60L * 60 * 1000,
@@ -834,53 +855,32 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
      * those is picked in its own place instead of a fixed label.
      */
     private fun buildDurationPicker(): View {
-        val row = FocusUi.row(activity)
-        row.layoutParams = LinearLayout.LayoutParams(
+        // Wrapping chips, not a scrolling strip: every choice is visible at once.
+        val flow = com.google.android.material.chip.ChipGroup(activity)
+        flow.chipSpacingHorizontal = FocusUi.dp(activity, 8)
+        flow.chipSpacingVertical = FocusUi.dp(activity, 8)
+        flow.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
-
-        quickDurations.forEachIndexed { index, (label, ms) ->
-            val segment = buildDurationSegment(label, selectedDurationMs == ms) {
+        quickDurations.forEach { (_, ms) ->
+            val chip = FocusUi.chip(activity, tokens, SessionManager.formatDuration(ms), selectedDurationMs == ms) {
                 selectedDurationMs = ms
                 render()
             }
-            segment.layoutParams = LinearLayout.LayoutParams(0, FocusUi.dp(activity, 44), 1f).apply {
-                if (index > 0) marginStart = FocusUi.dp(activity, 8)
-            }
-            row.addView(segment)
+            (chip.layoutParams as? LinearLayout.LayoutParams)?.marginEnd = 0
+            flow.addView(chip)
         }
-
         val isCustom = quickDurations.none { it.second == selectedDurationMs }
-        val setLabel = if (isCustom) SessionManager.formatDuration(selectedDurationMs) else activity.getString(R.string.common_set)
-        val setSegment = buildDurationSegment(setLabel, isCustom) { openDurationChooser() }
-        setSegment.layoutParams = LinearLayout.LayoutParams(0, FocusUi.dp(activity, 44), 1f).apply {
-            marginStart = FocusUi.dp(activity, 8)
-        }
-        row.addView(setSegment)
-
-        return row
-    }
-
-    private fun buildDurationSegment(label: String, selected: Boolean, onClick: () -> Unit): View {
-        val view = TextView(activity)
-        view.text = label
-        view.gravity = Gravity.CENTER
-        view.isSingleLine = true
-        view.setTextColor(if (selected) tokens.textPrimary else tokens.textSecondary)
-        FocusUi.applyFont(view, tokens, mono = true, weight = if (selected) 600 else 500)
-        view.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, tokens.scaled(13f))
-        val fill = if (selected) tokens.surfaceAlt else UiPrefs.withAlpha(tokens.surface, 0)
-        val stroke = if (selected) null else tokens.divider
-        view.background = FocusUi.withRipple(
+        val other = FocusUi.chip(
             activity,
-            FocusUi.roundedShape(activity, fill, tokens.chipRadiusDp, stroke),
-            tokens
-        )
-        view.isClickable = true
-        view.isFocusable = true
-        view.setOnClickListener { onClick() }
-        return view
+            tokens,
+            if (isCustom) SessionManager.formatDuration(selectedDurationMs) else "+ " + activity.getString(R.string.redesign_other_duration),
+            isCustom
+        ) { openDurationChooser() }
+        (other.layoutParams as? LinearLayout.LayoutParams)?.marginEnd = 0
+        flow.addView(other)
+        return flow
     }
 
     private fun openDurationChooser() {
@@ -1017,17 +1017,23 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
             SessionManager.canEndEarly(activity)
         }
 
+        // A first session with no way out is held to an hour (SessionManager.start
+        // enforces it); say so here so the title never promises a longer one.
+        val capped = SessionManager.firstSessionCapApplies(activity, mode, selectedDurationMs)
+        val shownDurationMs = if (capped) SessionManager.FIRST_NO_EXIT_CAP_MS else selectedDurationMs
+
         val exitLine = if (willEndEarly) {
             activity.getString(R.string.dashboard_can_end_early_line)
         } else {
-            activity.getString(R.string.dashboard_no_early_exit_line, SessionManager.formatDuration(selectedDurationMs))
+            activity.getString(R.string.dashboard_no_early_exit_line, SessionManager.formatDuration(shownDurationMs))
         }
 
-        val message = mode.oneLiner(activity) + "\n\n" + exitLine
+        val message = mode.oneLiner(activity) + "\n\n" + exitLine +
+            (if (capped) "\n\n" + activity.getString(R.string.redesign_first_session_cap) else "")
 
         FocusDialog.alert(
             activity,
-            title = activity.getString(R.string.mode_start_confirm_title, mode.label(activity), SessionManager.formatDuration(selectedDurationMs)),
+            title = activity.getString(R.string.mode_start_confirm_title, mode.label(activity), SessionManager.formatDuration(shownDurationMs)),
             message = message,
             confirmLabel = activity.getString(R.string.common_start),
             cancelLabel = activity.getString(R.string.common_cancel),

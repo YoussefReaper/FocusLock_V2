@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="redesign_start_title">ابدأ جلسة</string>
+    <string name="redesign_start_sub">اختر مدى الحزم، ثم المدة.</string>
+    <string name="redesign_for_how_long">لكم من الوقت</string>
+    <string name="redesign_other_duration">غير ذلك</string>
+    <string name="redesign_coming_up">القادم</string>
+    <string name="redesign_while_you_focus">أثناء التركيز</string>
+    <string name="redesign_tasks_title">المهام</string>
+    <string name="redesign_tasks_open">%1$d مفتوحة</string>
+    <string name="redesign_tasks_none">خطّط لما يكسبك الوقت</string>
+    <string name="redesign_tools_title">أدوات آمنة</string>
+    <string name="redesign_tools_sub">متصفح وبحث وقنوات</string>
+    <string name="redesign_mode_on">%1$s مفعّل</string>
+    <string name="redesign_stay_with_it">استمر</string>
+    <string name="redesign_left_of">متبقٍ من %1$s</string>
+    <string name="redesign_ends_at_line">تنتهي في %1$s. لن تُفتح التطبيقات المشتّتة حتى ذلك الحين.</string>
+    <string name="redesign_opens_stopped">محاولات فتح أُوقفت</string>
+    <string name="redesign_focused_so_far">من التركيز حتى الآن</string>
+    <string name="redesign_apps_open">تطبيقات ما زالت متاحة</string>
+    <string name="redesign_end_early">إنهاء الجلسة مبكرًا</string>
+    <string name="redesign_time_counts">الوقت الذي أنجزته ما زال محسوبًا.</string>
+    <string name="redesign_more_info">المزيد عن هذه الدرجة</string>
+    <string name="common_selected">محدد</string>
+    <string name="redesign_greeting_morning">صباح الخير</string>
+    <string name="redesign_greeting_afternoon">مساء الخير</string>
+    <string name="redesign_greeting_evening">مساء الخير</string>
+    <string name="redesign_greeting_night">ما زلت مستيقظًا؟</string>
+    <string name="redesign_rules_blocked">ما الذي يُحظر</string>
+    <string name="redesign_rules_when">متى يحدث</string>
+    <string name="redesign_rules_limits_group">الحدود والاستثناءات</string>
+    <string name="redesign_rules_more">المزيد</string>
+    <string name="redesign_rules_windows">النوافذ: %1$d</string>
+    <string name="redesign_rules_budgets">الحدود: %1$d</string>
+    <string name="redesign_rules_sites">المواقع في القائمة: %1$d</string>
+    <string name="redesign_rules_words">الحُرّاس والكلمات المفعّلة: %1$d</string>
+    <string name="redesign_rules_rules">القواعد: %1$d</string>
+    <string name="redesign_rules_places">الأماكن: %1$d</string>
+    <string name="redesign_rules_test_title">جرّب قواعدك لبضع دقائق</string>
+    <string name="redesign_rules_test_body">افتح التطبيقات وشاهد ما سيحدث. لا شيء يُقفل فعلًا.</string>
+    <string name="redesign_first_session_cap">أول جلسة بلا خروج مبكر تقتصر على ساعة واحدة لتجرّب كيف تكون. تصبح الجلسات الأطول متاحة بعد انتهائها.</string>
+</resources>
