@@ -346,7 +346,10 @@ object SessionManager {
 
         applyPresetIfModeChanged(context, mode)
         FocusStore.setString(context, KEY_MODE, mode.id)
-        LockManager.startKiosk(context, durationMs)
+        LockManager.startKiosk(
+            context,
+            capFirstNoExitSession(durationMs, canEndEarly(context), totalSessions(context))
+        )
         // What counts as "revoked" is measured from the moment this session
         // starts. Without this, a baseline left behind by an earlier session
         // makes a permission that was already missing when this one began read
@@ -374,6 +377,28 @@ object SessionManager {
      */
     fun canEndEarly(context: Context): Boolean =
         CapabilityRegistry.isEnabled(context, Capabilities.CAN_END_EARLY)
+
+    /** Longest a person's first session may run when it has no early exit. */
+    const val FIRST_NO_EXIT_CAP_MS = 60L * 60L * 1000L
+
+    /**
+     * Someone who has never finished a session cannot know yet what a
+     * no-exit lock feels like, so their first one is held to an hour. Picking
+     * "Strict" or Kiosk and then "90 days" on day one would otherwise trap
+     * them with no way out but a factory reset.
+     */
+    fun capFirstNoExitSession(durationMs: Long, canEndEarly: Boolean, sessionsFinished: Int): Long =
+        if (!canEndEarly && sessionsFinished == 0) minOf(durationMs, FIRST_NO_EXIT_CAP_MS) else durationMs
+
+    /** Whether [start] would shorten this session; the UI says so before it starts. */
+    fun firstSessionCapApplies(context: Context, mode: FocusMode, durationMs: Long): Boolean {
+        val endsEarlyAfterPreset = if (presetPending(context, mode)) {
+            mode.preset()[Capabilities.CAN_END_EARLY] ?: canEndEarly(context)
+        } else {
+            canEndEarly(context)
+        }
+        return capFirstNoExitSession(durationMs, endsEarlyAfterPreset, totalSessions(context)) < durationMs
+    }
 
     fun end(context: Context) {
         val elapsed = elapsedMs(context)
