@@ -7,32 +7,56 @@ import android.widget.LinearLayout
 import android.widget.TextView
 
 /**
- * The switchboard - every capability, one screen down from Rules.
- *
- * Moved out of the Rules tab itself (design doc, "one screen, one job": the
- * Rules tab was ten editors and forty switches; editors stay, the
- * switchboard moves here, where you go twice a year). Rows show a title and
- * a switch and nothing else by default ("a row is a title and a state") -
- * the explanatory sentence for a whole group lives one tap away, behind the
- * ⓘ next to its label ("prose appears when it bites"). The two things that
- * do bite stay inline regardless: a switch that's off and weakens something,
- * and a switch that's on but missing the permission it needs.
+ * The switchboard - shows the 10 switches most people use by default,
+ * with a "Show all" button for Advanced, Experimental, and Hardening switches.
  */
 class CapabilitiesActivity : FocusScreenActivity() {
 
     private val collapsed = HashMap<String, Boolean>()
+    private var showAll = false
 
     override fun screenTitle(): String = getString(R.string.capabilities_title)
 
     override fun screenSubtitle(): String = getString(R.string.rules_capability_intro)
 
     override fun buildContent(column: LinearLayout) {
-        Capabilities.grouped().forEach { (group, specs) -> column.addView(buildGroup(group, specs)) }
+        if (!showAll) {
+            column.addView(buildCoreCard())
+            column.addView(FocusUi.spacer(this, 10))
+            column.addView(
+                FocusUi.secondaryButton(this, tokens, getString(R.string.capabilities_show_all_button, Capabilities.all.size)) {
+                    showAll = true
+                    refresh()
+                }
+            )
+        } else {
+            Capabilities.grouped().forEach { (group, specs) ->
+                column.addView(buildGroup(group, specs))
+            }
+            column.addView(FocusUi.spacer(this, 8))
+            column.addView(
+                FocusUi.secondaryButton(this, tokens, getString(R.string.capabilities_show_fewer_button)) {
+                    showAll = false
+                    refresh()
+                }
+            )
+        }
         column.addView(FocusUi.spacer(this, 8))
         column.addView(buildResetCard())
     }
 
-    /** Groups start collapsed except the first, so the list reads as seven decisions rather than forty. */
+    /** The 10 switches most people use, shown cleanly on first open. */
+    private fun buildCoreCard(): View {
+        val card = FocusUi.card(this, tokens)
+        val specs = Capabilities.coreSpecs()
+        specs.forEachIndexed { index, spec ->
+            card.addView(buildCapabilityRow(spec))
+            if (index < specs.size - 1) card.addView(FocusUi.divider(this, tokens))
+        }
+        return card
+    }
+
+    /** Groups start collapsed except the first, so the list reads as decisions rather than a wall. */
     private fun buildGroup(group: CapabilityGroup, specs: List<CapabilitySpec>): View {
         val card = FocusUi.card(this, tokens)
         val isCollapsed = collapsed[group.name] ?: (group != CapabilityGroup.MODES)
@@ -49,10 +73,10 @@ class CapabilitiesActivity : FocusScreenActivity() {
         val titleColumn = FocusUi.column(this)
         titleColumn.layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f)
         val titleRow = FocusUi.row(this)
-        titleRow.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-        // Wrap-content, not the text default of match-parent: in a row, a
-        // match-parent title takes the whole width and pushes the ⓘ beside it
-        // off the screen.
+        titleRow.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
         titleRow.addView(
             FocusUi.heading(this, tokens, group.label(this)).apply {
                 layoutParams = LinearLayout.LayoutParams(
@@ -107,7 +131,6 @@ class CapabilitiesActivity : FocusScreenActivity() {
         return view
     }
 
-    /** Every blurb the group has, grouped and readable once - the density fix moves prose here instead of deleting it. */
     private fun showExplainSheet(group: CapabilityGroup, specs: List<CapabilitySpec>) {
         FocusDialog.custom(
             this,
@@ -132,10 +155,6 @@ class CapabilitiesActivity : FocusScreenActivity() {
     private fun buildCapabilityRow(spec: CapabilitySpec): View {
         val enabled = CapabilityRegistry.isEnabled(this, spec.id)
         val blocker = permissionBlocker(spec)
-        // Not "is a session running" any more, but "can this particular switch
-        // move from where it is right now" - a guard can always be switched on
-        // mid-session, and only turning one off has to wait. See
-        // CapabilityRegistry.directionFor.
         val frozen = !CapabilityRegistry.canToggle(this, spec.id, enabled)
 
         val control = FocusUi.switchControl(this, tokens, enabled) { value ->
@@ -151,8 +170,6 @@ class CapabilitiesActivity : FocusScreenActivity() {
         }
         control.isEnabled = !frozen
 
-        // A compact chip, not a paragraph - the missing permission still bites,
-        // it just doesn't need three lines to say so.
         val trailing: View = if (enabled && blocker != null) {
             val wrap = FocusUi.row(this)
             wrap.layoutParams = LinearLayout.LayoutParams(
@@ -182,8 +199,6 @@ class CapabilitiesActivity : FocusScreenActivity() {
             }
         )
 
-        // The one line that survives the density cut: a switch you just turned
-        // off, still off, that quietly changes what the phone will do.
         if (!enabled) {
             val weakenNote = spec.weakenNote(this)
             if (weakenNote != null) {
@@ -215,7 +230,6 @@ class CapabilitiesActivity : FocusScreenActivity() {
         return column
     }
 
-    /** The honest line when a switch is on but Android has not granted the thing it needs. */
     private fun permissionBlocker(spec: CapabilitySpec): String? = when {
         spec.needsUsageAccess && !SetupChecks.hasUsageAccess(this) ->
             getString(R.string.rules_perm_usage_access)
@@ -230,7 +244,25 @@ class CapabilitiesActivity : FocusScreenActivity() {
         else -> null
     }
 
+    /**
+     * Shows one plain sentence explaining why FocusLock needs the permission
+     * on FocusLock's own screen before opening Android's system permission page.
+     */
     private fun promptForPermission(spec: CapabilitySpec) {
+        val whySentence = permissionBlocker(spec) ?: return
+        FocusDialog.alert(
+            this,
+            title = spec.label(this),
+            message = whySentence,
+            confirmLabel = getString(R.string.dashboard_grant),
+            cancelLabel = getString(R.string.common_not_now),
+            onConfirm = {
+                launchPermissionFor(spec)
+            }
+        )
+    }
+
+    private fun launchPermissionFor(spec: CapabilitySpec) {
         val intents = when {
             spec.needsUsageAccess && !SetupChecks.hasUsageAccess(this) ->
                 PermissionIntents.usageAccess(this)

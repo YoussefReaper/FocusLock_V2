@@ -34,7 +34,9 @@ enum class CapabilityGroup(@StringRes val labelRes: Int, @StringRes val blurbRes
     ENVIRONMENT(R.string.capgroup_environment_label, R.string.capgroup_environment_blurb),
     TOOLS(R.string.capgroup_tools_label, R.string.capgroup_tools_blurb),
     INSIGHT(R.string.capgroup_insight_label, R.string.capgroup_insight_blurb),
-    HARDENING(R.string.capgroup_hardening_label, R.string.capgroup_hardening_blurb);
+    HARDENING(R.string.capgroup_hardening_label, R.string.capgroup_hardening_blurb),
+    ADVANCED(R.string.capgroup_advanced_label, R.string.capgroup_advanced_blurb),
+    EXPERIMENTAL(R.string.capgroup_experimental_label, R.string.capgroup_experimental_blurb);
 
     fun label(context: Context): String = context.getString(labelRes)
     fun blurb(context: Context): String = context.getString(blurbRes)
@@ -43,13 +45,6 @@ enum class CapabilityGroup(@StringRes val labelRes: Int, @StringRes val blurbRes
 /**
  * Which way switching a capability on moves the lock, for [SessionLock]'s
  * tighten/loosen question.
- *
- * Most switches are [GUARD]s: on means stricter, so they can be switched on
- * mid-session and only switching them off has to wait. A few are the other way
- * round - "let me end early", "take a break", the always-allowed list, the
- * replacement surfaces and Earn Mode all *widen* what is reachable when they
- * are on, so for those it is switching on that waits. [NEUTRAL] ones do not
- * touch enforcement at all and stay editable at every moment.
  */
 enum class CapabilityPolarity {
     GUARD,
@@ -59,10 +54,6 @@ enum class CapabilityPolarity {
 
 /**
  * One user-owned switch.
- *
- * [weakenNote] is shown exactly once, as a single honest line, when the user
- * turns a safety capability OFF. It never nags and never blocks the change:
- * the point is informed autonomy, not guilt.
  */
 data class CapabilitySpec(
     val id: String,
@@ -87,9 +78,11 @@ data class CapabilitySpec(
 /**
  * The Capability Registry.
  *
- * Every behaviour in FocusLock is gated on one of these ids. Nothing is
- * hardcoded on: the app reads the registry, the user writes it, and onboarding
- * only ever proposes a starting set.
+ * Every behaviour in FocusLock is gated on one of these ids.
+ * Display preferences (Kind wording, Gentle streaks, Offer an alternative)
+ * live under Appearance (`PersonalizationActivity`).
+ * Fragile accessibility screen-readers (WhatsApp, Shorts, Reels, Telegram)
+ * live under Experimental and start OFF by default.
  */
 object Capabilities {
 
@@ -98,10 +91,7 @@ object Capabilities {
     const val SANCTUARY_MODE = "sanctuaryMode"
     const val KIOSK_MODE = "kioskMode"
 
-    // How a running session behaves. These used to be decided by the FocusMode
-    // enum, which meant a mode was a cage: pick Kiosk and you could not soften
-    // any part of it. They are ordinary switches now, so a mode is a starting
-    // point you can edit afterwards in You -> Advanced.
+    // Session behaviour flags
     const val CAN_END_EARLY = "canEndEarly"
     const val HARD_BLOCK = "hardBlock"
     const val LOCK_RULES_IN_SESSION = "lockRulesInSession"
@@ -132,25 +122,19 @@ object Capabilities {
     const val WIFI_CONDITIONS = "wifiConditions"
     const val NOTIFICATION_BLOCK = "notificationBlock"
 
-    // Replacements
+    // Replacements & Display options
     const val SAFE_BROWSER = "safeBrowser"
     const val TEXT_SEARCH = "textSearch"
     const val SAFE_YOUTUBE = "safeYouTube"
-    const val YOUTUBE_MODESTY_BLUR = "youtubeModestyBlur"
     const val REPLACEMENT_SUGGESTIONS = "replacementSuggestions"
 
     // Earn
     const val EARN_MODE = "earnMode"
 
-    // Insight
+    // Insight & Display options
     const val ANALYTICS = "analytics"
     const val STREAKS = "streaks"
     const val SELF_COMPASSION_COPY = "selfCompassionCopy"
-    // "profiles" and "social" used to be switches here. Profiles was never
-    // gated on (the Rules tab always shows it) and "social" was one share
-    // button, now a plain button on the You tab. Their old ids may still sit
-    // in saved settings and exported profile files; unknown ids are ignored,
-    // so nothing needs migrating.
 
     // Hardening
     const val SUSPEND_BLOCKED_APPS = "suspendBlockedApps"
@@ -160,6 +144,23 @@ object Capabilities {
     const val UNINSTALL_PROTECTION = "uninstallProtection"
     const val SAFE_BOOT_BLOCK = "safeBootBlock"
     const val PERSISTENT_HOME = "persistentHome"
+
+    /**
+     * The 10 switches most people use, shown first in CapabilitiesActivity
+     * before "Show all" is tapped.
+     */
+    val coreIds: List<String> = listOf(
+        APP_BLOCK,
+        SCHEDULES,
+        PER_APP_LIMITS,
+        LAUNCH_FRICTION,
+        TAKE_A_BREAK,
+        BEDTIME_MODE,
+        WEB_BLOCK,
+        KEYWORD_BLOCK,
+        NOTIFICATION_BLOCK,
+        EARN_MODE
+    )
 
     val all: List<CapabilitySpec> = listOf(
 
@@ -197,7 +198,7 @@ object Capabilities {
             group = CapabilityGroup.MODES,
             default = true,
             polarity = CapabilityPolarity.EXEMPTION,
-            weakenNoteRes = R.string.cap_can_end_early_weaken_note,
+            weakenNoteRes = R.string.cap_can_end_early_weaken_note
         ),
         CapabilitySpec(
             id = LOCK_RULES_IN_SESSION,
@@ -205,15 +206,7 @@ object Capabilities {
             blurbRes = R.string.cap_lock_rules_in_session_blurb,
             group = CapabilityGroup.MODES,
             default = true,
-            weakenNoteRes = R.string.cap_lock_rules_in_session_weaken_note,
-        ),
-        CapabilitySpec(
-            id = HARD_BLOCK,
-            labelRes = R.string.cap_hard_block_label,
-            blurbRes = R.string.cap_hard_block_blurb,
-            group = CapabilityGroup.MODES,
-            default = true,
-            weakenNoteRes = R.string.cap_hard_block_weaken_note,
+            weakenNoteRes = R.string.cap_lock_rules_in_session_weaken_note
         ),
 
         CapabilitySpec(
@@ -235,14 +228,6 @@ object Capabilities {
             weakenNoteRes = R.string.cap_web_block_weaken_note,
             needsDeviceOwner = true,
             detailScreen = Screens.WEB_RULES
-        ),
-        CapabilitySpec(
-            id = RULE_ENGINE,
-            labelRes = R.string.cap_rule_engine_label,
-            blurbRes = R.string.cap_rule_engine_blurb,
-            group = CapabilityGroup.BLOCKING,
-            default = true,
-            detailScreen = Screens.RULES_LIST
         ),
         CapabilitySpec(
             id = ALWAYS_ALLOWED,
@@ -270,7 +255,7 @@ object Capabilities {
             group = CapabilityGroup.BLOCKING,
             default = true,
             polarity = CapabilityPolarity.EXEMPTION,
-            weakenNoteRes = R.string.cap_take_a_break_weaken_note,
+            weakenNoteRes = R.string.cap_take_a_break_weaken_note
         ),
         CapabilitySpec(
             id = PER_APP_LIMITS,
@@ -282,18 +267,7 @@ object Capabilities {
             needsUsageAccess = true,
             detailScreen = Screens.LIMITS
         ),
-        CapabilitySpec(
-            id = OPEN_COUNT_LIMITS,
-            labelRes = R.string.cap_open_count_limits_label,
-            blurbRes = R.string.cap_open_count_limits_blurb,
-            group = CapabilityGroup.BLOCKING,
-            default = false,
-            needsUsageAccess = true,
-            detailScreen = Screens.LIMITS
-        ),
 
-        // Earn Mode sits in Modes because that is what it is: a fifth way to run
-        // the phone, layered on any of the other four. Off by default, always.
         CapabilitySpec(
             id = EARN_MODE,
             labelRes = R.string.cap_earn_mode_label,
@@ -311,7 +285,7 @@ object Capabilities {
             labelRes = R.string.cap_content_guard_label,
             blurbRes = R.string.cap_content_guard_blurb,
             group = CapabilityGroup.CONTENT,
-            default = true,
+            default = false,
             weakenNoteRes = R.string.cap_content_guard_weaken_note,
             needsAccessibility = true
         ),
@@ -320,50 +294,16 @@ object Capabilities {
             labelRes = R.string.cap_keyword_block_label,
             blurbRes = R.string.cap_keyword_block_blurb,
             group = CapabilityGroup.CONTENT,
-            default = true,
-            needsAccessibility = true,
-            detailScreen = Screens.KEYWORDS
-        ),
-        CapabilitySpec(
-            id = WHATSAPP_GUARD,
-            labelRes = R.string.cap_whatsapp_guard_label,
-            blurbRes = R.string.cap_whatsapp_guard_blurb,
-            group = CapabilityGroup.CONTENT,
-            default = true,
-            needsAccessibility = true
-        ),
-        CapabilitySpec(
-            id = TELEGRAM_GUARD,
-            labelRes = R.string.cap_telegram_guard_label,
-            blurbRes = R.string.cap_telegram_guard_blurb,
-            group = CapabilityGroup.CONTENT,
             default = false,
-            weakenNoteRes = R.string.cap_telegram_guard_weaken_note,
             needsAccessibility = true,
             detailScreen = Screens.KEYWORDS
-        ),
-        CapabilitySpec(
-            id = SHORTS_BLOCK,
-            labelRes = R.string.cap_shorts_block_label,
-            blurbRes = R.string.cap_shorts_block_blurb,
-            group = CapabilityGroup.CONTENT,
-            default = true,
-            needsAccessibility = true
-        ),
-        CapabilitySpec(
-            id = REELS_BLOCK,
-            labelRes = R.string.cap_reels_block_label,
-            blurbRes = R.string.cap_reels_block_blurb,
-            group = CapabilityGroup.CONTENT,
-            default = true,
-            needsAccessibility = true
         ),
         CapabilitySpec(
             id = ADULT_BLOCK,
             labelRes = R.string.cap_adult_block_label,
             blurbRes = R.string.cap_adult_block_blurb,
             group = CapabilityGroup.CONTENT,
-            default = true,
+            default = false,
             needsAccessibility = true
         ),
 
@@ -386,29 +326,11 @@ object Capabilities {
             detailScreen = Screens.BEDTIME
         ),
         CapabilitySpec(
-            id = LOCATION_BLOCK,
-            labelRes = R.string.cap_location_block_label,
-            blurbRes = R.string.cap_location_block_blurb,
-            group = CapabilityGroup.ENVIRONMENT,
-            default = false,
-            needsLocation = true,
-            detailScreen = Screens.PLACES
-        ),
-        CapabilitySpec(
-            id = WIFI_CONDITIONS,
-            labelRes = R.string.cap_wifi_conditions_label,
-            blurbRes = R.string.cap_wifi_conditions_blurb,
-            group = CapabilityGroup.ENVIRONMENT,
-            default = false,
-            needsLocation = true,
-            detailScreen = Screens.PLACES
-        ),
-        CapabilitySpec(
             id = NOTIFICATION_BLOCK,
             labelRes = R.string.cap_notification_block_label,
             blurbRes = R.string.cap_notification_block_blurb,
             group = CapabilityGroup.ENVIRONMENT,
-            default = true,
+            default = false,
             weakenNoteRes = R.string.cap_notification_block_weaken_note,
             needsNotificationAccess = true
         ),
@@ -437,21 +359,6 @@ object Capabilities {
             default = true,
             polarity = CapabilityPolarity.EXEMPTION
         ),
-        CapabilitySpec(
-            id = YOUTUBE_MODESTY_BLUR,
-            labelRes = R.string.cap_youtube_modesty_blur_label,
-            blurbRes = R.string.cap_youtube_modesty_blur_blurb,
-            group = CapabilityGroup.CONTENT,
-            default = false
-        ),
-        CapabilitySpec(
-            id = REPLACEMENT_SUGGESTIONS,
-            labelRes = R.string.cap_replacement_suggestions_label,
-            blurbRes = R.string.cap_replacement_suggestions_blurb,
-            group = CapabilityGroup.TOOLS,
-            default = true,
-            polarity = CapabilityPolarity.NEUTRAL
-        ),
 
         CapabilitySpec(
             id = ANALYTICS,
@@ -459,27 +366,9 @@ object Capabilities {
             blurbRes = R.string.cap_analytics_blurb,
             group = CapabilityGroup.INSIGHT,
             default = true,
-            // Nothing in Insight changes what is reachable, so none of it is
-            // part of the freeze - these stay editable mid-session.
             polarity = CapabilityPolarity.NEUTRAL,
             needsUsageAccess = true,
             detailScreen = Screens.ANALYTICS
-        ),
-        CapabilitySpec(
-            id = STREAKS,
-            labelRes = R.string.cap_streaks_label,
-            blurbRes = R.string.cap_streaks_blurb,
-            group = CapabilityGroup.INSIGHT,
-            default = true,
-            polarity = CapabilityPolarity.NEUTRAL
-        ),
-        CapabilitySpec(
-            id = SELF_COMPASSION_COPY,
-            labelRes = R.string.cap_self_compassion_copy_label,
-            blurbRes = R.string.cap_self_compassion_copy_blurb,
-            group = CapabilityGroup.INSIGHT,
-            default = true,
-            polarity = CapabilityPolarity.NEUTRAL
         ),
 
         CapabilitySpec(
@@ -543,12 +432,78 @@ object Capabilities {
             default = true,
             weakenNoteRes = R.string.cap_persistent_home_weaken_note,
             needsDeviceOwner = true
+        ),
+
+        // Advanced: Places, Wi-Fi conditions, and Custom rules
+        CapabilitySpec(
+            id = LOCATION_BLOCK,
+            labelRes = R.string.cap_location_block_label,
+            blurbRes = R.string.cap_location_block_blurb,
+            group = CapabilityGroup.ADVANCED,
+            default = false,
+            needsLocation = true,
+            detailScreen = Screens.PLACES
+        ),
+        CapabilitySpec(
+            id = WIFI_CONDITIONS,
+            labelRes = R.string.cap_wifi_conditions_label,
+            blurbRes = R.string.cap_wifi_conditions_blurb,
+            group = CapabilityGroup.ADVANCED,
+            default = false,
+            needsLocation = true,
+            detailScreen = Screens.PLACES
+        ),
+        CapabilitySpec(
+            id = RULE_ENGINE,
+            labelRes = R.string.cap_rule_engine_label,
+            blurbRes = R.string.cap_rule_engine_blurb,
+            group = CapabilityGroup.ADVANCED,
+            default = false,
+            detailScreen = Screens.RULES_LIST
+        ),
+
+        // Experimental: Fragile screen-reading guards, off by default
+        CapabilitySpec(
+            id = WHATSAPP_GUARD,
+            labelRes = R.string.cap_whatsapp_guard_label,
+            blurbRes = R.string.cap_whatsapp_guard_blurb,
+            group = CapabilityGroup.EXPERIMENTAL,
+            default = false,
+            needsAccessibility = true
+        ),
+        CapabilitySpec(
+            id = SHORTS_BLOCK,
+            labelRes = R.string.cap_shorts_block_label,
+            blurbRes = R.string.cap_shorts_block_blurb,
+            group = CapabilityGroup.EXPERIMENTAL,
+            default = false,
+            needsAccessibility = true
+        ),
+        CapabilitySpec(
+            id = REELS_BLOCK,
+            labelRes = R.string.cap_reels_block_label,
+            blurbRes = R.string.cap_reels_block_blurb,
+            group = CapabilityGroup.EXPERIMENTAL,
+            default = false,
+            needsAccessibility = true
+        ),
+        CapabilitySpec(
+            id = TELEGRAM_GUARD,
+            labelRes = R.string.cap_telegram_guard_label,
+            blurbRes = R.string.cap_telegram_guard_blurb,
+            group = CapabilityGroup.EXPERIMENTAL,
+            default = false,
+            weakenNoteRes = R.string.cap_telegram_guard_weaken_note,
+            needsAccessibility = true,
+            detailScreen = Screens.KEYWORDS
         )
     )
 
     private val byId: Map<String, CapabilitySpec> = all.associateBy { it.id }
 
     fun spec(id: String): CapabilitySpec? = byId[id]
+
+    fun coreSpecs(): List<CapabilitySpec> = coreIds.mapNotNull { byId[it] }
 
     fun grouped(): List<Pair<CapabilityGroup, List<CapabilitySpec>>> =
         CapabilityGroup.values()
@@ -558,10 +513,6 @@ object Capabilities {
 
 /**
  * Reads and writes the user's capability choices.
- *
- * A capability is on when the user says it is. Until they touch it, the spec
- * default applies. Nothing in the app flips a switch behind their back: the
- * only writer other than the user is onboarding, and only on an explicit tap.
  */
 object CapabilityRegistry {
 
@@ -570,19 +521,19 @@ object CapabilityRegistry {
     private const val KEY_SEEDED = "cap_seeded_v1"
 
     fun isEnabled(context: Context, id: String): Boolean {
+        if (id == Capabilities.OPEN_COUNT_LIMITS) {
+            return isEnabled(context, Capabilities.PER_APP_LIMITS)
+        }
         overrides(context)[id]?.let { return it }
-        return Capabilities.spec(id)?.default ?: false
+        return when (id) {
+            Capabilities.HARD_BLOCK,
+            Capabilities.STREAKS,
+            Capabilities.SELF_COMPASSION_COPY,
+            Capabilities.REPLACEMENT_SUGGESTIONS -> true
+            else -> Capabilities.spec(id)?.default ?: false
+        }
     }
 
-    /**
-     * The user's switches, parsed once per policy revision.
-     *
-     * [isEnabled] is the most-called function in the app - the content guard
-     * asks it on every accessibility event from every app, and the guard loop
-     * several times a tick - and it used to parse the whole JSON blob from
-     * SharedPreferences on every one of those calls. Every write to it below
-     * is followed by [PolicySync.request], so the revision is a sound key.
-     */
     private fun overrides(context: Context): Map<String, Boolean> =
         PolicyCache.get("capabilityOverrides") {
             val json = FocusStore.getJsonObject(context, KEY_ENABLED)
@@ -598,40 +549,20 @@ object CapabilityRegistry {
     fun isUserSet(context: Context, id: String): Boolean =
         FocusStore.getJsonObject(context, KEY_ENABLED).has(id)
 
-    /**
-     * Whether the rules are currently frozen by a running session or an
-     * overlay schedule window.
-     *
-     * A self-lock that can be edited from inside is not a lock: the moment the
-     * urge arrives is exactly the moment a person will go and switch the guard
-     * off, and they will feel it was reasonable at the time. So while a session
-     * runs, the switches stop moving.
-     *
-     * It is still a capability, not a law. Someone who genuinely wants to steer
-     * mid-session turns [Capabilities.LOCK_RULES_IN_SESSION] off *before*
-     * starting one. It cannot be turned off from inside a session — that would
-     * make it a door with the key taped to it.
-     *
-     * An overlay schedule window freezes unconditionally, with no capability
-     * to switch it off from inside — that toggle would be the same taped-on
-     * key, and "dead phone" was the one thing overlay promised. Editing the
-     * window itself (moving its end time, dropping its own overlay flag,
-     * widening its allowedApps) would otherwise be exactly the loophole the
-     * lock-task pinning was supposed to close, since FocusLock stays reachable
-     * inside every overlay window by design.
-     */
     fun isFrozen(context: Context): Boolean =
         (SessionManager.isActive(context) && isEnabled(context, Capabilities.LOCK_RULES_IN_SESSION)) ||
             SessionManager.shouldLockTask(context)
 
-    /**
-     * Which way flipping [id] to [enabled] moves the lock.
-     *
-     * A guard switched on, or an exemption switched off, both tighten and go
-     * through mid-session. The reverse of each waits. Anything that does not
-     * touch enforcement is neutral and always editable.
-     */
     fun directionFor(id: String, enabled: Boolean): EditDirection {
+        if (id == Capabilities.STREAKS ||
+            id == Capabilities.SELF_COMPASSION_COPY ||
+            id == Capabilities.REPLACEMENT_SUGGESTIONS
+        ) {
+            return EditDirection.TIGHTEN
+        }
+        if (id == Capabilities.HARD_BLOCK) {
+            return if (enabled) EditDirection.TIGHTEN else EditDirection.LOOSEN
+        }
         val spec = Capabilities.spec(id) ?: return EditDirection.LOOSEN
         return when (spec.polarity) {
             CapabilityPolarity.NEUTRAL -> EditDirection.TIGHTEN
@@ -640,29 +571,26 @@ object CapabilityRegistry {
         }
     }
 
-    /**
-     * Writes a capability, unless a session has frozen the rules against a
-     * change in this direction.
-     *
-     * Returns false when the write was refused, so callers can say so instead
-     * of leaving a toggle that springs back with no explanation.
-     */
     fun setEnabled(context: Context, id: String, enabled: Boolean): Boolean {
-        if (!SessionLock.allows(context, directionFor(id, enabled))) return false
-        writeEnabled(context, id, enabled)
+        val targetId = if (id == Capabilities.OPEN_COUNT_LIMITS) Capabilities.PER_APP_LIMITS else id
+        if (!SessionLock.allows(context, directionFor(targetId, enabled))) return false
+        writeEnabled(context, targetId, enabled)
+        // If turning on a specific content guard, also ensure the master contentGuard is on
+        if (enabled && (targetId == Capabilities.KEYWORD_BLOCK ||
+                targetId == Capabilities.ADULT_BLOCK ||
+                targetId == Capabilities.WHATSAPP_GUARD ||
+                targetId == Capabilities.SHORTS_BLOCK ||
+                targetId == Capabilities.REELS_BLOCK ||
+                targetId == Capabilities.TELEGRAM_GUARD)
+        ) {
+            writeEnabled(context, Capabilities.CONTENT_GUARD, true)
+        }
         return true
     }
 
-    /** Whether the switch for [id] can be moved at all right now, in either direction. */
     fun canToggle(context: Context, id: String, currentlyEnabled: Boolean): Boolean =
         SessionLock.allows(context, directionFor(id, !currentlyEnabled))
 
-    /**
-     * The unguarded write.
-     *
-     * Migration and session-end cleanup both need to move flags while a session
-     * is technically still active, and neither is a user changing their mind.
-     */
     internal fun writeEnabled(context: Context, id: String, enabled: Boolean) {
         val overrides = FocusStore.getJsonObject(context, KEY_ENABLED)
         overrides.put(id, enabled)
@@ -670,22 +598,6 @@ object CapabilityRegistry {
         PolicySync.request(context, "capability:" + id)
     }
 
-    /**
-     * Loads a mode's template.
-     *
-     * Same merge as [applySet] but deliberately does NOT mark the registry
-     * seeded: seeding means "this person has been through setup", and picking
-     * a mode on the dashboard is not that. Conflating the two would skip
-     * onboarding for someone who had never seen it.
-     *
-     * Frozen-gated like every other capability write. This one is called from
-     * two places: starting a session (always unfrozen, since no session is
-     * active yet at that point) and the "put this mode's defaults back"
-     * button in You -> Advanced, which - unlike every switch on that same
-     * screen - had no freeze check at all until this was added. A session
-     * whose rules were supposedly "held still" could be silently rewritten by
-     * a single tap on that button; the freeze promise applies here too.
-     */
     fun applyPreset(context: Context, values: Map<String, Boolean>): Boolean {
         if (isFrozen(context)) return false
         if (values.isEmpty()) return true
@@ -696,16 +608,6 @@ object CapabilityRegistry {
         return true
     }
 
-    /**
-     * Applies a whole proposed set at once. Written for first-run onboarding,
-     * where no session can possibly be active - but the setup quiz can also
-     * be re-run later from You -> Advanced, which very much can happen mid-
-     * session, and this call was the one place in the whole app that could
-     * rewrite every capability flag at once with no freeze check at all. This
-     * is that fix; OnboardingActivity's rerun entry point is also blocked
-     * outright while frozen, so nobody sits through six quiz steps to be
-     * refused on the last tap.
-     */
     fun applySet(context: Context, values: Map<String, Boolean>): Boolean {
         if (isFrozen(context)) return false
         val overrides = FocusStore.getJsonObject(context, KEY_ENABLED)
@@ -722,12 +624,6 @@ object CapabilityRegistry {
         FocusStore.setBool(context, KEY_SEEDED, true)
     }
 
-    /**
-     * Every capability switch back to factory default, in one tap. Frozen-
-     * gated for the obvious reason: this is applyPreset's whole-registry
-     * cousin, reachable from RulesTab's "Reset everything" and just as
-     * capable of silently undoing a frozen session's rules if left unguarded.
-     */
     fun resetToDefaults(context: Context): Boolean {
         if (isFrozen(context)) return false
         FocusStore.remove(context, KEY_ENABLED)
@@ -743,12 +639,6 @@ object CapabilityRegistry {
         return forId.optInt(key, fallback)
     }
 
-    /**
-     * Parameters carry no polarity of their own - "8 seconds" is not inherently
-     * stricter than "5" without knowing what it measures - so the caller says
-     * which way it goes. Left unspecified, a parameter write is treated as a
-     * loosening, which is the safe default for a freeze.
-     */
     fun setIntParam(
         context: Context,
         id: String,

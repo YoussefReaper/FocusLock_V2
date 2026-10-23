@@ -18,6 +18,9 @@ object Streaks {
     private const val KEY_CURRENT = "streak_current"
     private const val KEY_BEST = "streak_best"
     private const val KEY_TOTAL_DAYS = "streak_total_days"
+    private const val KEY_BLOCKS_DAY = "streak_blocks_day"
+    private const val KEY_BLOCKS_TODAY = "streak_blocks_today"
+    private const val KEY_FIRST_BLOCK_SEEN = "streak_first_block_seen"
 
     fun isEnabled(context: Context): Boolean =
         CapabilityRegistry.isEnabled(context, Capabilities.STREAKS)
@@ -27,6 +30,31 @@ object Streaks {
     fun best(context: Context): Int = FocusStore.getInt(context, KEY_BEST, 0)
 
     fun totalDays(context: Context): Int = FocusStore.getInt(context, KEY_TOTAL_DAYS, 0)
+
+    /**
+     * Records a stopped app open today. Returns true if this is the very first
+     * block ever stopped on this phone, so InterceptActivity can celebrate it warmly.
+     */
+    fun recordBlockStopped(context: Context): Boolean {
+        val today = dayNumber()
+        val storedDay = FocusStore.getInt(context, KEY_BLOCKS_DAY, 0)
+        val count = if (storedDay == today) FocusStore.getInt(context, KEY_BLOCKS_TODAY, 0) + 1 else 1
+        FocusStore.setInt(context, KEY_BLOCKS_DAY, today)
+        FocusStore.setInt(context, KEY_BLOCKS_TODAY, count)
+
+        val seenFirst = FocusStore.getBool(context, KEY_FIRST_BLOCK_SEEN, false)
+        if (!seenFirst) {
+            FocusStore.setBool(context, KEY_FIRST_BLOCK_SEEN, true)
+            return true
+        }
+        return false
+    }
+
+    fun blocksStoppedToday(context: Context): Int {
+        val today = dayNumber()
+        if (FocusStore.getInt(context, KEY_BLOCKS_DAY, 0) != today) return 0
+        return FocusStore.getInt(context, KEY_BLOCKS_TODAY, 0)
+    }
 
     /** Called whenever a session runs. Idempotent within a day. */
     fun recordActivity(context: Context) {
@@ -57,9 +85,6 @@ object Streaks {
         if (isPaused(context)) {
             return context.getString(R.string.insights_best_run, best(context))
         }
-        // Two whole sentences rather than a noun glued to a suffix: Arabic
-        // agrees the count differently from English, and "day" + "s" + " in a
-        // row" cannot be assembled from pieces at all.
         return context.getString(
             if (currentRun == 1) R.string.insights_run_one else R.string.insights_run_many,
             currentRun

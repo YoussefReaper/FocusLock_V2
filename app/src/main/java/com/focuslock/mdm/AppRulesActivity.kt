@@ -447,9 +447,9 @@ class AppRulesActivity : FocusScreenActivity() {
             if (!AppLimits.setOpenLimit(this, app.packageName, value.toIntOrNull())) {
                 FocusDialog.toast(this, SessionLock.refusalMessage(this))
             } else if (value.toIntOrNull() != null &&
-                !CapabilityRegistry.isEnabled(this, Capabilities.OPEN_COUNT_LIMITS)
+                !CapabilityRegistry.isEnabled(this, Capabilities.PER_APP_LIMITS)
             ) {
-                offerToEnable(Capabilities.OPEN_COUNT_LIMITS)
+                offerToEnable(Capabilities.PER_APP_LIMITS)
             }
             refresh()
             onSaved?.invoke()

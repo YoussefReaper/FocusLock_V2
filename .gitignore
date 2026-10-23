@@ -27,3 +27,6 @@ keystore.properties
 # Local staging area for release APKs, waiting to be copied to H:
 /_release_staging/
 /.claude/
+/.idea/
+/.aistudio/
+/.build-outputs/

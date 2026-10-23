@@ -321,6 +321,43 @@ class PersonalizationActivity : FocusScreenActivity() {
                 UiPrefs.setShowSchedule(this, value)
             }
         )
+        card.addView(FocusUi.divider(this, tokens))
+        card.addView(
+            FocusUi.toggleRow(
+                this,
+                tokens,
+                getString(R.string.cap_self_compassion_copy_label),
+                getString(R.string.cap_self_compassion_copy_blurb),
+                CapabilityRegistry.isEnabled(this, Capabilities.SELF_COMPASSION_COPY)
+            ) { value ->
+                CapabilityRegistry.setEnabled(this, Capabilities.SELF_COMPASSION_COPY, value)
+                refresh()
+            }
+        )
+        card.addView(
+            FocusUi.toggleRow(
+                this,
+                tokens,
+                getString(R.string.cap_streaks_label),
+                getString(R.string.cap_streaks_blurb),
+                CapabilityRegistry.isEnabled(this, Capabilities.STREAKS)
+            ) { value ->
+                CapabilityRegistry.setEnabled(this, Capabilities.STREAKS, value)
+                refresh()
+            }
+        )
+        card.addView(
+            FocusUi.toggleRow(
+                this,
+                tokens,
+                getString(R.string.cap_replacement_suggestions_label),
+                getString(R.string.cap_replacement_suggestions_blurb),
+                CapabilityRegistry.isEnabled(this, Capabilities.REPLACEMENT_SUGGESTIONS)
+            ) { value ->
+                CapabilityRegistry.setEnabled(this, Capabilities.REPLACEMENT_SUGGESTIONS, value)
+                refresh()
+            }
+        )
 
         val note = FocusUi.caption(
             this,

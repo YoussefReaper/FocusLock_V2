@@ -39,9 +39,9 @@
     <string name="cap_take_a_break_label">Take a break</string>
     <string name="cap_take_a_break_blurb">Unlock a blocked app for a few minutes instead of abandoning the whole session.</string>
     <string name="cap_take_a_break_weaken_note">Off: a blocked app stays blocked for the whole session, with no exceptions. Some people need exactly that. Others end the whole session instead of taking five minutes.</string>
-    <string name="cap_per_app_limits_label">Daily time limits</string>
-    <string name="cap_per_app_limits_blurb">Give an app a budget of minutes a day. When it runs out, it closes until tomorrow.</string>
-    <string name="cap_per_app_limits_weaken_note">Off: daily minute budgets stop counting. Apps you limited open for as long as you like.</string>
+    <string name="cap_per_app_limits_label">Daily limits</string>
+    <string name="cap_per_app_limits_blurb">Give an app a daily budget of minutes or opens. When it runs out, it closes until tomorrow.</string>
+    <string name="cap_per_app_limits_weaken_note">Off: daily budgets stop counting. Apps you limited open for as long as you like.</string>
     <string name="cap_open_count_limits_label">Daily open limits</string>
     <string name="cap_open_count_limits_blurb">Cap how many times an app can be opened in a day. Catches the reflex, not the minutes.</string>
     <string name="cap_earn_mode_label">Earn mode</string>
@@ -123,6 +123,10 @@
     <string name="capgroup_insight_blurb">What FocusLock remembers and shows you about yourself.</string>
     <string name="capgroup_hardening_label">Hardening</string>
     <string name="capgroup_hardening_blurb">Escape routes you can choose to close.</string>
+    <string name="capgroup_advanced_label">Advanced</string>
+    <string name="capgroup_advanced_blurb">Places, Wi-Fi conditions, and custom if-this-then-that rules.</string>
+    <string name="capgroup_experimental_label">Experimental</string>
+    <string name="capgroup_experimental_blurb">Screen-reading guards for WhatsApp, Shorts, Reels, and Telegram. Off by default because app updates can change their layout.</string>
 
     <string name="cap_persistent_home_label">FocusLock as home screen</string>
     <string name="cap_persistent_home_blurb">During a kiosk session the home button lands here instead of the launcher.</string>

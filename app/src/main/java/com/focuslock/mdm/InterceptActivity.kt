@@ -42,6 +42,7 @@ class InterceptActivity : AppCompatActivity() {
     private var poolMinutes: Int = 0
     private var isBudgetBlock: Boolean = false
     private var testMode: Boolean = false
+    private var firstBlockEver: Boolean = false
 
     private var countdownSeconds = 0
     private var continueButton: TextView? = null
@@ -78,6 +79,7 @@ class InterceptActivity : AppCompatActivity() {
         poolMinutes = intent.getIntExtra(EXTRA_POOL_MINUTES, -1)
         isBudgetBlock = source == "budget"
         testMode = intent.getBooleanExtra(EXTRA_TEST_MODE, false)
+        firstBlockEver = if (!testMode) Streaks.recordBlockStopped(this) else false
 
         // The content guard is the one source that names exactly what it saw -
         // the keyword rule that matched, not the surrounding on-screen text -
@@ -122,10 +124,6 @@ class InterceptActivity : AppCompatActivity() {
 
         val root = FocusUi.screenRoot(this, tokens)
 
-        // Two stacked groups, not one centred column: the mark/headline float in
-        // whatever space is left above, and "ways through" anchors to the
-        // bottom - the block screen mockup's "breathing room" direction, rather
-        // than a wall of buttons in the middle of the screen.
         val outer = LinearLayout(this)
         outer.orientation = LinearLayout.VERTICAL
         outer.layoutParams = FrameLayout.LayoutParams(
@@ -168,6 +166,28 @@ class InterceptActivity : AppCompatActivity() {
                 LinearLayout.LayoutParams.WRAP_CONTENT
             ).apply { topMargin = FocusUi.dp(this@InterceptActivity, 12) }
             top.addView(detailView)
+        }
+
+        if (firstBlockEver) {
+            val warmNote = FocusUi.secondary(this, tokens, getString(R.string.intercept_first_block_warm_note))
+            warmNote.gravity = Gravity.CENTER
+            warmNote.setTextColor(tokens.accent)
+            warmNote.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply { topMargin = FocusUi.dp(this@InterceptActivity, 12) }
+            top.addView(warmNote)
+        }
+
+        val stoppedToday = Streaks.blocksStoppedToday(this)
+        if (stoppedToday > 0) {
+            val stoppedLine = FocusUi.caption(this, tokens, getString(R.string.intercept_opens_stopped_today, stoppedToday))
+            stoppedLine.gravity = Gravity.CENTER
+            stoppedLine.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply { topMargin = FocusUi.dp(this@InterceptActivity, 10) }
+            top.addView(stoppedLine)
         }
 
         outer.addView(top)

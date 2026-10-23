@@ -73,7 +73,7 @@ object AppLimits {
         FocusStore.getIntMap(context, KEY_MINUTE_LIMITS).filterValues { it > 0 }
 
     fun openLimit(context: Context, packageName: String): Int? {
-        if (!CapabilityRegistry.isEnabled(context, Capabilities.OPEN_COUNT_LIMITS)) return null
+        if (!CapabilityRegistry.isEnabled(context, Capabilities.PER_APP_LIMITS)) return null
         val value = FocusStore.getIntMap(context, KEY_OPEN_LIMITS)[packageName] ?: return null
         return if (value > 0) value else null
     }
@@ -104,13 +104,8 @@ object AppLimits {
      * so a disabled capability costs nothing at runtime.
      */
     fun hasEnforceableBudgets(context: Context): Boolean {
-        if (CapabilityRegistry.isEnabled(context, Capabilities.PER_APP_LIMITS) &&
-            allMinuteLimits(context).isNotEmpty()
-        ) {
-            return true
-        }
-        return CapabilityRegistry.isEnabled(context, Capabilities.OPEN_COUNT_LIMITS) &&
-            allOpenLimits(context).isNotEmpty()
+        if (!CapabilityRegistry.isEnabled(context, Capabilities.PER_APP_LIMITS)) return false
+        return allMinuteLimits(context).isNotEmpty() || allOpenLimits(context).isNotEmpty()
     }
 
     // ── Today's usage ─────────────────────────────────────────────

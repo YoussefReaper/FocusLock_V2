@@ -84,10 +84,24 @@ abstract class FocusScreenActivity : AppCompatActivity() {
         Motion.fadeIn(content, tokens)
     }
 
+    protected open fun screenHelpText(): String? = null
+
     private fun fillContent() {
         content.addView(
             FocusUi.pageHeader(this, tokens, screenTitle(), screenSubtitle()) { finish() }
         )
+        val whyLink = FocusUi.smallButton(this, tokens, getString(R.string.common_why_needed_button)) {
+            val explanation = screenHelpText()
+                ?: screenSubtitle()
+                ?: getString(R.string.common_why_needed_default)
+            FocusDialog.info(this, screenTitle(), explanation)
+        }
+        whyLink.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            FocusUi.dp(this, tokens.density.quickButtonHeightDp)
+        ).apply { bottomMargin = FocusUi.dp(this@FocusScreenActivity, 12) }
+        content.addView(whyLink)
+
         buildContent(content)
         content.addView(FocusUi.spacer(this, 28))
     }

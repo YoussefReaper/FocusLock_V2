@@ -75,6 +75,10 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
             add(buildActiveSession())
         } else {
             add(buildStarter())
+            add(buildOneTapPresetsCard())
+            if (!SetupChecks.isDeviceOwner(activity)) {
+                add(buildUnbreakableUpgradeCard())
+            }
         }
 
         buildOnATimerCard()?.let { add(it) }
@@ -88,6 +92,93 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
         }
 
         Motion.stagger(added, tokens)
+    }
+
+    private fun buildOneTapPresetsCard(): View {
+        val card = FocusUi.card(activity, tokens)
+        card.addView(FocusUi.caption(activity, tokens, activity.getString(R.string.onboarding_presets_heading)))
+        card.addView(FocusUi.spacer(activity, 8))
+
+        val row = FocusUi.row(activity)
+        val presets = listOf(
+            "study" to activity.getString(R.string.preset_study_title),
+            "sleep" to activity.getString(R.string.preset_sleep_title),
+            "detox" to activity.getString(R.string.preset_detox_title)
+        )
+        presets.forEachIndexed { idx, (key, label) ->
+            val btn = FocusUi.smallButton(activity, tokens, label) {
+                applyQuickPreset(key)
+            }
+            btn.layoutParams = LinearLayout.LayoutParams(0, FocusUi.dp(activity, 40), 1f).apply {
+                if (idx > 0) marginStart = FocusUi.dp(activity, 8)
+            }
+            row.addView(btn)
+        }
+        card.addView(row)
+        return card
+    }
+
+    private fun applyQuickPreset(presetId: String) {
+        if (SessionLock.isFrozen(activity)) {
+            FocusDialog.toast(activity, SessionLock.refusalMessage(activity))
+            return
+        }
+        val essentials = AppCatalog.detectEssentials(activity).toSet()
+        val launchable = AppCatalog.launchable(activity).filterNot { it.packageName in essentials }
+        when (presetId) {
+            "study" -> {
+                val targets = launchable.filter {
+                    it.category in setOf(AppCategory.SOCIAL, AppCategory.VIDEO, AppCategory.GAMES)
+                }.map { it.packageName }.ifEmpty { Seed.obviousDistractions }
+                AppRules.setPolicies(activity, targets, AppPolicy.BLOCK)
+                selectedMode = FocusMode.BLOCK
+                selectedDurationMs = 60L * 60L * 1000L
+                SessionManager.start(activity, FocusMode.BLOCK, selectedDurationMs)
+                FocusDialog.toast(activity, activity.getString(R.string.preset_applied_toast, activity.getString(R.string.preset_study_title)))
+            }
+            "sleep" -> {
+                CapabilityRegistry.setEnabled(activity, Capabilities.BEDTIME_MODE, true)
+                Bedtime.setWindow(activity, 22 * 60, 6 * 60)
+                Bedtime.setBlockedCategories(
+                    activity,
+                    listOf(AppCategory.SOCIAL, AppCategory.VIDEO, AppCategory.GAMES)
+                )
+                FocusDialog.toast(activity, activity.getString(R.string.preset_applied_toast, activity.getString(R.string.preset_sleep_title)))
+            }
+            "detox" -> {
+                val targets = launchable.filter {
+                    it.category in setOf(AppCategory.SOCIAL, AppCategory.VIDEO)
+                }.map { it.packageName }.ifEmpty { Seed.obviousDistractions }
+                AppRules.setPolicies(activity, targets, AppPolicy.FRICTION)
+                CapabilityRegistry.setEnabled(activity, Capabilities.LAUNCH_FRICTION, true)
+                selectedMode = FocusMode.SOFT
+                selectedDurationMs = 2L * 60L * 60L * 1000L
+                SessionManager.start(activity, FocusMode.SOFT, selectedDurationMs)
+                FocusDialog.toast(activity, activity.getString(R.string.preset_applied_toast, activity.getString(R.string.preset_detox_title)))
+            }
+        }
+        render()
+    }
+
+    private fun buildUnbreakableUpgradeCard(): View {
+        val card = FocusUi.card(activity, tokens) {
+            activity.startActivity(Intent(activity, DeviceOwnerHelpActivity::class.java))
+        }
+        val header = FocusUi.row(activity)
+        val title = FocusUi.heading(activity, tokens, activity.getString(R.string.dashboard_unbreakable_card_title))
+        title.layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f)
+        header.addView(title)
+        header.addView(FocusUi.pill(activity, tokens, activity.getString(R.string.pro_badge), tokens.accent))
+        card.addView(header)
+        card.addView(FocusUi.spacer(activity, 4))
+        card.addView(FocusUi.secondary(activity, tokens, activity.getString(R.string.dashboard_unbreakable_card_body)))
+        card.addView(FocusUi.spacer(activity, 10))
+        card.addView(
+            FocusUi.smallButton(activity, tokens, activity.getString(R.string.dashboard_show_me_how)) {
+                activity.startActivity(Intent(activity, DeviceOwnerHelpActivity::class.java))
+            }
+        )
+        return card
     }
 
     private fun buildTasksAndToolsCard(): View {
@@ -126,13 +217,6 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
         return card
     }
 
-    /**
-     * The day/time-of-day and the actual status used to be one line ("Good
-     * evening" doubling as both). Split per the design doc's mockup: a small
-     * caption places you in the week, a bold headline says what's actually
-     * happening - "Nothing running" is a different, more useful fact than
-     * "it's evening."
-     */
     private fun buildGreeting(): View {
         val column = FocusUi.column(activity)
         column.layoutParams = LinearLayout.LayoutParams(
@@ -149,7 +233,15 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
         ).apply { topMargin = FocusUi.dp(activity, 2) }
         column.addView(headline)
 
-        val sub = if (Streaks.isEnabled(activity)) Streaks.summary(activity) else ""
+        val stoppedToday = Streaks.blocksStoppedToday(activity)
+        val streakSummary = if (Streaks.isEnabled(activity)) Streaks.summary(activity) else ""
+        val sub = when {
+            stoppedToday > 0 && streakSummary.isNotBlank() ->
+                activity.getString(R.string.intercept_opens_stopped_today, stoppedToday) + " · " + streakSummary
+            stoppedToday > 0 ->
+                activity.getString(R.string.intercept_opens_stopped_today, stoppedToday)
+            else -> streakSummary
+        }
         if (sub.isNotBlank()) {
             val subView = FocusUi.secondary(activity, tokens, sub)
             subView.layoutParams = LinearLayout.LayoutParams(
@@ -992,25 +1084,6 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
                     activity.getString(R.string.setup_issue_notification_access),
                     activity.getString(R.string.setup_issue_notification_access_detail),
                     PermissionIntents.notificationAccess(activity)
-                )
-            )
-        }
-        if (!SetupChecks.isIgnoringBatteryOptimizations(activity)) {
-            issues.add(
-                SetupIssue(
-                    activity.getString(R.string.setup_issue_battery),
-                    activity.getString(R.string.setup_issue_battery_detail),
-                    // The direct yes/no prompt for this app first. The list
-                    // page opens filtered to "not optimised", which FocusLock
-                    // is not yet in, so from there it could not even be found
-                    // without changing the filter.
-                    listOf(
-                        Intent(
-                            Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS,
-                            android.net.Uri.parse("package:" + activity.packageName)
-                        ),
-                        Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS)
-                    )
                 )
             )
         }

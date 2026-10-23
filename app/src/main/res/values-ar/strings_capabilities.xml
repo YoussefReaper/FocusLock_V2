@@ -21,6 +21,10 @@
     <string name="capgroup_insight_blurb">ما يتذكره FocusLock ويعرضه لك عن نفسك.</string>
     <string name="capgroup_hardening_label">التحصين</string>
     <string name="capgroup_hardening_blurb">منافذ خروج يمكنك اختيار إغلاقها.</string>
+    <string name="capgroup_advanced_label">متقدم</string>
+    <string name="capgroup_advanced_blurb">قواعد الأماكن وشبكات Wi-Fi والقواعد الشرطية المخصّصة.</string>
+    <string name="capgroup_experimental_label">تجريبي</string>
+    <string name="capgroup_experimental_blurb">حرّاس يقرؤون شاشة واتساب وShorts وReels وتيليجرام. مطفأة افتراضيًا لأن تحديثات تلك التطبيقات قد تغيّر تصميمها.</string>
 
     <string name="cap_advisory_mode_label">الوضع الهادئ</string>
     <string name="cap_advisory_mode_blurb">وقفة وتنبيه لطيف عندما تفتح شيئًا مشتّتًا. لا شيء مفروض عليك.</string>
@@ -56,9 +60,9 @@
     <string name="cap_take_a_break_label">خُذ استراحة</string>
     <string name="cap_take_a_break_blurb">افتح تطبيقًا محجوبًا لبضع دقائق بدلًا من التخلي عن الجلسة كلها.</string>
     <string name="cap_take_a_break_weaken_note">عند الإطفاء: يبقى التطبيق المحجوب محجوبًا طوال الجلسة، بلا استثناءات. بعض الناس يحتاجون ذلك بالضبط. وآخرون يُنهون الجلسة كلها بدلًا من أخذ خمس دقائق.</string>
-    <string name="cap_per_app_limits_label">حدود يومية بالوقت</string>
-    <string name="cap_per_app_limits_blurb">امنح تطبيقًا ميزانية من الدقائق يوميًا. حين تنفد، يُغلق حتى الغد.</string>
-    <string name="cap_per_app_limits_weaken_note">عند الإطفاء: تتوقف ميزانيات الدقائق اليومية عن العدّ. التطبيقات التي حدّدتها تُفتح للمدة التي تريدها.</string>
+    <string name="cap_per_app_limits_label">الحدود اليومية</string>
+    <string name="cap_per_app_limits_blurb">امنح تطبيقًا ميزانية يومية من الدقائق أو عدد مرات الفتح. حين تنفد، يُغلق حتى الغد.</string>
+    <string name="cap_per_app_limits_weaken_note">عند الإطفاء: تتوقف الحدود اليومية عن العدّ. التطبيقات التي حدّدتها تُفتح للمدة التي تريدها.</string>
     <string name="cap_open_count_limits_label">حدود يومية بعدد الفتح</string>
     <string name="cap_open_count_limits_blurb">حدّد كم مرة يمكن فتح تطبيق في اليوم. يلتقط ردة الفعل، لا الدقائق.</string>
     <string name="cap_earn_mode_label">وضع الكسب</string>

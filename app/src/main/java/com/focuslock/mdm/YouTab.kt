@@ -101,7 +101,28 @@ class YouTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activity
         if (!pro) {
             card.addView(FocusUi.spacer(activity, 14))
             card.addView(
-                FocusUi.primaryButton(activity, tokens, activity.getString(R.string.pro_upgrade_button)) {
+                FocusUi.primaryButton(activity, tokens, activity.getString(R.string.pro_buy_button)) {
+                    try {
+                        activity.startActivity(
+                            Intent(Intent.ACTION_VIEW, android.net.Uri.parse(DemoMode.BUY_PRO_URL))
+                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        )
+                    } catch (_: Exception) {
+                        DemoMode.showUpgradeDialog(activity) { render() }
+                    }
+                }
+            )
+            card.addView(FocusUi.spacer(activity, 8))
+            card.addView(
+                FocusUi.secondaryButton(activity, tokens, activity.getString(R.string.pro_enter_code_button)) {
+                    DemoMode.showEnterCodeDialog(activity) {
+                        render()
+                    }
+                }
+            )
+            card.addView(FocusUi.spacer(activity, 6))
+            card.addView(
+                FocusUi.ghostButton(activity, tokens, activity.getString(R.string.pro_upgrade_button)) {
                     DemoMode.showUpgradeDialog(activity) {
                         render()
                     }
@@ -431,6 +452,38 @@ class YouTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activity
                     activity.startActivity(
                         Intent(activity, OnboardingActivity::class.java)
                             .putExtra(OnboardingActivity.EXTRA_RERUN, true)
+                    )
+                }
+            }
+        )
+        card.addView(FocusUi.divider(activity, tokens))
+
+        card.addView(
+            FocusUi.listRow(
+                activity,
+                tokens,
+                activity.getString(R.string.youtab_start_over_title),
+                activity.getString(R.string.youtab_start_over_subtitle),
+                trailing = FocusUi.chevron(activity, tokens)
+            ) {
+                if (SessionLock.isFrozen(activity)) {
+                    FocusDialog.toast(activity, SessionLock.refusalMessage(activity))
+                } else {
+                    FocusDialog.alert(
+                        activity,
+                        title = activity.getString(R.string.youtab_start_over_title),
+                        message = activity.getString(R.string.youtab_start_over_confirm),
+                        confirmLabel = activity.getString(R.string.onboarding_start_over),
+                        cancelLabel = activity.getString(R.string.common_cancel),
+                        onConfirm = {
+                            CapabilityRegistry.resetToDefaults(activity)
+                            ScheduleManager.saveSchedules(activity, emptyList())
+                            FocusStore.setBool(activity, Constants.KEY_ONBOARDING_DONE, false)
+                            activity.startActivity(
+                                Intent(activity, OnboardingActivity::class.java)
+                                    .putExtra(OnboardingActivity.EXTRA_RERUN, true)
+                            )
+                        }
                     )
                 }
             }

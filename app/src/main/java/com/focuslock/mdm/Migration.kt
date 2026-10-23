@@ -14,7 +14,7 @@ import android.content.Context
 object Migration {
 
     private const val KEY_VERSION = "store_migration_version"
-    private const val CURRENT_VERSION = 6
+    private const val CURRENT_VERSION = 7
 
     fun run(context: Context) {
         val version = FocusStore.getInt(context, KEY_VERSION, 0)
@@ -39,6 +39,17 @@ object Migration {
         }
         if (version < 6) {
             KeywordRules.addMissingWhatsAppSeeds(context)
+        }
+        if (version < 7) {
+            if (CapabilityRegistry.isUserSet(context, Capabilities.OPEN_COUNT_LIMITS) &&
+                !CapabilityRegistry.isUserSet(context, Capabilities.PER_APP_LIMITS)
+            ) {
+                val oldVal = FocusStore.getJsonObject(context, "cap_enabled_json")
+                    .optBoolean(Capabilities.OPEN_COUNT_LIMITS, false)
+                if (oldVal) {
+                    CapabilityRegistry.writeEnabled(context, Capabilities.PER_APP_LIMITS, true)
+                }
+            }
         }
 
         FocusStore.setInt(context, KEY_VERSION, CURRENT_VERSION)

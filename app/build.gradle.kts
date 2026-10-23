@@ -27,8 +27,8 @@ android {
         // Bump both on every build that reaches a real phone. People are running
         // 1.0 already; without this, two different APKs both report "1.0" and the
         // only way to tell them apart is a checksum.
-        versionCode = 17
-        versionName = "1.16"
+        versionCode = 18
+        versionName = "2.0"
 
         buildConfigField("boolean", "ENFORCEMENT", "true")
         buildConfigField("boolean", "DEMO", "false")
@@ -42,12 +42,6 @@ android {
     }
 
     signingConfigs {
-        create("debugConfig") {
-            storeFile = file("${rootDir}/debug.keystore")
-            storePassword = "android"
-            keyAlias = "androiddebugkey"
-            keyPassword = "android"
-        }
         if (hasReleaseKey) {
             create("release") {
                 storeFile = file(keystoreProps.getProperty("storeFile"))
@@ -63,7 +57,7 @@ android {
 
     buildTypes {
         debug {
-            signingConfig = signingConfigs.getByName("debugConfig")
+            // Uses Android's default debug key automatically on any machine and in CI.
         }
         release {
             // Shrinks unused code and resources (most of it Media3's) but
@@ -100,7 +94,6 @@ dependencies {
     //
     // implementation("com.google.mlkit:image-labeling:17.0.9")
 
-    implementation("androidx.documentfile:documentfile:1.1.0")
     // Declared explicitly rather than inherited. AppBlockerService runs the
     // enforcement loop on coroutines; it compiled for a long time only because
     // some AndroidX library happened to pull them in transitively, which means

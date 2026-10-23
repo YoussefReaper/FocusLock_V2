@@ -6,10 +6,7 @@
 
     <string name="notification_shield_label">FocusLock Notification Shield</string>
 
-    <!-- ── The demo tier ─────────────────────────────────────────────
-         Shown only in the demo build. It states the two limits up front so a
-         greyed-out mode or a refused start reads as the demo working as
-         described, not as something broken. -->
+    <!-- ── The demo tier ───────────────────────────────────────────── -->
     <string name="demo_badge">Demo</string>
     <string name="demo_mode_locked_pill">Full version</string>
     <string name="demo_banner_body">This is the whole app, with two limits. It runs one session, and it shows you the block screen instead of taking the screen away from you. Sanctuary and Kiosk \u2014 the two modes that promise to hold the phone shut \u2014 are switched off here.</string>
@@ -17,70 +14,96 @@
     <string name="demo_banner_spent">That was the demo\'s one session. Every screen, rule, schedule and task is still here to look at, and Test the block still previews your rules against whatever you open.</string>
     <string name="demo_start_used_up">The demo\'s session is used up</string>
 
-    <!-- Accessibility Prominent Disclosure (Google Play compliance) -->
+    <!-- Accessibility Prominent Disclosure -->
     <string name="a11y_disclosure_title">Accessibility Service Disclosure</string>
     <string name="a11y_disclosure_body">FocusLock uses the Android AccessibilityService API solely to read on-screen text and window titles so it can detect when you enter distracting surfaces you chose to block (such as Shorts, Reels, WhatsApp Channels, blocked websites, or your own keywords) and step back out.\n\n• All screen text is checked locally in memory and is never stored, logged, or transmitted off your device.\n• FocusLock never modifies your settings or taps controls without your permission.</string>
     <string name="a11y_disclosure_agree">Agree &amp; Open Settings</string>
     <string name="a11y_disclosure_decline">Not now</string>
 
-    <!-- Free vs. Pro Tier -->
+    <!-- Free vs. Pro Tier ($9.99 one-time licence) -->
     <string name="pro_badge">Pro</string>
     <string name="pro_free_badge">Free tier</string>
     <string name="pro_card_title_unlocked">FocusLock Pro is active</string>
     <string name="pro_card_subtitle_unlocked">All session strengths (Sanctuary &amp; Kiosk), Bedtime dimming, Place &amp; Wi-Fi rules, Earn Mode, and Custom rules are unlocked on this device.</string>
-    <string name="pro_card_title_free">FocusLock Free Tier</string>
-    <string name="pro_card_subtitle_free">Unlimited Gentle &amp; Block sessions, App Blocking, Schedules, and Daily Limits are free forever. Upgrade to Pro for Sanctuary &amp; Kiosk modes, Bedtime, Places, Earn Mode, and Custom Rules.</string>
-    <string name="pro_upgrade_button">Unlock FocusLock Pro</string>
-    <string name="pro_dialog_title">Unlock FocusLock Pro</string>
-    <string name="pro_dialog_subtitle">One-time unlock — no subscriptions, no accounts, 100% offline.</string>
-    <string name="pro_dialog_feature_prompt">%1$s is part of FocusLock Pro.</string>
-    <string name="pro_dialog_bullets">• Sanctuary &amp; Kiosk unbreakable focus modes\n• Automatic Bedtime screen dimming &amp; sleep guard\n• Automatic Wi-Fi &amp; GPS Place rules\n• YouTube Silhouette Modesty Blur &amp; Downloader\n• Earn Mode tasks &amp; time-bank rewards</string>
-    <string name="pro_dialog_unlock_cta">Unlock Pro Now</string>
-    <string name="pro_unlocked_toast">FocusLock Pro unlocked</string>
+    <string name="pro_card_title_free">FocusLock Free vs. Pro ($9.99)</string>
+    <string name="pro_card_subtitle_free">Free forever: every kind of app &amp; web blocking, schedules, daily limits, and keyword guard. Pro ($9.99 one-time): Sanctuary &amp; Kiosk unbreakable modes, Earn Mode, Bedtime, and Places.</string>
+    <string name="pro_upgrade_button">See what is in Pro ($9.99)</string>
+    <string name="pro_buy_button">Buy Pro ($9.99 one-time)</string>
+    <string name="pro_enter_code_button">I have a licence code</string>
+    <string name="pro_dialog_title">FocusLock Pro — $9.99 one-time</string>
+    <string name="pro_dialog_subtitle">$9.99 one-time purchase with free updates forever. No subscriptions, no accounts, verified offline.</string>
+    <string name="pro_dialog_feature_prompt">%1$s is part of FocusLock Pro ($9.99 one-time).</string>
+    <string name="pro_dialog_bullets">• Sanctuary &amp; Kiosk unbreakable Device Owner modes\n• Earn Mode tasks &amp; time-bank rewards\n• Automatic Bedtime screen dimming &amp; sleep guard\n• Automatic Wi-Fi &amp; GPS Place rules\n• Custom if-this-then-that rules</string>
+    <string name="pro_dialog_unlock_cta">Buy Pro ($9.99)</string>
+    <string name="pro_unlocked_toast">FocusLock Pro unlocked — thank you!</string>
+    <string name="pro_code_dialog_title">Enter your Pro licence code</string>
+    <string name="pro_code_dialog_subtitle">Paste the FL2-XXXX-XXXX-XXXX-SSSS code from your checkout receipt. Verified offline on your phone.</string>
+    <string name="pro_code_dialog_hint">FL2-XXXX-XXXX-XXXX-SSSS</string>
+    <string name="pro_code_verify_button">Verify &amp; Unlock</string>
+    <string name="pro_code_invalid_toast">That licence code is not valid. Check for typos and try again.</string>
 
     <!-- Streamlined 3-tab Focus cards & sub-screen header -->
     <string name="dashboard_tasks_and_tools">Tasks &amp; safe tools</string>
     <string name="dashboard_tasks_card_title">Tasks &amp; Earn Mode</string>
     <string name="dashboard_tasks_card_subtitle">Track focus tasks, checklist items, and earned screen time</string>
     <string name="dashboard_tools_card_title">Safe Tools &amp; Allowed Apps</string>
-    <string name="dashboard_tools_card_subtitle">Safe YouTube, allowlisted browser, text search, and essential apps</string>
+    <string name="dashboard_tools_card_subtitle">Approved YouTube channels, allowlisted browser, text search, and essential apps</string>
     <string name="nav_back_to_focus">← Back to Focus</string>
 
-    <!-- Streamlined Onboarding Step 2 Permissions -->
+    <!-- Streamlined Onboarding & One-tap Presets -->
     <string name="onboarding_perms_title">Enable core protection</string>
-    <string name="onboarding_perms_subtitle">FocusLock needs two standard Android permissions so it can tell when a blocked app opens and show the block screen.</string>
-    <string name="onboarding_perms_optional_note">You can grant optional permissions (like Shorts/Reels keyword detection or Notification silencing) anytime in Rules.</string>
+    <string name="onboarding_perms_subtitle">FocusLock needs Usage Access so it can tell when a blocked app opens.</string>
+    <string name="onboarding_perms_optional_note">You can grant optional permissions anytime in Rules.</string>
+    <string name="onboarding_q1_apps_title">Which apps pull you in?</string>
+    <string name="onboarding_q1_apps_subtitle">Pick from your installed apps below, or start immediately with a one-tap preset.</string>
+    <string name="onboarding_presets_heading">One-tap presets</string>
+    <string name="onboarding_presets_subtitle">Set apps, schedule, and firmness in one tap.</string>
+    <string name="preset_study_title">Study</string>
+    <string name="preset_study_subtitle">Blocks social, video, and games for 1 hour right now</string>
+    <string name="preset_sleep_title">Sleep</string>
+    <string name="preset_sleep_subtitle">Locks social, video, and games every night from 10 PM to 6 AM</string>
+    <string name="preset_detox_title">Social detox</string>
+    <string name="preset_detox_subtitle">Adds a calm breathing pause before social and video apps</string>
+    <string name="preset_applied_toast">%1$s preset applied</string>
+    <string name="onboarding_q3_when_title">When should FocusLock hold the line?</string>
+    <string name="onboarding_q3_when_subtitle">Start your first session right now, or set a daily window that runs on its own.</string>
+    <string name="onboarding_when_now_label">Start a 1-hour session right now</string>
+    <string name="onboarding_when_evening_label">Every evening (7:00 PM – 10:00 PM)</string>
+    <string name="onboarding_when_study_label">Weekdays study &amp; work (9:00 AM – 5:00 PM)</string>
+    <string name="onboarding_when_bedtime_label">Every night at bedtime (10:00 PM – 6:00 AM)</string>
+    <string name="onboarding_start_first_block">Start blocking now</string>
 
-    <!-- Safe YouTube & Modesty Silhouette Blur -->
-    <string name="cap_safe_youtube_label">Safe YouTube player</string>
-    <string name="cap_safe_youtube_blurb">Distraction-free YouTube with approved channels, safe search, zero Shorts, and on-device modesty blur.</string>
-    <string name="cap_youtube_modesty_blur_label">YouTube silhouette modesty blur</string>
-    <string name="cap_youtube_modesty_blur_blurb">Auto-blurs human silhouettes on video and thumbnails while keeping slides, code, and whiteboards sharp.</string>
+    <!-- Short switch list & Unbreakable upgrade card -->
+    <string name="capabilities_show_all_button">Show all switches (%1$d)</string>
+    <string name="capabilities_show_fewer_button">Show only the 10 core switches</string>
+    <string name="dashboard_unbreakable_card_title">Want a lock you can\'t undo?</string>
+    <string name="dashboard_unbreakable_card_body">5 minutes at a PC turns on Device Owner so Sanctuary and Kiosk cannot be force-stopped or uninstalled mid-session.</string>
 
-    <string name="safetube_title">Safe YouTube</string>
-    <string name="safetube_subtitle">Distraction-free YouTube. No home feed, no Shorts, no algorithmic rabbit holes.</string>
-    <string name="safetube_search_hint">Search educational topics or channels…</string>
+    <!-- First block warm note & daily opens stopped -->
+    <string name="intercept_first_block_warm_note">Your first distraction stopped. Your rule is holding quietly.</string>
+    <string name="intercept_opens_stopped_today">%1$d opens stopped today</string>
+
+    <!-- One-tap help & Start over reset -->
+    <string name="common_why_needed_button">Why does FocusLock need this?</string>
+    <string name="common_why_needed_default">This screen lets you customize how FocusLock protects your attention. Everything stays on your phone.</string>
+    <string name="youtab_start_over_title">Start over</string>
+    <string name="youtab_start_over_subtitle">Reset rules and schedules to defaults and run the 3-step setup again</string>
+    <string name="youtab_start_over_confirm">This resets your capability switches and schedules back to a clean starting point and opens the 3-step setup. Your Pro licence is kept.</string>
+
+    <!-- Approved YouTube Channels -->
+    <string name="cap_safe_youtube_label">Approved YouTube channels</string>
+    <string name="cap_safe_youtube_blurb">Keep a list of educational channels that open directly in YouTube without starting on the home feed.</string>
+    <string name="safetube_title">Approved YouTube channels</string>
+    <string name="safetube_subtitle">Your own list of channels that open directly in YouTube.</string>
+    <string name="safetube_empty_channels">No channels added yet. Add a channel below or pick one of the suggestions.</string>
+    <string name="safetube_suggestions_section">Suggested educational channels</string>
+    <string name="safetube_suggestions_blurb">Tap any channel to add it to your approved list.</string>
     <string name="safetube_add_channel_title">Add approved channel</string>
-    <string name="safetube_add_channel_hint">e.g. @freecodecamp or Channel URL</string>
+    <string name="safetube_add_channel_hint">e.g. @khanacademy or Channel URL</string>
     <string name="safetube_add_channel_btn">Add channel</string>
-    <string name="safetube_remove_channel">Remove channel</string>
-    <string name="safetube_channel_added">Channel added to safe list</string>
-    <string name="safetube_channel_removed">Channel removed</string>
-    <string name="safetube_shorts_blocked_toast">Shorts are blocked in FocusLock</string>
-    <string name="safetube_unapproved_video_toast">Video not from an approved channel or topic</string>
-    <string name="safetube_silhouette_blur_title">Person silhouette blur</string>
-    <string name="safetube_silhouette_blur_active">Silhouette blur: ON</string>
-    <string name="safetube_silhouette_blur_off">Silhouette blur: OFF</string>
-    <string name="safetube_silhouette_blur_pro_prompt">Person silhouette auto-blur is a FocusLock Pro feature.</string>
-    <string name="safetube_download_video">Download for offline</string>
-    <string name="safetube_download_started">Download started in background</string>
-    <string name="safetube_download_complete">Video downloaded for offline study</string>
-    <string name="safetube_download_pro_prompt">Offline YouTube video downloading is a FocusLock Pro feature.</string>
-    <string name="safetube_offline_tab">Offline downloads</string>
-    <string name="safetube_channels_tab">Approved channels</string>
-    <string name="safetube_no_downloads_yet">No downloaded videos yet. Download lectures to study offline.</string>
-    <string name="safetube_delete_download">Delete</string>
-    <string name="library_safetube_heading">Safe YouTube</string>
-    <string name="library_safetube_body">Watch lectures and tutorials without algorithm traps, Shorts, or visual modesty distractions.</string>
-    <string name="library_safetube_open_button">Open Safe YouTube</string>
+    <string name="safetube_channel_added">Channel added to your list</string>
+    <string name="safetube_open">Open</string>
+    <string name="library_safetube_heading">Approved YouTube channels</string>
+    <string name="library_safetube_body">Open your chosen educational channels directly in YouTube without landing on the home feed.</string>
+    <string name="library_safetube_open_button">Open approved channels</string>
 </resources>

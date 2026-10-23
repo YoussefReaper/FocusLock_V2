@@ -39,26 +39,11 @@ class AppLimitsActivity : FocusScreenActivity() {
             FocusUi.toggleRow(
                 this,
                 tokens,
-                getString(R.string.app_limits_time_limits_title),
-                getString(R.string.app_limits_time_limits_subtitle),
+                getString(R.string.cap_per_app_limits_label),
+                getString(R.string.cap_per_app_limits_blurb),
                 CapabilityRegistry.isEnabled(this, Capabilities.PER_APP_LIMITS)
             ) { value ->
                 if (!CapabilityRegistry.setEnabled(this, Capabilities.PER_APP_LIMITS, value)) {
-                    FocusDialog.toast(this, SessionLock.refusalMessage(this))
-                }
-                refresh()
-            }
-        )
-        card.addView(FocusUi.divider(this, tokens))
-        card.addView(
-            FocusUi.toggleRow(
-                this,
-                tokens,
-                getString(R.string.app_limits_open_caps_title),
-                getString(R.string.app_limits_open_caps_subtitle),
-                CapabilityRegistry.isEnabled(this, Capabilities.OPEN_COUNT_LIMITS)
-            ) { value ->
-                if (!CapabilityRegistry.setEnabled(this, Capabilities.OPEN_COUNT_LIMITS, value)) {
                     FocusDialog.toast(this, SessionLock.refusalMessage(this))
                 }
                 refresh()
