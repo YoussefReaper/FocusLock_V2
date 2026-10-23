@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    أوضاع الجلسة الأربعة: الاسم، ووعد من سطر واحد، وسطر الخروج الصريح،
+    مع أجزاء الجملة التي يجمعها presetSummary().
+
+    كل وضع يقول بصوت مسموع مدى صعوبة الخروج منه، لأن من يختار جلسة كشك
+    لمدة ٩٠ يومًا يستحق أن يعرف ذلك قبل أن يضغط، لا بعدها.
+-->
+<resources>
+    <string name="mode_soft_label">هادئ</string>
+    <string name="mode_soft_oneliner">وقفة وتنبيه لطيف عندما تمدّ يدك إلى شيء مشتّت.</string>
+    <string name="mode_soft_exitline">اخرج في أي وقت. لا شيء مُغلق عليك.</string>
+
+    <string name="mode_block_label">حجب</string>
+    <string name="mode_block_oneliner">تتوقف التطبيقات المشتّتة عن الفتح. وباقي الهاتف يعمل طبيعيًا.</string>
+    <string name="mode_block_exitline">أنهِ الجلسة من هذه الشاشة متى شئت.</string>
+
+    <string name="mode_sanctuary_label">ملاذ</string>
+    <string name="mode_sanctuary_oneliner">تختفي المشتّتات من الشاشة الرئيسية وتهدأ. وتبقى شاشتك الرئيسية ملكك.</string>
+    <string name="mode_sanctuary_exitline">أنهِ الجلسة من هنا. تعود التطبيقات في غضون ثوانٍ.</string>
+
+    <string name="mode_kiosk_label">كشك</string>
+    <string name="mode_kiosk_oneliner">يصبح FocusLock الهاتف بأكمله حتى ينتهي المؤقت.</string>
+    <string name="mode_kiosk_exitline">يستمر حتى النهاية. لا يوقفه مبكرًا سوى إعادة ضبط المصنع، وهي تمحو الهاتف.</string>
+
+    <!-- presetSummary(): بادئة + الأجزاء المنطبقة، مفصولة بـ « · ». -->
+    <string name="mode_preset_prefix">يفعّل: </string>
+    <string name="mode_preset_stops">إيقاف التطبيقات المحجوبة</string>
+    <string name="mode_preset_nudges">تنبيه فقط، بلا حجب</string>
+    <string name="mode_preset_hides">إخفاؤها من الشاشة الرئيسية</string>
+    <string name="mode_preset_silences">إسكاتها</string>
+    <string name="mode_preset_can_end_early">يمكنك إنهاؤه مبكرًا</string>
+    <string name="mode_preset_no_early_exit">لا خروج مبكر</string>
+
+    <!-- جمل يُدمج فيها اسم الوضع. -->
+    <string name="mode_running_suffix">%1$s قيد التشغيل</string>
+    <string name="mode_name_suffix">وضع %1$s</string>
+    <string name="mode_summary_line">%1$s · %2$s</string>
+    <string name="mode_start_button">ابدأ %1$s · %2$s</string>
+    <string name="mode_start_confirm_title">أتبدأ %1$s لمدة %2$s؟</string>
+    <string name="mode_notification_line">جلسة %1$s، بقي %2$s</string>
+    <string name="mode_demo_locked_title">%1$s ليس في نسخة العرض</string>
+    <string name="mode_template_line">%1$d من %2$d مفعّل · قالب %3$s</string>
+</resources>

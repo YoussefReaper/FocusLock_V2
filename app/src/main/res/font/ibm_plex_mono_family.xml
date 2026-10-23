@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    IBM Plex Mono. Numerals, timers, counts, state-chip labels and overlines
+    use this regardless of the user's chosen prose font - see
+    UiPrefs.Tokens.monoTypeface.
+-->
+<font-family xmlns:app="http://schemas.android.com/apk/res-auto">
+    <font
+        app:font="@font/ibmplexmono_regular"
+        app:fontStyle="normal"
+        app:fontWeight="400" />
+    <font
+        app:font="@font/ibmplexmono_medium"
+        app:fontStyle="normal"
+        app:fontWeight="500" />
+    <font
+        app:font="@font/ibmplexmono_semibold"
+        app:fontStyle="normal"
+        app:fontWeight="600" />
+</font-family>

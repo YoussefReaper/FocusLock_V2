@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="perms_subtitle">أندرويد يمنح هذه يدويًا. وFocusLock لا يطلب إلا ما تستخدمه إعداداتك فعلًا.</string>
+    <string name="perms_needed_title">ما هو مطلوب</string>
+    <string name="perms_device_owner">مالك الجهاز</string>
+    <string name="perms_all_granted">كل شيء ممنوح</string>
+    <string name="perms_still_to_grant">بقي %1$d لمنحه</string>
+    <string name="perms_nothing_else">لا شيء آخر مطلوب للقدرات التي شغّلتها.</string>
+    <string name="perms_of_total">من بين %1$d إذنًا يستطيع FocusLock استخدامها، تحتاج إعداداتك هذه.</string>
+    <string name="perms_not_needed_suffix">  ·  غير مطلوب لإعداداتك الحالية</string>
+    <string name="perms_usage_title">اعرف التطبيق الذي في المقدمة</string>
+    <string name="perms_usage_detail">يُسمّى «الوصول إلى الاستخدام» في الإعدادات. وعليه يقوم الحجب والحدود وتفصيل الوقت أصلًا.</string>
+    <string name="perms_accessibility_title">اقرأ الشاشة</string>
+    <string name="perms_accessibility_detail">يُسمّى «إمكانية الوصول». يقرأ النص فقط، حتى يتعرّف حارس الكلمات وShorts وReels وواتساب على السطح المطلوب. ولا يكتب ولا ينقر أبدًا.</string>
+    <string name="perms_notification_title">اكتم الإشعارات</string>
+    <string name="perms_notification_detail">يتيح للدرع إخفاء تنبيهات التطبيقات المحجوبة. والتطبيقات المسموح بها دائمًا لا تُمس.</string>
+    <string name="perms_overlay_title">اعرض فوق التطبيقات الأخرى</string>
+    <string name="perms_overlay_detail">بديل لِعرض شاشة الحجب عندما لا يسمح أندرويد لـ FocusLock بفتح نافذة.</string>
+    <string name="perms_post_notifications_title">الإشعارات</string>
+    <string name="perms_post_notifications_detail">تعرض ما يعمل الآن، وتنبهك إذا أُوقف حارس المحتوى أثناء الجلسة. لا شيء غير ذلك.</string>
+    <string name="perms_battery_title">اعمل بلا قيود البطارية</string>
+    <string name="perms_battery_detail">يمنع أندرويد من إيقاف الحارس في منتصف جلسة طويلة.</string>
+    <string name="perms_location_title">الموقع</string>
+    <string name="perms_location_detail">يُستخدم لقواعد الأماكن فقط، وكتحديد موقع أخير معروف فحسب. وليس بثًا متواصلًا أبدًا.</string>
+    <string name="perms_device_admin_title">مشرف الجهاز</string>
+    <string name="perms_device_admin_detail">النصف الأول من إعداد «مالك الجهاز» الذي يحتاجه وضع الكشك.</string>
+    <string name="perms_kiosk_needs_admin">وضع الكشك يحتاج مشرف الجهاز.</string>
+    <string name="perms_demo_title">هذه نسخة العرض</string>
+    <string name="perms_demo_body">كل شاشة وقاعدة ومهمة وإعداد هنا هي التطبيق الحقيقي. الناقص هو التنفيذ: لا شيء يُخفى أو يُعلَّق أو يُعترَض أو يُغلق، ولا يُخفى أي إشعار، ولا يمكن جعل هذه النسخة «مالك الجهاز» حتى عبر ADB. أعدّه تمامًا كما تريده للاستخدام الحقيقي — فالنسخة الكاملة هي التي تبدأ في إمساك الزمام.</string>
+    <string name="perms_full_adds">ما تضيفه النسخة الكاملة</string>
+    <string name="perms_owner_active">«مالك الجهاز» مفعّل</string>
+    <string name="perms_owner_not_set">«مالك الجهاز» غير مضبوط</string>
+    <string name="perms_owner_active_detail">يمكن لجلسات الكشك أن تصمد، ويمكن إغلاق الوضع الآمن، ويمكن تعليق التطبيقات المحجوبة على مستوى النظام.</string>
+    <string name="perms_owner_inactive_detail">بدونه لا يصمد وضع الكشك فعلًا: تبقى الشاشة الرئيسية في المتناول، ويُشغّل الوضع الآمن الهاتف وFocusLock معطّل. ويُضبط ذلك من حاسوب عبر ADB.</string>
+    <string name="perms_see_allows">انظر ما يسمح به</string>
+    <string name="perms_show_how">أرِني كيف</string>
+</resources>

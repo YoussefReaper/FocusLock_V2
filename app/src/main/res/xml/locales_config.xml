@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Declares the locales FocusLock actually ships translations for, so the
+    app also shows up correctly under system Settings -> App info ->
+    Language, alongside the in-app switcher in You -> Make it yours (see
+    YouTab.kt / UiPrefs.setAppLocale).
+-->
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <locale android:name="en" />
+    <locale android:name="ar" />
+</locale-config>

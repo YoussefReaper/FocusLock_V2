@@ -1,0 +1,14 @@
+<!-- Rules: sliders. Things set to a position you chose. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="#FFFFFF">
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M3,6h6v2L3,8zM13,6h8v2h-8zM3,16h2v2L3,18zM9,16h12v2L9,18z" />
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M11,4h2v6h-2zM5,14h2v6L5,20z" />
+</vector>

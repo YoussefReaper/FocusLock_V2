@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    The content guard watches every app rather than a fixed package list: which
+    apps it actually reads is a user setting (KeywordRules), not a manifest
+    constant. It requests no gestures, no key events and no ability to perform
+    actions beyond a global back press.
+-->
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityEventTypes="typeWindowStateChanged|typeWindowContentChanged|typeViewScrolled"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:canRetrieveWindowContent="true"
+    android:accessibilityFlags="flagReportViewIds|flagRetrieveInteractiveWindows|flagIncludeNotImportantViews"
+    android:notificationTimeout="200"
+    android:description="@string/content_guard_description" />

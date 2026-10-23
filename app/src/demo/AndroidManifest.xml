@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Demo overlay.
+
+  AdminReceiver is removed outright rather than merely disabled. Without a
+  declared device-admin receiver there is no component for `dpm
+  set-device-owner` to point at, so the demo cannot be provisioned even by
+  someone who reads the docs and tries. That is a structural guarantee, not a
+  runtime check, and it is why the demo is safe to hand out: it cannot lock
+  anyone out of their phone.
+
+  SetupChecks.isDeviceOwner() returning false in this build is the second lock
+  on the same door.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application>
+        <receiver
+            android:name=".AdminReceiver"
+            tools:node="remove" />
+    </application>
+</manifest>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Arabic draft translation, paired 1:1 by name/order/count with
+  values/copy_arrays.xml - same reasoning as copy_strings.xml: a machine
+  draft that needs a native speaker's review before it ships.
+-->
+<resources>
+
+    <string-array name="copy_block_headline_kind">
+        <item>%1$s في راحة</item>
+        <item>ليس %1$s الآن</item>
+        <item>%1$s تم تنحيته جانبًا الآن</item>
+    </string-array>
+
+    <string-array name="copy_block_detail_kind">
+        <item>أنت قررت أن هذا يقف في الطريق. هذا القرار ما زال صائبًا.</item>
+        <item>طلبت سابقًا أن يكون هذا بعيدًا عن متناولك. ها هو بعيد عن متناولك.</item>
+        <item>كان هذا قرارك، اتخذته بهدوء، مسبقًا.</item>
+    </string-array>
+
+    <string-array name="copy_pause_headline_kind">
+        <item>قبل فتح %1$s</item>
+        <item>لحظة واحدة أولاً</item>
+        <item>توقف قصير</item>
+    </string-array>
+
+    <string-array name="copy_pause_detail_kind">
+        <item>خذ نفسًا. إذا ما زلت تريده بعد هذا، سيُفتح.</item>
+        <item>لا حكم في كلتا الحالتين. مجرد ثوانٍ قليلة بين المدّ والتطبيق.</item>
+        <item>في أغلب الأحيان تزول الرغبة في وقت أقل مما يستغرقه هذا.</item>
+    </string-array>
+
+    <string-array name="copy_kiosk_detail_kind">
+        <item>وضع الكشك مستمر لمدة %1$s أخرى. سيعود الهاتف من تلقاء نفسه.</item>
+        <item>تبقّى %1$s في هذه الجلسة. لا شيء هنا يحتاج منك أن تكون قويًا الآن.</item>
+        <item>أنت أعددت هذا حتى لا تضطر إلى القرار مجددًا. تبقّى %1$s.</item>
+    </string-array>
+
+    <string-array name="copy_schedule_detail_kind">
+        <item>أنت من وضع هذه الفترة في التقويم. ستُفتح مجددًا عند %1$s.</item>
+        <item>حتى %1$s، الهاتف يحافظ على الالتزام نيابة عنك.</item>
+        <item>يعود كل شيء لطبيعته عند %1$s.</item>
+    </string-array>
+
+    <string-array name="copy_schedule_overlay_detail_kind">
+        <item>أنت ضبطت هذه لتكون قفلاً تامًا، فلا شيء - ولا حتى استراحة - يُثنيك عنها. ستُفتح مجددًا عند %1$s.</item>
+        <item>هذه الفترة لا تتزحزح. يعود كل شيء لطبيعته عند %1$s.</item>
+        <item>لا استثناءات حتى %1$s - كان هذا هو المغزى الكامل من قفلها.</item>
+    </string-array>
+
+    <string-array name="copy_bedtime_detail_kind">
+        <item>سيعود هذا عند %1$s. النوم هو ما يجعل الغد ممكنًا.</item>
+        <item>لا شيء هناك يحتاج إلى رد الليلة. سيعود عند %1$s.</item>
+        <item>طلبت الهدوء بعد هذه الساعة. هدوء حتى %1$s.</item>
+    </string-array>
+
+    <string-array name="copy_earn_headline_kind">
+        <item>%1$s ينتظر إنجاز المهمة</item>
+        <item>المهمة أولاً، ثم %1$s</item>
+        <item>ليس بعد، %1$s</item>
+    </string-array>
+
+    <string-array name="copy_earn_completed_kind">
+        <item>كسبت %1$d دقيقة. كان وقتك أصلاً.</item>
+        <item>عادت إليك %1$d دقيقة. أنفقها أو ادّخرها.</item>
+        <item>هذه %1$d دقيقة، وفق الاتفاق الذي وضعته بنفسك.</item>
+    </string-array>
+
+
+    <string-array name="copy_earn_photo_retry_kind">
+        <item>حاول مرة أخرى. لم يُسجَّل شيء عن تلك المحاولة.</item>
+        <item>جرّب زاوية مختلفة.</item>
+        <item>لم تُقبل تلك. لا ضرر، التقط أخرى.</item>
+    </string-array>
+
+    <string-array name="copy_session_started_kind">
+        <item>الجلسة جارية. لا شيء آخر عليك أن تقرره لفترة.</item>
+        <item>%1$s نشط الآن. سيحافظ الهاتف على هذا نيابة عنك.</item>
+        <item>أنت بدأت. اذهب وأنجز ما عليك.</item>
+    </string-array>
+
+
+    <string-array name="copy_relapse_note_kind">
+        <item>فجوة واحدة ليست انهيارًا. تابع من هنا.</item>
+        <item>لا شيء عليك تعويضه. فقط تابع.</item>
+        <item>يوم واحد خارج النمط لا يُلغي النمط.</item>
+    </string-array>
+
+    <string-array name="copy_content_guard_headline_kind">
+        <item>%1$s طابق قاعدتك بخصوص %2$s</item>
+        <item>%2$s ظهرت في %1$s</item>
+        <item>تم رصد %2$s في %1$s</item>
+    </string-array>
+
+</resources>

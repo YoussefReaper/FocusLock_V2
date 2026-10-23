@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    The Focus tab: the mode picker, the running-session card, the timer card,
+    the quick-settings block and the setup card. Every string here was a Kotlin
+    literal, so the first screen anyone sees was English in every locale.
+-->
+<resources>
+    <string name="dashboard_quick_settings">Quick settings</string>
+    <string name="dashboard_nothing_running">Nothing running</string>
+    <string name="dashboard_running_pill">Running</string>
+    <string name="dashboard_time_left">TIME LEFT</string>
+    <string name="dashboard_of_the_way_through">of the way through</string>
+    <string name="dashboard_kiosk_holding">Kiosk is holding</string>
+    <string name="dashboard_kiosk_holding_body">The phone comes back on its own. Nothing here needs you to be strong right now.</string>
+    <string name="dashboard_apps_still_allowed">apps still allowed</string>
+    <string name="dashboard_focus_so_far">focus so far</string>
+    <string name="dashboard_ends_at">Ends %1$s</string>
+    <string name="dashboard_end_session">End this session</string>
+    <string name="dashboard_hard_mode_body">This one runs to the end. Only a factory reset stops it early, and that wipes the phone.</string>
+    <string name="dashboard_early_exit_off_body">You turned the early exit off for this session. It runs to the end.</string>
+    <string name="dashboard_break_ends_in">Break ends in %1$s</string>
+    <string name="dashboard_end_now">End now</string>
+    <string name="dashboard_end_confirm_title">End the session?</string>
+    <string name="dashboard_end_confirm_message">Everything unlocks straight away. The time you already did still counts.</string>
+    <string name="dashboard_end_confirm_button">End it</string>
+    <string name="dashboard_end_keep_button">Keep going</string>
+    <string name="dashboard_open_rules">Open Rules</string>
+
+    <string name="dashboard_what_it_changes">WHAT IT CHANGES</string>
+    <string name="dashboard_preset_edited_note">You have changed some of these in You → Advanced. Your version is what runs.</string>
+    <string name="dashboard_put_template_back">Put the template back</string>
+    <string name="dashboard_needs_device_owner">Needs Device Owner setup</string>
+    <string name="dashboard_what_kiosk_allows">WHAT KIOSK ALLOWS</string>
+    <string name="dashboard_kiosk_allowlist_title">Only what you name stays open</string>
+    <string name="dashboard_kiosk_allowlist_on">Kiosk is a whitelist: everything is shut except your always-allowed apps and anything set to Open freely.</string>
+    <string name="dashboard_kiosk_allowlist_off">Kiosk is a blocklist instead: everything opens except the apps you blocked. Softer, and still pinned.</string>
+
+    <string name="dashboard_duration_day">1 day</string>
+    <string name="dashboard_duration_week">1 week</string>
+    <string name="dashboard_duration_30_days">30 days</string>
+    <string name="dashboard_duration_90_days">90 days</string>
+    <string name="dashboard_hours_hint_body">Type any number of hours</string>
+    <string name="dashboard_hours_title">For how long?</string>
+    <string name="dashboard_hours_confirm_title">How many hours?</string>
+    <string name="dashboard_hours_confirm_subtitle">Whole hours. For days, multiply by 24.</string>
+    <string name="dashboard_hours_hint">Hours</string>
+    <string name="dashboard_hours_invalid">Enter a number of hours.</string>
+
+    <string name="dashboard_kiosk_options_title">Kiosk options</string>
+    <string name="dashboard_kiosk_options_subtitle">Full-screen surface, handing the phone back at the end</string>
+    <string name="dashboard_kiosk_surface_title">Full-screen session surface</string>
+    <string name="dashboard_kiosk_surface_subtitle">Hides the tab bar. Your library and rules become unreachable until the session ends.</string>
+    <string name="dashboard_release_owner_title">Hand the phone back at the end</string>
+    <string name="dashboard_release_owner_subtitle">Removes FocusLock\'s Device Owner powers when the timer runs out. You would need a computer to set it up again.</string>
+    <string name="dashboard_kiosk_needs_step_title">Kiosk needs one more step</string>
+    <string name="dashboard_kiosk_needs_step_message">Kiosk mode only holds if FocusLock is Device Owner, which is set from a computer over ADB. Without it, the launcher and Safe Mode stay open.</string>
+    <string name="dashboard_show_me_how">Show me how</string>
+    <string name="dashboard_can_end_early_line">You can end it early from the Focus tab.</string>
+    <string name="dashboard_no_early_exit_line">There is no early exit. It runs the full %1$s, and in Kiosk the only way out before then is a factory reset, which wipes the phone.</string>
+
+    <string name="dashboard_finish_setup">Finish setting up</string>
+    <string name="dashboard_setup_body">Some things you switched on need a permission Android only grants by hand.</string>
+    <string name="dashboard_setup_guide">Open the full setup guide</string>
+    <string name="dashboard_setting_unavailable">That settings page is not available on this phone.</string>
+    <string name="dashboard_grant">Grant</string>
+    <string name="setup_issue_usage_access">Usage access</string>
+    <string name="setup_issue_usage_access_detail">Lets FocusLock see which app is in front. Nothing leaves the phone.</string>
+    <string name="setup_issue_content_guard">Content guard</string>
+    <string name="setup_issue_content_guard_detail">Needed for keyword, Shorts, Reels and WhatsApp guards.</string>
+    <string name="setup_issue_notification_access">Notification access</string>
+    <string name="setup_issue_notification_access_detail">Lets the shield hold back alerts from blocked apps.</string>
+    <string name="setup_issue_battery">Unrestricted battery</string>
+    <string name="setup_issue_battery_detail">Stops Android putting the guard to sleep mid-session.</string>
+
+    <string name="dashboard_task_running">Task running</string>
+    <string name="dashboard_earned_pool">Earned pool</string>
+    <string name="dashboard_schedule_running">Schedule running</string>
+    <string name="dashboard_next_window">Next window</string>
+    <string name="dashboard_place_rule">Place rule</string>
+    <string name="dashboard_on_a_timer">On a timer</string>
+    <string name="dashboard_until">until %1$s</string>
+    <string name="dashboard_now_arrow">now → %1$s</string>
+    <string name="dashboard_active_count">%1$s active</string>
+
+    <!-- The greeting: a day name from the platform, plus a period word. -->
+    <string name="dashboard_day_period">%1$s %2$s</string>
+    <string name="dashboard_period_night">night</string>
+    <string name="dashboard_period_morning">morning</string>
+    <string name="dashboard_period_afternoon">afternoon</string>
+    <string name="dashboard_period_evening">evening</string>
+
+    <string name="all_modes_off_body">Every mode is switched off right now. Turn one on in Rules to start a session.</string>
+
+    <!-- The demo dialogs the Focus tab raises before a session can start. -->
+    <string name="dashboard_demo_locked_message">The demo leaves the two modes that promise to hold the phone shut switched off, because it has no Device Owner to make that promise true. Every other mode, rule and task works exactly as it does in the full version.</string>
+    <string name="dashboard_demo_used_title">The demo\'s one session is used up</string>
+    <string name="dashboard_demo_used_message">The demo runs a single session so you can see what one looks like. The full version has no limit, and nothing you have set up here is lost.</string>
+
+    <string name="common_count_left">%1$s left</string>
+    <string name="common_got_it">Got it</string>
+    <string name="common_start">Start</string>
+    <string name="common_done">Done</string>
+    <string name="common_not_now">Not now</string>
+
+    <!-- The five tabs, used by the bottom bar and by the Focus tab's shortcuts. -->
+    <string name="tab_focus">Focus</string>
+    <string name="tab_tasks">Tasks</string>
+    <string name="tab_library">Library</string>
+    <string name="tab_rules">Rules</string>
+    <string name="tab_you">You</string>
+</resources>

@@ -1,0 +1,9 @@
+{
+  "name": "focuslock-app",
+  "version": "1.0.0",
+  "description": "FocusLock — Minimalist App Blocker & Safe YouTube for Android",
+  "scripts": {
+    "start": "node .aistudio/preview-server.cjs",
+    "dev": "node .aistudio/preview-server.cjs"
+  }
+}

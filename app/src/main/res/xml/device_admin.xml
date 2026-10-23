@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Declares what this Device Admin (and Device Owner) is allowed to do.
+    The more policies you list here, the more power DevicePolicyManager grants.
+-->
+<device-admin xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-policies>
+        <limit-password />
+        <watch-login />
+        <reset-password />
+        <force-lock />
+        <wipe-data />
+        <expire-password />
+        <encrypted-storage />
+        <disable-camera />
+        <disable-keyguard-features />
+    </uses-policies>
+</device-admin>

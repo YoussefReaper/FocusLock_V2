@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    The four session modes: name, one-line promise, and the honest exit line,
+    plus the fragments presetSummary() assembles.
+
+    Every mode says out loud how hard it is to leave, because a person choosing
+    a 90-day kiosk session deserves to know that before they tap, not after.
+-->
+<resources>
+    <string name="mode_soft_label">Soft</string>
+    <string name="mode_soft_oneliner">A pause and a nudge when you reach for something distracting.</string>
+    <string name="mode_soft_exitline">Leave any time. Nothing is held shut.</string>
+
+    <string name="mode_block_label">Block</string>
+    <string name="mode_block_oneliner">Distracting apps stop opening. The rest of the phone works normally.</string>
+    <string name="mode_block_exitline">End the session from this screen whenever you want.</string>
+
+    <string name="mode_sanctuary_label">Sanctuary</string>
+    <string name="mode_sanctuary_oneliner">Distractions disappear from the launcher and go silent. Your home screen stays yours.</string>
+    <string name="mode_sanctuary_exitline">End the session here. Apps come back within a few seconds.</string>
+
+    <string name="mode_kiosk_label">Kiosk</string>
+    <string name="mode_kiosk_oneliner">FocusLock becomes the whole phone until the timer runs out.</string>
+    <string name="mode_kiosk_exitline">Runs to the end. Only a factory reset stops it early, and that wipes the phone.</string>
+
+    <!-- presetSummary(): "<prefix>" + the applicable fragments joined by " · ". -->
+    <string name="mode_preset_prefix">Sets: </string>
+    <string name="mode_preset_stops">stops blocked apps</string>
+    <string name="mode_preset_nudges">nudges, never blocks</string>
+    <string name="mode_preset_hides">hides them from the launcher</string>
+    <string name="mode_preset_silences">silences them</string>
+    <string name="mode_preset_can_end_early">you can end it early</string>
+    <string name="mode_preset_no_early_exit">no early exit</string>
+
+    <!-- Sentences a mode name gets woven into. -->
+    <string name="mode_running_suffix">%1$s is running</string>
+    <string name="mode_name_suffix">%1$s mode</string>
+    <string name="mode_summary_line">%1$s · %2$s</string>
+    <string name="mode_start_button">Start %1$s · %2$s</string>
+    <string name="mode_start_confirm_title">Start %1$s for %2$s?</string>
+    <string name="mode_notification_line">%1$s session, %2$s left</string>
+    <string name="mode_demo_locked_title">%1$s is not in the demo</string>
+    <string name="mode_template_line">%1$d of %2$d on · %3$s template</string>
+</resources>

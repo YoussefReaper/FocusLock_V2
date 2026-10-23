@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    The names shown in You -> Make it yours: theme, font, density, wallpaper,
+    accent and background.
+
+    These were Kotlin constructor arguments on UiTheme / UiFont / UiDensity /
+    UiWallpaper / UiAccent / UiBackground, so the whole appearance screen was
+    English in every locale.
+-->
+<resources>
+    <string name="appearance_theme_obsidian">Obsidian</string>
+    <string name="appearance_theme_nocturne">Nocturne</string>
+    <string name="appearance_theme_paper">Paper</string>
+
+    <string name="appearance_font_figtree">Figtree</string>
+    <string name="appearance_font_system">System</string>
+    <string name="appearance_font_mono">Mono</string>
+
+    <string name="appearance_density_comfortable">Comfortable</string>
+    <string name="appearance_density_compact">Compact</string>
+    <string name="appearance_density_roomy">Roomy</string>
+
+    <string name="appearance_wallpaper_none">None</string>
+    <string name="appearance_wallpaper_slate">Slate</string>
+    <string name="appearance_wallpaper_sunset">Sunset</string>
+    <string name="appearance_wallpaper_ocean">Ocean</string>
+
+    <string name="appearance_accent_blue">Electric Blue</string>
+    <string name="appearance_accent_green">Lime Green</string>
+    <string name="appearance_accent_orange">Sunset Orange</string>
+    <string name="appearance_accent_pink">Neon Pink</string>
+    <string name="appearance_accent_teal">Teal</string>
+    <string name="appearance_accent_gold">Gold</string>
+    <string name="appearance_accent_violet">Violet</string>
+    <string name="appearance_accent_slate">Slate</string>
+
+    <string name="appearance_bg_default">Theme default</string>
+    <string name="appearance_bg_midnight">Midnight</string>
+    <string name="appearance_bg_ink">Ink</string>
+    <string name="appearance_bg_emerald">Emerald</string>
+    <string name="appearance_bg_sand">Sand</string>
+    <string name="appearance_bg_pure_black">True black</string>
+</resources>

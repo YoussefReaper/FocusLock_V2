@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Figtree, one variable font file covering the whole weight axis. Each
+    entry below names a fixed instance of it rather than a separate file -
+    Typeface.create(family, weight, italic) then resolves to whichever of
+    these is closest, the same call FocusUi already makes for synthetic
+    bold today.
+-->
+<font-family xmlns:app="http://schemas.android.com/apk/res-auto">
+    <font
+        app:font="@font/figtree"
+        app:fontStyle="normal"
+        app:fontWeight="400"
+        app:fontVariationSettings="'wght' 400" />
+    <font
+        app:font="@font/figtree"
+        app:fontStyle="normal"
+        app:fontWeight="500"
+        app:fontVariationSettings="'wght' 500" />
+    <font
+        app:font="@font/figtree"
+        app:fontStyle="normal"
+        app:fontWeight="600"
+        app:fontVariationSettings="'wght' 600" />
+    <font
+        app:font="@font/figtree"
+        app:fontStyle="normal"
+        app:fontWeight="700"
+        app:fontVariationSettings="'wght' 700" />
+    <font
+        app:font="@font/figtree"
+        app:fontStyle="normal"
+        app:fontWeight="800"
+        app:fontVariationSettings="'wght' 800" />
+</font-family>

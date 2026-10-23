@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="perms_subtitle">Android grants these by hand. FocusLock only asks for what your settings actually use.</string>
+    <string name="perms_needed_title">What is needed</string>
+    <string name="perms_device_owner">Device Owner</string>
+    <string name="perms_all_granted">Everything is granted</string>
+    <string name="perms_still_to_grant">%1$d still to grant</string>
+    <string name="perms_nothing_else">Nothing else is needed for the capabilities you have switched on.</string>
+    <string name="perms_of_total">Of %1$d permissions FocusLock can use, your settings need these.</string>
+    <string name="perms_not_needed_suffix">  ·  not needed by your current settings</string>
+    <string name="perms_usage_title">See which app is in front</string>
+    <string name="perms_usage_detail">Called Usage access in Settings. It is how blocking, limits and the time breakdown work at all.</string>
+    <string name="perms_accessibility_title">Read the screen</string>
+    <string name="perms_accessibility_detail">Called Accessibility. Only ever reads text, so the keyword, Shorts, Reels and WhatsApp guards can recognise a surface. It never types or taps.</string>
+    <string name="perms_notification_title">Hold back notifications</string>
+    <string name="perms_notification_detail">Lets the shield dismiss alerts from blocked apps. Always-allowed apps are never touched.</string>
+    <string name="perms_overlay_title">Draw over other apps</string>
+    <string name="perms_overlay_detail">A fallback for showing the block screen when Android will not let FocusLock open a window.</string>
+    <string name="perms_post_notifications_title">Notifications</string>
+    <string name="perms_post_notifications_detail">Shows what is running, and warns you if the content guard is switched off mid-session. Nothing else.</string>
+    <string name="perms_battery_title">Run without battery limits</string>
+    <string name="perms_battery_detail">Stops Android putting the guard to sleep in the middle of a long session.</string>
+    <string name="perms_location_title">Location</string>
+    <string name="perms_location_detail">Only used by place rules, and only as a last known fix. Never a continuous stream.</string>
+    <string name="perms_device_admin_title">Device admin</string>
+    <string name="perms_device_admin_detail">The first half of the Device Owner setup that kiosk mode needs.</string>
+    <string name="perms_kiosk_needs_admin">Kiosk mode needs device admin.</string>
+    <string name="perms_demo_title">This is the demo</string>
+    <string name="perms_demo_body">Every screen, rule, task and setting here is the real app. What is missing is the enforcement: nothing is ever hidden, suspended, intercepted or closed, no notification is ever dismissed, and this build cannot be made Device Owner even over ADB. Set it up exactly as you mean to for real — the full version is what starts holding the line.</string>
+    <string name="perms_full_adds">What the full version adds</string>
+    <string name="perms_owner_active">Device Owner is active</string>
+    <string name="perms_owner_not_set">Device Owner is not set</string>
+    <string name="perms_owner_active_detail">Kiosk sessions can hold, Safe Mode can be closed, and blocked apps can be suspended at the system level.</string>
+    <string name="perms_owner_inactive_detail">Without it, kiosk mode cannot really hold: the launcher stays reachable and Safe Mode starts the phone with FocusLock inert. It is set from a computer over ADB.</string>
+    <string name="perms_see_allows">See what it allows</string>
+    <string name="perms_show_how">Show me how</string>
+</resources>

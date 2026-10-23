@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  User-facing strings for the Rules-tab editor screens: RulesTab, AppRulesActivity,
+  AppLimitsActivity, KeywordGuardActivity, PlaceRulesActivity, RuleEditorActivity,
+  WebAllowlistEditorActivity, AlwaysAllowedActivity, ScheduleActivity, BedtimeActivity
+  and InterceptActivity. Names are prefixed by a short screen tag; anything reused
+  across two or more of those screens lives under the "common_" prefix instead.
+  Paired 1:1 by name with values-ar/strings_rules.xml - every name here must exist
+  there too. Any concatenation that crosses a dynamic value into fixed text uses a
+  positional %1$s/%1$d placeholder rather than string-building, so the translation
+  can reorder it for Arabic word order.
+-->
+<resources>
+
+    <!-- ── Common, reused across two or more of these screens ───────── -->
+
+    <string name="common_cancel">Cancel</string>
+    <string name="common_close">Close</string>
+    <string name="common_save">Save</string>
+    <string name="common_add">Add</string>
+    <string name="common_remove">Remove</string>
+    <string name="common_change">Change</string>
+    <string name="common_edit">Edit</string>
+    <string name="common_now">Now</string>
+    <string name="common_set">Set</string>
+    <string name="common_off">Off</string>
+    <string name="common_all">All</string>
+    <string name="common_none">None</string>
+    <string name="common_next">Next</string>
+    <string name="common_page_not_available">That page is not available on this phone.</string>
+    <string name="common_minutes_hint">Minutes</string>
+    <string name="common_opens_hint">Opens</string>
+    <string name="common_number_hint">Number</string>
+    <string name="common_name_hint">Name</string>
+    <string name="common_chosen_count">%1$d chosen</string>
+    <string name="common_meters_suffix">%1$dm</string>
+    <string name="common_apps_count">%1$d apps</string>
+    <string name="common_every_app">Every app</string>
+    <string name="common_every_day">Every day</string>
+    <string name="common_starts_at">Starts at</string>
+    <string name="common_ends_at">Ends at</string>
+    <string name="common_starts_label">Starts</string>
+    <string name="common_ends_label">Ends</string>
+    <string name="common_when_label">When</string>
+    <string name="common_which_days_title">Which days?</string>
+    <string name="common_day_mon">Mon</string>
+    <string name="common_day_tue">Tue</string>
+    <string name="common_day_wed">Wed</string>
+    <string name="common_day_thu">Thu</string>
+    <string name="common_day_fri">Fri</string>
+    <string name="common_day_sat">Sat</string>
+    <string name="common_day_sun">Sun</string>
+    <string name="common_day_monday">Monday</string>
+    <string name="common_day_tuesday">Tuesday</string>
+    <string name="common_day_wednesday">Wednesday</string>
+    <string name="common_day_thursday">Thursday</string>
+    <string name="common_day_friday">Friday</string>
+    <string name="common_day_saturday">Saturday</string>
+    <string name="common_day_sunday">Sunday</string>
+    <string name="common_none_right_now">None right now</string>
+    <string name="common_always_allowed_apps_title">Always-allowed apps</string>
+    <string name="common_tap_to_change">Tap to change</string>
+    <string name="common_saved_toast">Saved.</string>
+
+    <!-- ── RulesTab ───────────────────────────────────────────────── -->
+
+    <string name="rules_title">Rules</string>
+    <string name="rules_subtitle">What gets blocked, when, and what always stays open.</string>
+    <string name="rules_grid_blocked_count">%1$d blocked</string>
+    <string name="rules_capabilities_count">%1$d of %2$d</string>
+
+    <string name="rules_editor_apps_title">Apps</string>
+    <string name="rules_editor_always_allowed_title">Always-allowed apps</string>
+    <string name="rules_editor_websites_title">Websites</string>
+    <string name="rules_editor_keyword_guard_title">Keyword guard</string>
+    <string name="rules_editor_schedules_title">Schedules</string>
+    <string name="rules_editor_daily_limits_title">Daily limits</string>
+    <string name="rules_editor_bedtime_title">Bedtime</string>
+    <string name="rules_editor_places_title">Places and networks</string>
+    <string name="rules_editor_custom_rules_title">Custom rules</string>
+
+    <string name="capabilities_title">What FocusLock may do</string>
+    <string name="capabilities_needs_access_chip">Needs access</string>
+
+    <string name="rules_capability_intro">Every behaviour FocusLock has is one switch here. Turn any of them off and it stops immediately. If a switch needs a permission Android has not granted yet, it says so.</string>
+
+    <string name="rules_perm_usage_access">Needs usage access before it can do anything. Tap to grant.</string>
+    <string name="rules_perm_accessibility">Needs the content guard turned on in Accessibility. Tap to grant.</string>
+    <string name="rules_perm_notification_access">Needs notification access. Tap to grant.</string>
+    <string name="rules_perm_device_owner">Needs Device Owner, which is set from a computer. Tap to see how.</string>
+    <string name="rules_perm_location">Needs location permission. Tap to grant.</string>
+
+    <string name="rules_set_it_up">Set it up</string>
+
+    <string name="rules_profiles_title">Profiles</string>
+    <string name="rules_profiles_subtitle">Save this whole setup, switch between setups, or move one to another phone.</string>
+    <string name="rules_reset_title">Reset every capability</string>
+    <string name="rules_reset_subtitle">Puts all the switches back to their starting positions. Your lists are untouched.</string>
+    <string name="rules_reset_confirm_title">Reset the switches?</string>
+    <string name="rules_reset_confirm_message">Your apps, sites, words and schedules stay exactly as they are. Only the capability switches go back to defaults.</string>
+    <string name="rules_reset_confirm_button">Reset</string>
+
+    <!-- ── AppRulesActivity ───────────────────────────────────────── -->
+
+    <string name="app_rules_title">Apps</string>
+    <string name="app_rules_subtitle">Every app on this phone, and what FocusLock is allowed to do about it.</string>
+    <string name="app_rules_individual_apps_section">Individual apps</string>
+    <string name="app_rules_filter_all">All</string>
+    <string name="app_rules_filter_blocked">Blocked</string>
+    <string name="app_rules_filter_paused">Paused</string>
+    <string name="app_rules_filter_budgeted">Budgeted</string>
+    <string name="app_rules_filter_open">Open</string>
+
+    <string name="app_rules_by_category">By category</string>
+    <string name="app_rules_category_blurb">A category rule covers every app in it, now and any you install later. A rule you set on one app always wins over its category.</string>
+    <string name="app_rules_category_count_subtitle">%1$d apps - %2$s</string>
+    <string name="app_rules_no_rule">No rule</string>
+    <string name="app_rules_no_rule_subtitle">Apps in this category follow their own settings.</string>
+
+    <string name="app_rules_search_hint">Search apps</string>
+    <string name="app_rules_no_apps_match">No apps match that.</string>
+
+    <string name="app_rules_always_allowed_subtitle">Always allowed - nothing can lock this away</string>
+
+    <string name="app_rules_filter_count_format">%1$s %2$d</string>
+    <string name="app_rules_category_header_never_blocked">%1$s · never blocked</string>
+    <string name="app_rules_category_header_blocked">%1$s · %2$d blocked</string>
+    <string name="app_rules_category_header_budgeted">%1$s · %2$d apps, budgeted</string>
+    <string name="app_rules_category_header_allowed">%1$s · %2$d allowed</string>
+    <string name="app_rules_category_header_generic">%1$s · %2$d apps</string>
+    <string name="app_rules_usage_today">%1$s today</string>
+    <string name="app_rules_no_usage_today">No usage yet today</string>
+    <string name="app_rules_pause_first_subtitle">Pause %1$ds first</string>
+    <string name="app_rules_budget_used_subtitle">%1$dm of %2$dm used today</string>
+    <string name="app_rules_show_more_apps">Show the other %1$d apps</string>
+
+    <string name="app_rules_done">Done</string>
+    <string name="app_rules_what_happens_caption">WHAT HAPPENS WHEN I OPEN IT</string>
+    <string name="app_rules_policy_applied_toast">%1$s: %2$s</string>
+
+    <string name="app_rules_daily_minutes">Daily minutes</string>
+    <string name="app_rules_daily_minutes_subtitle">%1$d a day, %2$d used today</string>
+    <string name="app_rules_no_budget">No budget</string>
+    <string name="app_rules_daily_opens">Daily opens</string>
+    <string name="app_rules_daily_opens_subtitle">%1$d a day, %2$d so far</string>
+    <string name="app_rules_no_cap">No cap</string>
+
+    <string name="app_rules_always_allowed_toggle_title">Always allowed</string>
+    <string name="app_rules_always_allowed_toggle_subtitle">Outranks every rule, session and schedule.</string>
+
+    <string name="app_rules_category_label">Category</string>
+    <string name="app_rules_category_tap_to_correct">%1$s - tap to correct it</string>
+    <string name="app_rules_clear_own_rule">Clear this app\'s own rule</string>
+
+    <string name="app_rules_minute_limit_title">Daily minutes for %1$s</string>
+    <string name="app_rules_minute_limit_subtitle">Leave empty to remove the budget. It resets at midnight.</string>
+    <string name="app_rules_open_limit_title">Daily opens for %1$s</string>
+    <string name="app_rules_open_limit_subtitle">Leave empty to remove the cap.</string>
+
+    <string name="app_rules_turn_on_title">Turn on %1$s?</string>
+    <string name="app_rules_turn_on_message">You have set a budget, but %1$s is switched off, so nothing would enforce it.</string>
+    <string name="app_rules_turn_it_on">Turn it on</string>
+    <string name="app_rules_leave_it_off">Leave it off</string>
+
+    <string name="app_rules_category_for_title">Category for %1$s</string>
+    <string name="app_rules_category_for_subtitle">Category rules and the time breakdown both use this.</string>
+
+    <!-- ── AppLimitsActivity ──────────────────────────────────────── -->
+
+    <string name="app_limits_title">Daily limits</string>
+    <string name="app_limits_subtitle">Budgets that reset at midnight. Nothing is blocked until a budget runs out.</string>
+    <string name="app_limits_section_minute_budgets">Minute budgets</string>
+    <string name="app_limits_section_take_a_break">Take a break</string>
+
+    <string name="app_limits_time_limits_title">Time limits</string>
+    <string name="app_limits_time_limits_subtitle">Blocks an app once its daily minutes are used.</string>
+    <string name="app_limits_open_caps_title">Open caps</string>
+    <string name="app_limits_open_caps_subtitle">Blocks an app once it has been opened that many times today.</string>
+
+    <string name="app_limits_usage_off_heading">Usage access is off</string>
+    <string name="app_limits_usage_off_body">Budgets are measured from Android\'s usage records. Without access to them, these limits cannot count anything.</string>
+    <string name="app_limits_grant_usage_access">Grant usage access</string>
+
+    <string name="app_limits_no_minute_budgets">No minute budgets yet.</string>
+    <string name="app_limits_minute_row_subtitle">%1$d of %2$d minutes used today</string>
+    <string name="app_limits_add_minute_budget">Add a minute budget</string>
+
+    <string name="app_limits_no_open_caps">No open caps yet.</string>
+    <string name="app_limits_open_row_subtitle">%1$d of %2$d opens today</string>
+    <string name="app_limits_add_open_cap">Add an open cap</string>
+
+    <string name="app_limits_pick_minute_title">Which app gets a minute budget?</string>
+    <string name="app_limits_pick_open_title">Which app gets an open cap?</string>
+
+    <string name="app_limits_minutes_subtitle">Minutes a day. Leave empty to remove the budget.</string>
+    <string name="app_limits_opens_subtitle">Opens a day. Leave empty to remove the cap.</string>
+
+    <string name="app_limits_allow_breaks_title">Allow breaks</string>
+    <string name="app_limits_allow_breaks_subtitle">Lets you deliberately unlock a blocked app for a few minutes.</string>
+    <string name="app_limits_break_length_label">How long a break lasts</string>
+    <string name="app_limits_min_suffix">%1$d min</string>
+    <string name="app_limits_breaks_per_day_label">Breaks a day</string>
+    <string name="app_limits_left_today">%1$d left today.</string>
+
+    <!-- ── KeywordGuardActivity ───────────────────────────────────── -->
+
+    <string name="keyword_guard_title">Keyword guard</string>
+    <string name="keyword_guard_subtitle">Words that make FocusLock back out of a screen, inside apps you still want.</string>
+    <string name="keyword_guard_section_builtin">Built-in guards</string>
+    <string name="keyword_guard_section_telegram">Telegram</string>
+    <string name="keyword_guard_section_your_words">Your words</string>
+    <string name="keyword_guard_section_exceptions">Exceptions</string>
+
+    <string name="keyword_guard_whatsapp">WhatsApp</string>
+    <string name="keyword_guard_shorts">Shorts</string>
+    <string name="keyword_guard_reels">Reels</string>
+    <string name="keyword_guard_adult">Adult content</string>
+
+    <string name="keyword_guard_not_on_heading">The guard is not switched on</string>
+    <string name="keyword_guard_not_on_body">Reading the screen needs an accessibility service. FocusLock only ever reads text; it never types, taps or sends anything anywhere.</string>
+    <string name="keyword_guard_open_accessibility">Open Accessibility settings</string>
+
+    <string name="keyword_guard_master_title">Content guard</string>
+    <string name="keyword_guard_master_subtitle">The master switch. With this off, none of the guards below run.</string>
+    <string name="keyword_guard_own_keywords_title">My own keywords</string>
+    <string name="keyword_guard_own_keywords_subtitle">Runs the words you add below.</string>
+
+    <plurals name="keyword_guard_phrases_watched">
+        <item quantity="one">%1$d phrase watched</item>
+        <item quantity="other">%1$d phrases watched</item>
+    </plurals>
+
+    <string name="keyword_guard_apps_count">%1$d apps</string>
+    <string name="keyword_guard_add_phrase_to">Add a phrase to %1$s</string>
+    <string name="keyword_guard_add_word_or_phrase">Add a word or phrase</string>
+
+    <string name="keyword_guard_watch_title">Watch for a phrase</string>
+    <string name="keyword_guard_watch_subtitle">Case does not matter. Short, distinctive phrases work best: a common word will fire on screens you did not mean.</string>
+    <string name="keyword_guard_watch_hint">For example: for you</string>
+
+    <string name="keyword_guard_edit_subtitle">Where it applies and what happens when it is seen.</string>
+    <string name="keyword_guard_caption_where">WHERE</string>
+    <string name="keyword_guard_tap_choose_apps">Tap to choose which apps this watches</string>
+    <string name="keyword_guard_watch_phrase_in">Watch %1$s in</string>
+    <string name="keyword_guard_leave_unticked">Leave everything unticked to watch every app.</string>
+    <string name="keyword_guard_caption_what_happens">WHAT HAPPENS</string>
+    <string name="keyword_guard_delete_phrase">Delete this phrase</string>
+
+    <string name="keyword_guard_telegram_title">Only my named chats</string>
+    <string name="keyword_guard_telegram_subtitle">Telegram stays open for the chats you list. Anything else backs out.</string>
+    <string name="keyword_guard_telegram_empty">Nothing listed yet, so nothing is blocked. Add a chat and everything else in Telegram starts backing out.</string>
+    <string name="keyword_guard_telegram_nonempty">Everything except these backs out.</string>
+    <string name="keyword_guard_allow_chat">Allow \"%1$s\"</string>
+    <string name="keyword_guard_add_chat_by_name">Add a chat by name</string>
+    <string name="keyword_guard_allow_chat_title">Allow a Telegram chat</string>
+    <string name="keyword_guard_allow_chat_subtitle">Type the chat\'s name as Telegram shows it at the top of the screen.</string>
+    <string name="keyword_guard_allow_chat_hint">Study group</string>
+    <string name="keyword_guard_telegram_not_read">FocusLock has not managed to read a chat title yet. Open a Telegram chat and come back — if this line stays, a Telegram update has probably moved things and this guard is not running.</string>
+
+    <string name="keyword_guard_exceptions_intro">Text that looks like a match but is not. The WhatsApp search bar mentions Meta AI, for instance, and should not trip the guard.</string>
+    <string name="keyword_guard_no_exceptions">No exceptions.</string>
+    <string name="keyword_guard_add_exception">Add an exception</string>
+    <string name="keyword_guard_never_match_title">Never treat this as a match</string>
+    <string name="keyword_guard_phrase_hint">Phrase</string>
+
+    <!-- ── PlaceRulesActivity ─────────────────────────────────────── -->
+
+    <string name="place_rules_title">Places and networks</string>
+    <string name="place_rules_subtitle">Rules that follow where you are, or which Wi-Fi you are on.</string>
+    <string name="place_rules_section_saved">Saved places</string>
+    <string name="place_rules_section_right_now">Right now</string>
+
+    <string name="place_rules_location_title">Place rules</string>
+    <string name="place_rules_location_subtitle">Uses your last known location. FocusLock never tracks you continuously.</string>
+    <string name="place_rules_network_title">Network rules</string>
+    <string name="place_rules_network_subtitle">Uses the Wi-Fi name. Works indoors where location does not, and needs no tracking.</string>
+    <string name="place_rules_grant_location">Grant location permission</string>
+
+    <string name="place_rules_empty">No places yet. The easiest first one is wherever you are meant to be working.</string>
+    <string name="place_rules_active">Active</string>
+    <string name="place_rules_add_here">Add where I am now</string>
+    <string name="place_rules_add_wifi">Add this Wi-Fi network</string>
+
+    <string name="place_rules_where_wifi_and_radius">Wi-Fi %1$s or within %2$dm</string>
+    <string name="place_rules_where_wifi">Wi-Fi %1$s</string>
+    <string name="place_rules_where_radius">Within %1$dm</string>
+    <string name="place_rules_where_nothing">Nothing to match on yet</string>
+    <string name="place_rules_what_nothing_blocked">nothing blocked</string>
+    <string name="place_rules_what_categories_apps">%1$d categories, %2$d apps</string>
+    <string name="place_rules_trigger_here">here</string>
+    <string name="place_rules_trigger_away">away</string>
+    <string name="place_rules_describe_place">%1$s - blocks %2$s when %3$s</string>
+
+    <string name="place_rules_no_recent_location_title">No recent location</string>
+    <string name="place_rules_no_recent_location_message">Android has no recent fix to work from. Open a maps app for a moment, then try again.</string>
+    <string name="place_rules_name_place_title">Name this place</string>
+    <string name="place_rules_name_place_subtitle">School, library, the gym: whatever you will recognise later.</string>
+
+    <string name="place_rules_not_on_wifi_title">Not on Wi-Fi</string>
+    <string name="place_rules_not_on_wifi_message">Connect to the network you want to use as a condition, then try again.</string>
+    <string name="place_rules_name_network_title">Name this network</string>
+    <string name="place_rules_connected_to">Connected to %1$s</string>
+
+    <string name="place_rules_caption_when">WHEN IT APPLIES</string>
+    <string name="place_rules_caption_what_blocks">WHAT IT BLOCKS</string>
+    <string name="place_rules_specific_apps">Specific apps</string>
+    <string name="place_rules_block_at_title">Block at %1$s</string>
+    <string name="place_rules_radius_label">How close counts as here</string>
+    <string name="place_rules_delete_place">Delete this place</string>
+
+    <string name="place_rules_status_wifi_title">Wi-Fi</string>
+    <string name="place_rules_not_connected_wifi">Not connected to Wi-Fi</string>
+    <string name="place_rules_status_location_title">Location</string>
+    <string name="place_rules_permission_not_granted">Permission not granted</string>
+    <string name="place_rules_no_recent_fix">No recent fix from Android</string>
+    <string name="place_rules_known_accuracy">Known to about %1$dm</string>
+    <string name="place_rules_matching_places_title">Matching places</string>
+
+    <!-- ── RuleEditorActivity ─────────────────────────────────────── -->
+
+    <string name="rule_editor_title">Custom rules</string>
+    <string name="rule_editor_subtitle">The first rule that matches wins. Drag-free ordering, top to bottom.</string>
+    <string name="rule_editor_section_your_rules">Your rules</string>
+    <string name="rule_editor_section_examples">Start from an example</string>
+
+    <string name="rule_editor_toggle_title">Custom rules</string>
+    <string name="rule_editor_toggle_subtitle">With this off, the rules below are kept but none of them run.</string>
+
+    <string name="rule_editor_indexed_row_title">%1$d. %2$s</string>
+    <string name="rule_editor_new_rule">New rule</string>
+
+    <string name="rule_editor_target_everything">Everything</string>
+    <string name="rule_editor_every_app">Every app</string>
+    <string name="rule_editor_describe_rule">%1$s: %2$s</string>
+
+    <string name="rule_editor_condition_always">Always</string>
+    <string name="rule_editor_condition_session_only">Only during a session</string>
+    <string name="rule_editor_condition_time">Between %1$s and %2$s</string>
+    <string name="rule_editor_condition_any_day">Any day</string>
+    <string name="rule_editor_condition_at_place">At %1$s</string>
+    <string name="rule_editor_a_place_fallback">a place</string>
+    <string name="rule_editor_condition_wifi">On %1$s</string>
+    <string name="rule_editor_condition_usage_over">After %1$d minutes today</string>
+    <string name="rule_editor_condition_opens_over">After %1$d opens today</string>
+
+    <string name="rule_editor_template_school_hours">No social during school hours</string>
+    <string name="rule_editor_template_pause_video">Pause video after 30 minutes</string>
+    <string name="rule_editor_template_tenth_open">Nothing but essentials after the tenth open</string>
+    <string name="rule_editor_template_games_outside_session">Games only outside a session</string>
+    <string name="rule_editor_adds_editable_rule">Adds an editable rule</string>
+    <string name="rule_editor_rule_added_toast">Rule added. Tap it to adjust.</string>
+
+    <string name="rule_editor_untitled_rule">Rule</string>
+    <string name="rule_editor_edit_subtitle">A target, a condition, an outcome.</string>
+    <string name="rule_editor_name_label">Name</string>
+    <string name="rule_editor_unnamed">Unnamed</string>
+    <string name="rule_editor_name_rule_title">Name this rule</string>
+    <string name="rule_editor_name_rule_subtitle">So you recognise it in the list.</string>
+
+    <string name="rule_editor_caption_covers">WHAT IT COVERS</string>
+    <string name="rule_editor_caption_when">WHEN</string>
+    <string name="rule_editor_caption_what_happens">WHAT HAPPENS</string>
+    <string name="rule_editor_delete_rule">Delete this rule</string>
+
+    <string name="rule_editor_category_apps_suffix">%1$s apps</string>
+    <string name="rule_editor_every_app_subtitle">Covers everything installed</string>
+    <string name="rule_editor_pick_target_title">What does this cover?</string>
+
+    <string name="rule_editor_pick_condition_title">When does it apply?</string>
+    <string name="rule_editor_after_minutes_title">After how many minutes?</string>
+    <string name="rule_editor_after_opens_title">After how many opens?</string>
+    <string name="rule_editor_no_places_title">No places saved</string>
+    <string name="rule_editor_no_places_message">Add a place in Places and networks first, then come back to this rule.</string>
+    <string name="rule_editor_which_place_title">Which place?</string>
+    <string name="rule_editor_which_network_title">Which network?</string>
+    <string name="rule_editor_currently_on">Currently on %1$s</string>
+    <string name="rule_editor_wifi_name_hint">Wi-Fi name</string>
+
+    <string name="rule_editor_pick_days_subtitle">Leave everything off for every day.</string>
+
+    <!-- ── WebAllowlistEditorActivity ─────────────────────────────── -->
+
+    <string name="web_allowlist_title">Websites</string>
+    <string name="web_allowlist_subtitle">The only addresses the safe browser will load, and the only ones Chrome is allowed.</string>
+    <string name="web_allowlist_bulk_edit_section">Bulk edit</string>
+
+    <string name="web_allowlist_blocking_title">Web blocking</string>
+    <string name="web_allowlist_blocking_subtitle">Holds every managed browser to this list.</string>
+    <string name="web_allowlist_session_running_caption">A session is running, so sites can be removed but not added. That is what stops the list becoming a back door.</string>
+    <string name="web_allowlist_strip_media_title">Strip images and video</string>
+    <string name="web_allowlist_strip_media_subtitle">Text-only browsing. Pages load faster and stop being a feed.</string>
+
+    <string name="web_allowlist_search_hint">Search sites</string>
+    <string name="web_allowlist_no_sites_match">No sites match that.</string>
+    <string name="web_allowlist_add_site">Add a site</string>
+
+    <string name="web_allowlist_not_while_session_title">Not while a session runs</string>
+    <string name="web_allowlist_not_while_session_message">Sites can be removed at any time, but new ones wait until the session ends.</string>
+    <string name="web_allowlist_add_site_title">Add a site</string>
+    <string name="web_allowlist_add_site_subtitle">Just the address. Everything on that domain will load.</string>
+    <string name="web_allowlist_example_hint">example.com</string>
+    <string name="web_allowlist_invalid_address_toast">That does not look like an address.</string>
+
+    <string name="web_allowlist_bulk_intro">One address per line. Saving replaces the whole list.</string>
+    <string name="web_allowlist_bulk_hint">https://example.com</string>
+    <string name="web_allowlist_save_list_button">Save the whole list</string>
+    <string name="web_allowlist_bulk_session_message">Removing sites is fine. Adding waits until the session ends.</string>
+    <string name="web_allowlist_empty_list_toast">That would leave the browser with nowhere to go.</string>
+    <string name="web_allowlist_sites_saved_toast">%1$d sites saved.</string>
+
+    <!-- ── AlwaysAllowedActivity ──────────────────────────────────── -->
+
+    <string name="always_allowed_title">Always allowed</string>
+    <string name="always_allowed_subtitle">Apps that stay reachable no matter what else is running.</string>
+    <string name="always_allowed_section_your_list">Your list</string>
+    <string name="always_allowed_section_suggestions">Suggestions</string>
+
+    <!-- Brightness, kept in the app because a pinned session removes quick settings. -->
+    <string name="always_allowed_section_phone_controls">Phone controls</string>
+    <string name="brightness_title">Screen brightness</string>
+    <string name="brightness_percent">%1$d%%</string>
+    <string name="brightness_adaptive_title">Let the phone choose</string>
+    <string name="brightness_adaptive_subtitle">Adapts to the light around you. Turn off to hold the level you set.</string>
+    <string name="brightness_why_here">A kiosk session hides the quick settings panel — Android gives no way to keep it — so brightness lives here instead.</string>
+    <string name="brightness_needs_permission">FocusLock needs permission to change system settings before it can move the brightness.</string>
+    <string name="brightness_grant_button">Allow it</string>
+    <string name="brightness_no_settings_page">This phone has no page for that permission.</string>
+    <string name="brightness_refused">Android refused that change.</string>
+
+    <string name="always_allowed_honour_title">Honour this list</string>
+    <string name="always_allowed_honour_subtitle">When off, a session can lock away everything, including the phone app.</string>
+
+    <string name="always_allowed_empty">Nothing here yet. Most people start with their dialler, messages and maps.</string>
+    <string name="always_allowed_choose_apps">Choose apps</string>
+    <string name="always_allowed_pick_subtitle">These stay open through every session, window and bedtime.</string>
+
+    <string name="always_allowed_covered">Your essentials are already covered.</string>
+    <string name="always_allowed_suggestions_intro">These look like essentials on this phone. Add any you want protected.</string>
+    <string name="always_allowed_add_all">Add all of them</string>
+
+    <!-- ── ScheduleActivity ───────────────────────────────────────── -->
+
+    <string name="schedule_title">Schedules</string>
+    <string name="schedule_subtitle">Windows that start themselves. Useful for the hours you already know are hard.</string>
+    <string name="schedule_section_windows">Windows</string>
+    <string name="schedule_section_plan">Plan</string>
+
+    <string name="schedule_toggle_subtitle">With this off, the windows below are kept but none of them run.</string>
+    <string name="schedule_overlaying_until">Overlaying until %1$s</string>
+    <string name="schedule_running_until">Running until %1$s</string>
+    <string name="schedule_always_allowed_subtitle">%1$d apps stay open inside every window</string>
+
+    <string name="schedule_window_time_range">%1$s to %2$s</string>
+    <string name="schedule_add_window">Add a window</string>
+
+    <string name="schedule_monthly_repeat">Day %1$d each month</string>
+    <string name="schedule_extras_essentials_only">essentials only</string>
+    <string name="schedule_extras_count">%1$d extra apps allowed</string>
+    <string name="schedule_overlay_marker">overlay</string>
+
+    <string name="schedule_pick_day_toast">Pick at least one day.</string>
+    <string name="schedule_new_window_title">New window</string>
+    <string name="schedule_edit_window_title">Edit window</string>
+    <string name="schedule_shows_on_block_caption">Shows on the block screen while it runs.</string>
+
+
+    <string name="schedule_caption_repeats">REPEATS</string>
+    <string name="schedule_repeats_row_title">Repeats</string>
+    <string name="schedule_repeat_certain_days">Certain days</string>
+    <string name="schedule_repeat_once_a_month">Once a month</string>
+
+    <string name="schedule_extra_apps_allowed_title">Extra apps allowed</string>
+    <string name="schedule_pick_allowed_title">Allowed inside this window</string>
+    <string name="schedule_pick_allowed_subtitle">Your always-allowed apps are open here regardless.</string>
+
+    <string name="schedule_what_says_hint">For example: this is study time</string>
+
+    <string name="schedule_overlay_toggle_title">Overlay this window</string>
+    <string name="schedule_overlay_toggle_subtitle">Locks the phone for real - not even the home screen opens anything outside always-allowed and this window\'s own apps. No break, no exceptions, and every rule (including this window) is frozen until it ends.</string>
+    <string name="schedule_brick_toggle_title">Close FocusLock too</string>
+    <string name="schedule_brick_toggle_subtitle">Nothing but a countdown and your essentials — no Library, no Rules, no Tasks. Otherwise an overlay window still leaves this app to sit in.</string>
+
+    <string name="bedtime_overlay_toggle_title">Make bedtime absolute</string>
+    <string name="bedtime_overlay_toggle_subtitle">The same hard lock a schedule window can use: only always-allowed apps open, the launcher included. No break out of it.</string>
+    <string name="bedtime_brick_toggle_title">Close FocusLock too</string>
+    <string name="bedtime_brick_toggle_subtitle">For the night, this app is a countdown and your essentials, nothing else.</string>
+    <string name="bedtime_section_strength">How hard it holds</string>
+
+    <!-- The brick screen itself. -->
+    <string name="lockdown_headline">The phone is closed</string>
+    <string name="lockdown_lifts_at">It opens again at %1$s.</string>
+    <string name="lockdown_generic">It opens again when the window ends.</string>
+    <string name="lockdown_essentials_label">Still available</string>
+    <string name="schedule_delete_window">Delete this window</string>
+
+    <string name="schedule_which_day_of_month_title">Which day of the month?</string>
+    <string name="schedule_day_of_month_subtitle">1 to 31.</string>
+    <string name="schedule_day_hint">Day</string>
+    <string name="schedule_day_range_toast">Pick a day between 1 and 31.</string>
+
+    <string name="schedule_plan_intro">What are you actually doing with this time? Writing it down is the difference between a blocked phone and a plan.</string>
+    <string name="schedule_plan_hint">This week I want to…</string>
+    <string name="schedule_save_plan_button">Save the plan</string>
+
+    <!-- ── BedtimeActivity ────────────────────────────────────────── -->
+
+    <string name="bedtime_title">Bedtime</string>
+    <string name="bedtime_subtitle">A quiet window that starts itself, every night.</string>
+    <string name="bedtime_section_when">When</string>
+    <string name="bedtime_section_what_quiet">What goes quiet</string>
+    <string name="bedtime_section_appearance">How the screen looks</string>
+
+    <string name="bedtime_toggle_subtitle">Dims the screen, switches to the quiet theme and holds back the categories below.</string>
+    <string name="bedtime_running_pill">Running now, lifts at %1$s</string>
+
+    <string name="bedtime_starts_picker_title">Bedtime starts</string>
+    <string name="bedtime_lifts_label">Lifts</string>
+    <string name="bedtime_lifts_picker_title">Bedtime lifts</string>
+
+    <string name="bedtime_always_allowed_note">Always-allowed apps still work. An alarm is not a distraction.</string>
+
+    <string name="bedtime_block_everything_title">Block everything instead</string>
+    <string name="bedtime_block_everything_subtitle">Stops every app except the ones you marked always-allowed. Pick this if things have been slipping through the categories below.</string>
+
+    <string name="bedtime_section_pick_categories">Or pick what to block</string>
+
+    <string name="bedtime_dim_label">Dim the screen by</string>
+    <string name="bedtime_dim_not_at_all">Not at all</string>
+    <string name="bedtime_dim_percent">%1$d%%</string>
+    <string name="bedtime_preview_dimming">Preview the dimming</string>
+
+    <string name="bedtime_quiet_theme_title">Switch to the quiet theme</string>
+    <string name="bedtime_quiet_theme_subtitle">Near-black with a soft accent while bedtime runs. Your daytime theme is untouched.</string>
+
+    <string name="bedtime_greyscale_title">Remind me about greyscale</string>
+    <string name="bedtime_greyscale_subtitle">Android\'s own greyscale setting takes most of the pull out of a screen at night. FocusLock cannot flip it for you, but it can remind you.</string>
+
+    <!-- ── InterceptActivity ──────────────────────────────────────── -->
+
+    <string name="intercept_open_anyway">Open %1$s anyway</string>
+    <string name="intercept_it_fallback">it</string>
+    <string name="intercept_not_now_go_back">Not now, go back</string>
+    <string name="intercept_back_to_focuslock">Back to FocusLock</string>
+    <string name="intercept_ways_through">Ways through</string>
+    <string name="intercept_break_row_title">Take %1$d minutes</string>
+    <string name="intercept_break_row_subtitle">%1$d of %2$d breaks left today</string>
+    <string name="intercept_earn_pool_subtitle">Finish a task to refill it</string>
+    <string name="intercept_overline_format">Your rules · %1$s</string>
+    <string name="intercept_still_open">STILL OPEN</string>
+    <string name="intercept_end_test_button">End the test</string>
+    <string name="intercept_testing_banner">Testing your rules — %1$s left</string>
+
+    <!-- ── Test the block (RulesTab, and the banner InterceptActivity shows) ── -->
+
+    <string name="rules_test_active_body">Live right now, %1$s left. Open any app to see exactly what your rules would do to it.</string>
+    <string name="rules_test_end_button">End the test</string>
+    <string name="rules_test_session_running">A session is already running, so this isn\'t needed - you\'re already living it.</string>
+    <string name="rules_test_start_button">Start a test</string>
+    <string name="rules_test_length_title">How long?</string>
+    <string name="rules_test_length_subtitle">Ends on its own, or tap End the test any time before that.</string>
+    <string name="rules_test_minutes_5">5 minutes</string>
+    <string name="rules_test_minutes_10">10 minutes</string>
+    <string name="rules_test_minutes_20">20 minutes</string>
+    <string name="rules_test_minutes_30">30 minutes</string>
+    <string name="rules_test_started_toast">Testing started. Open any app to see what your rules would do.</string>
+    <string name="rules_test_session_running_toast">A session is already running.</string>
+
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    The only path FocusLock ever shares is the proof-photo scratch directory in
+    its own private storage, and only with the camera app, only for the moment
+    it takes to write one file. The photo is checked and deleted immediately
+    afterwards.
+-->
+<paths>
+    <files-path name="proof" path="proof/" />
+</paths>

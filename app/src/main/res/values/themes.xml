@@ -1,0 +1,18 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!--
+        A deliberately empty shell. FocusLock paints every surface from
+        UiPrefs.Tokens at runtime, so anything declared here would be a value
+        that ignores the user's theme. The system bars are coloured in code,
+        including their icon contrast, which is why they are transparent here.
+    -->
+    <style name="Base.Theme.FocusLock" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.FocusLock" parent="Base.Theme.FocusLock" />
+</resources>

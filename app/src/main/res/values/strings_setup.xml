@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  UI copy for the setup/onboarding/help/settings screens: OnboardingActivity,
+  PersonalizationActivity, YouTab (non-switcher parts), FocusDashboardTab,
+  ProfilesActivity, SetupPermissionsActivity, DeviceOwnerHelpActivity,
+  AdvancedHelpActivity, PermissionRecoveryActivity, FocusScreenActivity.
+  Kept in its own file (separate from copy_strings.xml/copy_arrays.xml) so this
+  migration pass does not collide with the one already covering Copy.kt.
+  Paired 1:1 by name with values-ar/strings_setup.xml - every name here must
+  exist there too.
+-->
+<resources>
+
+    <!-- ══ DeviceOwnerHelpActivity ══ -->
+
+    <string name="device_owner_help_command">adb shell dpm set-device-owner com.focuslock.mdm/.AdminReceiver</string>
+    <string name="device_owner_help_title">Device Owner</string>
+    <string name="device_owner_help_subtitle">The one step that has to happen from a computer, and what it actually changes.</string>
+    <string name="device_owner_help_section_what_changes">What it changes</string>
+    <string name="device_owner_help_section_setup">Setting it up from a computer</string>
+    <string name="device_owner_help_section_qr">The QR route</string>
+    <string name="device_owner_help_section_cannot_do">What it still cannot do</string>
+
+    <string name="device_owner_help_status_active">Active</string>
+    <string name="device_owner_help_status_not_set">Not set</string>
+    <string name="device_owner_help_pill_device_owner">Device Owner</string>
+    <string name="device_owner_help_pill_sideloaded">Sideloaded only</string>
+    <string name="device_owner_help_status_detail_owner">Everything in the Hardening group is available to switch on.</string>
+    <string name="device_owner_help_status_detail_not_owner">Soft, Block and most guards work without this. Kiosk, Safe Mode blocking, app suspension and uninstall protection do not.</string>
+
+    <string name="device_owner_help_effect_1_title">Safe Mode can be closed</string>
+    <string name="device_owner_help_effect_1_detail">Otherwise a reboot into Safe Mode starts the phone with FocusLock switched off.</string>
+    <string name="device_owner_help_effect_2_title">Blocked apps can be suspended</string>
+    <string name="device_owner_help_effect_2_detail">The system refuses to launch them, instead of FocusLock catching them a moment late.</string>
+    <string name="device_owner_help_effect_3_title">Blocked apps can be hidden</string>
+    <string name="device_owner_help_effect_3_detail">They disappear from the launcher for the length of a session.</string>
+    <string name="device_owner_help_effect_4_title">FocusLock can be the home screen</string>
+    <string name="device_owner_help_effect_4_detail">During a kiosk session the home button lands here instead of the launcher.</string>
+    <string name="device_owner_help_effect_5_title">Uninstalling can be blocked</string>
+    <string name="device_owner_help_effect_5_detail">Removing the app stops being a way to end a session early.</string>
+    <string name="device_owner_help_effect_6_title">Browsers can be held to your allowlist</string>
+    <string name="device_owner_help_effect_6_detail">Chrome and friends get a managed policy pointing at the same list the safe browser uses.</string>
+    <string name="device_owner_help_effect_note">Every one of these is still a switch in Rules. Being Device Owner makes them possible, not automatic.</string>
+
+    <string name="device_owner_help_step_1">Sign out of every Google account on this phone, and remove any other user or work profile. Android refuses to set a Device Owner while an account exists.</string>
+    <string name="device_owner_help_step_2">On the phone: Settings, About phone, tap Build number seven times to unlock Developer options.</string>
+    <string name="device_owner_help_step_3">In Developer options, turn on USB debugging.</string>
+    <string name="device_owner_help_step_4">Plug the phone into a computer with the Android platform-tools installed, and accept the debugging prompt on the phone.</string>
+    <string name="device_owner_help_step_5">On the computer, run: adb devices, and check the phone is listed as device rather than unauthorized.</string>
+    <string name="device_owner_help_step_6">Run the command below.</string>
+    <string name="device_owner_help_step_7">Come back here. This screen should now say Active.</string>
+
+    <string name="device_owner_help_copy_command">Copy the command</string>
+    <string name="device_owner_help_copied_toast">Copied.</string>
+
+    <string name="device_owner_help_qr_detail">On a phone that has been factory reset, tapping the welcome screen six times opens a QR scanner. Provisioning from a QR sets Device Owner without a computer, but it needs the app hosted at a URL along with its signature checksum, and it wipes the phone as part of setup. The ADB route above is the practical one for a phone already in use.</string>
+
+    <string name="device_owner_help_honesty_1_title">A factory reset always works</string>
+    <string name="device_owner_help_honesty_1_detail">Recovery-mode reset is the ultimate exit and no software tier can close it. FocusLock does not try, and never removes the reset button from the You tab.</string>
+    <string name="device_owner_help_honesty_2_title">ADB stays yours to close</string>
+    <string name="device_owner_help_honesty_2_detail">Provisioning does not disable ADB. Only the button in the You tab does, and only when you tap it.</string>
+    <string name="device_owner_help_honesty_3_title">Nothing is remote</string>
+    <string name="device_owner_help_honesty_3_detail">There is no server, no account and no one else who can lock or unlock this phone.</string>
+
+    <!-- ══ AdvancedHelpActivity ══ -->
+
+    <string name="advanced_help_stop_command">adb shell am broadcast -a com.focuslock.mdm.ADB_COMMAND --es cmd stop_session --ez confirm true</string>
+    <string name="advanced_help_title">Advanced, explained</string>
+    <string name="advanced_help_subtitle">What each mode sets, what you can change, and how to get out.</string>
+    <string name="advanced_help_section_modes">The four modes</string>
+    <string name="advanced_help_section_ending">Ending a session</string>
+    <string name="advanced_help_section_breaks">Breaks</string>
+    <string name="advanced_help_section_escape">If you are locked in and need out</string>
+
+    <string name="advanced_help_idea_heading">A mode is a starting point</string>
+    <string name="advanced_help_idea_body">Picking a mode loads a set of switches. It does not lock those switches. Every one of them is in You → Advanced, and whatever you set there is what runs.</string>
+    <string name="advanced_help_idea_secondary">Your changes stick. The template is only re-loaded when you pick a different mode, which is the one moment you have clearly asked for it.</string>
+
+    <string name="advanced_help_mode_kiosk_note">Kiosk is the only mode that pins the phone to FocusLock and closes the launcher. It needs Device Owner.</string>
+
+    <string name="advanced_help_end_early_intro">\"End a session early\" is a switch in You → Advanced, not a property of the mode.</string>
+    <string name="advanced_help_end_early_on_title">On</string>
+    <string name="advanced_help_end_early_on_body">An \"End this session\" button appears on the Focus tab. Everything unlocks straight away, and the time you already did still counts.</string>
+    <string name="advanced_help_end_early_off_title">Off</string>
+    <string name="advanced_help_end_early_off_body">No button. The session runs until its timer ends.</string>
+    <string name="advanced_help_end_early_kiosk_title">Kiosk</string>
+    <string name="advanced_help_end_early_kiosk_body">Loads with it off, because that is what choosing Kiosk means. You can turn it back on — the switch is not hidden from you — but be honest with yourself about whether you are turning it on now or turning it on later at 1am.</string>
+    <string name="advanced_help_end_early_footer">Turning it off does not survive being forgotten: the timer still ends on its own.</string>
+
+    <string name="advanced_help_break_intro">A break unlocks one blocked app for a few minutes, then re-locks it by itself.</string>
+    <string name="advanced_help_break_why_title">Why it exists</string>
+    <string name="advanced_help_break_why_body">The alternative is abandoning the whole session for one thing you needed. A bounded exception keeps the rest of the session alive.</string>
+    <string name="advanced_help_break_not_failure_title">Taking one is not a failure</string>
+    <string name="advanced_help_break_not_failure_body">It is a feature you switched on deliberately. Nothing counts it against you, and no streak breaks.</string>
+    <string name="advanced_help_break_numbers_title">Your numbers</string>
+    <string name="advanced_help_break_numbers_body">Length and how many a day are yours to set, in You → Advanced or on the Daily limits screen.</string>
+
+    <string name="advanced_help_escape_intro">In order, least destructive first.</string>
+    <string name="advanced_help_escape_wait_title">1. Wait</string>
+    <string name="advanced_help_escape_wait_body">Every session has a timer. When it ends, everything unlocks on its own. This is the intended exit and costs you nothing.</string>
+    <string name="advanced_help_escape_switch_title">2. Turn the early exit back on</string>
+    <string name="advanced_help_escape_switch_body">You → Advanced → \"End a session early\". Works in every mode, including Kiosk.</string>
+    <string name="advanced_help_escape_computer_title">3. From a computer</string>
+    <string name="advanced_help_escape_computer_body">If the phone is pinned and you cannot reach Advanced, one ADB command ends the session. It refuses to run without the confirm flag, so it cannot happen by accident.</string>
+    <string name="advanced_help_escape_reset_title">4. Factory reset</string>
+    <string name="advanced_help_escape_reset_body">The last resort, and the only one that always works. It releases Device Owner and wipes the phone. FocusLock never blocks it — the button is on the You tab, behind a countdown.</string>
+
+    <string name="advanced_help_copy_command">Copy the command</string>
+    <string name="advanced_help_copied_toast">Copied.</string>
+
+    <!-- ══ PermissionRecoveryActivity ══ -->
+
+    <string name="permission_recovery_headline">This needs fixing before the phone goes back to normal</string>
+    <string name="permission_recovery_body">A permission the running session depends on was turned off. Nothing else works properly until it\'s back on.</string>
+    <string name="permission_recovery_turn_back_on">Turn it back on</string>
+    <string name="permission_recovery_needs_reprovisioning">This can only be restored by re-provisioning device owner from a computer, over ADB, the same way it was set up.</string>
+    <string name="permission_recovery_end_session_note">Ending the session works the same as always, and clears this too.</string>
+    <string name="permission_recovery_end_session_button">End the session</string>
+    <string name="permission_recovery_end_session_title">End the session?</string>
+    <string name="permission_recovery_end_session_message">Everything unlocks straight away, including this. The time you already did still counts.</string>
+    <string name="permission_recovery_end_session_confirm">End it</string>
+    <string name="permission_recovery_end_session_cancel">Keep going</string>
+    <string name="permission_recovery_restricted_hint">Switch greyed out? Android locks it for apps installed from a file. Open App info, tap ⋮ at the top, choose \"Allow restricted settings\", then come back and turn it on.</string>
+    <string name="permission_recovery_open_app_info">Open App info</string>
+    <!-- Shown by Android itself, in place of "contact your IT admin", when a paused app is tapped. -->
+    <string name="dpm_support_short">Paused by FocusLock until your session ends.</string>
+
+</resources>

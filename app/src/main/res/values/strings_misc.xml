@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The last user-facing text that was still written inline in Kotlin (phases 9
+  and 10 of the Arabic localisation). Shared words are "common_"; everything
+  else is prefixed by the screen it appears on.
+-->
+<resources>
+    <string name="common_ok">OK</string>
+    <string name="common_search">Search</string>
+    <string name="common_today">Today</string>
+    <string name="common_tomorrow">Tomorrow</string>
+    <string name="common_understood">Understood</string>
+    <string name="common_continue">Continue</string>
+    <string name="common_apply">Apply</string>
+    <string name="common_reset">Reset</string>
+    <string name="common_use">Use</string>
+    <string name="common_switch">Switch</string>
+    <string name="common_granted">Granted</string>
+    <string name="common_light">Light</string>
+    <string name="common_dark">Dark</string>
+
+    <string name="analytics_section_sessions">Sessions</string>
+    <string name="analytics_section_earning">Earning</string>
+
+    <string name="anime_folder_subtitle">Everything inside becomes your library. One new video unlocks every 24 hours, and stays unlocked for good.\n\nThe folder is fixed once you confirm.</string>
+    <string name="anime_folder_no_picker">No file picker available on this phone.</string>
+    <string name="anime_folder_chosen">Chosen: %1$s</string>
+    <string name="anime_folder_no_access">Android would not grant lasting access to that folder.</string>
+    <string name="anime_folder_permanent">This choice is permanent for the life of the install.</string>
+
+    <string name="earn_deal_fixed">Tasks pay only what you set on them individually.</string>
+    <string name="earn_deal_rate">Every hour of verified focus earns %1$d minutes back.</string>
+    <string name="earn_deal_cap">Up to %1$d minutes a day.</string>
+    <string name="earn_pool_empty">Pool is empty</string>
+    <string name="earn_pool_under_minute">Under a minute in the pool</string>
+    <string name="earn_pool_hours">%1$dh %2$dm in the pool</string>
+    <string name="earn_pool_minutes">%1$d min in the pool</string>
+
+    <string name="onboarding_pull_games">Games</string>
+    <string name="onboarding_time_evening">Evenings</string>
+
+    <string name="appearance_title">Appearance</string>
+    <string name="appearance_section_theme">Theme</string>
+    <string name="appearance_section_background">Background</string>
+    <string name="appearance_section_accessibility">Accessibility</string>
+    <string name="appearance_preview">PREVIEW</string>
+    <string name="appearance_sample_opens">Opens</string>
+    <string name="appearance_theme">THEME</string>
+    <string name="appearance_accent">ACCENT</string>
+    <string name="appearance_wallpaper">WALLPAPER</string>
+    <string name="appearance_typeface">TYPEFACE</string>
+    <string name="appearance_spacing">SPACING</string>
+
+    <string name="youtab_section_today">Today</string>
+    <string name="youtab_section_release">Release</string>
+    <string name="youtab_language">Language</string>
+    <string name="youtab_clock">Clock</string>
+    <string name="youtab_share_header">FocusLock, last 7 days</string>
+
+    <string name="perms_title">Permissions</string>
+
+    <string name="profiles_section_files">Files</string>
+
+    <string name="photo_checks_base">Checked on this phone: the photo is new, taken just now, and not one you have used before. It never leaves the device.</string>
+    <string name="photo_checks_matched">It is also matched against the task with %1$s.</string>
+    <string name="photo_checks_nudge">It is not read for content, so it is a nudge to be honest with yourself rather than a lie detector.</string>
+    <string name="photo_none_headline">No photo came back</string>
+    <string name="photo_none_detail">The camera did not hand anything over. Try once more.</string>
+    <string name="photo_old_headline">That photo is older than this session</string>
+    <string name="photo_old_detail">It needs to be taken now. Nothing is recorded about the old one.</string>
+    <string name="photo_not_image_headline">That file is not a photo</string>
+    <string name="photo_not_image_detail">Try the capture again.</string>
+    <string name="photo_empty_headline">There is nothing in the frame</string>
+    <string name="photo_empty_detail">A wall, a dark room or a thumb over the lens. Point it at the work.</string>
+    <string name="photo_duplicate_headline">You have used this photo before</string>
+    <string name="photo_duplicate_detail">FocusLock remembers a fingerprint of each one, not the picture itself.</string>
+    <string name="photo_mismatch_headline">That does not look like the task</string>
+    <string name="photo_mismatch_detail">The on-device model did not recognise anything from %1$s. If it is wrong, take another angle.</string>
+    <string name="photo_accepted_headline">Proof accepted</string>
+    <string name="photo_accepted_detail">Nothing was uploaded. Only a fingerprint is kept, so the same photo cannot be used twice.</string>
+
+    <string name="text_search_empty">Type something to look up.</string>
+    <string name="text_search_adult">The adult filter is holding that one.</string>
+    <string name="text_search_link_blocked">That link type is not allowed here.</string>
+    <string name="text_search_media_off">Images and video are off in text search.</string>
+
+    <string name="video_badge_play">Play</string>
+    <string name="video_sub_yours">Yours to watch</string>
+    <string name="video_badge_unlock">Unlock</string>
+    <string name="video_sub_waiting">The unlock for today is waiting</string>
+    <string name="video_badge_locked">Locked</string>
+    <string name="video_sub_opens_in">Opens in %1$s</string>
+    <string name="video_library_title">Video library</string>
+    <string name="video_library_subtitle_ready">%1$d already yours. One more is ready to open.</string>
+    <string name="video_library_subtitle_waiting">%1$d already yours. The next one opens in %2$s.</string>
+    <string name="video_open_title">Open %1$s?</string>
+    <string name="video_open_message">This uses the unlock for the next 24 hours. Once opened it stays yours, so there is no rush and nothing expires.</string>
+    <string name="video_open_confirm">Open it</string>
+    <string name="video_open_cancel">Not yet</string>
+
+    <string name="rule_editor_allow_minutes_label">Pass length</string>
+    <string name="place_rules_locating_toast">Getting current location…</string>
+
+    <string name="link_category_custom">Custom</string>
+
+    <string name="a11y_held_by_session">Held until the session ends</string>
+    <string name="a11y_mode_details">More about this mode</string>
+
+    <!-- Block-screen alternatives (Seed.replacements) -->
+    <string name="alt_read_instead">Read something instead</string>
+    <string name="alt_safe_browser">Open the safe browser</string>
+    <string name="alt_video_library">Watch from your library</string>
+    <string name="alt_where_time_went">Look at where the time went</string>
+</resources>

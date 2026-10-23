@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    «أنت ← اجعله على ذوقك»: المعاينة الحيّة، وكل أداة مظهر، ومفاتيح ما يعرضه
+    تبويب «التركيز».
+-->
+<resources>
+    <string name="personalization_subtitle">كل شاشة ونافذة ورسالة حجب تتبع هذه.</string>
+    <string name="personalization_type_and_spacing">الخط والتباعد</string>
+    <string name="personalization_dashboard_shows">ما يعرضه تبويب «التركيز»</string>
+    <string name="personalization_reset">أعِد المظهر إلى الافتراضي</string>
+    <string name="personalization_reset_title">إعادة المظهر؟</string>
+    <string name="personalization_reset_message">الشكل فقط يتغير. قواعدك ومفاتيحك لا تُمس.</string>
+
+    <!-- نص تجريبي لبطاقة المعاينة الحيّة. -->
+    <string name="personalization_preview_greeting">مساء الخير</string>
+    <string name="personalization_preview_streak">أربعة أيام متتالية</string>
+    <string name="personalization_preview_screen_time">وقت الشاشة</string>
+    <string name="personalization_preview_primary">إجراء أساسي</string>
+    <string name="personalization_preview_secondary">إجراء ثانوي</string>
+
+    <string name="personalization_flat_colour">لون مسطّح</string>
+    <string name="personalization_wallpaper_note">الخلفية تجلس فوق اللون المسطّح. اختر «بلا خلفية» لترى اللون.</string>
+    <string name="personalization_text_size">حجم النص</string>
+    <string name="personalization_corner_rounding">استدارة الزوايا</string>
+
+    <string name="personalization_reduce_motion">تقليل الحركة</string>
+    <string name="personalization_reduce_motion_subtitle">لا تلاشٍ، ولا دخول متتابع، ولا حركة تنفّس.</string>
+    <string name="personalization_high_contrast">تباين أعلى</string>
+    <string name="personalization_high_contrast_subtitle">يُبعد النص والفواصل أكثر عن الخلفية.</string>
+    <string name="personalization_high_contrast_note">كل سمة هنا تتجاوز أصلًا حدّ التباين المعتاد لنص المتن. وهذا يزيد الأمر أكثر لمواجهة الوهج، أو إجهاد العين، أو شاشة مشقوقة.</string>
+
+    <string name="personalization_session_controls">أدوات الجلسة</string>
+    <string name="personalization_quick_settings_row">صف الإعدادات السريعة</string>
+    <string name="personalization_today_numbers">أرقام اليوم</string>
+    <string name="personalization_app_grid">شبكة التطبيقات في «المكتبة»</string>
+    <string name="personalization_safe_browser_card">بطاقة المتصفح الآمن</string>
+    <string name="personalization_video_card">بطاقة مكتبة الفيديو</string>
+    <string name="personalization_schedule_shortcuts">اختصارات الجداول</string>
+    <string name="personalization_hide_note">إخفاء البطاقة يخفيها فقط. لا شيء يتوقف عن العمل لأنك توقفت عن النظر إليه.</string>
+</resources>

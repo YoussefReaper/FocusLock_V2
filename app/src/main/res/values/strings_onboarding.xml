@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Onboarding: the six questions and the summary they produce, plus the notes
+    explaining what the suggested setup actually turns on.
+
+    The four schedule notes used to spell the clock times out as literals
+    ("22:00 to 06:00"), which ignored the person's 12/24-hour setting - the one
+    place TimeText was still being bypassed. They are format strings now, filled
+    from TimeText like every other clock in the app.
+-->
+<resources>
+    <string name="onboarding_skip_questions">Skip the questions</string>
+    <string name="onboarding_intro_body">FocusLock blocks the apps that pull you away, for as long as you choose. It is your phone and your rules: nothing is reported to anyone, and every setting can be changed.</string>
+    <string name="onboarding_intro_promise">Five quick questions, then you see a suggested setup before anything is applied.</string>
+    <string name="onboarding_skip_defaults">Skip and use sensible defaults</string>
+
+    <string name="onboarding_goals_title">What is this for?</string>
+    <string name="onboarding_goals_subtitle">Pick as many as fit.</string>
+    <string name="onboarding_goal_study">Studying and exams</string>
+    <string name="onboarding_goal_work">Work and deep focus</string>
+    <string name="onboarding_goal_sleep">Sleeping properly</string>
+    <string name="onboarding_goal_earn">Unlocking the phone by finishing work</string>
+    <string name="onboarding_goal_less">Just less phone, generally</string>
+
+    <string name="onboarding_pulls_title">What pulls hardest?</string>
+    <string name="onboarding_pulls_subtitle">Be honest. This decides what gets suggested for blocking.</string>
+    <string name="onboarding_pull_shorts">Short video: Shorts, Reels, TikTok</string>
+    <string name="onboarding_pull_social">Social feeds</string>
+    <string name="onboarding_pull_browsing">Browsing and shopping</string>
+    <string name="onboarding_pull_messaging">Messaging that never ends</string>
+
+    <string name="onboarding_firm_title">How firm should it start?</string>
+    <string name="onboarding_firm_note">You can change this any time. Starting gentler and tightening later works better than starting at maximum and abandoning it.</string>
+    <string name="onboarding_firm_gentle_label">Gentle</string>
+    <string name="onboarding_firm_gentle_detail">A pause and a nudge. Nothing is held shut.</string>
+    <string name="onboarding_firm_firm_label">Firm</string>
+    <string name="onboarding_firm_firm_detail">Distractions stop opening during a session.</string>
+    <string name="onboarding_firm_all_label">All the way</string>
+    <string name="onboarding_firm_all_detail">Kiosk sessions available, escape routes closed.</string>
+
+    <string name="onboarding_times_title">When is it hardest?</string>
+    <string name="onboarding_times_subtitle">This suggests schedule windows and a bedtime.</string>
+    <string name="onboarding_time_morning">First thing in the morning</string>
+    <string name="onboarding_time_school">School or work hours</string>
+    <string name="onboarding_time_night">Late at night</string>
+
+    <string name="onboarding_essentials_title">What must never be blocked?</string>
+    <string name="onboarding_essentials_subtitle">These stay open through everything, including a kiosk session. Calls and maps belong here.</string>
+    <string name="onboarding_add_more_apps">Add more apps</string>
+    <string name="onboarding_never_block_these">Never block these</string>
+
+    <string name="onboarding_summary_title">Here is the setup</string>
+    <string name="onboarding_summary_body">Nothing has been applied yet. Change anything now, or after: every part of this is an ordinary setting.</string>
+    <string name="onboarding_section_mode">STARTING MODE</string>
+    <string name="onboarding_section_blocking">SUGGESTED FOR BLOCKING</string>
+    <string name="onboarding_nothing_blocked">Nothing, based on your answers.</string>
+    <string name="onboarding_section_enabled">TURNED ON</string>
+    <string name="onboarding_section_notes">ALSO SET UP</string>
+    <string name="onboarding_section_essentials">NEVER BLOCKED</string>
+    <string name="onboarding_nothing_chosen">Nothing chosen. You can add essentials later in Rules.</string>
+    <string name="onboarding_use_setup">Use this setup</string>
+    <string name="onboarding_start_over">Start over</string>
+    <string name="onboarding_use_defaults">Use plain defaults instead</string>
+
+    <string name="onboarding_kiosk_needs_computer">Kiosk needs a computer</string>
+    <string name="onboarding_kiosk_needs_computer_detail">Device Owner is set over ADB. Until then, kiosk falls back to Sanctuary.</string>
+
+    <!-- The "also set up" notes: a title and a one-line explanation. -->
+    <string name="onboarding_note_shorts_title">Shorts and Reels guards</string>
+    <string name="onboarding_note_shorts_detail">Closes those surfaces without blocking the whole app.</string>
+    <string name="onboarding_note_whatsapp_title">WhatsApp guard</string>
+    <string name="onboarding_note_whatsapp_detail">Chats keep working; Channels, Updates and Meta AI close themselves.</string>
+    <string name="onboarding_note_games_title">A daily budget for games</string>
+    <string name="onboarding_note_games_detail">60 minutes a day, adjustable in Rules.</string>
+    <string name="onboarding_note_bedtime_title">Bedtime</string>
+    <string name="onboarding_note_bedtime_detail">%1$s to %2$s, social and video quiet, screen dimmed.</string>
+    <string name="onboarding_note_school_title">A school-hours window</string>
+    <string name="onboarding_note_school_detail">%1$s to %2$s on weekdays, essentials still open.</string>
+    <string name="onboarding_note_morning_title">A morning window</string>
+    <string name="onboarding_note_morning_detail">%1$s to %2$s every day.</string>
+    <string name="onboarding_note_evening_title">An evening window</string>
+    <string name="onboarding_note_evening_detail">%1$s to %2$s every day.</string>
+    <string name="onboarding_note_earn_title">Earn mode</string>
+    <string name="onboarding_note_earn_detail">Finish a task, unlock leisure minutes. Mark work you already enjoy as enjoyable and it will pay nothing, on purpose.</string>
+
+    <!-- Messages written onto the schedule windows onboarding creates. -->
+    <string name="onboarding_schedule_school">School hours</string>
+    <string name="onboarding_schedule_morning">Morning, before the phone starts</string>
+    <string name="onboarding_schedule_evening">Evening</string>
+</resources>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    The labels and one-line explanations for every enum a person picks from:
+    per-app policy, app category, guard action, place trigger, the three parts
+    of a custom rule, and how a task proves itself.
+
+    These lived in Kotlin as constructor arguments, so they were unreachable by
+    any locale mechanism. The enums now carry @StringRes ids and resolve through
+    the Context - see AppPolicy, AppCategory, GuardAction, PlaceTrigger,
+    RuleTargetType, RuleConditionType, RuleAction, Verification, Priority,
+    Recurrence and PermissionGuard.Guarded.
+-->
+<resources>
+    <!-- AppPolicy: what FocusLock is allowed to do about one app. -->
+    <string name="policy_allow_label">Open freely</string>
+    <string name="policy_allow_blurb">No pause, no limit. This app is fine.</string>
+    <string name="policy_allow_short">Open</string>
+    <string name="policy_friction_label">Pause first</string>
+    <string name="policy_friction_blurb">A few slow seconds and a way out before it opens.</string>
+    <string name="policy_friction_short">Pause</string>
+    <string name="policy_limit_label">Give it a budget</string>
+    <string name="policy_limit_blurb">Opens freely until the daily budget runs out.</string>
+    <string name="policy_limit_short">Budget</string>
+    <string name="policy_block_label">Blocked</string>
+    <string name="policy_block_blurb">Does not open while a session is running.</string>
+    <string name="policy_block_short">Blocked</string>
+    <string name="policy_hide_label">Blocked and hidden</string>
+    <string name="policy_hide_blurb">Does not open, and disappears from the launcher.</string>
+    <string name="policy_hide_short">Hidden</string>
+
+    <!-- AppCategory: roughly what kind of thing an app is. -->
+    <string name="category_social_label">Social</string>
+    <string name="category_social_blurb">Feeds, messages that scroll, comment sections.</string>
+    <string name="category_video_label">Video</string>
+    <string name="category_video_blurb">Short video, streaming, anything autoplaying.</string>
+    <string name="category_games_label">Games</string>
+    <string name="category_games_blurb">Play, but the kind that eats an evening.</string>
+    <string name="category_browsing_label">Browsing</string>
+    <string name="category_browsing_blurb">Browsers and stores: the open door to everything.</string>
+    <string name="category_messaging_label">Messaging</string>
+    <string name="category_messaging_blurb">Real conversations with real people.</string>
+    <string name="category_essential_label">Essentials</string>
+    <string name="category_essential_blurb">Calls, clock, maps, camera. The phone as a phone.</string>
+    <string name="category_productivity_label">Work and study</string>
+    <string name="category_productivity_blurb">Notes, docs, courses, code.</string>
+    <string name="category_system_label">System</string>
+    <string name="category_system_blurb">The parts of Android that keep the lights on.</string>
+    <string name="category_other_label">Everything else</string>
+    <string name="category_other_blurb">Not sorted yet.</string>
+
+    <!-- GuardAction: what the content guard does when it recognises a screen. -->
+    <string name="guard_step_back_label">Step back out</string>
+    <string name="guard_step_back_blurb">Presses back, so you land on the previous screen and keep using the app.</string>
+    <string name="guard_close_app_label">Leave the app</string>
+    <string name="guard_close_app_blurb">Returns you to FocusLock. Use this when the whole app is the problem.</string>
+    <string name="guard_nudge_label">Just tell me</string>
+    <string name="guard_nudge_blurb">Shows a quiet line and leaves the screen alone.</string>
+
+    <!-- PlaceTrigger: which way round a place rule fires. -->
+    <string name="place_inside_label">When I am here</string>
+    <string name="place_outside_label">When I am anywhere else</string>
+
+    <!-- RuleTargetType / RuleConditionType / RuleAction: the three parts of a rule. -->
+    <string name="ruletarget_app_label">An app</string>
+    <string name="ruletarget_category_label">A category</string>
+    <string name="ruletarget_all_label">Everything</string>
+
+    <string name="rulecond_always_label">Always</string>
+    <string name="rulecond_always_blurb">Whenever a session is running.</string>
+    <string name="rulecond_time_label">Between two times</string>
+    <string name="rulecond_time_blurb">A window of the day, every day it applies.</string>
+    <string name="rulecond_days_label">On certain days</string>
+    <string name="rulecond_days_blurb">Weekdays, weekends, or the days you pick.</string>
+    <string name="rulecond_place_label">At a place</string>
+    <string name="rulecond_place_blurb">Uses one of your saved places.</string>
+    <string name="rulecond_wifi_label">On a network</string>
+    <string name="rulecond_wifi_blurb">When connected to a named Wi-Fi.</string>
+    <string name="rulecond_usage_over_label">After N minutes today</string>
+    <string name="rulecond_usage_over_blurb">Kicks in once you have spent that long in it.</string>
+    <string name="rulecond_opens_over_label">After N opens today</string>
+    <string name="rulecond_opens_over_blurb">Kicks in once you have reached for it that often.</string>
+    <string name="rulecond_session_only_label">Only during a session</string>
+    <string name="rulecond_session_only_blurb">Silent when no session is running.</string>
+
+    <string name="ruleaction_allow_label">Let it through</string>
+    <string name="ruleaction_allow_blurb">An exception that beats the rules below it.</string>
+    <string name="ruleaction_friction_label">Pause first</string>
+    <string name="ruleaction_friction_blurb">A breathing moment, then your choice.</string>
+    <string name="ruleaction_block_label">Block it</string>
+    <string name="ruleaction_block_blurb">Does not open while the condition holds.</string>
+    <string name="ruleaction_allow_temp_label">Allow for a few minutes</string>
+    <string name="ruleaction_allow_temp_blurb">Opens a timed pass instead of a hard stop.</string>
+
+    <!-- Verification / Priority / Recurrence: how a task proves itself. -->
+    <string name="verify_manual_label">I say so</string>
+    <string name="verify_manual_blurb">You tap done. Fine for work only you can see.</string>
+    <string name="verify_timer_label">Time on it</string>
+    <string name="verify_timer_blurb">Completes once you have spent the estimated time in a session.</string>
+    <string name="verify_photo_label">Show it</string>
+    <string name="verify_photo_blurb">A photo taken now, checked on this phone. It never leaves the device.</string>
+    <string name="verify_subtasks_label">Every step</string>
+    <string name="verify_subtasks_blurb">Completes when all the subtasks are ticked.</string>
+
+    <string name="prio_none_label">No priority</string>
+    <string name="prio_low_label">Low</string>
+    <string name="prio_med_label">Medium</string>
+    <string name="prio_high_label">High</string>
+
+    <string name="recur_none_label">Once</string>
+    <string name="recur_daily_label">Every day</string>
+    <string name="recur_weekly_label">Every week</string>
+    <string name="recur_custom_label">Every few days</string>
+
+    <!-- PermissionGuard.Guarded: the permissions the lock depends on. -->
+    <string name="guarded_usage_access_label">Usage access</string>
+    <string name="guarded_usage_access_explanation">Every rule depends on knowing which app is in front. Without this, FocusLock cannot see anything running.</string>
+    <string name="guarded_overlay_label">Display over other apps</string>
+    <string name="guarded_overlay_explanation">This is what draws the block screen on top of a blocked app.</string>
+    <string name="guarded_accessibility_label">Content guard</string>
+    <string name="guarded_accessibility_explanation">The keyword and chat guards read a screen\'s text through this. Without it they stop watching.</string>
+    <string name="guarded_device_owner_label">Device owner</string>
+    <string name="guarded_device_owner_explanation">The strongest part of the lock - suspension, hiding apps, kiosk - runs on this.</string>
+
+    <!-- The block screen's headline when a permission the lock needs is revoked. -->
+    <string name="permission_lost_one">%1$s was turned off</string>
+    <string name="permission_lost_many">%1$d permissions were turned off</string>
+    <string name="verify_ambient_label">Runs in the background</string>
+    <string name="verify_ambient_blurb">No start button. Time in the apps you name is counted while the screen is on, and you claim the earned minutes whenever you like.</string>
+</resources>

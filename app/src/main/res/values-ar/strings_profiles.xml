@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="profiles_saved_toast">تم حفظ الإعداد.</string>
+    <string name="profiles_write_failed">تعذّر كتابة ذلك الملف.</string>
+    <string name="profiles_not_a_setup">هذا الملف ليس إعدادًا لـ FocusLock.</string>
+    <string name="profiles_this_file">هذا الملف</string>
+    <string name="profiles_subtitle">إعداد لكل حالة. أسبوع الامتحانات لا يحتاج الهاتف نفسه الذي تحتاجه إجازة.</string>
+    <string name="profiles_saved_setups">إعدادات محفوظة</string>
+    <string name="profiles_right_now">الآن</string>
+    <string name="profiles_save_as">احفظ هذا كملف شخصي</string>
+    <string name="profiles_name_title">سمِّ هذا الإعداد</string>
+    <string name="profiles_name_subtitle">الحفظ فوق اسم موجود يستبدله.</string>
+    <string name="profiles_name_hint">مثال: أسبوع الامتحانات</string>
+    <string name="profiles_saved_toast_short">تم الحفظ.</string>
+    <string name="profiles_empty">لا ملفات شخصية محفوظة بعد. احفظ الإعداد الحالي من الأعلى عندما يبدو مناسبًا.</string>
+    <string name="profiles_saved_at">حُفظ %1$s</string>
+    <string name="profiles_switch">انتقل إلى هذا الإعداد</string>
+    <string name="profiles_overwrite">استبدله بالإعداد الحالي</string>
+    <string name="profiles_updated">تم التحديث.</string>
+    <string name="profiles_delete">احذف هذا الملف الشخصي</string>
+    <string name="profiles_switch_title">الانتقال إلى %1$s؟</string>
+    <string name="profiles_applied">تم تطبيق الإعداد.</string>
+    <string name="profiles_replace_message">يستبدل هذا قواعد تطبيقاتك وكلماتك المفتاحية وقواعدك المخصّصة وجداولك وأماكنك وحدودك ومفاتيح قدراتك الحالية. والجلسة الجارية لا تتأثر.</string>
+    <string name="profiles_also_theme">خُذ سمته أيضًا</string>
+    <string name="profiles_also_theme_subtitle">مطفأ افتراضيًا، حتى لا يعيد إعداد مُستورَد طلاء هاتفك.</string>
+    <string name="profiles_file_note">ملف الإعداد نص JSON عادي: قواعدك ومفاتيحك، ولا شيء عنك أو عن هذا الجهاز. ولا يغادر الهاتف إلا إن أرسلته أنت.</string>
+    <string name="profiles_export">صدِّر إلى ملف</string>
+    <string name="profiles_import">استورد من ملف</string>
+    <string name="profiles_no_picker">لا يوجد منتقي ملفات متاح.</string>
+</resources>

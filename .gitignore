@@ -1,0 +1,29 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Signing config. Points at a keystore kept outside the repo.
+keystore.properties
+*.jks
+*.keystore
+
+# Gradle's project-local cache (-g .gradle-local). Tens of thousands of
+# generated files; never belongs in the repo.
+/.gradle-local/
+/.kotlin/
+
+# Local staging area for release APKs, waiting to be copied to H:
+/_release_staging/
+/.claude/

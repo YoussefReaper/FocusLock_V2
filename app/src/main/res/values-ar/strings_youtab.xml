@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    تبويب «أنت»: المظهر، والرابط إلى سجل القدرات، والإعداد والمساعدة،
+    ومفتاح إيقاف ADB، ومشاركة الملخص، ومنفذ إعادة ضبط المصنع.
+
+    ملاحظة على الأرقام: العربية تفرّق بين المفرد والجمع في الإحصاء الماضي
+    (جلسة/جلسات، يوم/أيام)، وهذا ما تفرّقه يوتاب في سلاسلها.
+-->
+<resources>
+    <string name="youtab_subtitle">تقدّمك، ومظهر التطبيق، والإعدادات.</string>
+    <string name="youtab_make_it_yours">اجعله على ذوقك</string>
+    <string name="youtab_setup_and_help">الإعداد والمساعدة</string>
+
+    <string name="youtab_so_far">حتى الآن</string>
+    <string name="youtab_sessions_finished">جلسات مكتملة</string>
+    <string name="youtab_time_held">وقت مثبَّت</string>
+    <string name="youtab_best_run">أفضل سلسلة (أيام)</string>
+    <string name="youtab_screen_time">وقت الشاشة</string>
+    <string name="youtab_app_opens">مرات فتح التطبيقات</string>
+    <string name="youtab_apps_blocked">تطبيقات محجوبة</string>
+    <string name="youtab_see_where_time_went">اعرف أين ذهب الوقت</string>
+
+    <string name="youtab_type_and_spacing">الخط والتباعد</string>
+    <string name="youtab_clock_12">نظام ١٢ ساعة (٢:٣٠ م)</string>
+    <string name="youtab_clock_24">نظام ٢٤ ساعة (14:30)</string>
+    <string name="youtab_clock_match">اتبع إعداد الهاتف</string>
+    <string name="youtab_clock_subtitle">كيف تُقرأ الأوقات في الجداول ووقت النوم والمواعيد النهائية.</string>
+    <string name="youtab_font_system_default">خط النظام</string>
+    <string name="youtab_theme_subtitle">يغيّر كل شاشة في التطبيق — بما فيها شاشات الحجب.</string>
+
+    <string name="youtab_capabilities_title">ما يُسمح لـ FocusLock بفعله</string>
+    <string name="youtab_device_owner_title">إعداد مالك الجهاز</string>
+    <string name="youtab_device_owner_active">مفعّل. يمكن إغلاق الوضع الآمن وإلغاء التثبيت.</string>
+    <string name="youtab_device_owner_inactive">غير مضبوط. وضع الكشك وحجب الوضع الآمن يحتاجان هذا.</string>
+    <string name="youtab_advanced_title">المتقدّم، وكيف يعمل</string>
+    <string name="youtab_advanced_subtitle">ما الذي يضبطه كل وضع، وما تستطيع تغييره، وكل طريقة للخروج من جلسة.</string>
+    <string name="youtab_rerun_quiz">أعِد أسئلة الإعداد</string>
+    <string name="youtab_rerun_quiz_subtitle">ابنِ إعدادًا للبداية من بضعة أسئلة. لا شيء يتغير حتى تقبله.</string>
+
+    <string name="youtab_adb_off_title">تصحيح أخطاء ADB مطفأ</string>
+    <string name="youtab_adb_turn_off">أطفئ تصحيح أخطاء ADB</string>
+    <string name="youtab_adb_off_detail">أغلقته أنت. يُفتح مرة أخرى عندما تنتهي جلسة تُعيد الهاتف.</string>
+    <string name="youtab_adb_subtitle">يغلق طريق الوصول إلى الهاتف من الحاسوب. لا يحدث إلا إذا ضغطت عليه.</string>
+    <string name="youtab_device_owner_needed_title">تحتاج «مالك الجهاز»</string>
+    <string name="youtab_device_owner_needed_detail">مالك الجهاز وحده يستطيع إغلاق ADB. أعدّ ذلك من حاسوب أولًا.</string>
+    <string name="youtab_adb_confirm_title">إطفاء تصحيح أخطاء ADB؟</string>
+    <string name="youtab_adb_confirm_message">يُغلق هذا منفذ المطوّرين إلى الهاتف ما دام FocusLock مالك الجهاز. وستحتاج إلى إعادة ضبط المصنع، أو جلسة تُعيد الهاتف، لإعادة فتحه.</string>
+    <string name="youtab_adb_confirm_button">أطفئه</string>
+    <string name="youtab_restriction_refused">رفض أندرويد هذا القيد.</string>
+
+    <!-- لاحقتا سطر ملخص الوضع. -->
+    <string name="youtab_suffix_held">%1$s · محتجز حتى تنتهي الجلسة</string>
+    <string name="youtab_suffix_edited">%1$s · معدَّل</string>
+
+    <string name="youtab_permissions_all_granted">كل ما تحتاجه إعداداتك ممنوح.</string>
+    <string name="youtab_permissions_waiting_one">%1$d قدرة ما زالت تنتظر إذنًا</string>
+    <string name="youtab_permissions_waiting_many">%1$d قدرات ما زالت تنتظر إذنًا</string>
+
+    <string name="youtab_share_button">شارك أسبوعي</string>
+    <string name="youtab_share_sessions">جلسات مكتملة: %1$d</string>
+    <string name="youtab_share_run">السلسلة الحالية: %1$d يومًا</string>
+    <string name="youtab_share_screen_time">وقت الشاشة: %1$s</string>
+    <string name="youtab_share_dialog_title">مشاركة الملخص</string>
+    <string name="youtab_share_no_app">لا يوجد تطبيق متاح لمشاركة ذلك.</string>
+
+    <string name="youtab_reset_subtitle">إعادة ضبط المصنع هي المخرج الأخير من جلسة كشك، وFocusLock لا يحجبه أبدًا. لكنه يمحو الهاتف، لذا يبقى خلف عدّاد تنازلي.</string>
+    <string name="youtab_reset_button">أعِد ضبط هذا الهاتف</string>
+    <string name="youtab_reset_confirm_title">محو كل شيء على هذا الهاتف؟</string>
+    <string name="youtab_reset_confirm_message">يذهب كل تطبيق وصورة ورسالة. هذه ليست الطريقة التي يُفترض أن تنتهي بها جلسة، ولا رجعة في ذلك.</string>
+    <string name="youtab_reset_confirm_button">امحُ الهاتف</string>
+    <string name="youtab_reset_settings_only">إعادة الضبط لا تُبلَغ إلا من الإعدادات على هذا الهاتف.</string>
+
+    <string name="youtab_about">FocusLock. كل ما يعرفه عنك يبقى على هذا الهاتف.</string>
+
+    <!-- ══ تقارير المشكلات ══ -->
+    <string name="diag_report_title">الإبلاغ عن مشكلة</string>
+    <string name="diag_report_subtitle">لا يُرسل شيء حتى تختار إلى أين</string>
+    <string name="diag_report_subtitle_crash">آخر توقف %1$s · لا يُرسل شيء حتى تختار إلى أين</string>
+    <string name="diag_confirm_title">إرسال تقرير عن مشكلة؟</string>
+    <string name="diag_confirm_message">يحتوي التقرير على إصدار FocusLock وطراز هاتفك وإصدار أندرويد، والأذونات المفعّلة، وآخر حالات التوقف، وسجل FocusLock الحديث - وقد يذكر تطبيقات حظرها ومحادثات تيليجرام قرأها. لا شيء من التطبيقات الأخرى.\n\nأنت تختار وجهته، ويمكنك قراءته كاملاً قبل الإرسال.</string>
+    <string name="diag_confirm_send">جهّز التقرير</string>
+    <string name="diag_share_title">أرسل التقرير عبر</string>
+    <string name="diag_crash_card_title">توقف FocusLock</string>
+    <string name="diag_crash_card_body">توقف بشكل غير متوقع في %1$s. التقرير يساعد في الإصلاح - ولا يُرسل شيء إلا إذا أرسلته أنت.</string>
+    <string name="diag_crash_card_send">أرسل تقريرًا</string>
+    <string name="diag_crash_card_dismiss">ليس الآن</string>
+
+    <!-- ══ التحديثات ══ -->
+    <string name="update_title">البحث عن تحديثات</string>
+    <string name="update_subtitle_current">لديك الإصدار %1$s</string>
+    <string name="update_subtitle_available">الإصدار %1$s متاح</string>
+    <string name="update_auto_title">تحقق مرة كل أسبوع</string>
+    <string name="update_auto_subtitle">متوقف ما لم تفعّله. يقرأ ملفًا عامًا صغيرًا من موقع FocusLock ولا يرسل شيئًا عنك.</string>
+    <string name="update_checking">جارٍ التحقق…</string>
+    <string name="update_up_to_date">لديك أحدث إصدار (%1$s).</string>
+    <string name="update_failed">تعذر الوصول إلى موقع FocusLock. حاول مرة أخرى عند الاتصال بالإنترنت.</string>
+    <string name="update_available_title">صدر FocusLock %1$s</string>
+    <string name="update_available_message">يوجد إصدار أحدث على الموقع. ثبّته فوق هذا الإصدار - تبقى إعداداتك كما هي.</string>
+    <string name="update_get_it">احصل عليه</string>
+    <string name="update_later">لاحقًا</string>
+</resources>

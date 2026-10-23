@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    You -> Make it yours: the live preview, every appearance control, and the
+    switches for what the dashboard shows.
+-->
+<resources>
+    <string name="personalization_subtitle">Every screen, dialog and block message follows these.</string>
+    <string name="personalization_type_and_spacing">Type and spacing</string>
+    <string name="personalization_dashboard_shows">What the dashboard shows</string>
+    <string name="personalization_reset">Reset appearance to defaults</string>
+    <string name="personalization_reset_title">Reset appearance?</string>
+    <string name="personalization_reset_message">Only the look changes. Your rules and switches are untouched.</string>
+
+    <!-- Sample content for the live preview card. -->
+    <string name="personalization_preview_greeting">Good evening</string>
+    <string name="personalization_preview_streak">Four days in a row</string>
+    <string name="personalization_preview_screen_time">Screen time</string>
+    <string name="personalization_preview_primary">Primary action</string>
+    <string name="personalization_preview_secondary">Secondary action</string>
+
+    <string name="personalization_flat_colour">FLAT COLOUR</string>
+    <string name="personalization_wallpaper_note">A wallpaper sits above the flat colour. Choose None to see the colour.</string>
+    <string name="personalization_text_size">Text size</string>
+    <string name="personalization_corner_rounding">Corner rounding</string>
+
+    <string name="personalization_reduce_motion">Reduce motion</string>
+    <string name="personalization_reduce_motion_subtitle">No fades, no staggered entrances, no breathing animation.</string>
+    <string name="personalization_high_contrast">Higher contrast</string>
+    <string name="personalization_high_contrast_subtitle">Pushes text and dividers further from the background.</string>
+    <string name="personalization_high_contrast_note">Every theme here already clears the usual contrast bar for body text. This pushes further for glare, tired eyes, or a cracked screen.</string>
+
+    <string name="personalization_session_controls">Session controls</string>
+    <string name="personalization_quick_settings_row">Quick settings row</string>
+    <string name="personalization_today_numbers">Today\'s numbers</string>
+    <string name="personalization_app_grid">App grid in Library</string>
+    <string name="personalization_safe_browser_card">Safe browser card</string>
+    <string name="personalization_video_card">Video library card</string>
+    <string name="personalization_schedule_shortcuts">Schedule shortcuts</string>
+    <string name="personalization_hide_note">Hiding a card only hides it. Nothing stops running because you stopped looking at it.</string>
+</resources>

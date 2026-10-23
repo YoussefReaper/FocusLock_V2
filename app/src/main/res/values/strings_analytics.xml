@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    The Insight screen: the window picker, the earn and task cards, the usage
+    breakdown, the streaks, and the states shown when analytics is off or
+    usage access has not been granted.
+-->
+<resources>
+    <string name="analytics_window_today">Today</string>
+    <string name="analytics_window_7">Last 7 days</string>
+    <string name="analytics_window_30">Last 30 days</string>
+
+    <string name="analytics_title">Your time</string>
+    <string name="analytics_by_category">By category</string>
+    <string name="analytics_by_app">By app</string>
+
+    <string name="analytics_minutes_earned">Minutes earned</string>
+    <string name="analytics_earned_detail">%1$s all time · %2$s today</string>
+    <string name="analytics_minutes_spent">Minutes spent</string>
+    <string name="analytics_pool_now">In the pool now</string>
+    <string name="analytics_tasks_finished">Tasks finished</string>
+    <string name="analytics_tasks_detail">%1$s · %2$s today</string>
+
+    <string name="analytics_verification_trust">Verification trust</string>
+    <string name="analytics_trust_note">Drops when a proof photo is refused, recovers when one passes. It is a note to yourself, not a permission level.</string>
+
+    <string name="analytics_off_title">Analytics is off</string>
+    <string name="analytics_off_body">Nothing is being recorded. Turn it on if you want to see the pattern; it stays entirely on this phone either way.</string>
+    <string name="analytics_turn_on">Turn on analytics</string>
+
+    <string name="analytics_needs_usage_title">Usage access is needed</string>
+    <string name="analytics_needs_usage_body">The breakdown is read from Android\'s own records. FocusLock keeps no separate log.</string>
+    <string name="analytics_grant_usage">Grant usage access</string>
+
+    <string name="analytics_screen_time">Screen time</string>
+    <string name="analytics_opens">Opens</string>
+    <string name="analytics_apps_used">Apps used</string>
+    <string name="analytics_slice_detail">%1$s · %2$d opens · %3$s</string>
+    <string name="analytics_slice_subtitle">%1$s in this stretch.</string>
+    <string name="analytics_no_usage">No usage recorded for this stretch.</string>
+    <string name="analytics_nothing_yet">Nothing to show yet.</string>
+
+    <string name="analytics_sessions_finished">Sessions finished</string>
+    <string name="analytics_time_held">Time held</string>
+    <string name="analytics_current_run">Current run</string>
+    <string name="analytics_best_run">Best run</string>
+    <string name="analytics_days">%1$d days</string>
+    <string name="analytics_privacy_note">No part of this is uploaded, scored or compared with anyone.</string>
+    <string name="analytics_policy_blocked">Blocked</string>
+    <string name="analytics_policy_manage">Manage</string>
+</resources>

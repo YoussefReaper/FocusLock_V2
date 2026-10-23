@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    تسميات وشرح كل قائمة يختار منها المستخدم: سياسة التطبيق، وفئة التطبيق،
+    وسلوك الحارس، ومشغّل المكان، وأجزاء القاعدة المخصّصة الثلاثة، وكيف تُثبت
+    المهمة نفسها.
+
+    كانت هذه النصوص وسائط في Kotlin، فلا تصل إليها أي آلية لغة. صارت الآن
+    معرّفات موارد على القوائم نفسها، تُحلّ عبر الـ Context.
+-->
+<resources>
+    <!-- سياسة التطبيق: ما يُسمح لـ FocusLock بفعله بشأن تطبيق واحد. -->
+    <string name="policy_allow_label">افتح بحرية</string>
+    <string name="policy_allow_blurb">بلا وقفة وبلا حد. هذا التطبيق لا بأس به.</string>
+    <string name="policy_allow_short">مفتوح</string>
+    <string name="policy_friction_label">وقفة أولًا</string>
+    <string name="policy_friction_blurb">ثوانٍ بطيئة ومنفذ للتراجع قبل أن يُفتح.</string>
+    <string name="policy_friction_short">وقفة</string>
+    <string name="policy_limit_label">امنحه ميزانية</string>
+    <string name="policy_limit_blurb">يُفتح بحرية حتى تنفد الميزانية اليومية.</string>
+    <string name="policy_limit_short">ميزانية</string>
+    <string name="policy_block_label">محجوب</string>
+    <string name="policy_block_blurb">لا يُفتح أثناء عمل الجلسة.</string>
+    <string name="policy_block_short">محجوب</string>
+    <string name="policy_hide_label">محجوب ومخفي</string>
+    <string name="policy_hide_blurb">لا يُفتح، ويختفي من الشاشة الرئيسية.</string>
+    <string name="policy_hide_short">مخفي</string>
+
+    <!-- فئة التطبيق: تقريبًا أي نوع من الأشياء هو. -->
+    <string name="category_social_label">تواصل اجتماعي</string>
+    <string name="category_social_blurb">خلاصات ورسائل تُمرَّر، وأقسام تعليقات.</string>
+    <string name="category_video_label">فيديو</string>
+    <string name="category_video_blurb">فيديو قصير، وبث، وكل ما يعمل تلقائيًا.</string>
+    <string name="category_games_label">ألعاب</string>
+    <string name="category_games_blurb">لعب، لكن النوع الذي يأكل الأمسية.</string>
+    <string name="category_browsing_label">تصفّح</string>
+    <string name="category_browsing_blurb">المتصفحات والمتاجر: الباب المفتوح على كل شيء.</string>
+    <string name="category_messaging_label">مراسلة</string>
+    <string name="category_messaging_blurb">محادثات حقيقية مع أشخاص حقيقيين.</string>
+    <string name="category_essential_label">الأساسيات</string>
+    <string name="category_essential_blurb">المكالمات والساعة والخرائط والكاميرا. الهاتف كهاتف.</string>
+    <string name="category_productivity_label">العمل والدراسة</string>
+    <string name="category_productivity_blurb">ملاحظات ومستندات ودورات وشيفرة.</string>
+    <string name="category_system_label">النظام</string>
+    <string name="category_system_blurb">أجزاء أندرويد التي تُبقي الأضواء مشتعلة.</string>
+    <string name="category_other_label">كل ما عدا ذلك</string>
+    <string name="category_other_blurb">لم يُصنَّف بعد.</string>
+
+    <!-- سلوك الحارس: ما يفعله حارس المحتوى عندما يتعرّف على شاشة. -->
+    <string name="guard_step_back_label">تراجع خطوة</string>
+    <string name="guard_step_back_blurb">يضغط زر الرجوع، فتعود إلى الشاشة السابقة وتواصل استخدام التطبيق.</string>
+    <string name="guard_close_app_label">اترك التطبيق</string>
+    <string name="guard_close_app_blurb">يعيدك إلى FocusLock. استخدم هذا عندما يكون التطبيق كله هو المشكلة.</string>
+    <string name="guard_nudge_label">أخبرني فقط</string>
+    <string name="guard_nudge_blurb">يُظهر سطرًا هادئًا ويترك الشاشة كما هي.</string>
+
+    <!-- مشغّل المكان: أي الاتجاهين تُطبَّق فيه قاعدة المكان. -->
+    <string name="place_inside_label">عندما أكون هنا</string>
+    <string name="place_outside_label">عندما أكون في أي مكان آخر</string>
+
+    <!-- الهدف والشرط والنتيجة: الأجزاء الثلاثة للقاعدة. -->
+    <string name="ruletarget_app_label">تطبيق</string>
+    <string name="ruletarget_category_label">فئة</string>
+    <string name="ruletarget_all_label">كل شيء</string>
+
+    <string name="rulecond_always_label">دائمًا</string>
+    <string name="rulecond_always_blurb">كلما كانت هناك جلسة قيد التشغيل.</string>
+    <string name="rulecond_time_label">بين وقتين</string>
+    <string name="rulecond_time_blurb">نافذة من اليوم، في كل يوم تنطبق فيه.</string>
+    <string name="rulecond_days_label">في أيام معيّنة</string>
+    <string name="rulecond_days_blurb">أيام الأسبوع، أو نهاية الأسبوع، أو الأيام التي تختارها.</string>
+    <string name="rulecond_place_label">في مكان ما</string>
+    <string name="rulecond_place_blurb">يستخدم أحد أماكنك المحفوظة.</string>
+    <string name="rulecond_wifi_label">على شبكة</string>
+    <string name="rulecond_wifi_blurb">عند الاتصال بشبكة Wi-Fi باسم معيّن.</string>
+    <string name="rulecond_usage_over_label">بعد N دقيقة اليوم</string>
+    <string name="rulecond_usage_over_blurb">يبدأ العمل بعد أن تقضي هذه المدة فيه.</string>
+    <string name="rulecond_opens_over_label">بعد N مرة فتح اليوم</string>
+    <string name="rulecond_opens_over_blurb">يبدأ العمل بعد أن تمدّ يدك إليه هذا العدد من المرات.</string>
+    <string name="rulecond_session_only_label">أثناء الجلسة فقط</string>
+    <string name="rulecond_session_only_blurb">صامت عندما لا تكون هناك جلسة قيد التشغيل.</string>
+
+    <string name="ruleaction_allow_label">دعه يمر</string>
+    <string name="ruleaction_allow_blurb">استثناء يتقدّم على القواعد التي تحته.</string>
+    <string name="ruleaction_friction_label">وقفة أولًا</string>
+    <string name="ruleaction_friction_blurb">لحظة تنفّس، ثم اختيارك.</string>
+    <string name="ruleaction_block_label">احجبه</string>
+    <string name="ruleaction_block_blurb">لا يُفتح ما دام الشرط قائمًا.</string>
+    <string name="ruleaction_allow_temp_label">اسمح لبضع دقائق</string>
+    <string name="ruleaction_allow_temp_blurb">يمنح تصريحًا مؤقتًا بدلًا من إيقاف صارم.</string>
+
+    <!-- كيف تُثبت المهمة نفسها. -->
+    <string name="verify_manual_label">أنا أقول ذلك</string>
+    <string name="verify_manual_blurb">تضغط «تم». مناسب لعمل لا يراه إلا أنت.</string>
+    <string name="verify_timer_label">وقت عليه</string>
+    <string name="verify_timer_blurb">تُكتمل بعد أن تقضي الوقت المقدَّر داخل جلسة.</string>
+    <string name="verify_photo_label">أرِه</string>
+    <string name="verify_photo_blurb">صورة تُلتقط الآن، وتُفحص على هذا الهاتف. لا تغادر الجهاز أبدًا.</string>
+    <string name="verify_subtasks_label">كل خطوة</string>
+    <string name="verify_subtasks_blurb">تُكتمل عندما تُعلَّم كل المهام الفرعية.</string>
+
+    <string name="prio_none_label">بلا أولوية</string>
+    <string name="prio_low_label">منخفضة</string>
+    <string name="prio_med_label">متوسطة</string>
+    <string name="prio_high_label">عالية</string>
+
+    <string name="recur_none_label">مرة واحدة</string>
+    <string name="recur_daily_label">كل يوم</string>
+    <string name="recur_weekly_label">كل أسبوع</string>
+    <string name="recur_custom_label">كل بضعة أيام</string>
+
+    <!-- الأذونات التي يعتمد عليها القفل. -->
+    <string name="guarded_usage_access_label">الوصول إلى الاستخدام</string>
+    <string name="guarded_usage_access_explanation">كل قاعدة تعتمد على معرفة التطبيق الذي في المقدمة. بدون هذا، لا يستطيع FocusLock رؤية أي شيء يعمل.</string>
+    <string name="guarded_overlay_label">العرض فوق التطبيقات الأخرى</string>
+    <string name="guarded_overlay_explanation">هذا ما يرسم شاشة الحجب فوق التطبيق المحجوب.</string>
+    <string name="guarded_accessibility_label">حارس المحتوى</string>
+    <string name="guarded_accessibility_explanation">حرّاس الكلمات والمحادثات يقرؤون نص الشاشة من خلال هذا. بدونه يتوقفون عن المراقبة.</string>
+    <string name="guarded_device_owner_label">مالك الجهاز</string>
+    <string name="guarded_device_owner_explanation">أقوى جزء من القفل — التعليق، وإخفاء التطبيقات، ووضع الكشك — يعمل على هذا.</string>
+
+    <!-- عنوان شاشة الحجب عند سحب إذن يحتاجه القفل. -->
+    <string name="permission_lost_one">تم إطفاء %1$s</string>
+    <string name="permission_lost_many">تم إطفاء %1$d أذونات</string>
+    <string name="verify_ambient_label">يعمل في الخلفية</string>
+    <string name="verify_ambient_blurb">بلا زر بدء. يُحسب الوقت في التطبيقات التي تسمّيها ما دامت الشاشة مضاءة، وتطالب بالدقائق المكتسبة متى شئت.</string>
+</resources>

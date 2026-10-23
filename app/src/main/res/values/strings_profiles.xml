@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="profiles_saved_toast">Setup saved.</string>
+    <string name="profiles_write_failed">Could not write that file.</string>
+    <string name="profiles_not_a_setup">That file is not a FocusLock setup.</string>
+    <string name="profiles_this_file">this file</string>
+    <string name="profiles_subtitle">One setup per situation. Exam week does not need the same phone as a holiday.</string>
+    <string name="profiles_saved_setups">Saved setups</string>
+    <string name="profiles_right_now">Right now</string>
+    <string name="profiles_save_as">Save this as a profile</string>
+    <string name="profiles_name_title">Name this setup</string>
+    <string name="profiles_name_subtitle">Saving over an existing name replaces it.</string>
+    <string name="profiles_name_hint">For example: exam week</string>
+    <string name="profiles_saved_toast_short">Saved.</string>
+    <string name="profiles_empty">No saved profiles yet. Save the current setup above once it feels right.</string>
+    <string name="profiles_saved_at">Saved %1$s</string>
+    <string name="profiles_switch">Switch to this setup</string>
+    <string name="profiles_overwrite">Overwrite with current setup</string>
+    <string name="profiles_updated">Updated.</string>
+    <string name="profiles_delete">Delete this profile</string>
+    <string name="profiles_switch_title">Switch to %1$s?</string>
+    <string name="profiles_applied">Setup applied.</string>
+    <string name="profiles_replace_message">This replaces your current app rules, keywords, custom rules, schedules, places, limits and capability switches. A running session is not affected.</string>
+    <string name="profiles_also_theme">Also take its theme</string>
+    <string name="profiles_also_theme_subtitle">Off by default, so an imported setup does not repaint your phone.</string>
+    <string name="profiles_file_note">A setup file is plain JSON: your rules and switches, nothing about you or this device. It never leaves the phone unless you send it.</string>
+    <string name="profiles_export">Export to a file</string>
+    <string name="profiles_import">Import from a file</string>
+    <string name="profiles_no_picker">No file picker available.</string>
+</resources>

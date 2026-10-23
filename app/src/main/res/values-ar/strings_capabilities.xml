@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    تسميات القدرات وشرحها وملاحظات إضعافها — الشاشة Rules ← Capabilities.
+
+    نبرة النص: عربية فصحى مبسطة، دافئة ومباشرة، بضمير المخاطب، ولا تلوم المستخدم
+    ولا تُشعره بالفشل. هذا هو الأصل الإنجليزي نفسه، وهذه ترجمته لا إعادة صياغته.
+-->
+<resources>
+    <!-- العناوين الجماعية. -->
+    <string name="capgroup_modes_label">الأوضاع</string>
+    <string name="capgroup_modes_blurb">إلى أي مدى يُسمح للقفل أن يشتد.</string>
+    <string name="capgroup_blocking_label">الحجب</string>
+    <string name="capgroup_blocking_blurb">ما يُسمح لـ FocusLock بإيقافه.</string>
+    <string name="capgroup_content_label">المحتوى</string>
+    <string name="capgroup_content_blurb">حرّاس يقرؤون الشاشة، لا اسم التطبيق وحده.</string>
+    <string name="capgroup_environment_label">المحيط</string>
+    <string name="capgroup_environment_blurb">قواعد تتبع الوقت والمكان والشبكة.</string>
+    <string name="capgroup_tools_label">البدائل</string>
+    <string name="capgroup_tools_blurb">الأشياء الهادئة التي يقدّمها FocusLock بدلًا من التمرير.</string>
+    <string name="capgroup_insight_label">الاطلاع</string>
+    <string name="capgroup_insight_blurb">ما يتذكره FocusLock ويعرضه لك عن نفسك.</string>
+    <string name="capgroup_hardening_label">التحصين</string>
+    <string name="capgroup_hardening_blurb">منافذ خروج يمكنك اختيار إغلاقها.</string>
+
+    <string name="cap_advisory_mode_label">الوضع الهادئ</string>
+    <string name="cap_advisory_mode_blurb">وقفة وتنبيه لطيف عندما تفتح شيئًا مشتّتًا. لا شيء مفروض عليك.</string>
+    <string name="cap_sanctuary_mode_label">وضع الملاذ</string>
+    <string name="cap_sanctuary_mode_blurb">تبقى شاشتك الرئيسية كما هي. تختفي منها التطبيقات المشتّتة وتهدأ.</string>
+    <string name="cap_sanctuary_mode_weaken_note">عند الإطفاء: يختفي الملاذ من قائمة الأوضاع. يظل «حجب» يمنع فتح التطبيقات، لكنه يتركها على شاشتك الرئيسية.</string>
+    <string name="cap_kiosk_mode_label">وضع الكشك</string>
+    <string name="cap_kiosk_mode_blurb">يصبح FocusLock الهاتف بأكمله لمدة تحددها. أقوى إعداد موجود.</string>
+    <string name="cap_kiosk_mode_weaken_note">وضع الكشك هو الوحيد الذي يُغلق الوضع الآمن والشاشة الرئيسية. من دونه يبقى هناك منفذ للخروج.</string>
+    <string name="cap_can_end_early_label">دعني أُنهي الجلسة مبكرًا</string>
+    <string name="cap_can_end_early_blurb">يُظهر زر «إنهاء هذه الجلسة» أثناء عمل الجلسة.</string>
+    <string name="cap_can_end_early_weaken_note">عند الإطفاء: لا خروج مبكر. تستمر الجلسة حتى نهاية مؤقتها، وفي وضع الكشك يكون الخروج الوحيد قبل ذلك إعادة ضبط المصنع، وهي تمحو الهاتف.</string>
+    <string name="cap_lock_rules_in_session_label">جمّد قواعدي أثناء الجلسة</string>
+    <string name="cap_lock_rules_in_session_blurb">بمجرد أن تبدأ الجلسة، تتوقف القواعد وسياسات التطبيقات وهذه المفاتيح عن القبول بالتعديل حتى تنتهي. يمنع نسختك في الحادية عشرة ليلًا من رفع الحجب عن شيء بهدوء.</string>
+    <string name="cap_lock_rules_in_session_weaken_note">عند الإطفاء: يمكنك تغيير أي قاعدة أثناء الجلسة، بما في ذلك إنهاء وضع الكشك مبكرًا. بعض الناس يريدون ذلك وهو خيار مشروع — لكنه يعني أن القفل بقوة عزيمتك في اللحظة التي تريد كسره فيها.</string>
+    <string name="cap_hard_block_label">أوقف التطبيقات المحجوبة فعلًا</string>
+    <string name="cap_hard_block_blurb">التطبيق المحجوب لا يُفتح إطلاقًا. أطفئ هذا فتحصل بدلًا منه على شاشة وقفة يمكنك تجاوزها.</string>
+    <string name="cap_hard_block_weaken_note">عند الإطفاء: التطبيقات المحجوبة تُفتح. يظهر لك تنبيه أولًا، ثم تقرر أنت. هذا سلوك الوضع الهادئ مطبَّقًا على أي وضع تكون فيه.</string>
+    <string name="cap_app_block_label">حجب التطبيقات</string>
+    <string name="cap_app_block_blurb">امنع تطبيقات مختارة من الفتح أثناء عمل الجلسة.</string>
+    <string name="cap_app_block_weaken_note">عند الإطفاء: كل تطبيق على الهاتف يُفتح طبيعيًا. هذا قرارك.</string>
+    <string name="cap_web_block_label">حجب الويب</string>
+    <string name="cap_web_block_blurb">أبقِ المتصفح على قائمة سماحك، وأخرج الإنترنت المفتوح من Chrome.</string>
+    <string name="cap_web_block_weaken_note">عند الإطفاء: أي موقع يُحمَّل في أي متصفح. هذا قرارك.</string>
+    <string name="cap_rule_engine_label">قواعد مخصّصة</string>
+    <string name="cap_rule_engine_blurb">قواعدك أنت: إذا حدث هذا فافعل ذاك — هدف، وشرط، ونتيجة.</string>
+    <string name="cap_always_allowed_label">تطبيقات مسموح بها دائمًا</string>
+    <string name="cap_always_allowed_blurb">أساسيات تبقى متاحة عبر كل شيء: المكالمات والخرائط والملاحظات. لا شيء يتجاوز هذه القائمة.</string>
+    <string name="cap_always_allowed_weaken_note">عند الإطفاء: قد تقطع الجلسة المكالمات والخرائط أيضًا. معظم الناس يتركون هذا مفعّلًا.</string>
+    <string name="cap_launch_friction_label">وقفة التنفّس</string>
+    <string name="cap_launch_friction_blurb">ثوانٍ قليلة بطيئة قبل أن يُفتح تطبيق مشتّت، مع منفذ للتراجع. غالبًا يكفي ذلك.</string>
+    <string name="cap_launch_friction_weaken_note">عند الإطفاء: التطبيقات التي ضبطتها على «وقفة أولًا» تُفتح فورًا، بلا نفَس بينهما.</string>
+    <string name="cap_take_a_break_label">خُذ استراحة</string>
+    <string name="cap_take_a_break_blurb">افتح تطبيقًا محجوبًا لبضع دقائق بدلًا من التخلي عن الجلسة كلها.</string>
+    <string name="cap_take_a_break_weaken_note">عند الإطفاء: يبقى التطبيق المحجوب محجوبًا طوال الجلسة، بلا استثناءات. بعض الناس يحتاجون ذلك بالضبط. وآخرون يُنهون الجلسة كلها بدلًا من أخذ خمس دقائق.</string>
+    <string name="cap_per_app_limits_label">حدود يومية بالوقت</string>
+    <string name="cap_per_app_limits_blurb">امنح تطبيقًا ميزانية من الدقائق يوميًا. حين تنفد، يُغلق حتى الغد.</string>
+    <string name="cap_per_app_limits_weaken_note">عند الإطفاء: تتوقف ميزانيات الدقائق اليومية عن العدّ. التطبيقات التي حدّدتها تُفتح للمدة التي تريدها.</string>
+    <string name="cap_open_count_limits_label">حدود يومية بعدد الفتح</string>
+    <string name="cap_open_count_limits_blurb">حدّد كم مرة يمكن فتح تطبيق في اليوم. يلتقط ردة الفعل، لا الدقائق.</string>
+    <string name="cap_earn_mode_label">وضع الكسب</string>
+    <string name="cap_earn_mode_blurb">أنجز مهامًا حقيقية لتفتح وقت ترفيه. أنت تحدد المعدّل والمكافأة وما يُعدّ إنجازًا.</string>
+    <string name="cap_earn_mode_weaken_note">عند الإطفاء: تبقى المهام قائمة مهام عادية، وإنجاز أي منها لا يمنح شيئًا. القائمة تعمل، لكنها لا تدفع.</string>
+    <string name="cap_content_guard_label">حارس المحتوى</string>
+    <string name="cap_content_guard_blurb">يقرأ ما على الشاشة ويتراجع عن الأسطح التي حدّدتها، داخل تطبيقات ما زلت تريدها.</string>
+    <string name="cap_content_guard_weaken_note">عند الإطفاء: يتوقف FocusLock عن قراءة الشاشة. التطبيق الذي سمحت به يصبح مسموحًا بالكامل، بما في ذلك الأجزاء التي كنت تحاول تجنّبها.</string>
+    <string name="cap_keyword_block_label">حارس الكلمات المفتاحية</string>
+    <string name="cap_keyword_block_blurb">كلماتك أنت. إن ظهرت إحداها على الشاشة، يتراجع FocusLock عن تلك الشاشة.</string>
+    <string name="cap_whatsapp_guard_label">حارس واتساب</string>
+    <string name="cap_whatsapp_guard_blurb">يُبقي المحادثات تعمل، ويُغلق بهدوء القنوات و«التحديثات» وMeta AI.</string>
+    <string name="cap_telegram_guard_label">تيليجرام: المحادثات التي حدّدتها فقط</string>
+    <string name="cap_telegram_guard_blurb">يُبقي تيليجرام مفتوحًا للأشخاص الذين تتحدث إليهم فعلًا، ويتراجع عن كل ما عدا ذلك. أنت تسرد المحادثات المسموح بها.</string>
+    <string name="cap_telegram_guard_weaken_note">عند الإطفاء: كل محادثة وقناة على تيليجرام تُفتح طبيعيًا.</string>
+    <string name="cap_shorts_block_label">مانع Shorts</string>
+    <string name="cap_shorts_block_blurb">يُبطل رفّ Shorts ومشغّله على يوتيوب. وباقي يوتيوب يظل يعمل.</string>
+    <string name="cap_reels_block_label">مانع Reels</string>
+    <string name="cap_reels_block_blurb">يُغلق أسطح Reels في إنستجرام وفيسبوك وسنابشات في اللحظة التي تُفتح فيها.</string>
+    <string name="cap_adult_block_label">فلتر المحتوى للبالغين</string>
+    <string name="cap_adult_block_blurb">فلتر كلمات ونطاقات يُحدَّث باستمرار، فوق البحث الآمن المفروض.</string>
+    <string name="cap_schedules_label">الجداول</string>
+    <string name="cap_schedules_blurb">نوافذ في الأسبوع يهدأ فيها الهاتف من تلقاء نفسه.</string>
+    <string name="cap_schedules_weaken_note">عند الإطفاء: تتوقف النوافذ الهادئة عن العمل. وتصبح كل جلسة شيئًا عليك أن تتذكر بدءه.</string>
+    <string name="cap_bedtime_mode_label">وقت النوم</string>
+    <string name="cap_bedtime_mode_blurb">يُعتّم الشاشة، وينتقل إلى سمة داكنة هادئة، ويقفل التواصل بعد وقت قطعك.</string>
+    <string name="cap_bedtime_mode_weaken_note">عند الإطفاء: لا شيء يتغير في الليل. الهاتف متاح في الثانية فجرًا كما هو في الثانية ظهرًا.</string>
+    <string name="cap_location_block_label">قواعد الأماكن</string>
+    <string name="cap_location_block_blurb">احجب التطبيقات أو اسمح بها حسب مكانك. التواصل مغلق في المدرسة، والخرائط متاحة دائمًا.</string>
+    <string name="cap_wifi_conditions_label">قواعد الشبكة</string>
+    <string name="cap_wifi_conditions_blurb">استخدم شبكة Wi-Fi التي تتصل بها كشرط: شبكة البيت، شبكة المدرسة، بيانات الجوال.</string>
+    <string name="cap_notification_block_label">درع الإشعارات</string>
+    <string name="cap_notification_block_blurb">يُبقي تنبيهات التطبيقات المحجوبة أثناء الجلسة. والتطبيقات المسموح بها دائمًا تمر كما هي.</string>
+    <string name="cap_notification_block_weaken_note">عند الإطفاء: قد تظل التطبيقات المحجوبة تُصدر تنبيهات. الأيقونة بعيدة عن متناولك، لكن الجذب ليس كذلك.</string>
+    <string name="cap_safe_browser_label">متصفح آمن</string>
+    <string name="cap_safe_browser_blurb">إنترنت مُنتقى يُفتح فورًا، ولا يوجد فيه مكان تسقط فيه.</string>
+    <string name="cap_text_search_label">بحث نصي</string>
+    <string name="cap_text_search_blurb">جوجل بعد إزالة الصور والفيديو والمصغّرات. قراءة، لا تمرير.</string>
+    <string name="cap_video_library_label">مكتبة الفيديو</string>
+    <string name="cap_video_library_blurb">مجلدك أنت، وفتح جديد كل ٢٤ ساعة. ويبقى ملكك بعد فتحه.</string>
+    <string name="cap_replacement_suggestions_label">اقترح بديلًا</string>
+    <string name="cap_replacement_suggestions_blurb">عندما يُحجب شيء، اقترح عملًا هادئًا بدلًا من طريق مسدود.</string>
+    <string name="cap_analytics_label">إحصاءات محلية</string>
+    <string name="cap_analytics_blurb">الوقت حسب التطبيق والفئة، محفوظ على هذا الهاتف فقط. لا شيء يغادر الجهاز.</string>
+    <string name="cap_streaks_label">سلاسل لطيفة</string>
+    <string name="cap_streaks_blurb">يعدّ الأيام التي حضرت فيها. اليوم الفائت يوقف العدّ ولا يكسره أبدًا.</string>
+    <string name="cap_self_compassion_copy_label">صياغة لطيفة</string>
+    <string name="cap_self_compassion_copy_blurb">شاشات الحجب تتحدث بوضوح وبلا لوم. أطفئ هذا لصياغة مباشرة ومختصرة.</string>
+    <string name="cap_suspend_blocked_apps_label">إيقاف التطبيقات المحجوبة</string>
+    <string name="cap_suspend_blocked_apps_blurb">تصبح التطبيقات المحجوبة غير قابلة للفتح على مستوى النظام، لا مجرد اعتراض.</string>
+    <string name="cap_suspend_blocked_apps_weaken_note">مع إطفاء هذا، قد تبدأ التطبيقات المحجوبة للحظة قبل أن يُلتقط أمرها.</string>
+    <string name="cap_hide_blocked_apps_label">إخفاء التطبيقات المحجوبة</string>
+    <string name="cap_hide_blocked_apps_blurb">تختفي التطبيقات المحجوبة من الشاشة الرئيسية أثناء الجلسة. بعيدة عن العين، بعيدة عن اليد.</string>
+    <string name="cap_hide_blocked_apps_weaken_note">مع إطفاء هذا، تبقى التطبيقات المحجوبة على شاشتك الرئيسية. لن تُفتح رغم ذلك، لكنك تراها كل مرة تنظر.</string>
+    <string name="cap_status_bar_lock_label">قفل لوحة الإشعارات</string>
+    <string name="cap_status_bar_lock_blurb">يُبقي لوحة الإشعارات أثناء جلسة الكشك. الإعدادات السريعة غير متاحة أصلًا في أي جلسة كشك — ولا تُتيح أندرويد طريقة للإبقاء عليها — لذا يوجد السطوع في «مسموح به دائمًا» بدلًا منها.</string>
+    <string name="cap_status_bar_lock_weaken_note">ترك هذا مطفأً يُبقي اللوحة في متناول اليد، وهي منفذ خروج شائع أثناء الجلسة.</string>
+    <string name="cap_keyguard_lock_label">تبسيط شاشة القفل</string>
+    <string name="cap_keyguard_lock_blurb">يُزيل الودجات والاختصارات من شاشة القفل أثناء عمل جلسة الكشك.</string>
+    <string name="cap_uninstall_protection_label">منع إلغاء تثبيت FocusLock</string>
+    <string name="cap_uninstall_protection_blurb">يمنع إزالة FocusLock نفسه أثناء عمل الجلسة.</string>
+    <string name="cap_uninstall_protection_weaken_note">مع إطفاء هذا، يمكن إنهاء الجلسة بإلغاء تثبيت التطبيق.</string>
+    <string name="cap_safe_boot_block_label">تعطيل الوضع الآمن</string>
+    <string name="cap_safe_boot_block_blurb">يُغلق إعادة التشغيل إلى الوضع الآمن، الذي كان سيُشغّل الهاتف وFocusLock معطّل.</string>
+    <string name="cap_safe_boot_block_weaken_note">الوضع الآمن هو المنفذ الكلاسيكي للخروج. تركه مفتوحًا منفذ هروب حقيقي.</string>
+    <string name="cap_persistent_home_label">FocusLock كشاشة رئيسية</string>
+    <string name="cap_persistent_home_blurb">أثناء جلسة الكشك، يصل زر الرئيسية إلى هنا بدلًا من الشاشة الرئيسية.</string>
+    <string name="cap_persistent_home_weaken_note">مع إطفاء هذا، يعود زر الرئيسية إلى شاشتك الرئيسية المعتادة أثناء الجلسة.</string>
+
+    <!-- عنوان الحوار الذي يظهر بعد إطفاء قدرة أمان. -->
+    <string name="cap_is_off">%1$s مطفأ</string>
+</resources>

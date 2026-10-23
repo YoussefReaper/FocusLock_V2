@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Arabic draft translation, paired 1:1 by name with values/strings_rules.xml.
+  Machine-drafted (by Claude, not a certified translator) - needs a native
+  Arabic speaker's review before this ships. Every %1$s/%1$d placeholder is
+  kept in the same position it appears in the source comment; word order
+  around it has been reworked for natural Arabic, which is exactly what the
+  positional format specifier is for.
+-->
+<resources>
+
+    <!-- ── Common, reused across two or more of these screens ───────── -->
+
+    <string name="common_cancel">إلغاء</string>
+    <string name="common_close">إغلاق</string>
+    <string name="common_save">حفظ</string>
+    <string name="common_add">إضافة</string>
+    <string name="common_remove">إزالة</string>
+    <string name="common_change">تغيير</string>
+    <string name="common_edit">تعديل</string>
+    <string name="common_now">الآن</string>
+    <string name="common_set">ضبط</string>
+    <string name="common_off">إيقاف</string>
+    <string name="common_all">الكل</string>
+    <string name="common_none">لا شيء</string>
+    <string name="common_next">التالي</string>
+    <string name="common_page_not_available">هذه الصفحة غير متاحة على هذا الهاتف.</string>
+    <string name="common_minutes_hint">دقائق</string>
+    <string name="common_opens_hint">مرات الفتح</string>
+    <string name="common_number_hint">رقم</string>
+    <string name="common_name_hint">الاسم</string>
+    <string name="common_chosen_count">%1$d مختار</string>
+    <string name="common_meters_suffix">%1$d م</string>
+    <string name="common_apps_count">%1$d تطبيقات</string>
+    <string name="common_every_app">كل تطبيق</string>
+    <string name="common_every_day">كل يوم</string>
+    <string name="common_starts_at">يبدأ الساعة</string>
+    <string name="common_ends_at">ينتهي الساعة</string>
+    <string name="common_starts_label">يبدأ</string>
+    <string name="common_ends_label">ينتهي</string>
+    <string name="common_when_label">الوقت</string>
+    <string name="common_which_days_title">أي أيام؟</string>
+    <string name="common_day_mon">إث</string>
+    <string name="common_day_tue">ثل</string>
+    <string name="common_day_wed">أرب</string>
+    <string name="common_day_thu">خم</string>
+    <string name="common_day_fri">جم</string>
+    <string name="common_day_sat">سب</string>
+    <string name="common_day_sun">أح</string>
+    <string name="common_day_monday">الإثنين</string>
+    <string name="common_day_tuesday">الثلاثاء</string>
+    <string name="common_day_wednesday">الأربعاء</string>
+    <string name="common_day_thursday">الخميس</string>
+    <string name="common_day_friday">الجمعة</string>
+    <string name="common_day_saturday">السبت</string>
+    <string name="common_day_sunday">الأحد</string>
+    <string name="common_none_right_now">لا شيء الآن</string>
+    <string name="common_always_allowed_apps_title">التطبيقات المسموح بها دائمًا</string>
+    <string name="common_tap_to_change">اضغط للتغيير</string>
+    <string name="common_saved_toast">تم الحفظ.</string>
+
+    <!-- ── RulesTab ───────────────────────────────────────────────── -->
+
+    <string name="rules_title">القواعد</string>
+    <string name="rules_subtitle">ما يُحظر، ومتى، وما يبقى مفتوحًا دائمًا.</string>
+    <string name="rules_grid_blocked_count">%1$d محظور</string>
+    <string name="rules_capabilities_count">%1$d من %2$d</string>
+
+    <string name="rules_editor_apps_title">التطبيقات</string>
+    <string name="rules_editor_always_allowed_title">التطبيقات المسموح بها دائمًا</string>
+    <string name="rules_editor_websites_title">المواقع الإلكترونية</string>
+    <string name="rules_editor_keyword_guard_title">حارس الكلمات المفتاحية</string>
+    <string name="rules_editor_schedules_title">الجداول الزمنية</string>
+    <string name="rules_editor_daily_limits_title">الحدود اليومية</string>
+    <string name="rules_editor_bedtime_title">وقت النوم</string>
+    <string name="rules_editor_places_title">الأماكن والشبكات</string>
+    <string name="rules_editor_custom_rules_title">قواعد مخصصة</string>
+
+    <string name="capabilities_title">ما الذي يمكن لـ FocusLock فعله</string>
+    <string name="capabilities_needs_access_chip">يحتاج إذنًا</string>
+
+    <string name="rules_capability_intro">كل سلوك يملكه FocusLock هو مفتاح واحد هنا. أطفئ أيًا منها فيتوقف فورًا. إذا احتاج مفتاح إذنًا لم يمنحه أندرويد بعد، فسيقول ذلك.</string>
+
+    <string name="rules_perm_usage_access">يحتاج إلى إذن الوصول للاستخدام قبل أن يعمل. اضغط للمنح.</string>
+    <string name="rules_perm_accessibility">يحتاج إلى تفعيل حارس المحتوى في إمكانية الوصول. اضغط للمنح.</string>
+    <string name="rules_perm_notification_access">يحتاج إلى إذن الوصول للإشعارات. اضغط للمنح.</string>
+    <string name="rules_perm_device_owner">يحتاج إلى مالك الجهاز، الذي يُضبط من حاسوب. اضغط لمعرفة الطريقة.</string>
+    <string name="rules_perm_location">يحتاج إلى إذن الموقع. اضغط للمنح.</string>
+
+    <string name="rules_set_it_up">إعداده</string>
+
+    <string name="rules_profiles_title">الملفات الشخصية</string>
+    <string name="rules_profiles_subtitle">احفظ هذا الإعداد بالكامل، أو بدّل بين إعدادات، أو انقل واحدًا إلى هاتف آخر.</string>
+    <string name="rules_reset_title">إعادة ضبط كل القدرات</string>
+    <string name="rules_reset_subtitle">يعيد كل المفاتيح إلى أوضاعها الأصلية. قوائمك تبقى كما هي.</string>
+    <string name="rules_reset_confirm_title">إعادة ضبط المفاتيح؟</string>
+    <string name="rules_reset_confirm_message">تطبيقاتك ومواقعك وكلماتك وجداولك تبقى تمامًا كما هي. فقط مفاتيح القدرات تعود إلى الإعدادات الافتراضية.</string>
+    <string name="rules_reset_confirm_button">إعادة ضبط</string>
+
+    <!-- ── AppRulesActivity ───────────────────────────────────────── -->
+
+    <string name="app_rules_title">التطبيقات</string>
+    <string name="app_rules_subtitle">كل تطبيق على هذا الهاتف، وما المسموح لـ FocusLock فعله حياله.</string>
+    <string name="app_rules_individual_apps_section">تطبيقات فردية</string>
+    <string name="app_rules_filter_all">الكل</string>
+    <string name="app_rules_filter_blocked">محظور</string>
+    <string name="app_rules_filter_paused">متوقف مؤقتًا</string>
+    <string name="app_rules_filter_budgeted">له ميزانية</string>
+    <string name="app_rules_filter_open">مفتوح</string>
+
+    <string name="app_rules_by_category">حسب الفئة</string>
+    <string name="app_rules_category_blurb">قاعدة الفئة تغطي كل تطبيق فيها، الآن وأي تطبيق تثبته لاحقًا. القاعدة التي تضبطها على تطبيق واحد تتغلب دائمًا على فئته.</string>
+    <string name="app_rules_category_count_subtitle">%1$d تطبيقات - %2$s</string>
+    <string name="app_rules_no_rule">لا قاعدة</string>
+    <string name="app_rules_no_rule_subtitle">التطبيقات في هذه الفئة تتبع إعداداتها الخاصة.</string>
+
+    <string name="app_rules_search_hint">ابحث عن تطبيقات</string>
+    <string name="app_rules_no_apps_match">لا تطبيقات تطابق ذلك.</string>
+
+    <string name="app_rules_always_allowed_subtitle">مسموح به دائمًا - لا شيء يمكنه حبس هذا</string>
+
+    <string name="app_rules_filter_count_format">%1$s %2$d</string>
+    <string name="app_rules_category_header_never_blocked">%1$s · لا يُحظر أبدًا</string>
+    <string name="app_rules_category_header_blocked">%1$s · %2$d محظور</string>
+    <string name="app_rules_category_header_budgeted">%1$s · %2$d تطبيق ضمن حصة</string>
+    <string name="app_rules_category_header_allowed">%1$s · %2$d مسموح</string>
+    <string name="app_rules_category_header_generic">%1$s · %2$d تطبيق</string>
+    <string name="app_rules_usage_today">%1$s اليوم</string>
+    <string name="app_rules_no_usage_today">لا استخدام اليوم بعد</string>
+    <string name="app_rules_pause_first_subtitle">إيقاف مؤقت %1$d ثانية أولاً</string>
+    <string name="app_rules_budget_used_subtitle">%1$d من %2$d دقيقة مستخدمة اليوم</string>
+    <string name="app_rules_show_more_apps">عرض الـ %1$d تطبيقًا الأخرى</string>
+
+    <string name="app_rules_done">تم</string>
+    <string name="app_rules_what_happens_caption">ما الذي يحدث عند فتحه</string>
+    <string name="app_rules_policy_applied_toast">%1$s: %2$s</string>
+
+    <string name="app_rules_daily_minutes">دقائق يومية</string>
+    <string name="app_rules_daily_minutes_subtitle">%1$d في اليوم، استُخدم منها %2$d اليوم</string>
+    <string name="app_rules_no_budget">لا ميزانية</string>
+    <string name="app_rules_daily_opens">مرات فتح يومية</string>
+    <string name="app_rules_daily_opens_subtitle">%1$d في اليوم، %2$d حتى الآن</string>
+    <string name="app_rules_no_cap">لا سقف</string>
+
+    <string name="app_rules_always_allowed_toggle_title">مسموح به دائمًا</string>
+    <string name="app_rules_always_allowed_toggle_subtitle">يتغلب على كل قاعدة وجلسة وجدول زمني.</string>
+
+    <string name="app_rules_category_label">الفئة</string>
+    <string name="app_rules_category_tap_to_correct">%1$s - اضغط للتصحيح</string>
+    <string name="app_rules_clear_own_rule">امسح قاعدة هذا التطبيق الخاصة</string>
+
+    <string name="app_rules_minute_limit_title">الدقائق اليومية لـ %1$s</string>
+    <string name="app_rules_minute_limit_subtitle">اتركه فارغًا لإزالة الميزانية. يُعاد ضبطه عند منتصف الليل.</string>
+    <string name="app_rules_open_limit_title">مرات الفتح اليومية لـ %1$s</string>
+    <string name="app_rules_open_limit_subtitle">اتركه فارغًا لإزالة السقف.</string>
+
+    <string name="app_rules_turn_on_title">تشغيل %1$s؟</string>
+    <string name="app_rules_turn_on_message">لقد ضبطت ميزانية، لكن %1$s مطفأ، فلن يفرضها شيء.</string>
+    <string name="app_rules_turn_it_on">تشغيله</string>
+    <string name="app_rules_leave_it_off">تركه مطفأ</string>
+
+    <string name="app_rules_category_for_title">فئة %1$s</string>
+    <string name="app_rules_category_for_subtitle">تُستخدم قواعد الفئات وتوزيع الوقت كلاهما لهذا.</string>
+
+    <!-- ── AppLimitsActivity ──────────────────────────────────────── -->
+
+    <string name="app_limits_title">الحدود اليومية</string>
+    <string name="app_limits_subtitle">ميزانيات تُعاد ضبطها عند منتصف الليل. لا يُحظر شيء حتى تنفد ميزانية.</string>
+    <string name="app_limits_section_minute_budgets">ميزانيات الدقائق</string>
+    <string name="app_limits_section_take_a_break">أخذ فترة راحة</string>
+
+    <string name="app_limits_time_limits_title">حدود الوقت</string>
+    <string name="app_limits_time_limits_subtitle">يحظر تطبيقًا بمجرد استخدام دقائقه اليومية.</string>
+    <string name="app_limits_open_caps_title">أسقف الفتح</string>
+    <string name="app_limits_open_caps_subtitle">يحظر تطبيقًا بمجرد فتحه ذلك العدد من المرات اليوم.</string>
+
+    <string name="app_limits_usage_off_heading">إذن الوصول للاستخدام مطفأ</string>
+    <string name="app_limits_usage_off_body">تُقاس الميزانيات من سجلات استخدام أندرويد. دون الوصول إليها، لا يمكن لهذه الحدود عدّ أي شيء.</string>
+    <string name="app_limits_grant_usage_access">منح إذن الوصول للاستخدام</string>
+
+    <string name="app_limits_no_minute_budgets">لا ميزانيات دقائق بعد.</string>
+    <string name="app_limits_minute_row_subtitle">استُخدم %1$d من %2$d دقيقة اليوم</string>
+    <string name="app_limits_add_minute_budget">إضافة ميزانية دقائق</string>
+
+    <string name="app_limits_no_open_caps">لا أسقف فتح بعد.</string>
+    <string name="app_limits_open_row_subtitle">%1$d من %2$d مرات فتح اليوم</string>
+    <string name="app_limits_add_open_cap">إضافة سقف فتح</string>
+
+    <string name="app_limits_pick_minute_title">أي تطبيق يحصل على ميزانية دقائق؟</string>
+    <string name="app_limits_pick_open_title">أي تطبيق يحصل على سقف فتح؟</string>
+
+    <string name="app_limits_minutes_subtitle">دقائق في اليوم. اتركه فارغًا لإزالة الميزانية.</string>
+    <string name="app_limits_opens_subtitle">مرات فتح في اليوم. اتركه فارغًا لإزالة السقف.</string>
+
+    <string name="app_limits_allow_breaks_title">السماح بفترات راحة</string>
+    <string name="app_limits_allow_breaks_subtitle">يتيح لك فتح تطبيق محظور عمدًا لبضع دقائق.</string>
+    <string name="app_limits_break_length_label">مدة فترة الراحة</string>
+    <string name="app_limits_min_suffix">%1$d دقيقة</string>
+    <string name="app_limits_breaks_per_day_label">فترات راحة في اليوم</string>
+    <string name="app_limits_left_today">تبقى %1$d اليوم.</string>
+
+    <!-- ── KeywordGuardActivity ───────────────────────────────────── -->
+
+    <string name="keyword_guard_title">حارس الكلمات المفتاحية</string>
+    <string name="keyword_guard_subtitle">كلمات تجعل FocusLock يخرج من شاشة، داخل تطبيقات ما زلت تريدها.</string>
+    <string name="keyword_guard_section_builtin">حراس مدمجون</string>
+    <string name="keyword_guard_section_telegram">تيليجرام</string>
+    <string name="keyword_guard_section_your_words">كلماتك</string>
+    <string name="keyword_guard_section_exceptions">استثناءات</string>
+
+    <string name="keyword_guard_whatsapp">واتساب</string>
+    <string name="keyword_guard_shorts">شورتس</string>
+    <string name="keyword_guard_reels">ريلز</string>
+    <string name="keyword_guard_adult">محتوى للبالغين</string>
+
+    <string name="keyword_guard_not_on_heading">الحارس غير مُفعَّل</string>
+    <string name="keyword_guard_not_on_body">قراءة الشاشة تحتاج خدمة إمكانية وصول. FocusLock يقرأ النص فقط؛ لا يكتب ولا يضغط ولا يرسل أي شيء إلى أي مكان أبدًا.</string>
+    <string name="keyword_guard_open_accessibility">فتح إعدادات إمكانية الوصول</string>
+
+    <string name="keyword_guard_master_title">حارس المحتوى</string>
+    <string name="keyword_guard_master_subtitle">المفتاح الرئيسي. عند إطفائه، لا يعمل أي من الحراس أدناه.</string>
+    <string name="keyword_guard_own_keywords_title">كلماتي الخاصة</string>
+    <string name="keyword_guard_own_keywords_subtitle">يشغّل الكلمات التي تضيفها أدناه.</string>
+
+    <plurals name="keyword_guard_phrases_watched">
+        <item quantity="zero">لا عبارات تتم مراقبتها</item>
+        <item quantity="one">عبارة واحدة تتم مراقبتها</item>
+        <item quantity="two">عبارتان تتم مراقبتهما</item>
+        <item quantity="few">%1$d عبارات تتم مراقبتها</item>
+        <item quantity="many">%1$d عبارة تتم مراقبتها</item>
+        <item quantity="other">%1$d عبارة تتم مراقبتها</item>
+    </plurals>
+
+    <string name="keyword_guard_apps_count">%1$d تطبيقات</string>
+    <string name="keyword_guard_add_phrase_to">إضافة عبارة إلى %1$s</string>
+    <string name="keyword_guard_add_word_or_phrase">إضافة كلمة أو عبارة</string>
+
+    <string name="keyword_guard_watch_title">مراقبة عبارة</string>
+    <string name="keyword_guard_watch_subtitle">حالة الأحرف لا تهم. العبارات القصيرة والمميزة تعمل بشكل أفضل: كلمة شائعة ستطلق التنبيه في شاشات لم تقصدها.</string>
+    <string name="keyword_guard_watch_hint">مثال: من أجلك</string>
+
+    <string name="keyword_guard_edit_subtitle">أين تُطبَّق وماذا يحدث عند رؤيتها.</string>
+    <string name="keyword_guard_caption_where">أين</string>
+    <string name="keyword_guard_tap_choose_apps">اضغط لاختيار التطبيقات التي يراقبها هذا</string>
+    <string name="keyword_guard_watch_phrase_in">مراقبة %1$s في</string>
+    <string name="keyword_guard_leave_unticked">اترك كل شيء غير محدد لمراقبة كل تطبيق.</string>
+    <string name="keyword_guard_caption_what_happens">ماذا يحدث</string>
+    <string name="keyword_guard_delete_phrase">حذف هذه العبارة</string>
+
+    <string name="keyword_guard_telegram_title">محادثاتي المسمّاة فقط</string>
+    <string name="keyword_guard_telegram_subtitle">يبقى تيليجرام مفتوحًا للمحادثات التي تسردها. أي شيء آخر يخرج.</string>
+    <string name="keyword_guard_telegram_empty">لا شيء مُدرج بعد، فلا شيء محظور. أضف محادثة وسيبدأ كل شيء آخر في تيليجرام بالخروج.</string>
+    <string name="keyword_guard_telegram_nonempty">كل شيء ما عدا هذه يخرج.</string>
+    <string name="keyword_guard_allow_chat">السماح بـ \"%1$s\"</string>
+    <string name="keyword_guard_add_chat_by_name">إضافة محادثة بالاسم</string>
+    <string name="keyword_guard_allow_chat_title">السماح بمحادثة تيليجرام</string>
+    <string name="keyword_guard_allow_chat_subtitle">اكتب اسم المحادثة كما يعرضه تيليجرام أعلى الشاشة.</string>
+    <string name="keyword_guard_allow_chat_hint">مجموعة الدراسة</string>
+    <string name="keyword_guard_telegram_not_read">لم يتمكن FocusLock من قراءة عنوان محادثة بعد. افتح محادثة تيليجرام ثم عد — إذا بقي هذا السطر، فمن المحتمل أن تحديثًا لتيليجرام غيّر الأشياء وهذا الحارس لا يعمل.</string>
+
+    <string name="keyword_guard_exceptions_intro">نص يبدو كتطابق لكنه ليس كذلك. شريط بحث واتساب يذكر Meta AI مثلًا، وينبغي ألا يُطلق الحارس.</string>
+    <string name="keyword_guard_no_exceptions">لا استثناءات.</string>
+    <string name="keyword_guard_add_exception">إضافة استثناء</string>
+    <string name="keyword_guard_never_match_title">لا تعامل هذا كتطابق أبدًا</string>
+    <string name="keyword_guard_phrase_hint">العبارة</string>
+
+    <!-- ── PlaceRulesActivity ─────────────────────────────────────── -->
+
+    <string name="place_rules_title">الأماكن والشبكات</string>
+    <string name="place_rules_subtitle">قواعد تتبع مكانك، أو شبكة الواي فاي التي أنت عليها.</string>
+    <string name="place_rules_section_saved">أماكن محفوظة</string>
+    <string name="place_rules_section_right_now">الآن</string>
+
+    <string name="place_rules_location_title">قواعد المكان</string>
+    <string name="place_rules_location_subtitle">يستخدم آخر موقع معروف. FocusLock لا يتعقبك باستمرار أبدًا.</string>
+    <string name="place_rules_network_title">قواعد الشبكة</string>
+    <string name="place_rules_network_subtitle">يستخدم اسم الواي فاي. يعمل داخل المباني حيث لا يعمل الموقع، ولا يحتاج تعقبًا.</string>
+    <string name="place_rules_grant_location">منح إذن الموقع</string>
+
+    <string name="place_rules_empty">لا أماكن بعد. أسهل مكان أول هو أينما يُفترض أن تعمل.</string>
+    <string name="place_rules_active">نشط</string>
+    <string name="place_rules_add_here">إضافة مكاني الحالي</string>
+    <string name="place_rules_add_wifi">إضافة شبكة الواي فاي هذه</string>
+
+    <string name="place_rules_where_wifi_and_radius">واي فاي %1$s أو ضمن %2$d م</string>
+    <string name="place_rules_where_wifi">واي فاي %1$s</string>
+    <string name="place_rules_where_radius">ضمن %1$d م</string>
+    <string name="place_rules_where_nothing">لا شيء لمطابقته بعد</string>
+    <string name="place_rules_what_nothing_blocked">لا شيء محظور</string>
+    <string name="place_rules_what_categories_apps">%1$d فئات، %2$d تطبيقات</string>
+    <string name="place_rules_trigger_here">هنا</string>
+    <string name="place_rules_trigger_away">بعيدًا</string>
+    <string name="place_rules_describe_place">%1$s - يحظر %2$s عندما %3$s</string>
+
+    <string name="place_rules_no_recent_location_title">لا موقع حديث</string>
+    <string name="place_rules_no_recent_location_message">لا يملك أندرويد تحديدًا حديثًا للعمل عليه. افتح تطبيق خرائط للحظة، ثم أعد المحاولة.</string>
+    <string name="place_rules_name_place_title">سمِّ هذا المكان</string>
+    <string name="place_rules_name_place_subtitle">المدرسة، المكتبة، النادي الرياضي: أي شيء ستتعرف عليه لاحقًا.</string>
+
+    <string name="place_rules_not_on_wifi_title">غير متصل بواي فاي</string>
+    <string name="place_rules_not_on_wifi_message">اتصل بالشبكة التي تريد استخدامها كشرط، ثم أعد المحاولة.</string>
+    <string name="place_rules_name_network_title">سمِّ هذه الشبكة</string>
+    <string name="place_rules_connected_to">متصل بـ %1$s</string>
+
+    <string name="place_rules_caption_when">متى يُطبَّق</string>
+    <string name="place_rules_caption_what_blocks">ماذا يحظر</string>
+    <string name="place_rules_specific_apps">تطبيقات محددة</string>
+    <string name="place_rules_block_at_title">حظر عند %1$s</string>
+    <string name="place_rules_radius_label">ما مدى القرب الذي يُحسب هنا</string>
+    <string name="place_rules_delete_place">حذف هذا المكان</string>
+
+    <string name="place_rules_status_wifi_title">الواي فاي</string>
+    <string name="place_rules_not_connected_wifi">غير متصل بواي فاي</string>
+    <string name="place_rules_status_location_title">الموقع</string>
+    <string name="place_rules_permission_not_granted">الإذن غير ممنوح</string>
+    <string name="place_rules_no_recent_fix">لا تحديد حديث من أندرويد</string>
+    <string name="place_rules_known_accuracy">معروف بدقة حوالي %1$d م</string>
+    <string name="place_rules_matching_places_title">أماكن مطابقة</string>
+
+    <!-- ── RuleEditorActivity ─────────────────────────────────────── -->
+
+    <string name="rule_editor_title">قواعد مخصصة</string>
+    <string name="rule_editor_subtitle">أول قاعدة تطابق تفوز. ترتيب بلا سحب، من الأعلى إلى الأسفل.</string>
+    <string name="rule_editor_section_your_rules">قواعدك</string>
+    <string name="rule_editor_section_examples">ابدأ من مثال</string>
+
+    <string name="rule_editor_toggle_title">قواعد مخصصة</string>
+    <string name="rule_editor_toggle_subtitle">عند إطفاء هذا، تبقى القواعد أدناه محفوظة لكن لا يعمل أي منها.</string>
+
+    <string name="rule_editor_indexed_row_title">%1$d. %2$s</string>
+    <string name="rule_editor_new_rule">قاعدة جديدة</string>
+
+    <string name="rule_editor_target_everything">كل شيء</string>
+    <string name="rule_editor_every_app">كل تطبيق</string>
+    <string name="rule_editor_describe_rule">%1$s: %2$s</string>
+
+    <string name="rule_editor_condition_always">دائمًا</string>
+    <string name="rule_editor_condition_session_only">أثناء جلسة فقط</string>
+    <string name="rule_editor_condition_time">بين %1$s و %2$s</string>
+    <string name="rule_editor_condition_any_day">أي يوم</string>
+    <string name="rule_editor_condition_at_place">عند %1$s</string>
+    <string name="rule_editor_a_place_fallback">مكان</string>
+    <string name="rule_editor_condition_wifi">على %1$s</string>
+    <string name="rule_editor_condition_usage_over">بعد %1$d دقيقة اليوم</string>
+    <string name="rule_editor_condition_opens_over">بعد %1$d مرات فتح اليوم</string>
+
+    <string name="rule_editor_template_school_hours">لا وسائل تواصل خلال ساعات الدراسة</string>
+    <string name="rule_editor_template_pause_video">إيقاف الفيديو مؤقتًا بعد 30 دقيقة</string>
+    <string name="rule_editor_template_tenth_open">لا شيء سوى الأساسيات بعد الفتحة العاشرة</string>
+    <string name="rule_editor_template_games_outside_session">الألعاب فقط خارج الجلسة</string>
+    <string name="rule_editor_adds_editable_rule">يضيف قاعدة قابلة للتعديل</string>
+    <string name="rule_editor_rule_added_toast">أُضيفت القاعدة. اضغط عليها للتعديل.</string>
+
+    <string name="rule_editor_untitled_rule">قاعدة</string>
+    <string name="rule_editor_edit_subtitle">هدف، وشرط، ونتيجة.</string>
+    <string name="rule_editor_name_label">الاسم</string>
+    <string name="rule_editor_unnamed">بلا اسم</string>
+    <string name="rule_editor_name_rule_title">سمِّ هذه القاعدة</string>
+    <string name="rule_editor_name_rule_subtitle">لتتعرف عليها في القائمة.</string>
+
+    <string name="rule_editor_caption_covers">ما الذي تغطيه</string>
+    <string name="rule_editor_caption_when">متى</string>
+    <string name="rule_editor_caption_what_happens">ماذا يحدث</string>
+    <string name="rule_editor_delete_rule">حذف هذه القاعدة</string>
+
+    <string name="rule_editor_category_apps_suffix">تطبيقات %1$s</string>
+    <string name="rule_editor_every_app_subtitle">يغطي كل شيء مثبَّت</string>
+    <string name="rule_editor_pick_target_title">ماذا يغطي هذا؟</string>
+
+    <string name="rule_editor_pick_condition_title">متى يُطبَّق؟</string>
+    <string name="rule_editor_after_minutes_title">بعد كم دقيقة؟</string>
+    <string name="rule_editor_after_opens_title">بعد كم مرة فتح؟</string>
+    <string name="rule_editor_no_places_title">لا أماكن محفوظة</string>
+    <string name="rule_editor_no_places_message">أضف مكانًا في الأماكن والشبكات أولًا، ثم عد إلى هذه القاعدة.</string>
+    <string name="rule_editor_which_place_title">أي مكان؟</string>
+    <string name="rule_editor_which_network_title">أي شبكة؟</string>
+    <string name="rule_editor_currently_on">متصل حاليًا بـ %1$s</string>
+    <string name="rule_editor_wifi_name_hint">اسم الواي فاي</string>
+
+    <string name="rule_editor_pick_days_subtitle">اترك كل شيء غير محدد لكل يوم.</string>
+
+    <!-- ── WebAllowlistEditorActivity ─────────────────────────────── -->
+
+    <string name="web_allowlist_title">المواقع الإلكترونية</string>
+    <string name="web_allowlist_subtitle">العناوين الوحيدة التي سيحملها المتصفح الآمن، والوحيدة المسموح بها لكروم.</string>
+    <string name="web_allowlist_bulk_edit_section">تعديل جماعي</string>
+
+    <string name="web_allowlist_blocking_title">حظر الويب</string>
+    <string name="web_allowlist_blocking_subtitle">يُلزم كل متصفح مُدار بهذه القائمة.</string>
+    <string name="web_allowlist_session_running_caption">هناك جلسة تعمل، فيمكن إزالة المواقع لا إضافتها. هذا ما يمنع القائمة من أن تصبح بابًا خلفيًا.</string>
+    <string name="web_allowlist_strip_media_title">إزالة الصور والفيديو</string>
+    <string name="web_allowlist_strip_media_subtitle">تصفح نصي فقط. الصفحات تحمّل أسرع وتتوقف عن أن تكون خلاصة.</string>
+
+    <string name="web_allowlist_search_hint">ابحث عن مواقع</string>
+    <string name="web_allowlist_no_sites_match">لا مواقع تطابق ذلك.</string>
+    <string name="web_allowlist_add_site">إضافة موقع</string>
+
+    <string name="web_allowlist_not_while_session_title">ليس أثناء عمل جلسة</string>
+    <string name="web_allowlist_not_while_session_message">يمكن إزالة المواقع في أي وقت، لكن الجديدة تنتظر حتى تنتهي الجلسة.</string>
+    <string name="web_allowlist_add_site_title">إضافة موقع</string>
+    <string name="web_allowlist_add_site_subtitle">العنوان فقط. سيُحمَّل كل شيء على ذلك النطاق.</string>
+    <string name="web_allowlist_example_hint">example.com</string>
+    <string name="web_allowlist_invalid_address_toast">هذا لا يبدو كعنوان.</string>
+
+    <string name="web_allowlist_bulk_intro">عنوان واحد في كل سطر. الحفظ يستبدل القائمة بأكملها.</string>
+    <string name="web_allowlist_bulk_hint">https://example.com</string>
+    <string name="web_allowlist_save_list_button">حفظ القائمة بأكملها</string>
+    <string name="web_allowlist_bulk_session_message">إزالة المواقع مسموحة. الإضافة تنتظر حتى تنتهي الجلسة.</string>
+    <string name="web_allowlist_empty_list_toast">هذا سيترك المتصفح بلا وجهة.</string>
+    <string name="web_allowlist_sites_saved_toast">تم حفظ %1$d مواقع.</string>
+
+    <!-- ── AlwaysAllowedActivity ──────────────────────────────────── -->
+
+    <string name="always_allowed_title">مسموح به دائمًا</string>
+    <string name="always_allowed_subtitle">تطبيقات تبقى في متناولك مهما كان يعمل غيرها.</string>
+    <string name="always_allowed_section_your_list">قائمتك</string>
+    <string name="always_allowed_section_suggestions">اقتراحات</string>
+
+    <!-- السطوع، داخل التطبيق لأن الجلسة المثبَّتة تخفي الإعدادات السريعة. -->
+    <string name="always_allowed_section_phone_controls">أدوات الهاتف</string>
+    <string name="brightness_title">سطوع الشاشة</string>
+    <string name="brightness_percent">%1$d%%</string>
+    <string name="brightness_adaptive_title">دع الهاتف يختار</string>
+    <string name="brightness_adaptive_subtitle">يتكيّف مع الإضاءة حولك. أطفئه لتثبيت المستوى الذي ضبطته.</string>
+    <string name="brightness_why_here">جلسة وضع الكشك تخفي لوحة الإعدادات السريعة — ولا تتيح أندرويد طريقة للإبقاء عليها — لذا يوجد السطوع هنا بدلًا منها.</string>
+    <string name="brightness_needs_permission">يحتاج FocusLock إذنًا لتغيير إعدادات النظام قبل أن يتمكن من تعديل السطوع.</string>
+    <string name="brightness_grant_button">امنحه الإذن</string>
+    <string name="brightness_no_settings_page">لا توجد في هذا الهاتف صفحة لهذا الإذن.</string>
+    <string name="brightness_refused">رفض أندرويد هذا التغيير.</string>
+
+    <string name="always_allowed_honour_title">احترام هذه القائمة</string>
+    <string name="always_allowed_honour_subtitle">عند الإطفاء، يمكن لجلسة أن تحبس كل شيء، بما في ذلك تطبيق الهاتف.</string>
+
+    <string name="always_allowed_empty">لا شيء هنا بعد. معظم الناس يبدؤون بهاتفهم ورسائلهم وخرائطهم.</string>
+    <string name="always_allowed_choose_apps">اختر تطبيقات</string>
+    <string name="always_allowed_pick_subtitle">هذه تبقى مفتوحة خلال كل جلسة ونافذة زمنية ووقت نوم.</string>
+
+    <string name="always_allowed_covered">أساسياتك مغطاة بالفعل.</string>
+    <string name="always_allowed_suggestions_intro">هذه تبدو كأساسيات على هذا الهاتف. أضف أي شيء تريد حمايته.</string>
+    <string name="always_allowed_add_all">إضافة كل شيء</string>
+
+    <!-- ── ScheduleActivity ───────────────────────────────────────── -->
+
+    <string name="schedule_title">الجداول الزمنية</string>
+    <string name="schedule_subtitle">نوافذ تبدأ نفسها. مفيدة للساعات التي تعرف بالفعل أنها صعبة.</string>
+    <string name="schedule_section_windows">النوافذ الزمنية</string>
+    <string name="schedule_section_plan">الخطة</string>
+
+    <string name="schedule_toggle_subtitle">عند إطفاء هذا، تبقى النوافذ أدناه محفوظة لكن لا يعمل أي منها.</string>
+    <string name="schedule_overlaying_until">تراكب حتى %1$s</string>
+    <string name="schedule_running_until">يعمل حتى %1$s</string>
+    <string name="schedule_always_allowed_subtitle">%1$d تطبيقات تبقى مفتوحة داخل كل نافذة</string>
+
+    <string name="schedule_window_time_range">من %1$s إلى %2$s</string>
+    <string name="schedule_add_window">إضافة نافذة زمنية</string>
+
+    <string name="schedule_monthly_repeat">اليوم %1$d من كل شهر</string>
+    <string name="schedule_extras_essentials_only">الأساسيات فقط</string>
+    <string name="schedule_extras_count">%1$d تطبيقات إضافية مسموحة</string>
+    <string name="schedule_overlay_marker">تراكب</string>
+
+    <string name="schedule_pick_day_toast">اختر يومًا واحدًا على الأقل.</string>
+    <string name="schedule_new_window_title">نافذة جديدة</string>
+    <string name="schedule_edit_window_title">تعديل النافذة</string>
+    <string name="schedule_shows_on_block_caption">يظهر في شاشة الحظر أثناء تشغيله.</string>
+
+
+    <string name="schedule_caption_repeats">التكرار</string>
+    <string name="schedule_repeats_row_title">يتكرر</string>
+    <string name="schedule_repeat_certain_days">أيام معينة</string>
+    <string name="schedule_repeat_once_a_month">مرة كل شهر</string>
+
+    <string name="schedule_extra_apps_allowed_title">تطبيقات إضافية مسموحة</string>
+    <string name="schedule_pick_allowed_title">مسموح به داخل هذه النافذة</string>
+    <string name="schedule_pick_allowed_subtitle">تطبيقاتك المسموح بها دائمًا مفتوحة هنا على أي حال.</string>
+
+    <string name="schedule_what_says_hint">مثال: هذا وقت الدراسة</string>
+
+    <string name="schedule_overlay_toggle_title">تراكب هذه النافذة</string>
+    <string name="schedule_overlay_toggle_subtitle">يقفل الهاتف فعليًا - لا حتى الشاشة الرئيسية تفتح أي شيء خارج المسموح به دائمًا وتطبيقات هذه النافذة الخاصة. لا فترة راحة، لا استثناءات، وكل قاعدة (بما فيها هذه النافذة) مجمَّدة حتى تنتهي.</string>
+    <string name="schedule_brick_toggle_title">أغلق FocusLock أيضًا</string>
+    <string name="schedule_brick_toggle_subtitle">لا شيء سوى عدّاد تنازلي وأساسياتك — لا مكتبة، لا قواعد، لا مهام. وإلا فإن نافذة التراكب تترك هذا التطبيق مكانًا يمكن الجلوس فيه.</string>
+
+    <string name="bedtime_overlay_toggle_title">اجعل وقت النوم مطلقًا</string>
+    <string name="bedtime_overlay_toggle_subtitle">القفل الصارم نفسه الذي يمكن لنافذة جدول استخدامه: فقط التطبيقات المسموح بها دائمًا تُفتح، بما فيها الشاشة الرئيسية. لا خروج منه بفترة راحة.</string>
+    <string name="bedtime_brick_toggle_title">أغلق FocusLock أيضًا</string>
+    <string name="bedtime_brick_toggle_subtitle">خلال الليل، هذا التطبيق عدّاد تنازلي وأساسياتك، لا شيء غير ذلك.</string>
+    <string name="bedtime_section_strength">مدى صرامة القفل</string>
+
+    <!-- شاشة الإغلاق الكامل نفسها. -->
+    <string name="lockdown_headline">الهاتف مغلق</string>
+    <string name="lockdown_lifts_at">يُفتح مجددًا في %1$s.</string>
+    <string name="lockdown_generic">يُفتح مجددًا عند انتهاء النافذة.</string>
+    <string name="lockdown_essentials_label">ما زال متاحًا</string>
+    <string name="schedule_delete_window">حذف هذه النافذة</string>
+
+    <string name="schedule_which_day_of_month_title">أي يوم من الشهر؟</string>
+    <string name="schedule_day_of_month_subtitle">من 1 إلى 31.</string>
+    <string name="schedule_day_hint">اليوم</string>
+    <string name="schedule_day_range_toast">اختر يومًا بين 1 و31.</string>
+
+    <string name="schedule_plan_intro">ماذا تفعل فعليًا بهذا الوقت؟ كتابته هي الفرق بين هاتف محظور وخطة.</string>
+    <string name="schedule_plan_hint">أريد هذا الأسبوع أن…</string>
+    <string name="schedule_save_plan_button">حفظ الخطة</string>
+
+    <!-- ── BedtimeActivity ────────────────────────────────────────── -->
+
+    <string name="bedtime_title">وقت النوم</string>
+    <string name="bedtime_subtitle">نافذة هادئة تبدأ نفسها، كل ليلة.</string>
+    <string name="bedtime_section_when">متى</string>
+    <string name="bedtime_section_what_quiet">ما الذي يهدأ</string>
+    <string name="bedtime_section_appearance">شكل الشاشة</string>
+
+    <string name="bedtime_toggle_subtitle">يعتّم الشاشة، يبدّل إلى السمة الهادئة، ويحبس الفئات أدناه.</string>
+    <string name="bedtime_running_pill">يعمل الآن، يرتفع الساعة %1$s</string>
+
+    <string name="bedtime_starts_picker_title">يبدأ وقت النوم</string>
+    <string name="bedtime_lifts_label">يرتفع</string>
+    <string name="bedtime_lifts_picker_title">يرتفع وقت النوم</string>
+
+    <string name="bedtime_always_allowed_note">التطبيقات المسموح بها دائمًا لا تزال تعمل. المنبه ليس تشتيتًا.</string>
+
+    <string name="bedtime_block_everything_title">حظر كل شيء بدلًا من ذلك</string>
+    <string name="bedtime_block_everything_subtitle">يوقف كل تطبيق ما عدا تلك التي وضعت عليها علامة مسموح به دائمًا. اختر هذا إذا كانت أشياء تتسرب عبر الفئات أدناه.</string>
+
+    <string name="bedtime_section_pick_categories">أو اختر ما تحظره</string>
+
+    <string name="bedtime_dim_label">تعتيم الشاشة بنسبة</string>
+    <string name="bedtime_dim_not_at_all">لا تعتيم أبدًا</string>
+    <string name="bedtime_dim_percent">%1$d٪</string>
+    <string name="bedtime_preview_dimming">معاينة التعتيم</string>
+
+    <string name="bedtime_quiet_theme_title">التبديل إلى السمة الهادئة</string>
+    <string name="bedtime_quiet_theme_subtitle">أسود تقريبًا مع لمسة لون ناعمة أثناء عمل وقت النوم. سمتك النهارية لا تتأثر.</string>
+
+    <string name="bedtime_greyscale_title">ذكّرني بالتدرج الرمادي</string>
+    <string name="bedtime_greyscale_subtitle">إعداد أندرويد الخاص بالتدرج الرمادي يزيل معظم جاذبية الشاشة ليلًا. FocusLock لا يستطيع تفعيله لك، لكنه يستطيع تذكيرك.</string>
+
+    <!-- ── InterceptActivity ──────────────────────────────────────── -->
+
+    <string name="intercept_open_anyway">فتح %1$s على أي حال</string>
+    <string name="intercept_it_fallback">إياه</string>
+    <string name="intercept_not_now_go_back">ليس الآن، عد</string>
+    <string name="intercept_back_to_focuslock">العودة إلى FocusLock</string>
+    <string name="intercept_ways_through">طرق للمتابعة</string>
+    <string name="intercept_break_row_title">أخذ %1$d دقيقة</string>
+    <string name="intercept_break_row_subtitle">تبقى %1$d من %2$d استراحات اليوم</string>
+    <string name="intercept_earn_pool_subtitle">أنجز مهمة لإعادة ملئه</string>
+    <string name="intercept_overline_format">قواعدك · %1$s</string>
+    <string name="intercept_still_open">لا يزال مفتوحًا</string>
+    <string name="intercept_end_test_button">إنهاء الاختبار</string>
+    <string name="intercept_testing_banner">اختبار قواعدك — تبقى %1$s</string>
+
+    <!-- ── Test the block (RulesTab, and the banner InterceptActivity shows) ── -->
+
+    <string name="rules_test_active_body">يعمل الآن فعليًا، تبقى %1$s. افتح أي تطبيق لترى بالضبط ما ستفعله قواعدك به.</string>
+    <string name="rules_test_end_button">إنهاء الاختبار</string>
+    <string name="rules_test_session_running">هناك جلسة تعمل بالفعل، فلا حاجة لهذا - أنت تعيشها بالفعل.</string>
+    <string name="rules_test_start_button">بدء اختبار</string>
+    <string name="rules_test_length_title">كم المدة؟</string>
+    <string name="rules_test_length_subtitle">ينتهي من تلقاء نفسه، أو اضغط إنهاء الاختبار في أي وقت قبل ذلك.</string>
+    <string name="rules_test_minutes_5">5 دقائق</string>
+    <string name="rules_test_minutes_10">10 دقائق</string>
+    <string name="rules_test_minutes_20">20 دقيقة</string>
+    <string name="rules_test_minutes_30">30 دقيقة</string>
+    <string name="rules_test_started_toast">بدأ الاختبار. افتح أي تطبيق لترى ما ستفعله قواعدك.</string>
+    <string name="rules_test_session_running_toast">هناك جلسة تعمل بالفعل.</string>
+
+</resources>

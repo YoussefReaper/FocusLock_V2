@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- So the launcher tells you which one you opened when both are installed. -->
+    <string name="app_name">FocusLock Demo</string>
+</resources>

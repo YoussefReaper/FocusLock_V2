@@ -1,0 +1,95 @@
+<resources>
+    <!--
+        app_name is deliberately absent here.
+
+        It is a brand name, so there is nothing to translate - and adding it
+        would actively break the demo flavour: src/demo/res/values/strings.xml
+        overrides it to "FocusLock Demo" with no locale qualifier, so a
+        locale-specific copy here would win over it for Arabic and the demo
+        would stop identifying itself. Leaving it out lets the default (or the
+        demo's own override) resolve, which is the correct answer in both
+        builds.
+    -->
+
+    <string name="content_guard_label">حارس المحتوى في FocusLock</string>
+    <string name="content_guard_description">يقرأ النص الظاهر على الشاشة كي يتمكن FocusLock من الخروج من الأسطح التي اخترت تجنّبها، مثل Shorts وReels وقنوات واتساب أو كلماتك المفتاحية. هو يقرأ النص فقط: لا يكتب ولا ينقر ولا يرسل شيئًا إلى أي مكان، وكل ما يراه يبقى على هذا الهاتف.</string>
+
+    <string name="notification_shield_label">درع الإشعارات في FocusLock</string>
+
+    <!-- ── نسخة العرض ────────────────────────────────────────────────
+         تظهر في نسخة العرض فقط. تذكر الحدّين مسبقًا حتى يُقرأ الوضع المقفل
+         أو رفض البدء على أنه عمل النسخة كما وُصفت، لا كخلل. -->
+    <string name="demo_badge">عرض</string>
+    <string name="demo_mode_locked_pill">النسخة الكاملة</string>
+    <string name="demo_banner_body">هذا هو التطبيق كاملًا، مع حدّين. يشغّل جلسة واحدة، ويعرض عليك شاشة الحجب بدل أن ينتزع الشاشة منك. أما Sanctuary وKiosk — الوضعان اللذان يَعِدان بإبقاء الهاتف مغلقًا — فمُطفأان هنا.</string>
+    <string name="demo_banner_running">هذه هي الجلسة الوحيدة في نسخة العرض. كل شيء يعمل كما في النسخة الكاملة، إلا أن الحجب يُعرض ولا يُنفَّذ.</string>
+    <string name="demo_banner_spent">تلك كانت الجلسة الوحيدة في نسخة العرض. كل شاشة وقاعدة وجدول ومهمة ما زالت هنا للاطلاع، وما زال «اختبر الحجب» يعرض قواعدك على أي تطبيق تفتحه.</string>
+    <string name="demo_start_used_up">انتهت جلسة نسخة العرض</string>
+
+    <!-- Accessibility Prominent Disclosure (Google Play compliance) -->
+    <string name="a11y_disclosure_title">إفصاح خدمة إمكانية الوصول</string>
+    <string name="a11y_disclosure_body">يستخدم FocusLock واجهة AccessibilityService في أندرويد فقط لقراءة النصوص وعناوين النوافذ الظاهرة على الشاشة حتى يكتشف دخولك إلى الأسطح المشتتة التي اخترت حجبها (مثل Shorts وReels وقنوات واتساب والمواقع المحجوبة أو كلماتك المفتاحية) ويعود بك منها.\n\n• يتم فحص جميع نصوص الشاشة محليًا في الذاكرة ولا يتم حفظها أو تسجيلها أو إرسالها خارج جهازك أبدًا.\n• لا يغيّر FocusLock إعداداتك ولا ينقر على عناصر التحكم دون إذنك.</string>
+    <string name="a11y_disclosure_agree">موافقة وفتح الإعدادات</string>
+    <string name="a11y_disclosure_decline">ليس الآن</string>
+
+    <!-- Free vs. Pro Tier -->
+    <string name="pro_badge">Pro</string>
+    <string name="pro_free_badge">النسخة المجانية</string>
+    <string name="pro_card_title_unlocked">نسخة FocusLock Pro مفعّلة</string>
+    <string name="pro_card_subtitle_unlocked">جميع أوضاع التركيز (Sanctuary وKiosk) وتعتيم وقت النوم وقواعد الأماكن وواي فاي ووضع الكسب والقواعد المخصصة مفعّلة بالكامل على هذا الجهاز.</string>
+    <string name="pro_card_title_free">نسخة FocusLock المجانية</string>
+    <string name="pro_card_subtitle_free">جلسات اللطف والحجب غير المحدودة وحجب التطبيقات والجداول والحدود اليومية مجانية دائمًا. رقِّ إلى Pro لفتح أوضاع Sanctuary وKiosk ووقت النوم والأماكن ووضع الكسب والقواعد المخصصة.</string>
+    <string name="pro_upgrade_button">فتح FocusLock Pro</string>
+    <string name="pro_dialog_title">فتح FocusLock Pro</string>
+    <string name="pro_dialog_subtitle">فتح لمرة واحدة — بلا اشتراكات، وبلا حسابات، ويعمل بالكامل دون إنترنت.</string>
+    <string name="pro_dialog_feature_prompt">ميزة «%1$s» جزء من FocusLock Pro.</string>
+    <string name="pro_dialog_bullets">• وضعا التركيز الصارمان Sanctuary وKiosk\n• تعتيم الشاشة وحارس وقت النوم التلقائي\n• قواعد الأماكن التلقائية عبر Wi-Fi وGPS\n• تمويه الظلال المحتشم في يوتيوب وتحميل المحاضرات\n• مهام وضع الكسب ورصيد الوقت المكتسب</string>
+    <string name="pro_dialog_unlock_cta">افتح Pro الآن</string>
+    <string name="pro_unlocked_toast">تم فتح FocusLock Pro</string>
+
+    <!-- Streamlined 3-tab Focus cards & sub-screen header -->
+    <string name="dashboard_tasks_and_tools">المهام والأدوات الآمنة</string>
+    <string name="dashboard_tasks_card_title">المهام ووضع الكسب</string>
+    <string name="dashboard_tasks_card_subtitle">تتبّع مهام التركيز وقوائم الخطوات والوقت المكتسب</string>
+    <string name="dashboard_tools_card_title">الأدوات الآمنة والتطبيقات المسموحة</string>
+    <string name="dashboard_tools_card_subtitle">يوتيوب آمن، متصفح بمواقع مسموحة، بحث نصي، وتطبيقات أساسية</string>
+    <string name="nav_back_to_focus">→ العودة إلى التركيز</string>
+
+    <!-- Streamlined Onboarding Step 2 Permissions -->
+    <string name="onboarding_perms_title">تفعيل الحماية الأساسية</string>
+    <string name="onboarding_perms_subtitle">يحتاج FocusLock إلى إذنين أساسيين من أندرويد ليعرف متى يُفتح تطبيق محجوب ويعرض شاشة الحجب.</string>
+    <string name="onboarding_perms_optional_note">يمكنك منح الأذونات الاختيارية (مثل كشف Shorts/Reels أو كتم الإشعارات) في أي وقت من تبويب القواعد.</string>
+
+    <!-- Safe YouTube & Modesty Silhouette Blur -->
+    <string name="cap_safe_youtube_label">مشغل يوتيوب الآمن</string>
+    <string name="cap_safe_youtube_blurb">يوتيوب خالٍ من المشتتات مع قنوات معتمدة، وبحث آمن، ودون Shorts، وتعتيم الحياء على الجهاز.</string>
+    <string name="cap_youtube_modesty_blur_label">تعتيم الحياء لظلال الأشخاص على يوتيوب</string>
+    <string name="cap_youtube_modesty_blur_blurb">تعتيم تلقائي لظلال الأشخاص في الفيديو والصور المصغرة مع إبقاء الشروح والأكواد والسبورة واضحة تمامًا.</string>
+
+    <string name="safetube_title">يوتيوب الآمن</string>
+    <string name="safetube_subtitle">يوتيوب بلا مشتتات. لا صفحة رئيسية، لا مقاطع قصيرة (Shorts)، ولا فخاخ خوارزميات.</string>
+    <string name="safetube_search_hint">ابحث في المواد التعليمية أو القنوات…</string>
+    <string name="safetube_add_channel_title">إضافة قناة معتمدة</string>
+    <string name="safetube_add_channel_hint">مثال: @freecodecamp أو رابط القناة</string>
+    <string name="safetube_add_channel_btn">إضافة القناة</string>
+    <string name="safetube_remove_channel">إزالة القناة</string>
+    <string name="safetube_channel_added">تمت إضافة القناة إلى القائمة الآمنة</string>
+    <string name="safetube_channel_removed">تمت إزالة القناة</string>
+    <string name="safetube_shorts_blocked_toast">المقاطع القصيرة (Shorts) محجوبة في FocusLock</string>
+    <string name="safetube_unapproved_video_toast">هذا الفيديو ليس من قناة أو مادة معتمدة</string>
+    <string name="safetube_silhouette_blur_title">تعتيم ظلال الأشخاص</string>
+    <string name="safetube_silhouette_blur_active">تعتيم الظلال: مفعّل</string>
+    <string name="safetube_silhouette_blur_off">تعتيم الظلال: معطّل</string>
+    <string name="safetube_silhouette_blur_pro_prompt">التعتيم التلقائي لظلال الأشخاص ميزة في FocusLock Pro.</string>
+    <string name="safetube_download_video">تحميل للمشاهدة دون إنترنت</string>
+    <string name="safetube_download_started">بدأ التحميل في الخلفية</string>
+    <string name="safetube_download_complete">تم تحميل الفيديو للدراسة دون إنترنت</string>
+    <string name="safetube_download_pro_prompt">تحميل مقاطع يوتيوب دون إنترنت ميزة في FocusLock Pro.</string>
+    <string name="safetube_offline_tab">المقاطع المحملة</string>
+    <string name="safetube_channels_tab">القنوات المعتمدة</string>
+    <string name="safetube_no_downloads_yet">لا توجد مقاطع محملة بعد. حمّل الدروس لتدرس دون إنترنت.</string>
+    <string name="safetube_delete_download">حذف</string>
+    <string name="library_safetube_heading">يوتيوب الآمن</string>
+    <string name="library_safetube_body">شاهد المحاضرات والدروس دون فخاخ الخوارزميات أو المقاطع القصيرة أو مشتتات الحياء البصرية.</string>
+    <string name="library_safetube_open_button">فتح يوتيوب الآمن</string>
+</resources>

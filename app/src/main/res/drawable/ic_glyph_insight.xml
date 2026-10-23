@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Part of the 16-icon category set (2026-09 design system pass): 24dp grid,
+     1.75 stroke, round caps, untinted here - every call site tints it via
+     ImageView.setColorFilter(tokens.accent or tokens.textSecondary), per the
+     design doc's "nothing is baked" note. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="#FFFFFF">
+    <path
+        android:pathData="M4.5 19.5h15 M7.5 19.5v-6M12 19.5V8M16.5 19.5v-9"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.75"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="@android:color/transparent" />
+</vector>

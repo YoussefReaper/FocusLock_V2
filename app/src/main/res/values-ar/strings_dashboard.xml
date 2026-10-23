@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    تبويب «التركيز»: منتقي الأوضاع، وبطاقة الجلسة الجارية، وبطاقة المؤقت،
+    وكتلة الإعدادات السريعة، وبطاقة الإكمال. كل نص هنا كان حرفيًا في Kotlin،
+    فكانت أول شاشة يراها أي شخص إنجليزية في كل اللغات.
+
+    أسماء الأيام تأتي من النظام وتُعرَّب تلقائيًا، وهنا فقط كلمات الفترة
+    (ليلًا، صباحًا، بعد الظهر، مساءً) وقوالب الدمج.
+-->
+<resources>
+    <string name="dashboard_quick_settings">إعدادات سريعة</string>
+    <string name="dashboard_nothing_running">لا شيء قيد التشغيل</string>
+    <string name="dashboard_running_pill">قيد التشغيل</string>
+    <string name="dashboard_time_left">الوقت المتبقي</string>
+    <string name="dashboard_of_the_way_through">من الجلسة</string>
+    <string name="dashboard_kiosk_holding">وضع الكشك مُطبَّق</string>
+    <string name="dashboard_kiosk_holding_body">يعود الهاتف من تلقاء نفسه. لا شيء هنا يتطلب منك أن تكون قويًا الآن.</string>
+    <string name="dashboard_apps_still_allowed">تطبيق ما زال مسموحًا</string>
+    <string name="dashboard_focus_so_far">من التركيز حتى الآن</string>
+    <string name="dashboard_ends_at">ينتهي في %1$s</string>
+    <string name="dashboard_end_session">أنهِ هذه الجلسة</string>
+    <string name="dashboard_hard_mode_body">هذا الوضع يستمر حتى النهاية. لا يوقفه مبكرًا سوى إعادة ضبط المصنع، وهي تمحو الهاتف.</string>
+    <string name="dashboard_early_exit_off_body">أطفأت الخروج المبكر لهذه الجلسة. ستستمر حتى النهاية.</string>
+    <string name="dashboard_break_ends_in">تنتهي الاستراحة بعد %1$s</string>
+    <string name="dashboard_end_now">أنهِ الآن</string>
+    <string name="dashboard_end_confirm_title">إنهاء الجلسة؟</string>
+    <string name="dashboard_end_confirm_message">كل شيء يُفتح فورًا. والوقت الذي قضيته فعلًا ما زال محسوبًا.</string>
+    <string name="dashboard_end_confirm_button">أنهِها</string>
+    <string name="dashboard_end_keep_button">واصل</string>
+    <string name="dashboard_open_rules">افتح القواعد</string>
+
+    <string name="dashboard_what_it_changes">ما الذي يتغيّر</string>
+    <string name="dashboard_preset_edited_note">غيّرت بعض هذه الإعدادات في «أنت ← متقدّم». نسختك هي التي تُطبَّق.</string>
+    <string name="dashboard_put_template_back">أعِد القالب</string>
+    <string name="dashboard_needs_device_owner">يحتاج إعداد مالك الجهاز</string>
+    <string name="dashboard_what_kiosk_allows">ما يسمح به وضع الكشك</string>
+    <string name="dashboard_kiosk_allowlist_title">لا يبقى مفتوحًا إلا ما سمّيته</string>
+    <string name="dashboard_kiosk_allowlist_on">وضع الكشك قائمة سماح: كل شيء مغلق إلا تطبيقاتك المسموح بها دائمًا وأي تطبيق ضبطته على «افتح بحرية».</string>
+    <string name="dashboard_kiosk_allowlist_off">وضع الكشك قائمة حجب بدلًا من ذلك: كل شيء يُفتح إلا التطبيقات التي حجبتها. أخف، لكنه ما زال مثبَّتًا.</string>
+
+    <string name="dashboard_duration_day">يوم واحد</string>
+    <string name="dashboard_duration_week">أسبوع</string>
+    <string name="dashboard_duration_30_days">٣٠ يومًا</string>
+    <string name="dashboard_duration_90_days">٩٠ يومًا</string>
+    <string name="dashboard_hours_hint_body">اكتب أي عدد من الساعات</string>
+    <string name="dashboard_hours_title">لأي مدة؟</string>
+    <string name="dashboard_hours_confirm_title">كم ساعة؟</string>
+    <string name="dashboard_hours_confirm_subtitle">ساعات كاملة. للأيام، اضرب في ٢٤.</string>
+    <string name="dashboard_hours_hint">ساعات</string>
+    <string name="dashboard_hours_invalid">أدخل عددًا من الساعات.</string>
+
+    <string name="dashboard_kiosk_options_title">خيارات الكشك</string>
+    <string name="dashboard_kiosk_options_subtitle">سطح بملء الشاشة، ويعيد الهاتف في النهاية</string>
+    <string name="dashboard_kiosk_surface_title">سطح الجلسة بملء الشاشة</string>
+    <string name="dashboard_kiosk_surface_subtitle">يخفي شريط التبويبات. تصبح مكتبتك وقواعدك خارج المتناول حتى تنتهي الجلسة.</string>
+    <string name="dashboard_release_owner_title">أعِد الهاتف في النهاية</string>
+    <string name="dashboard_release_owner_subtitle">يزيل صلاحيات «مالك الجهاز» عن FocusLock عند انتهاء المؤقت. وستحتاج إلى حاسوب لإعدادها من جديد.</string>
+    <string name="dashboard_kiosk_needs_step_title">وضع الكشك يحتاج خطوة أخرى</string>
+    <string name="dashboard_kiosk_needs_step_message">لا يصمد وضع الكشك إلا إذا كان FocusLock مالك الجهاز، ويُضبط ذلك من حاسوب عبر ADB. وبدونه تبقى الشاشة الرئيسية والوضع الآمن مفتوحين.</string>
+    <string name="dashboard_show_me_how">أرِني كيف</string>
+    <string name="dashboard_can_end_early_line">يمكنك إنهاؤها مبكرًا من تبويب «التركيز».</string>
+    <string name="dashboard_no_early_exit_line">لا يوجد خروج مبكر. تستمر الجلسة كامل %1$s، وفي وضع الكشك لا مخرج قبل ذلك سوى إعادة ضبط المصنع، وهي تمحو الهاتف.</string>
+
+    <string name="dashboard_finish_setup">أكمل الإعداد</string>
+    <string name="dashboard_setup_body">بعض ما شغّلته يحتاج إذنًا لا يمنحه أندرويد إلا يدويًا.</string>
+    <string name="dashboard_setup_guide">افتح دليل الإعداد الكامل</string>
+    <string name="dashboard_setting_unavailable">صفحة الإعدادات هذه غير متاحة على هذا الهاتف.</string>
+    <string name="dashboard_grant">امنح الإذن</string>
+    <string name="setup_issue_usage_access">الوصول إلى الاستخدام</string>
+    <string name="setup_issue_usage_access_detail">يتيح لـ FocusLock رؤية التطبيق الذي في المقدمة. لا شيء يغادر الهاتف.</string>
+    <string name="setup_issue_content_guard">حارس المحتوى</string>
+    <string name="setup_issue_content_guard_detail">مطلوب لحرّاس الكلمات المفتاحية وShorts وReels وواتساب.</string>
+    <string name="setup_issue_notification_access">الوصول إلى الإشعارات</string>
+    <string name="setup_issue_notification_access_detail">يتيح للدرع كتم تنبيهات التطبيقات المحجوبة.</string>
+    <string name="setup_issue_battery">بطارية بلا قيود</string>
+    <string name="setup_issue_battery_detail">يمنع أندرويد من إيقاف الحارس أثناء الجلسة.</string>
+
+    <string name="dashboard_task_running">مهمة قيد التشغيل</string>
+    <string name="dashboard_earned_pool">الرصيد المكتسب</string>
+    <string name="dashboard_schedule_running">جدول قيد التشغيل</string>
+    <string name="dashboard_next_window">النافذة التالية</string>
+    <string name="dashboard_place_rule">قاعدة مكان</string>
+    <string name="dashboard_on_a_timer">على مؤقت</string>
+    <string name="dashboard_until">حتى %1$s</string>
+    <string name="dashboard_now_arrow">الآن ← %1$s</string>
+    <string name="dashboard_active_count">%1$s نشط</string>
+
+    <!-- التحية: اسم اليوم من النظام، وكلمة الفترة من هنا. -->
+    <string name="dashboard_day_period">%1$s %2$s</string>
+    <string name="dashboard_period_night">ليلًا</string>
+    <string name="dashboard_period_morning">صباحًا</string>
+    <string name="dashboard_period_afternoon">بعد الظهر</string>
+    <string name="dashboard_period_evening">مساءً</string>
+
+    <string name="all_modes_off_body">كل الأوضاع مطفأة الآن. شغّل واحدًا منها في «القواعد» لتبدأ جلسة.</string>
+
+    <!-- حوارات نسخة العرض التي يفتحها تبويب «التركيز» قبل بدء الجلسة. -->
+    <string name="dashboard_demo_locked_message">تترك نسخة العرض الوضعين اللذين يَعِدان بإبقاء الهاتف مغلقًا مطفأين، لأنها لا تملك صلاحية «مالك الجهاز» لتفي بذلك الوعد. وكل وضع وقاعدة ومهمة أخرى يعمل تمامًا كما في النسخة الكاملة.</string>
+    <string name="dashboard_demo_used_title">انتهت جلسة نسخة العرض الوحيدة</string>
+    <string name="dashboard_demo_used_message">تشغّل نسخة العرض جلسة واحدة لترى كيف تبدو. النسخة الكاملة بلا حد، ولم يُفقد شيء مما أعددته هنا.</string>
+
+    <string name="common_count_left">بقي %1$s</string>
+    <string name="common_got_it">فهمت</string>
+    <string name="common_start">ابدأ</string>
+    <string name="common_done">تم</string>
+    <string name="common_not_now">ليس الآن</string>
+
+    <!-- التبويبات الخمسة، يستخدمها الشريط السفلي واختصارات تبويب «التركيز». -->
+    <string name="tab_focus">التركيز</string>
+    <string name="tab_tasks">المهام</string>
+    <string name="tab_library">المكتبة</string>
+    <string name="tab_rules">القواعد</string>
+    <string name="tab_you">أنت</string>
+</resources>

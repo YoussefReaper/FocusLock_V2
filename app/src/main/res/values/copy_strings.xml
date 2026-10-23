@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The non-rotated half of Copy.kt's strings: single "kind"/"plain" lines,
+  and the fixed pieces earnDetail composes. Rotated lines (fed through
+  Copy.pick()) live in copy_arrays.xml instead. Paired 1:1 by name with
+  values-ar/copy_strings.xml - every name here must exist there too.
+-->
+<resources>
+
+    <!-- blockHeadline plain (kind is rotated, see arrays) -->
+    <string name="copy_block_headline_plain">%1$s is blocked</string>
+
+    <!-- blockDetail has no dynamic single-string variant (kind is rotated, see arrays) -->
+    <string name="copy_block_detail_plain">Blocked by your app rules.</string>
+
+    <!-- pauseHeadline -->
+    <string name="copy_pause_headline_plain">Pause before %1$s</string>
+
+    <!-- pauseDetail plain (kind is rotated, see arrays) -->
+    <string name="copy_pause_detail_plain">Wait for the timer, then continue or go back.</string>
+
+    <!-- softDetail -->
+    <string name="copy_soft_detail_kind">Soft mode does not hold anything shut. This is only a reminder of what you asked for.</string>
+    <string name="copy_soft_detail_plain">Soft mode. Continue or go back.</string>
+
+    <!-- kioskDetail plain (kind is rotated, see arrays) -->
+    <string name="copy_kiosk_detail_plain">Kiosk session active. %1$s remaining.</string>
+
+    <!-- kioskHomeHeadline / kioskHomeDetail -->
+    <string name="copy_kiosk_home_headline_kind">This is home for now</string>
+    <string name="copy_kiosk_home_headline_plain">Launcher blocked</string>
+    <string name="copy_kiosk_home_detail_kind">Your usual home screen is waiting. It comes back when the session ends.</string>
+    <string name="copy_kiosk_home_detail_plain">The launcher is disabled during a kiosk session.</string>
+
+    <!-- overlayGuardHeadline / overlayGuardDetail -->
+    <string name="copy_overlay_guard_headline_kind">That page can switch FocusLock off</string>
+    <string name="copy_overlay_guard_headline_plain">Permission page blocked</string>
+    <string name="copy_overlay_guard_detail_kind">It is the one screen that could end the session early by accident, so it stays shut until the session does.</string>
+    <string name="copy_overlay_guard_detail_plain">Overlay permission settings are blocked during a session.</string>
+
+    <!-- scheduleHeadline (only used when the window has no user-authored message) -->
+    <string name="copy_schedule_headline_kind">This time is spoken for</string>
+    <string name="copy_schedule_headline_plain">Scheduled block</string>
+
+    <!-- scheduleDetail plain (kind is rotated, see arrays) -->
+    <string name="copy_schedule_detail_plain">Window ends at %1$s.</string>
+
+    <!-- scheduleOverlayHeadline (only used when the window has no user-authored message) -->
+    <string name="copy_schedule_overlay_headline_kind">This time is locked in</string>
+    <string name="copy_schedule_overlay_headline_plain">Locked schedule window</string>
+
+    <!-- scheduleOverlayDetail plain (kind is rotated, see arrays) -->
+    <string name="copy_schedule_overlay_detail_plain">Locked until %1$s. No break, no exceptions.</string>
+
+    <!-- bedtimeHeadline -->
+    <string name="copy_bedtime_headline_kind">It is night</string>
+    <string name="copy_bedtime_headline_plain">Bedtime block</string>
+
+    <!-- bedtimeDetail plain (kind is rotated, see arrays) -->
+    <string name="copy_bedtime_detail_plain">Bedtime runs until %1$s.</string>
+
+    <!-- placeHeadline: kind branches on the place's trigger direction, not a rotation -->
+    <string name="copy_place_headline_inside_kind">Not while you are at %1$s</string>
+    <string name="copy_place_headline_outside_kind">Only at %1$s</string>
+    <string name="copy_place_headline_plain">Blocked at %1$s</string>
+
+    <!-- placeDetail -->
+    <string name="copy_place_detail_kind">You set this up for %1$s. It lifts by itself when you move.</string>
+    <string name="copy_place_detail_plain">Place rule: %1$s</string>
+
+    <!-- limitHeadline -->
+    <string name="copy_limit_headline_kind">%1$s has had its time today</string>
+    <string name="copy_limit_headline_plain">%1$s: limit reached</string>
+
+    <!-- Budgeted apps: free daily minutes first, then the earned pool. -->
+    <string name="copy_budget_headline_kind">%1$s is waiting on earned time</string>
+    <string name="copy_budget_headline_plain">%1$s: no earned time</string>
+    <string name="copy_budget_detail_limit_kind">Its free %1$d minutes are used up for today. Anything in your earned pool opens it again.</string>
+    <string name="copy_budget_detail_limit_plain">Free minutes (%1$d) used up. Earned pool minutes open it again.</string>
+    <string name="copy_budget_detail_nolimit_kind">This one has no free minutes of its own, so it opens only while there is time in your earned pool.</string>
+    <string name="copy_budget_detail_nolimit_plain">Needs earned pool minutes to open.</string>
+    <string name="copy_budget_pool_empty_kind">Your earned pool is empty. Finishing a task fills it back up.</string>
+    <string name="copy_budget_pool_empty_plain">Earned pool is empty.</string>
+    <string name="copy_budget_pool_left_kind">%1$d minutes left in your pool.</string>
+    <string name="copy_budget_pool_left_plain">%1$d pool minutes left.</string>
+
+    <!-- ruleHeadline (only used when the rule has no user-authored label) -->
+    <string name="copy_rule_headline_kind">One of your rules caught this</string>
+    <string name="copy_rule_headline_plain">Blocked by rule</string>
+
+    <!-- ruleDetail -->
+    <string name="copy_rule_detail_kind">Your rule for %1$s is holding. You can change it in Rules any time.</string>
+    <string name="copy_rule_detail_plain">Rule condition: %1$s.</string>
+
+    <!-- earnHeadline plain (kind is rotated, see arrays) -->
+    <string name="copy_earn_headline_plain">%1$s is blocked during this task</string>
+
+    <!-- earnDetail: %1$s is the task title, %2$s is one of the three tail strings below -->
+    <string name="copy_earn_detail_kind">You are on %1$s. %2$s</string>
+    <string name="copy_earn_detail_plain">Active task: %1$s</string>
+    <string name="copy_earn_tail_enjoyable">No minutes attached to this one, by your choice.</string>
+    <string name="copy_earn_tail_reward">Finish it and %1$d minutes come back.</string>
+    <string name="copy_earn_tail_default">Finish it and the time you put in comes back at your rate.</string>
+
+    <!-- earnCompleted -->
+    <string name="copy_earn_completed_zero_kind">Done. No minutes on this one, which was the point.</string>
+    <string name="copy_earn_completed_zero_plain">Task complete. No reward configured.</string>
+    <string name="copy_earn_completed_plain">%1$d minutes credited.</string>
+
+    <!-- earnCapReached -->
+    <string name="copy_earn_cap_reached_kind">That is the cap you set for today. The work still counted.</string>
+    <string name="copy_earn_cap_reached_plain">Daily earning cap reached.</string>
+
+    <!-- earnSpending removed with the manual "start N minutes" window; the pool
+         is now drained live by Budgeted apps. See Copy.budgetPoolLine. -->
+
+    <!-- earnPhotoRetry plain (kind is rotated, see arrays) -->
+    <string name="copy_earn_photo_retry_plain">Not accepted. Attempt %1$d.</string>
+
+    <!-- earnDeal: kind adds a prefix in front of EarnMode.describeDeal(); plain has no added text -->
+    <string name="copy_earn_deal_kind_prefix">Your deal, your numbers: %1$s</string>
+
+    <!-- onDeviceFooter -->
+    <string name="copy_on_device_footer_kind">Tasks, notes, attachments and proof photos stay on this phone. There is no account and nowhere for them to go.</string>
+    <string name="copy_on_device_footer_plain">All task data is local. No network calls.</string>
+
+    <!-- sessionStarted plain (kind is rotated, see arrays) -->
+    <string name="copy_session_started_plain">%1$s session started.</string>
+
+    <!-- sessionEndedEarly -->
+    <string name="copy_session_ended_early_kind">Ended early, and that is allowed. The time before you stopped still happened.</string>
+    <string name="copy_session_ended_early_plain">Session ended early.</string>
+
+    <!-- rulesFrozen -->
+    <string name="copy_rules_frozen_kind">Your rules are held still until this session ends, in %1$s. You decided that ahead of time, back when it was an easy call.</string>
+    <string name="copy_rules_frozen_plain">Rules are locked during a session. %1$s remaining.</string>
+
+    <!-- rulesFrozenBySchedule -->
+    <string name="copy_rules_frozen_by_schedule_kind">Your rules are held still until this window opens up again, at %1$s. You set it to overlay yourself, back when it was an easy call.</string>
+    <string name="copy_rules_frozen_by_schedule_plain">Rules are locked by an overlay window. Opens up again at %1$s.</string>
+
+    <!-- rulesFrozenHint -->
+    <string name="copy_rules_frozen_hint_kind">Held still right now.</string>
+    <string name="copy_rules_frozen_hint_plain">Locked right now.</string>
+
+    <!-- breakStarted -->
+    <string name="copy_break_started_kind">Take %1$d minutes. Choosing a break on purpose is not the same as losing the thread.</string>
+    <string name="copy_break_started_plain">%1$d minute pass started.</string>
+
+    <!-- breakUnavailable -->
+    <string name="copy_break_unavailable_kind">That is the last of today\'s breaks. Tomorrow the count starts again.</string>
+    <string name="copy_break_unavailable_plain">No breaks left today.</string>
+
+    <!-- relapseNote plain (kind is rotated, see arrays) -->
+    <string name="copy_relapse_note_plain">Session interrupted.</string>
+
+    <!-- weakenWarning fallback, used when a capability defines no weakenNote of its own -->
+    <string name="copy_weaken_warning_fallback">This leaves an escape route open. That is your call.</string>
+
+    <!-- emptyRules -->
+    <string name="copy_empty_rules_kind">No rules yet. That is a fine place to start.</string>
+    <string name="copy_empty_rules_plain">No rules.</string>
+
+    <!-- emptySchedules -->
+    <string name="copy_empty_schedules_kind">No windows yet. Add one for the hours you already know are hard.</string>
+    <string name="copy_empty_schedules_plain">No schedule windows.</string>
+
+    <!-- emptyKeywords -->
+    <string name="copy_empty_keywords_kind">No words of your own yet. The built-in guards are still running.</string>
+    <string name="copy_empty_keywords_plain">No custom keywords.</string>
+
+    <!-- analyticsIntro -->
+    <string name="copy_analytics_intro_kind">This is information, not a verdict. It only leaves this phone if you carry it out yourself.</string>
+    <string name="copy_analytics_intro_plain">Local usage data. Nothing is uploaded.</string>
+
+    <!-- contentGuardHeadline plain (kind is rotated, see arrays). %1$s app label, %2$s the matched keyword rule's own phrase, never raw on-screen text -->
+    <string name="copy_content_guard_headline_plain">%1$s blocked - matched %2$s</string>
+
+    <!-- contentGuardDetail: names the exact keyword rule that fired, so nobody is left guessing what tripped it -->
+    <string name="copy_content_guard_detail_kind">That is one of the words you are watching for, so FocusLock stepped back out before you had to decide anything.</string>
+    <string name="copy_content_guard_detail_plain">Matched your keyword rule for %1$s.</string>
+
+</resources>

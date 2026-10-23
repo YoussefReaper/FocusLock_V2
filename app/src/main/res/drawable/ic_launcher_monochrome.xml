@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Monochrome layer for themed icons. Same mark broken at the top, the countdown head
+  sitting in the gap, around a keyhole.
+
+  A lock that ends, and you hold the key. The gap is the point — this is not
+  a padlock that stays shut, it is one that runs down.
+
+  Authored on the 108 grid with the glyph inside the 72dp safe circle, so no
+  launcher mask can clip it.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- The session ring: 292 degrees, open at the top. -->
+    <path
+        android:pathData="M70.78,29.13 A30,30 0 1 1 37.22,29.13"
+        android:fillColor="#00000000"
+        android:strokeColor="#FF000000"
+        android:strokeWidth="8"
+        android:strokeLineCap="round" />
+
+    <!-- The countdown head, sitting in the gap. -->
+    <path
+        android:pathData="M59.27,25.47 a4,4 0 1 0 8,0 a4,4 0 1 0 -8,0 z"
+        android:fillColor="#FF000000" />
+
+    <!-- Keyhole. -->
+    <path
+        android:pathData="M46.3,49.5 a7.7,7.7 0 1 0 15.4,0 a7.7,7.7 0 1 0 -15.4,0 z"
+        android:fillColor="#FF000000" />
+    <path
+        android:pathData="M49.9,55.6 h8.2 l2.4,13.1 a1.9,1.9 0 0 1 -1.87,2.25 h-9.26 a1.9,1.9 0 0 1 -1.87,-2.25 z"
+        android:fillColor="#FF000000" />
+</vector>

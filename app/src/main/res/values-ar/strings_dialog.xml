@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    عناصر الحوارات والمكوّنات المشتركة: عدّاد التأكيد، وعدّ المنتقى المتعدّد،
+    واختصارات منتقي التاريخ، وزر الرجوع.
+
+    الرقم في «خلال %1$d ثانية» يتبع قواعد العدد في العربية، لذا الجملة كاملة
+    قالب واحد بدل تركيب الأجزاء.
+-->
+<resources>
+    <string name="dialog_confirm_available_now">يمكنك التأكيد الآن.</string>
+    <string name="dialog_confirm_in">يتاح التأكيد خلال %1$d ثانية.</string>
+    <string name="dialog_selected_count">%1$d مختار</string>
+    <string name="dialog_nothing_matches">لا شيء يطابق ذلك.</string>
+    <string name="dialog_days_in_3">بعد ٣ أيام</string>
+    <string name="dialog_days_next_week">الأسبوع القادم</string>
+    <string name="dialog_days_in_2_weeks">بعد أسبوعين</string>
+    <string name="dialog_days_from_today">أيام من اليوم</string>
+    <string name="dialog_in_days">بعد %1$d يومًا</string>
+    <string name="dialog_no_date">بلا تاريخ</string>
+    <string name="dialog_back">‹  رجوع</string>
+    <string name="insights_first_day">اليوم الأول، أي وقت تبدأ فيه.</string>
+    <string name="insights_best_run">أفضل سلسلة: %1$d يومًا. ابدأ اليوم من جديد فتُستأنف من واحد.</string>
+    <string name="insights_run_one">%1$d يوم متتالٍ</string>
+    <string name="insights_run_many">%1$d أيام متتالية</string>
+    <string name="status_guard_off">حارس المحتوى مطفأ — قواعد الكلمات لا تعمل</string>
+    <string name="status_on_task">على %1$s · %2$s</string>
+    <string name="status_earned_pool">الرصيد المكتسب، بقي %1$s</string>
+    <string name="status_scheduled_until">نافذة مجدولة حتى %1$s</string>
+    <string name="status_bedtime_until">وقت النوم حتى %1$s</string>
+    <string name="status_watching_limits">نراقب حدودك اليومية</string>
+    <string name="status_next_window">النافذة الهادئة التالية في %1$s</string>
+    <string name="status_bedtime_starts">وقت النوم يبدأ في %1$s</string>
+    <string name="status_waiting">في انتظار نافذتك التالية</string>
+    <string name="blocker_emergency_lock">يبقى الهاتف مقفولًا على الإعدادات حتى يرجع.</string>
+    <string name="blocker_emergency_fix">اذهب وأصلحه</string>
+    <string name="limit_minutes_used">انتهت دقائق اليوم وعددها %1$d. وتُعاد في منتصف الليل.</string>
+    <string name="limit_opens_used">هذه المرة رقم %1$d اليوم، وقد ضبطت الحد عند %2$d.</string>
+    <string name="profile_summary_capabilities">%1$d خيار قدرة</string>
+    <string name="profile_summary_apps">%1$d قاعدة تطبيق</string>
+    <string name="profile_summary_keywords">%1$d عبارة مراقَبة</string>
+    <string name="profile_summary_rules">%1$d قاعدة مخصّصة</string>
+    <string name="profile_summary_schedules">%1$d نافذة زمنية</string>
+    <string name="profile_summary_tasks">%1$d مهمة</string>
+    <string name="profile_summary_separator">، </string>
+    <string name="webview_blocked_link">هذا الرابط يشير إلى مكان محجوب.</string>
+    <string name="webview_text_only">وضع النص فقط مفعّل، لذا صفحات الصور والفيديو مطفأة.</string>
+    <string name="webview_not_in_list">هذا العنوان ليس في قائمتك.</string>
+</resources>

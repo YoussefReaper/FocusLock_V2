@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    IBM Plex Sans Arabic - the prose font whenever the app's configured
+    locale is Arabic, regardless of which Latin font (Figtree/System/Mono)
+    the user has otherwise chosen: none of those three carry Arabic glyphs,
+    and there is no font-fallback chain configured anywhere else in the app,
+    so Arabic text would render as tofu without this. Same type family as
+    the already-bundled IBM Plex Mono - see UiPrefs's locale-aware typeface
+    resolution.
+-->
+<font-family xmlns:app="http://schemas.android.com/apk/res-auto">
+    <font
+        app:font="@font/ibmplexsansarabic_regular"
+        app:fontStyle="normal"
+        app:fontWeight="400" />
+    <font
+        app:font="@font/ibmplexsansarabic_medium"
+        app:fontStyle="normal"
+        app:fontWeight="500" />
+    <font
+        app:font="@font/ibmplexsansarabic_semibold"
+        app:fontStyle="normal"
+        app:fontWeight="600" />
+</font-family>

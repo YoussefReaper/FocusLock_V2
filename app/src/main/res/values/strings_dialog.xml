@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Shared dialog and component chrome: the confirm countdown, multi-select
+    counts, the date picker's shortcuts, and the back label.
+-->
+<resources>
+    <string name="dialog_confirm_available_now">You can confirm now.</string>
+    <string name="dialog_confirm_in">Confirm becomes available in %1$ds.</string>
+    <string name="dialog_selected_count">%1$d selected</string>
+    <string name="dialog_nothing_matches">Nothing matches that.</string>
+    <string name="dialog_days_in_3">In 3 days</string>
+    <string name="dialog_days_next_week">Next week</string>
+    <string name="dialog_days_in_2_weeks">In 2 weeks</string>
+    <string name="dialog_days_from_today">Days from today</string>
+    <string name="dialog_in_days">In %1$d days</string>
+    <string name="dialog_no_date">No date at all</string>
+    <string name="dialog_back">‹  Back</string>
+    <string name="insights_first_day">First day whenever you start.</string>
+    <string name="insights_best_run">Best run: %1$d days. Start again today and it picks up from one.</string>
+    <string name="insights_run_one">%1$d day in a row</string>
+    <string name="insights_run_many">%1$d days in a row</string>
+    <string name="status_guard_off">Content guard is off — keyword rules are not running</string>
+    <string name="status_on_task">On %1$s · %2$s</string>
+    <string name="status_earned_pool">Earned pool, %1$s left</string>
+    <string name="status_scheduled_until">Scheduled window until %1$s</string>
+    <string name="status_bedtime_until">Bedtime until %1$s</string>
+    <string name="status_watching_limits">Keeping an eye on your daily limits</string>
+    <string name="status_next_window">Next quiet window at %1$s</string>
+    <string name="status_bedtime_starts">Bedtime starts at %1$s</string>
+    <string name="status_waiting">Waiting for your next window</string>
+    <string name="blocker_emergency_lock">The phone stays locked to Settings until it\'s back on.</string>
+    <string name="blocker_emergency_fix">Go fix it</string>
+    <string name="limit_minutes_used">Today\'s %1$d minutes are used up. It comes back at midnight.</string>
+    <string name="limit_opens_used">That is open number %1$d today, and you set the cap at %2$d.</string>
+    <string name="profile_summary_capabilities">%1$d capability choices</string>
+    <string name="profile_summary_apps">%1$d app rules</string>
+    <string name="profile_summary_keywords">%1$d watched phrases</string>
+    <string name="profile_summary_rules">%1$d custom rules</string>
+    <string name="profile_summary_schedules">%1$d schedule windows</string>
+    <string name="profile_summary_tasks">%1$d tasks</string>
+    <string name="profile_summary_separator">, </string>
+    <string name="webview_blocked_link">That link points somewhere blocked.</string>
+    <string name="webview_text_only">Text only is on, so image and video pages are off.</string>
+    <string name="webview_not_in_list">That address is not on your list.</string>
+</resources>

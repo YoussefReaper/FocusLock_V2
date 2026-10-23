@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    شاشة الاطلاع: منتقي المدة، وبطاقتا الكسب والمهام، وتفصيل الاستخدام،
+    والسلاسل، وما يظهر عندما يكون الإحصاء مطفأً أو الوصول إلى الاستخدام غير ممنوح.
+-->
+<resources>
+    <string name="analytics_window_today">اليوم</string>
+    <string name="analytics_window_7">آخر ٧ أيام</string>
+    <string name="analytics_window_30">آخر ٣٠ يومًا</string>
+
+    <string name="analytics_title">وقتك</string>
+    <string name="analytics_by_category">حسب الفئة</string>
+    <string name="analytics_by_app">حسب التطبيق</string>
+
+    <string name="analytics_minutes_earned">دقائق مكتسبة</string>
+    <string name="analytics_earned_detail">%1$s إجمالًا · %2$s اليوم</string>
+    <string name="analytics_minutes_spent">دقائق منفَقة</string>
+    <string name="analytics_pool_now">في الرصيد الآن</string>
+    <string name="analytics_tasks_finished">مهام مكتملة</string>
+    <string name="analytics_tasks_detail">%1$s · %2$s اليوم</string>
+
+    <string name="analytics_verification_trust">موثوقية الإثبات</string>
+    <string name="analytics_trust_note">تنخفض عندما تُرفض صورة إثبات، وتتعافى عندما تُقبل. إنها ملاحظة لنفسك، لا مستوى صلاحية.</string>
+
+    <string name="analytics_off_title">الإحصاءات مطفأة</string>
+    <string name="analytics_off_body">لا شيء يُسجَّل. شغّلها إن أردت رؤية النمط؛ وهي تبقى على هذا الهاتف في كل الأحوال.</string>
+    <string name="analytics_turn_on">شغّل الإحصاءات</string>
+
+    <string name="analytics_needs_usage_title">الوصول إلى الاستخدام مطلوب</string>
+    <string name="analytics_needs_usage_body">التفصيل يُقرأ من سجلات أندرويد نفسها. وFocusLock لا يحتفظ بسجل منفصل.</string>
+    <string name="analytics_grant_usage">امنح الوصول إلى الاستخدام</string>
+
+    <string name="analytics_screen_time">وقت الشاشة</string>
+    <string name="analytics_opens">مرات الفتح</string>
+    <string name="analytics_apps_used">تطبيقات مستخدمة</string>
+    <string name="analytics_slice_detail">%1$s · %2$d مرة فتح · %3$s</string>
+    <string name="analytics_slice_subtitle">%1$s خلال هذه المدة.</string>
+    <string name="analytics_no_usage">لا استخدام مسجَّل خلال هذه المدة.</string>
+    <string name="analytics_nothing_yet">لا شيء لعرضه بعد.</string>
+
+    <string name="analytics_sessions_finished">جلسات مكتملة</string>
+    <string name="analytics_time_held">وقت مثبَّت</string>
+    <string name="analytics_current_run">السلسلة الحالية</string>
+    <string name="analytics_best_run">أفضل سلسلة</string>
+    <string name="analytics_days">%1$d يومًا</string>
+    <string name="analytics_privacy_note">لا شيء من هذا يُرفع أو يُقيَّم أو يُقارَن بأي شخص.</string>
+    <string name="analytics_policy_blocked">محجوب</string>
+    <string name="analytics_policy_manage">إدارة</string>
+</resources>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="common_ok">حسنًا</string>
+    <string name="common_search">بحث</string>
+    <string name="common_today">اليوم</string>
+    <string name="common_tomorrow">غدًا</string>
+    <string name="common_understood">فهمت</string>
+    <string name="common_continue">متابعة</string>
+    <string name="common_apply">تطبيق</string>
+    <string name="common_reset">إعادة الضبط</string>
+    <string name="common_use">استخدم</string>
+    <string name="common_switch">بدّل</string>
+    <string name="common_granted">ممنوح</string>
+    <string name="common_light">فاتح</string>
+    <string name="common_dark">داكن</string>
+
+    <string name="analytics_section_sessions">الجلسات</string>
+    <string name="analytics_section_earning">الكسب</string>
+
+    <string name="anime_folder_subtitle">كل ما بداخله يصبح مكتبتك. يُفتح مقطع جديد كل 24 ساعة، ويبقى مفتوحًا إلى الأبد.\n\nيُثبَّت المجلد بمجرد أن تؤكد.</string>
+    <string name="anime_folder_no_picker">لا يوجد منتقي ملفات على هذا الهاتف.</string>
+    <string name="anime_folder_chosen">المختار: %1$s</string>
+    <string name="anime_folder_no_access">رفض أندرويد منح وصول دائم إلى هذا المجلد.</string>
+    <string name="anime_folder_permanent">هذا الاختيار دائم طوال مدة التثبيت.</string>
+
+    <string name="earn_deal_fixed">المهام تدفع فقط ما حددته لكل منها.</string>
+    <string name="earn_deal_rate">كل ساعة تركيز مُتحقَّق منها تكسبك %1$d دقيقة.</string>
+    <string name="earn_deal_cap">حتى %1$d دقيقة في اليوم.</string>
+    <string name="earn_pool_empty">الرصيد فارغ</string>
+    <string name="earn_pool_under_minute">أقل من دقيقة في الرصيد</string>
+    <string name="earn_pool_hours">%1$d س %2$d د في الرصيد</string>
+    <string name="earn_pool_minutes">%1$d د في الرصيد</string>
+
+    <string name="onboarding_pull_games">الألعاب</string>
+    <string name="onboarding_time_evening">المساء</string>
+
+    <string name="appearance_title">المظهر</string>
+    <string name="appearance_section_theme">السمة</string>
+    <string name="appearance_section_background">الخلفية</string>
+    <string name="appearance_section_accessibility">إمكانية الوصول</string>
+    <string name="appearance_preview">معاينة</string>
+    <string name="appearance_sample_opens">مرات الفتح</string>
+    <string name="appearance_theme">السمة</string>
+    <string name="appearance_accent">لون التمييز</string>
+    <string name="appearance_wallpaper">الخلفية</string>
+    <string name="appearance_typeface">الخط</string>
+    <string name="appearance_spacing">المسافات</string>
+
+    <string name="youtab_section_today">اليوم</string>
+    <string name="youtab_section_release">طريق الخروج</string>
+    <string name="youtab_language">اللغة</string>
+    <string name="youtab_clock">الساعة</string>
+    <string name="youtab_share_header">FocusLock، آخر 7 أيام</string>
+
+    <string name="perms_title">الأذونات</string>
+
+    <string name="profiles_section_files">الملفات</string>
+
+    <string name="photo_checks_base">يُفحص على هذا الهاتف: الصورة جديدة، التُقطت الآن، ولم تستخدمها من قبل. لا تغادر الجهاز أبدًا.</string>
+    <string name="photo_checks_matched">وتُطابَق أيضًا مع المهمة باستخدام %1$s.</string>
+    <string name="photo_checks_nudge">لا يُقرأ محتواها، فهي تذكير بأن تكون صادقًا مع نفسك وليست جهاز كشف كذب.</string>
+    <string name="photo_none_headline">لم تصل أي صورة</string>
+    <string name="photo_none_detail">لم تسلّم الكاميرا شيئًا. حاول مرة أخرى.</string>
+    <string name="photo_old_headline">هذه الصورة أقدم من هذه الجلسة</string>
+    <string name="photo_old_detail">يجب أن تُلتقط الآن. لا يُسجَّل شيء عن الصورة القديمة.</string>
+    <string name="photo_not_image_headline">هذا الملف ليس صورة</string>
+    <string name="photo_not_image_detail">حاول الالتقاط مرة أخرى.</string>
+    <string name="photo_empty_headline">لا يوجد شيء في الإطار</string>
+    <string name="photo_empty_detail">جدار أو غرفة مظلمة أو إصبع على العدسة. وجّهها نحو العمل.</string>
+    <string name="photo_duplicate_headline">استخدمت هذه الصورة من قبل</string>
+    <string name="photo_duplicate_detail">يتذكر FocusLock بصمة لكل صورة، لا الصورة نفسها.</string>
+    <string name="photo_mismatch_headline">لا يبدو هذا مثل المهمة</string>
+    <string name="photo_mismatch_detail">لم يتعرف النموذج على الجهاز على أي شيء من %1$s. إن كان مخطئًا، التقط من زاوية أخرى.</string>
+    <string name="photo_accepted_headline">قُبل الإثبات</string>
+    <string name="photo_accepted_detail">لم يُرفع شيء. تُحفظ بصمة فقط، حتى لا تُستخدم الصورة نفسها مرتين.</string>
+
+    <string name="text_search_empty">اكتب شيئًا للبحث عنه.</string>
+    <string name="text_search_adult">مرشح المحتوى الإباحي يحجب هذا.</string>
+    <string name="text_search_link_blocked">هذا النوع من الروابط غير مسموح هنا.</string>
+    <string name="text_search_media_off">الصور والفيديو متوقفة في البحث النصي.</string>
+
+    <string name="video_badge_play">شغّل</string>
+    <string name="video_sub_yours">لك لتشاهده</string>
+    <string name="video_badge_unlock">افتح</string>
+    <string name="video_sub_waiting">فتح اليوم بانتظارك</string>
+    <string name="video_badge_locked">مقفل</string>
+    <string name="video_sub_opens_in">يُفتح بعد %1$s</string>
+    <string name="video_library_title">مكتبة الفيديو</string>
+    <string name="video_library_subtitle_ready">%1$d مفتوح لك بالفعل. هناك مقطع آخر جاهز للفتح.</string>
+    <string name="video_library_subtitle_waiting">%1$d مفتوح لك بالفعل. يُفتح المقطع التالي بعد %2$s.</string>
+    <string name="video_open_title">فتح %1$s؟</string>
+    <string name="video_open_message">يستخدم هذا فتح الـ 24 ساعة القادمة. بمجرد فتحه يبقى لك، فلا داعي للعجلة ولا شيء ينتهي.</string>
+    <string name="video_open_confirm">افتحه</string>
+    <string name="video_open_cancel">ليس بعد</string>
+
+    <string name="rule_editor_allow_minutes_label">مدة السماح المؤقت</string>
+    <string name="place_rules_locating_toast">جارٍ تحديد الموقع الحالي…</string>
+
+    <string name="link_category_custom">مخصص</string>
+
+    <string name="a11y_held_by_session">مُثبَّت حتى تنتهي الجلسة</string>
+    <string name="a11y_mode_details">المزيد عن هذا الوضع</string>
+
+    <!-- بدائل شاشة الحظر -->
+    <string name="alt_read_instead">اقرأ شيئًا بدلًا من ذلك</string>
+    <string name="alt_safe_browser">افتح المتصفح الآمن</string>
+    <string name="alt_video_library">شاهد من مكتبتك</string>
+    <string name="alt_where_time_went">انظر أين ذهب الوقت</string>
+</resources>

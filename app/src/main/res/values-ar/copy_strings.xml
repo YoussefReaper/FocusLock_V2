@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Arabic draft translation, paired 1:1 by name with values/copy_strings.xml.
+  Machine-drafted (by Claude, not a certified translator) - needs a native
+  Arabic speaker's review before this ships. Every %1$s/%1$d placeholder is
+  kept in the same position it appears in the source comment; word order
+  around it has been reworked for natural Arabic, which is exactly what the
+  positional format specifier is for.
+-->
+<resources>
+
+    <string name="copy_block_headline_plain">%1$s محظور</string>
+    <string name="copy_block_detail_plain">محظور بحسب قواعد التطبيقات الخاصة بك.</string>
+
+    <string name="copy_pause_headline_plain">توقف قبل %1$s</string>
+    <string name="copy_pause_detail_plain">انتظر انتهاء المؤقت، ثم تابع أو ارجع.</string>
+
+    <string name="copy_soft_detail_kind">الوضع اللين لا يبقي شيئًا مغلقًا. هذا مجرد تذكير بما طلبته أنت.</string>
+    <string name="copy_soft_detail_plain">الوضع اللين. تابع أو ارجع.</string>
+
+    <string name="copy_kiosk_detail_plain">جلسة وضع الكشك نشطة. تبقّى %1$s.</string>
+
+    <string name="copy_kiosk_home_headline_kind">هذه هي الشاشة الرئيسية الآن</string>
+    <string name="copy_kiosk_home_headline_plain">مشغّل التطبيقات محظور</string>
+    <string name="copy_kiosk_home_detail_kind">شاشتك الرئيسية المعتادة بانتظارك. ستعود عند انتهاء الجلسة.</string>
+    <string name="copy_kiosk_home_detail_plain">مشغّل التطبيقات معطّل أثناء جلسة وضع الكشك.</string>
+
+    <string name="copy_overlay_guard_headline_kind">تلك الصفحة يمكنها إيقاف FocusLock</string>
+    <string name="copy_overlay_guard_headline_plain">صفحة الأذونات محظورة</string>
+    <string name="copy_overlay_guard_detail_kind">إنها الشاشة الوحيدة التي قد تُنهي الجلسة مبكرًا عن طريق الخطأ، لذا تبقى مغلقة إلى أن تنتهي الجلسة.</string>
+    <string name="copy_overlay_guard_detail_plain">إعدادات إذن التراكب محظورة أثناء الجلسة.</string>
+
+    <string name="copy_schedule_headline_kind">هذا الوقت محجوز</string>
+    <string name="copy_schedule_headline_plain">حظر مجدوَل</string>
+    <string name="copy_schedule_detail_plain">تنتهي هذه الفترة عند %1$s.</string>
+
+    <string name="copy_schedule_overlay_headline_kind">هذا الوقت مقفل تمامًا</string>
+    <string name="copy_schedule_overlay_headline_plain">فترة مجدوَلة مقفلة</string>
+    <string name="copy_schedule_overlay_detail_plain">مقفلة حتى %1$s. لا استراحة ولا استثناءات.</string>
+
+    <string name="copy_bedtime_headline_kind">حان وقت النوم</string>
+    <string name="copy_bedtime_headline_plain">حظر وقت النوم</string>
+    <string name="copy_bedtime_detail_plain">يستمر وقت النوم حتى %1$s.</string>
+
+    <string name="copy_place_headline_inside_kind">ليس أثناء وجودك في %1$s</string>
+    <string name="copy_place_headline_outside_kind">فقط في %1$s</string>
+    <string name="copy_place_headline_plain">محظور في %1$s</string>
+
+    <string name="copy_place_detail_kind">أنت أعددت هذا من أجل %1$s. يُرفع الحظر تلقائيًا عندما تتحرك.</string>
+    <string name="copy_place_detail_plain">قاعدة المكان: %1$s</string>
+
+    <string name="copy_limit_headline_kind">%1$s استوفى وقته اليوم</string>
+    <string name="copy_limit_headline_plain">%1$s: تم بلوغ الحد</string>
+
+    <!-- التطبيقات المقيّدة بميزانية: الدقائق المجانية اليومية أولًا، ثم الرصيد المكتسب. -->
+    <string name="copy_budget_headline_kind">%1$s في انتظار وقت مكتسب</string>
+    <string name="copy_budget_headline_plain">%1$s: لا يوجد وقت مكتسب</string>
+    <string name="copy_budget_detail_limit_kind">انتهت دقائقه المجانية لهذا اليوم وعددها %1$d. أي وقت في رصيدك المكتسب يفتحه من جديد.</string>
+    <string name="copy_budget_detail_limit_plain">انتهت الدقائق المجانية (%1$d). دقائق الرصيد المكتسب تفتحه من جديد.</string>
+    <string name="copy_budget_detail_nolimit_kind">لا دقائق مجانية لهذا التطبيق، لذا لا يفتح إلا عندما يكون في رصيدك المكتسب وقت.</string>
+    <string name="copy_budget_detail_nolimit_plain">يحتاج دقائق من الرصيد المكتسب ليفتح.</string>
+    <string name="copy_budget_pool_empty_kind">رصيدك المكتسب فارغ. إنجاز مهمة يعيد ملأه.</string>
+    <string name="copy_budget_pool_empty_plain">الرصيد المكتسب فارغ.</string>
+    <string name="copy_budget_pool_left_kind">بقي %1$d دقيقة في رصيدك.</string>
+    <string name="copy_budget_pool_left_plain">بقي %1$d دقيقة في الرصيد.</string>
+
+    <string name="copy_rule_headline_kind">إحدى قواعدك رصدت هذا</string>
+    <string name="copy_rule_headline_plain">محظور بواسطة قاعدة</string>
+
+    <string name="copy_rule_detail_kind">قاعدتك الخاصة بـ %1$s ما زالت سارية. يمكنك تغييرها في القواعد في أي وقت.</string>
+    <string name="copy_rule_detail_plain">شرط القاعدة: %1$s.</string>
+
+    <string name="copy_earn_headline_plain">%1$s محظور أثناء هذه المهمة</string>
+
+    <string name="copy_earn_detail_kind">أنت الآن في %1$s. %2$s</string>
+    <string name="copy_earn_detail_plain">المهمة النشطة: %1$s</string>
+    <string name="copy_earn_tail_enjoyable">لا دقائق مرتبطة بهذه المهمة، بناءً على اختيارك.</string>
+    <string name="copy_earn_tail_reward">أنهها وستعود إليك %1$d دقيقة.</string>
+    <string name="copy_earn_tail_default">أنهها وسيعود إليك الوقت الذي بذلته وفق معدّلك.</string>
+
+    <string name="copy_earn_completed_zero_kind">تم. لا دقائق على هذه المهمة، وهذا كان المقصود.</string>
+    <string name="copy_earn_completed_zero_plain">اكتملت المهمة. لم يتم تحديد مكافأة.</string>
+    <string name="copy_earn_completed_plain">أُضيفت %1$d دقيقة.</string>
+
+    <string name="copy_earn_cap_reached_kind">هذا هو الحد الذي وضعته لليوم. العمل احتُسب رغم ذلك.</string>
+    <string name="copy_earn_cap_reached_plain">تم بلوغ الحد اليومي للكسب.</string>
+
+
+    <!-- earnSpending removed with the manual "start N minutes" window; the pool
+         is now drained live by Budgeted apps. See Copy.budgetPoolLine. -->
+
+    <string name="copy_earn_photo_retry_plain">لم تُقبل. المحاولة %1$d.</string>
+
+    <string name="copy_earn_deal_kind_prefix">اتفاقك، بأرقامك: %1$s</string>
+
+    <string name="copy_on_device_footer_kind">تبقى المهام والملاحظات والمرفقات وصور الإثبات على هذا الهاتف. لا يوجد حساب ولا وجهة تُرسل إليها.</string>
+    <string name="copy_on_device_footer_plain">جميع بيانات المهام محلية. لا اتصالات بالشبكة.</string>
+
+    <string name="copy_session_started_plain">بدأت جلسة %1$s.</string>
+
+    <string name="copy_session_ended_early_kind">انتهت مبكرًا، وهذا مسموح به. الوقت الذي قضيته قبل التوقف حدث بالفعل.</string>
+    <string name="copy_session_ended_early_plain">انتهت الجلسة مبكرًا.</string>
+
+    <string name="copy_rules_frozen_kind">قواعدك مجمّدة إلى أن تنتهي هذه الجلسة، خلال %1$s. أنت قررت هذا مسبقًا، حين كان قرارًا سهلاً.</string>
+    <string name="copy_rules_frozen_plain">القواعد مقفلة أثناء الجلسة. تبقّى %1$s.</string>
+
+    <string name="copy_rules_frozen_by_schedule_kind">قواعدك مجمّدة إلى أن تُفتح هذه الفترة مجددًا، عند %1$s. أنت من ضبطها لتكون قفلاً تامًا، حين كان ذلك قرارًا سهلاً.</string>
+    <string name="copy_rules_frozen_by_schedule_plain">القواعد مقفلة بواسطة فترة قفل تام. تُفتح مجددًا عند %1$s.</string>
+
+    <string name="copy_rules_frozen_hint_kind">مجمّدة الآن.</string>
+    <string name="copy_rules_frozen_hint_plain">مقفلة الآن.</string>
+
+    <string name="copy_break_started_kind">خذ %1$d دقيقة. اختيار استراحة عن قصد ليس كفقدان التركيز.</string>
+    <string name="copy_break_started_plain">بدأت استراحة مدتها %1$d دقيقة.</string>
+
+    <string name="copy_break_unavailable_kind">كانت تلك آخر استراحة لليوم. يبدأ العدّ من جديد غدًا.</string>
+    <string name="copy_break_unavailable_plain">لم تتبقَّ استراحات لليوم.</string>
+
+    <string name="copy_relapse_note_plain">انقطعت الجلسة.</string>
+
+    <string name="copy_weaken_warning_fallback">هذا يترك منفذًا مفتوحًا. القرار قرارك.</string>
+
+    <string name="copy_empty_rules_kind">لا قواعد بعد. هذه بداية جيدة.</string>
+    <string name="copy_empty_rules_plain">لا قواعد.</string>
+
+    <string name="copy_empty_schedules_kind">لا فترات بعد. أضف واحدة للساعات التي تعرف أنها صعبة.</string>
+    <string name="copy_empty_schedules_plain">لا فترات مجدوَلة.</string>
+
+    <string name="copy_empty_keywords_kind">لا كلمات خاصة بك بعد. الحمايات المدمجة ما زالت تعمل.</string>
+    <string name="copy_empty_keywords_plain">لا كلمات مفتاحية مخصصة.</string>
+
+    <string name="copy_analytics_intro_kind">هذه معلومات، وليست حكمًا. لا تغادر هذا الهاتف إلا إذا نقلتها بنفسك.</string>
+    <string name="copy_analytics_intro_plain">بيانات استخدام محلية. لا يُرفع شيء.</string>
+
+    <string name="copy_content_guard_headline_plain">%1$s محظور - طابق %2$s</string>
+    <string name="copy_content_guard_detail_kind">هذه إحدى الكلمات التي تراقبها، لذا تراجع FocusLock قبل أن تضطر لاتخاذ أي قرار.</string>
+    <string name="copy_content_guard_detail_plain">طابق قاعدة الكلمة المفتاحية الخاصة بك: %1$s.</string>
+
+</resources>

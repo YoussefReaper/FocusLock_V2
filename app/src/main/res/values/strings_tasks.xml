@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  User-facing strings for the Tasks/Earn/Library/Video screens, migrated from
+  hardcoded Kotlin literals: TasksTab, TaskEditorActivity, EarnSessionActivity,
+  AnalyticsActivity, LibraryTab, Videolibraryactivity, TextSearchActivity,
+  WebViewActivity, Animefolderactivity. Named with a short screen-tag prefix
+  (tasks_, task_editor_, earn_session_, analytics_, library_, video_library_,
+  text_search_, webview_, anime_folder_). Paired 1:1 by name with
+  values-ar/strings_tasks.xml - every name here must exist there too.
+-->
+<resources>
+
+    <!-- ── TasksTab ─────────────────────────────────────────────── -->
+
+    <string-array name="tasks_filters">
+        <item>Today</item>
+        <item>Overdue</item>
+        <item>All</item>
+        <item>Done</item>
+    </string-array>
+
+    <string name="tasks_page_title">Tasks</string>
+    <string name="tasks_page_subtitle">Your to-do list. With Earn Mode on, finishing tasks earns screen time.</string>
+    <string name="tasks_add_task_button">Add a task</string>
+
+    <string name="tasks_earn_intro_heading">Earn mode is off</string>
+    <string name="tasks_earn_intro_body">With it on, finishing a task unlocks leisure minutes and the rest of the phone. You set the rate, what counts as done, and which apps a task may use.</string>
+    <string name="tasks_earn_intro_caption">Worth knowing first: paying yourself for work you already enjoy tends to make it less enjoyable, not more. Mark those tasks as enjoyable and they earn nothing on purpose. Earn mode is best pointed at the dull, necessary work.</string>
+    <string name="tasks_earn_intro_button">Turn on Earn mode</string>
+    <string name="tasks_earn_intro_needs_device_owner">Needs Device Owner setup for the hard version</string>
+
+    <string name="tasks_active_session_running_pill">Running</string>
+    <string name="tasks_active_session_summary_standalone">%1$s in · %2$s · standalone</string>
+    <string name="tasks_active_session_summary_linked">%1$s in · %2$s · on top of your session</string>
+    <string name="tasks_active_session_open_button">Open the session</string>
+
+    <string name="tasks_budget_earned_today_pill">+%1$d today</string>
+    <string name="tasks_budget_deal_row_title">Your deal</string>
+    <string name="tasks_budget_banked_label">Earned pool</string>
+    <string name="tasks_budget_minutes_unit">minutes</string>
+
+    <!-- The pool is spent by Budgeted apps, live, with nothing to start. -->
+    <string name="tasks_pool_empty_hint">Finish a task with minutes on it and they land here.</string>
+    <string name="tasks_pool_hint">Your Budgeted apps draw on this minute by minute, and only while one is actually open.</string>
+    <string name="tasks_pool_hint_decay">Your Budgeted apps draw on this minute by minute. You also asked it to fade overnight.</string>
+    <string name="tasks_pool_apps_row_title">Apps that spend it</string>
+    <string name="tasks_pool_apps_row_none">None yet. Mark an app Budgeted to change that.</string>
+
+    <string name="tasks_deal_sheet_title">Your deal</string>
+    <string name="tasks_deal_sheet_subtitle">Nobody else set these, and nothing enforces them but you.</string>
+    <string name="tasks_deal_sheet_done">Done</string>
+    <string name="tasks_deal_rate_label">Minutes earned per hour of focus</string>
+    <string name="tasks_deal_rate_zero">Only per-task rewards</string>
+    <string name="tasks_deal_minutes_value">%1$d min</string>
+    <string name="tasks_deal_cap_label">Most you can earn in a day</string>
+    <string name="tasks_deal_cap_zero">No cap</string>
+    <string name="tasks_deal_photo_proof_label">Photo proof</string>
+    <string name="tasks_deal_photo_proof_desc">Lets a task ask for a photo, checked on this phone.</string>
+    <string name="tasks_deal_intersect_label">Tasks cannot widen a running mode</string>
+    <string name="tasks_deal_intersect_desc">A task\'s apps must also be on your standing allowlist. Turning this off is the one setting here that opens a way around your own rules.</string>
+    <string name="tasks_deal_intersect_off_toast">A task can now allow apps your modes block.</string>
+    <string name="tasks_deal_show_budget_label">Show the balance during a task</string>
+    <string name="tasks_deal_credibility_label">Track verification trust</string>
+    <string name="tasks_deal_credibility_desc">A quiet score that drops when photo proof is refused.</string>
+    <string name="tasks_deal_decay_label">Unspent minutes fade overnight</string>
+    <string name="tasks_deal_decay_desc">Halves the balance each day. Off by default: banking is not a problem.</string>
+
+    <string name="tasks_empty_overdue">Nothing overdue. That is worth noticing.</string>
+    <string name="tasks_empty_done">Nothing finished yet today.</string>
+    <string name="tasks_empty_default">No tasks yet. One honest line is enough to start.</string>
+
+    <string name="tasks_section_label">Tasks</string>
+    <string name="tasks_section_done_count">%1$d of %2$d done</string>
+
+    <string name="tasks_row_start_button">Start</string>
+    <string name="tasks_row_steps_meter">%1$d of %2$d steps</string>
+    <string name="tasks_row_percent">%1$d%%</string>
+
+    <string name="tasks_describe_done">Done %1$s</string>
+    <string name="tasks_describe_due_by">Due by %1$s</string>
+    <string name="tasks_describe_for">For %1$s</string>
+    <string name="tasks_describe_overdue">overdue</string>
+    <string name="tasks_describe_minutes">%1$d min</string>
+    <string name="tasks_describe_no_reward">no reward, by choice</string>
+    <string name="tasks_describe_reward_min">+%1$d min</string>
+
+    <string name="tasks_start_title">Start %1$s?</string>
+    <string name="tasks_start_confirm">Start</string>
+    <string name="tasks_start_cancel">Cancel</string>
+    <string name="tasks_start_hard_enforcement">The phone locks to FocusLock and the apps this task needs, until it is done.</string>
+    <string name="tasks_start_soft_enforcement">Without Device Owner this runs as friction rather than a lock: distracting apps get intercepted, not held shut.</string>
+    <string name="tasks_start_linked_session">Your %1$s session keeps running. This task narrows it further.</string>
+    <string name="tasks_start_open_during_caption">OPEN DURING THIS TASK</string>
+    <string name="tasks_start_focuslock_only">FocusLock only.</string>
+    <string name="tasks_start_rejected_warning">Held back because they are not on your standing allowlist: %1$s. Add them in Rules first if the task really needs them.</string>
+
+    <!-- ── TaskEditorActivity ───────────────────────────────────── -->
+
+    <string name="task_editor_title_new">New task</string>
+    <string name="task_editor_title_existing">Task</string>
+
+    <string name="task_editor_section_steps">Steps</string>
+    <string name="task_editor_section_when">When</string>
+    <string name="task_editor_section_details">Details</string>
+    <string name="task_editor_section_earning">Earning</string>
+    <string name="task_editor_section_attachments">Attachments</string>
+
+    <string name="task_editor_title_hint">What is the task?</string>
+    <string name="task_editor_notes_hint">Notes</string>
+    <string name="task_editor_toast_saved">Saved.</string>
+
+    <string name="task_editor_no_steps">No steps. Add them if the task is big enough that starting is the hard part.</string>
+    <string name="task_editor_steps_meter">%1$d of %2$d</string>
+    <string name="task_editor_add_step_hint">What is the step?</string>
+    <string name="task_editor_remove_step_message">Remove this step?</string>
+    <string name="task_editor_remove_step_confirm">Remove</string>
+    <string name="task_editor_remove_step_cancel">Keep</string>
+
+    <string name="task_editor_planned_for_label">Planned for</string>
+    <string name="task_editor_planned_for_empty">No date</string>
+    <string name="task_editor_deadline_label">Hard deadline</string>
+    <string name="task_editor_deadline_empty">None</string>
+    <string name="task_editor_reminder_label">Reminder</string>
+    <string name="task_editor_reminder_empty">None</string>
+    <string name="task_editor_reminder_picker_title">Remind me</string>
+    <string name="task_editor_repeats_caption">REPEATS</string>
+    <string name="task_editor_every_label">Every</string>
+    <string name="task_editor_every_days_value">%1$d days</string>
+    <string name="task_editor_save_interval_button">Save interval</string>
+
+    <string name="task_editor_priority_caption">PRIORITY</string>
+    <string name="task_editor_time_estimate_label">Time estimate</string>
+    <string name="task_editor_time_estimate_zero">Not estimated</string>
+    <string name="task_editor_minutes_value">%1$d min</string>
+    <string name="task_editor_save_estimate_button">Save estimate</string>
+    <string name="task_editor_tags_label">Tags</string>
+    <string name="task_editor_tags_empty">None</string>
+    <string name="task_editor_tags_title">Tags</string>
+    <string name="task_editor_tags_subtitle">Separated by spaces or commas.</string>
+    <string name="task_editor_tags_hint">study essay</string>
+
+    <string name="task_editor_verification_caption">WHAT COUNTS AS DONE</string>
+    <string name="task_editor_verification_now">Now</string>
+    <string name="task_editor_verification_off">Off</string>
+    <string name="task_editor_verification_set">Set</string>
+    <string name="task_editor_photo_unavailable_title">Photo proof is unavailable</string>
+    <string name="task_editor_photo_unavailable_disabled">You have photo proof switched off in your deal settings.</string>
+    <string name="task_editor_photo_unavailable_no_camera">This phone has no camera app that FocusLock can call.</string>
+    <string name="task_editor_timer_no_estimate_note">No time estimate set, so this will use 25 minutes.</string>
+    <string name="task_editor_subtasks_empty_note">No steps yet, so there is nothing to tick. Add some above.</string>
+    <string name="task_editor_ambient_apps_note">Counts time in %1$s.</string>
+    <string name="task_editor_ambient_no_apps_note">No apps named yet, so nothing is being counted.</string>
+
+    <string name="task_editor_allowed_apps_label">Apps this task may use</string>
+    <string name="task_editor_allowed_apps_only_focuslock">FocusLock only</string>
+    <string name="task_editor_allowed_apps_rejected_suffix">%1$s — %2$d not on your standing allowlist</string>
+    <string name="task_editor_pick_apps_title">Open during this task</string>
+    <string name="task_editor_pick_apps_subtitle">Leave everything off to lock down to FocusLock alone.</string>
+
+    <string name="task_editor_enjoy_label">I actually enjoy this one</string>
+    <string name="task_editor_enjoy_desc">Then it earns nothing. Paying yourself for work you already like tends to make it feel like a chore instead.</string>
+    <string name="task_editor_reward_label">Minutes this task pays</string>
+    <string name="task_editor_reward_zero">Use my hourly rate</string>
+    <string name="task_editor_save_reward_button">Save reward</string>
+    <string name="task_editor_credibility_meter_label">Verification trust</string>
+    <string name="task_editor_percent_value">%1$d%%</string>
+
+    <string name="task_editor_no_attachments">Nothing attached.</string>
+    <string name="task_editor_remove_attachment_button">Remove</string>
+    <string name="task_editor_add_file_button">Add a file</string>
+    <string name="task_editor_add_image_button">Add an image</string>
+    <string name="task_editor_add_link_button">Add a link</string>
+    <string name="task_editor_toast_no_file_picker">No file picker available.</string>
+    <string name="task_editor_add_link_title">Add a link</string>
+    <string name="task_editor_add_link_hint">https://example.com</string>
+    <string name="task_editor_toast_link_open_hint">Open it from your site list if it is allowed there.</string>
+    <string name="task_editor_toast_nothing_can_open">Nothing on this phone can open that.</string>
+    <string name="task_editor_attachment_fallback_label">Attachment</string>
+
+    <string name="task_editor_start_task_button">Start this task</string>
+    <string name="task_editor_mark_done_no_earn_button">Mark it done without earning</string>
+    <string name="task_editor_mark_done_title">Mark done?</string>
+    <string name="task_editor_mark_done_message">No minutes for this one. Sometimes a task is just finished.</string>
+    <string name="task_editor_mark_done_confirm">Mark done</string>
+    <string name="task_editor_mark_done_cancel">Cancel</string>
+    <string name="task_editor_delete_task_button">Delete this task</string>
+    <string name="task_editor_delete_title">Delete %1$s?</string>
+    <string name="task_editor_delete_message">It goes for good. Attachments stay where they are on the phone.</string>
+    <string name="task_editor_delete_confirm">Delete</string>
+    <string name="task_editor_delete_cancel">Keep</string>
+
+    <!-- ── EarnSessionActivity ──────────────────────────────────── -->
+
+    <string name="earn_session_no_task_title">No task running</string>
+    <string name="earn_session_section_finishing">Finishing</string>
+    <string name="earn_session_section_banked">Banked</string>
+    <string name="earn_session_section_open_now">Open right now</string>
+    <string name="earn_session_stop_button">Stop without finishing</string>
+
+    <string name="earn_session_nothing_running_heading">Nothing is running</string>
+    <string name="earn_session_nothing_running_body">Pick a task from the Tasks tab and start it there.</string>
+    <string name="earn_session_back_to_tasks">Back to tasks</string>
+
+    <string name="earn_session_on_this_task">on this task</string>
+    <string name="earn_session_timer_meter_label">%1$d of %2$d minutes</string>
+    <string name="earn_session_timer_ready">Ready</string>
+    <string name="earn_session_timer_to_go">%1$d to go</string>
+
+    <string name="earn_session_mode_locked">The phone is locked to this task.</string>
+    <string name="earn_session_mode_friction">Running as friction: distracting apps get intercepted, not held shut.</string>
+    <string name="earn_session_mode_narrowing">Narrowing your %1$s session.</string>
+
+    <string name="earn_session_manual_button">I have done it</string>
+    <string name="earn_session_finish_collect_button">Finish and collect</string>
+    <string name="earn_session_keep_going_button">Keep going</string>
+    <string name="earn_session_finish_early_button">Finish early, earn what I have done</string>
+
+    <string name="earn_session_take_photo_button">Take the photo</string>
+    <string name="earn_session_verification_trust_label">Verification trust</string>
+
+    <string name="earn_session_subtasks_empty">This task has no steps, so there is nothing to tick. Add some, or switch it to another way of finishing.</string>
+    <string name="earn_session_tick_steps_first_button">Tick every step first</string>
+
+    <string name="earn_session_no_camera_title">No camera app</string>
+    <string name="earn_session_no_camera_message">Nothing on this phone can take the photo. Switch this task to another way of finishing in the editor.</string>
+    <string name="earn_session_camera_not_opening_toast">The camera would not open.</string>
+
+    <string name="earn_session_collect_button">Collect</string>
+    <string name="earn_session_try_again_button">Try again</string>
+    <string name="earn_session_later_button">Later</string>
+
+    <string name="earn_session_budget_enjoyable">This one pays nothing, which was your call. The work still counts.</string>
+    <string name="earn_session_budget_projected">Finishing now would add about %1$d minutes.</string>
+    <string name="earn_session_budget_keep_going">Keep going and minutes start to add up.</string>
+    <string name="earn_session_pool_explainer">This pool is what your Budgeted apps spend. Finish the task and it goes up immediately.</string>
+
+    <string name="earn_session_no_apps_open">FocusLock only. Nothing else opens until this is done.</string>
+    <string name="earn_session_rejected_apps">Asked for but not on your standing allowlist: %1$s.</string>
+    <string name="earn_session_lock_holding_toast">The lock is holding that one.</string>
+
+    <string name="earn_session_task_done_title">Task done</string>
+    <string name="earn_session_good_button">Good</string>
+
+    <string name="earn_session_stop_confirm_title">Stop this task?</string>
+    <string name="earn_session_stop_confirm_message">It stays on your list exactly as it is. Nothing is lost and nothing is deducted — the minutes you did not earn simply were not earned.</string>
+    <string name="earn_session_stop_confirm_button">Stop</string>
+
+    <!-- ── LibraryTab ───────────────────────────────────────────── -->
+
+    <string name="library_title">Library</string>
+    <string name="library_subtitle">Things you can still do during a session: a safe browser and text search.</string>
+    <string name="library_apps_you_can_open_section">Apps you can open now</string>
+    <string name="library_all_off_empty_state">You have turned every library surface off. That is a valid choice; turn one back on in Rules if the empty phone stops working for you.</string>
+
+    <string name="library_browser_heading">Safe browser</string>
+    <string name="library_browser_body">Only the sites on your list load. No address bar to wander out of.</string>
+    <string name="library_browser_open_button">Open the browser</string>
+    <string name="library_browser_sites_edit_button">%1$d sites allowed - edit</string>
+
+    <string name="library_text_search_heading">Text search</string>
+    <string name="library_text_search_body">Google with images, video and thumbnails stripped out, and SafeSearch forced on. It answers questions without becoming a feed.</string>
+    <string name="library_text_search_button">Search something</string>
+
+    <string name="library_video_heading">Video library</string>
+    <string name="library_video_one_ready">One ready</string>
+    <string name="library_video_locked">Locked</string>
+    <string name="library_video_pick_folder">Pick a folder of your own videos. One new one unlocks every 24 hours and stays unlocked.</string>
+    <string name="library_video_ready_body">Today\'s unlock is waiting. Everything you have already opened stays open.</string>
+    <string name="library_video_waiting_body">Next unlock in %1$s. %2$d already yours.</string>
+    <string name="library_video_open_button">Open the library</string>
+
+    <string name="library_no_screen_toast">That app has no screen to open.</string>
+    <string name="library_kiosk_holding_toast">The kiosk session is holding that one shut.</string>
+
+    <string name="earn_session_ambient_note">This task runs on its own. Its minutes are claimed from the task list.</string>
+    <string name="tasks_ambient_tracked">%1$d min tracked · %2$d earned</string>
+    <string name="tasks_ambient_claim">Claim %1$d min</string>
+
+    <!-- Photo proof results (moved out of PhotoProof.kt so Arabic shows Arabic) -->
+    <string name="proof_checks_description">Checked on this phone: the photo is new, taken just now, and not one you have used before. It never leaves the device. It is not read for content, so it is a nudge to be honest with yourself rather than a lie detector.</string>
+    <string name="proof_none_headline">No photo came back</string>
+    <string name="proof_none_detail">The camera did not hand anything over. Try once more.</string>
+    <string name="proof_old_headline">That photo is older than this session</string>
+    <string name="proof_old_detail">It needs to be taken now. Nothing is recorded about the old one.</string>
+    <string name="proof_not_photo_headline">That file is not a photo</string>
+    <string name="proof_not_photo_detail">Try the capture again.</string>
+    <string name="proof_empty_headline">There is nothing in the frame</string>
+    <string name="proof_empty_detail">A wall, a dark room or a thumb over the lens. Point it at the work.</string>
+    <string name="proof_reused_headline">You have used this photo before</string>
+    <string name="proof_reused_detail">FocusLock remembers a fingerprint of each one, not the picture itself.</string>
+    <string name="proof_accepted_headline">Proof accepted</string>
+    <string name="proof_accepted_detail">Nothing was uploaded. Only a fingerprint is kept, so the same photo cannot be used twice.</string>
+</resources>

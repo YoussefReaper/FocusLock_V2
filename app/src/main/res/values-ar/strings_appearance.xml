@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    الأسماء المعروضة في «أنت ← اجعله على ذوقك»: السمة والخط والكثافة والخلفية
+    ولون التمييز ولون الخلفية.
+
+    أسماء السمات منتقاة لا حرفية: ورقي أوضح من «الورق»، ونوكتورن تبقى كما هي
+    لأنها اسم سمة لا وصف. أما المعتمد على المعنى فمترجم: الأخضر الليموني،
+    وبرتقالي الغروب، وأسود صريح.
+-->
+<resources>
+    <string name="appearance_theme_obsidian">أوبسيديان</string>
+    <string name="appearance_theme_nocturne">نوكتورن</string>
+    <string name="appearance_theme_paper">ورقي</string>
+
+    <string name="appearance_font_figtree">فيجتري</string>
+    <string name="appearance_font_system">خط النظام</string>
+    <string name="appearance_font_mono">أحادي المسافة</string>
+
+    <string name="appearance_density_comfortable">مريح</string>
+    <string name="appearance_density_compact">مضغوط</string>
+    <string name="appearance_density_roomy">واسع</string>
+
+    <string name="appearance_wallpaper_none">بلا خلفية</string>
+    <string name="appearance_wallpaper_slate">إردوازي</string>
+    <string name="appearance_wallpaper_sunset">غروب</string>
+    <string name="appearance_wallpaper_ocean">محيط</string>
+
+    <string name="appearance_accent_blue">أزرق كهربائي</string>
+    <string name="appearance_accent_green">أخضر ليموني</string>
+    <string name="appearance_accent_orange">برتقالي الغروب</string>
+    <string name="appearance_accent_pink">وردي نيون</string>
+    <string name="appearance_accent_teal">أزرق مخضرّ</string>
+    <string name="appearance_accent_gold">ذهبي</string>
+    <string name="appearance_accent_violet">بنفسجي</string>
+    <string name="appearance_accent_slate">إردوازي</string>
+
+    <string name="appearance_bg_default">افتراضي السمة</string>
+    <string name="appearance_bg_midnight">منتصف الليل</string>
+    <string name="appearance_bg_ink">حِبر</string>
+    <string name="appearance_bg_emerald">زمردي</string>
+    <string name="appearance_bg_sand">رملي</string>
+    <string name="appearance_bg_pure_black">أسود صريح</string>
+</resources>

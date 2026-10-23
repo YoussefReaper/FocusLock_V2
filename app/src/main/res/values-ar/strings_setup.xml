@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Arabic draft translation, paired 1:1 by name with values/strings_setup.xml.
+  Machine-drafted (by Claude, not a certified translator) - needs a native
+  Arabic speaker's review before this ships. Every %1$s/%1$d placeholder is
+  kept in the same position it appears in the source comment; word order
+  around it has been reworked for natural Arabic, which is exactly what the
+  positional format specifier is for.
+-->
+<resources>
+
+    <!-- ══ DeviceOwnerHelpActivity ══ -->
+
+    <!-- Technical shell command - identical in every locale, nothing to translate. -->
+    <string name="device_owner_help_command">adb shell dpm set-device-owner com.focuslock.mdm/.AdminReceiver</string>
+    <string name="device_owner_help_title">مالك الجهاز</string>
+    <string name="device_owner_help_subtitle">الخطوة الوحيدة التي يجب أن تتم من حاسوب، وما الذي تغيّره فعليًا.</string>
+    <string name="device_owner_help_section_what_changes">ما الذي يتغيّر</string>
+    <string name="device_owner_help_section_setup">إعداده من حاسوب</string>
+    <string name="device_owner_help_section_qr">طريق رمز QR</string>
+    <string name="device_owner_help_section_cannot_do">ما لا يزال غير قادر على فعله</string>
+
+    <string name="device_owner_help_status_active">مُفعّل</string>
+    <string name="device_owner_help_status_not_set">غير مُعدّ</string>
+    <string name="device_owner_help_pill_device_owner">مالك الجهاز</string>
+    <string name="device_owner_help_pill_sideloaded">تثبيت جانبي فقط</string>
+    <string name="device_owner_help_status_detail_owner">كل ما في مجموعة التعزيز متاح للتفعيل.</string>
+    <string name="device_owner_help_status_detail_not_owner">الوضع اللين والحظر ومعظم الحُرّاس تعمل بدون هذا. لكن وضع الكشك وحظر الوضع الآمن وتعليق التطبيقات والحماية من إلغاء التثبيت لا تعمل.</string>
+
+    <string name="device_owner_help_effect_1_title">يمكن إغلاق الوضع الآمن</string>
+    <string name="device_owner_help_effect_1_detail">وإلا فإن إعادة التشغيل في الوضع الآمن تبدأ الهاتف مع إيقاف FocusLock.</string>
+    <string name="device_owner_help_effect_2_title">يمكن تعليق التطبيقات المحظورة</string>
+    <string name="device_owner_help_effect_2_detail">يرفض النظام تشغيلها، بدلًا من أن يمسكها FocusLock بعد فوات لحظة.</string>
+    <string name="device_owner_help_effect_3_title">يمكن إخفاء التطبيقات المحظورة</string>
+    <string name="device_owner_help_effect_3_detail">تختفي من مشغّل التطبيقات طوال مدة الجلسة.</string>
+    <string name="device_owner_help_effect_4_title">يمكن أن يكون FocusLock هو الشاشة الرئيسية</string>
+    <string name="device_owner_help_effect_4_detail">أثناء جلسة وضع الكشك، يصل زر الرئيسية إلى هنا بدلًا من مشغّل التطبيقات.</string>
+    <string name="device_owner_help_effect_5_title">يمكن منع إلغاء التثبيت</string>
+    <string name="device_owner_help_effect_5_detail">إزالة التطبيق لم تعد وسيلة لإنهاء الجلسة مبكرًا.</string>
+    <string name="device_owner_help_effect_6_title">يمكن إلزام المتصفحات بقائمتك المسموحة</string>
+    <string name="device_owner_help_effect_6_detail">يحصل Chrome وأمثاله على سياسة مُدارة تشير إلى القائمة نفسها التي يستخدمها المتصفح الآمن.</string>
+    <string name="device_owner_help_effect_note">كل واحد من هذه لا يزال مفتاحًا في القواعد. كونك مالك الجهاز يجعلها ممكنة، لا تلقائية.</string>
+
+    <string name="device_owner_help_step_1">سجّل الخروج من كل حساب Google على هذا الهاتف، وأزل أي مستخدم آخر أو ملف عمل. يرفض أندرويد تعيين مالك جهاز أثناء وجود حساب.</string>
+    <string name="device_owner_help_step_2">على الهاتف: الإعدادات، حول الهاتف، اضغط على رقم الإصدار سبع مرات لفتح خيارات المطورين.</string>
+    <string name="device_owner_help_step_3">في خيارات المطورين، فعّل تصحيح USB.</string>
+    <string name="device_owner_help_step_4">وصّل الهاتف بحاسوب مثبَّت عليه Android platform-tools، ووافق على مطالبة التصحيح على الهاتف.</string>
+    <string name="device_owner_help_step_5">على الحاسوب، شغّل: adb devices، وتأكد أن الهاتف مُدرج كـ device وليس unauthorized.</string>
+    <string name="device_owner_help_step_6">شغّل الأمر أدناه.</string>
+    <string name="device_owner_help_step_7">عد إلى هنا. يجب أن تقول هذه الشاشة الآن مُفعّل.</string>
+
+    <string name="device_owner_help_copy_command">انسخ الأمر</string>
+    <string name="device_owner_help_copied_toast">تم النسخ.</string>
+
+    <string name="device_owner_help_qr_detail">على هاتف تمت إعادة ضبطه للمصنع، يفتح النقر على شاشة الترحيب ست مرات ماسح رموز QR. التزويد عبر رمز QR يُعيّن مالك الجهاز دون حاسوب، لكنه يحتاج التطبيق مستضافًا على رابط مع مجموع التحقق من توقيعه، ويمسح الهاتف كجزء من الإعداد. طريق ADB أعلاه هو العملي لهاتف قيد الاستخدام بالفعل.</string>
+
+    <string name="device_owner_help_honesty_1_title">إعادة ضبط المصنع تعمل دائمًا</string>
+    <string name="device_owner_help_honesty_1_detail">إعادة الضبط من وضع الاسترداد هي المخرج النهائي ولا يمكن لأي مستوى برمجي إغلاقها. FocusLock لا يحاول ذلك، ولا يزيل أبدًا زر إعادة الضبط من تبويب أنت.</string>
+    <string name="device_owner_help_honesty_2_title">ADB يبقى بيدك أنت لإغلاقه</string>
+    <string name="device_owner_help_honesty_2_detail">التزويد لا يعطّل ADB. فقط الزر في تبويب أنت يفعل ذلك، وفقط عندما تضغطه.</string>
+    <string name="device_owner_help_honesty_3_title">لا شيء عن بُعد</string>
+    <string name="device_owner_help_honesty_3_detail">لا يوجد خادم، ولا حساب، ولا أي شخص آخر يمكنه قفل هذا الهاتف أو فتحه.</string>
+
+    <!-- ══ AdvancedHelpActivity ══ -->
+
+    <!-- Technical shell command - identical in every locale, nothing to translate. -->
+    <string name="advanced_help_stop_command">adb shell am broadcast -a com.focuslock.mdm.ADB_COMMAND --es cmd stop_session --ez confirm true</string>
+    <string name="advanced_help_title">الوضع المتقدم، مشروحًا</string>
+    <string name="advanced_help_subtitle">ما الذي يضبطه كل وضع، وما يمكنك تغييره، وكيف تخرج.</string>
+    <string name="advanced_help_section_modes">الأوضاع الأربعة</string>
+    <string name="advanced_help_section_ending">إنهاء جلسة</string>
+    <string name="advanced_help_section_breaks">الاستراحات</string>
+    <string name="advanced_help_section_escape">إذا كنت مقفلًا وتحتاج للخروج</string>
+
+    <string name="advanced_help_idea_heading">الوضع نقطة بداية</string>
+    <string name="advanced_help_idea_body">اختيار وضع يحمّل مجموعة من المفاتيح. هذا لا يقفل تلك المفاتيح. كل واحد منها موجود في أنت ← متقدم، وما تضبطه هناك هو ما يعمل فعليًا.</string>
+    <string name="advanced_help_idea_secondary">تغييراتك تبقى. القالب لا يُعاد تحميله إلا عندما تختار وضعًا مختلفًا، وهي اللحظة الوحيدة التي تكون قد طلبت فيها ذلك بوضوح.</string>
+
+    <string name="advanced_help_mode_kiosk_note">الكشك هو الوضع الوحيد الذي يثبّت الهاتف على FocusLock ويغلق مشغّل التطبيقات. يحتاج مالك الجهاز.</string>
+
+    <string name="advanced_help_end_early_intro">\"إنهاء جلسة مبكرًا\" مفتاح في أنت ← متقدم، وليس خاصية للوضع.</string>
+    <string name="advanced_help_end_early_on_title">مُفعّل</string>
+    <string name="advanced_help_end_early_on_body">يظهر زر \"إنهاء هذه الجلسة\" في تبويب التركيز. كل شيء يُفتح فورًا، والوقت الذي أمضيته بالفعل لا يزال محسوبًا.</string>
+    <string name="advanced_help_end_early_off_title">مُعطّل</string>
+    <string name="advanced_help_end_early_off_body">لا يوجد زر. تستمر الجلسة حتى ينتهي مؤقتها.</string>
+    <string name="advanced_help_end_early_kiosk_title">الكشك</string>
+    <string name="advanced_help_end_early_kiosk_body">يبدأ به مُعطّلًا، لأن هذا هو معنى اختيار الكشك. يمكنك إعادة تفعيله - المفتاح غير مخفي عنك - لكن كن صادقًا مع نفسك حول ما إذا كنت تفعّله الآن أم أنك ستفعّله لاحقًا في الساعة الواحدة صباحًا.</string>
+    <string name="advanced_help_end_early_footer">تعطيله لا يصمد أمام النسيان: المؤقت لا يزال ينتهي من تلقاء نفسه.</string>
+
+    <string name="advanced_help_break_intro">الاستراحة تفتح تطبيقًا واحدًا محظورًا لبضع دقائق، ثم تعيد قفله من تلقاء نفسها.</string>
+    <string name="advanced_help_break_why_title">لماذا توجد</string>
+    <string name="advanced_help_break_why_body">البديل هو التخلي عن الجلسة بأكملها من أجل شيء واحد احتجته. الاستثناء المحدود يبقي بقية الجلسة حية.</string>
+    <string name="advanced_help_break_not_failure_title">أخذ استراحة ليس فشلًا</string>
+    <string name="advanced_help_break_not_failure_body">إنها ميزة فعّلتها عن قصد. لا شيء يحتسبها ضدك، ولا ينكسر أي تتابع.</string>
+    <string name="advanced_help_break_numbers_title">أرقامك</string>
+    <string name="advanced_help_break_numbers_body">المدة وعدد المرات في اليوم من اختيارك، في أنت ← متقدم أو في شاشة الحدود اليومية.</string>
+
+    <string name="advanced_help_escape_intro">بالترتيب، الأقل تدميرًا أولًا.</string>
+    <string name="advanced_help_escape_wait_title">1. انتظر</string>
+    <string name="advanced_help_escape_wait_body">كل جلسة لها مؤقت. عندما ينتهي، يُفتح كل شيء من تلقاء نفسه. هذا هو المخرج المقصود ولا يكلفك شيئًا.</string>
+    <string name="advanced_help_escape_switch_title">2. أعد تفعيل الخروج المبكر</string>
+    <string name="advanced_help_escape_switch_body">أنت ← متقدم ← \"إنهاء جلسة مبكرًا\". يعمل في كل وضع، بما في ذلك الكشك.</string>
+    <string name="advanced_help_escape_computer_title">3. من حاسوب</string>
+    <string name="advanced_help_escape_computer_body">إذا كان الهاتف مثبّتًا ولا يمكنك الوصول إلى متقدم، فأمر ADB واحد ينهي الجلسة. يرفض العمل بدون علامة التأكيد، لذا لا يمكن أن يحدث بالخطأ.</string>
+    <string name="advanced_help_escape_reset_title">4. إعادة ضبط المصنع</string>
+    <string name="advanced_help_escape_reset_body">الملاذ الأخير، والوحيد الذي يعمل دائمًا. يُلغي مالك الجهاز ويمسح الهاتف. FocusLock لا يحظره أبدًا - الزر موجود في تبويب أنت، خلف عدّاد تنازلي.</string>
+
+    <string name="advanced_help_copy_command">انسخ الأمر</string>
+    <string name="advanced_help_copied_toast">تم النسخ.</string>
+
+    <!-- ══ PermissionRecoveryActivity ══ -->
+
+    <string name="permission_recovery_headline">يجب إصلاح هذا قبل أن يعود الهاتف إلى وضعه الطبيعي</string>
+    <string name="permission_recovery_body">تم إيقاف إذن تعتمد عليه الجلسة الجارية. لا شيء آخر يعمل بشكل صحيح حتى يعود تفعيله.</string>
+    <string name="permission_recovery_turn_back_on">أعد تفعيله</string>
+    <string name="permission_recovery_needs_reprovisioning">لا يمكن استعادة هذا إلا بإعادة تزويد مالك الجهاز من حاسوب، عبر ADB، بنفس الطريقة التي أُعدّ بها.</string>
+    <string name="permission_recovery_end_session_note">إنهاء الجلسة يعمل كالمعتاد، ويزيل هذا أيضًا.</string>
+    <string name="permission_recovery_end_session_button">أنهِ الجلسة</string>
+    <string name="permission_recovery_end_session_title">إنهاء الجلسة؟</string>
+    <string name="permission_recovery_end_session_message">كل شيء يُفتح فورًا، بما في ذلك هذا. الوقت الذي أمضيته بالفعل لا يزال محسوبًا.</string>
+    <string name="permission_recovery_end_session_confirm">أنهِها</string>
+    <string name="permission_recovery_end_session_cancel">تابع</string>
+    <string name="permission_recovery_restricted_hint">المفتاح باهت؟ يقفله أندرويد للتطبيقات المثبتة من ملف. افتح معلومات التطبيق، واضغط ⋮ في الأعلى، واختر \"السماح بالإعدادات المقيدة\"، ثم عد وفعّله.</string>
+    <string name="permission_recovery_open_app_info">افتح معلومات التطبيق</string>
+    <string name="dpm_support_short">أوقفه FocusLock مؤقتًا حتى تنتهي جلستك.</string>
+
+</resources>

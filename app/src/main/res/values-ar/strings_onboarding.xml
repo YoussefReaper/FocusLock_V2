@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    التهيئة الأولى: الأسئلة الستة والملخص الذي تنتجه، مع ملاحظات تشرح ما يفعّله
+    الإعداد المقترح فعلًا.
+
+    ملاحظات الجداول الأربع كانت تكتب أوقات الساعة كتابةً ("22:00 to 06:00")،
+    فتتجاهل إعداد الشخص بين ١٢ و٢٤ ساعة — وهي الموضع الوحيد الذي كان ما زال
+    يتجاوز TimeText. صارت الآن قوالب نصوص تُملأ من TimeText مثل كل ساعة في
+    التطبيق.
+
+    وفي العربية: «من … إلى …» أوضح من الشرطة، وترتيب الأوقات يتبع القراءة
+    العربية الطبيعية.
+-->
+<resources>
+    <string name="onboarding_skip_questions">تخطَّ الأسئلة</string>
+    <string name="onboarding_intro_body">يحظر FocusLock التطبيقات التي تشتتك، للمدة التي تختارها. إنه هاتفك وقواعدك: لا شيء يُرسَل لأحد، ويمكن تغيير كل إعداد.</string>
+    <string name="onboarding_intro_promise">خمسة أسئلة سريعة، ثم ترى إعدادًا مقترحًا قبل تطبيق أي شيء.</string>
+    <string name="onboarding_skip_defaults">تخطَّ واستخدم إعدادات معقولة</string>
+
+    <string name="onboarding_goals_title">لماذا تريد هذا؟</string>
+    <string name="onboarding_goals_subtitle">اختر كل ما يناسبك.</string>
+    <string name="onboarding_goal_study">الدراسة والامتحانات</string>
+    <string name="onboarding_goal_work">العمل والتركيز العميق</string>
+    <string name="onboarding_goal_sleep">النوم بشكل صحيح</string>
+    <string name="onboarding_goal_earn">فتح الهاتف بإنجاز العمل</string>
+    <string name="onboarding_goal_less">هاتف أقل عمومًا</string>
+
+    <string name="onboarding_pulls_title">ما الذي يجذبك أكثر؟</string>
+    <string name="onboarding_pulls_subtitle">كن صادقًا. هذا يحدد ما يُقترح لحجبه.</string>
+    <string name="onboarding_pull_shorts">فيديو قصير: Shorts وReels وTikTok</string>
+    <string name="onboarding_pull_social">خلاصات التواصل الاجتماعي</string>
+    <string name="onboarding_pull_browsing">التصفح والتسوق</string>
+    <string name="onboarding_pull_messaging">مراسلات لا تنتهي</string>
+
+    <string name="onboarding_firm_title">بأي صرامة يبدأ؟</string>
+    <string name="onboarding_firm_note">تستطيع تغيير هذا في أي وقت. أن تبدأ بلطف ثم تشدّ لاحقًا أفضل من أن تبدأ بأقصى قوة ثم تترك الأمر.</string>
+    <string name="onboarding_firm_gentle_label">لطيف</string>
+    <string name="onboarding_firm_gentle_detail">وقفة وتنبيه. لا شيء مُغلق عليك.</string>
+    <string name="onboarding_firm_firm_label">حازم</string>
+    <string name="onboarding_firm_firm_detail">تتوقف المشتّتات عن الفتح أثناء الجلسة.</string>
+    <string name="onboarding_firm_all_label">إلى أقصى حد</string>
+    <string name="onboarding_firm_all_detail">جلسات الكشك متاحة، ومنافذ الهروب مغلقة.</string>
+
+    <string name="onboarding_times_title">متى يكون الأمر أصعب؟</string>
+    <string name="onboarding_times_subtitle">هذا يقترح نوافذ زمنية ووقتًا للنوم.</string>
+    <string name="onboarding_time_morning">أول شيء في الصباح</string>
+    <string name="onboarding_time_school">ساعات المدرسة أو العمل</string>
+    <string name="onboarding_time_night">في وقت متأخر من الليل</string>
+
+    <string name="onboarding_essentials_title">ما الذي يجب ألا يُحجب أبدًا؟</string>
+    <string name="onboarding_essentials_subtitle">تبقى هذه متاحة عبر كل شيء، بما في ذلك جلسة الكشك. المكالمات والخرائط تنتمي إلى هنا.</string>
+    <string name="onboarding_add_more_apps">أضف تطبيقات أخرى</string>
+    <string name="onboarding_never_block_these">لا تحجب هذه أبدًا</string>
+
+    <string name="onboarding_summary_title">هذا هو الإعداد</string>
+    <string name="onboarding_summary_body">لم يُطبَّق أي شيء بعد. غيّر ما تشاء الآن أو لاحقًا: كل جزء من هذا إعداد عادي.</string>
+    <string name="onboarding_section_mode">وضع البداية</string>
+    <string name="onboarding_section_blocking">مقترح للحجب</string>
+    <string name="onboarding_nothing_blocked">لا شيء، بناءً على إجاباتك.</string>
+    <string name="onboarding_section_enabled">مفعّل</string>
+    <string name="onboarding_section_notes">أُعِدّ أيضًا</string>
+    <string name="onboarding_section_essentials">لا يُحجب أبدًا</string>
+    <string name="onboarding_nothing_chosen">لم يُختر شيء. يمكنك إضافة الأساسيات لاحقًا من «القواعد».</string>
+    <string name="onboarding_use_setup">استخدم هذا الإعداد</string>
+    <string name="onboarding_start_over">ابدأ من جديد</string>
+    <string name="onboarding_use_defaults">استخدم الإعدادات الافتراضية بدلًا من ذلك</string>
+
+    <string name="onboarding_kiosk_needs_computer">وضع الكشك يحتاج حاسوبًا</string>
+    <string name="onboarding_kiosk_needs_computer_detail">يُضبط «مالك الجهاز» عبر ADB. وإلى أن يحدث ذلك، يتراجع وضع الكشك إلى الملاذ.</string>
+
+    <!-- ملاحظات «أُعِدّ أيضًا»: عنوان وشرح من سطر واحد. -->
+    <string name="onboarding_note_shorts_title">حارسا Shorts وReels</string>
+    <string name="onboarding_note_shorts_detail">يُغلق هذين السطحين دون حجب التطبيق كله.</string>
+    <string name="onboarding_note_whatsapp_title">حارس واتساب</string>
+    <string name="onboarding_note_whatsapp_detail">تبقى المحادثات تعمل، وتُغلق القنوات و«التحديثات» وMeta AI من تلقاء نفسها.</string>
+    <string name="onboarding_note_games_title">ميزانية يومية للألعاب</string>
+    <string name="onboarding_note_games_detail">٦٠ دقيقة يوميًا، قابلة للتعديل في «القواعد».</string>
+    <string name="onboarding_note_bedtime_title">وقت النوم</string>
+    <string name="onboarding_note_bedtime_detail">من %1$s إلى %2$s، هدوء للتواصل والفيديو، وتعتيم للشاشة.</string>
+    <string name="onboarding_note_school_title">نافذة ساعات المدرسة</string>
+    <string name="onboarding_note_school_detail">من %1$s إلى %2$s في أيام الأسبوع، والأساسيات تبقى متاحة.</string>
+    <string name="onboarding_note_morning_title">نافذة صباحية</string>
+    <string name="onboarding_note_morning_detail">من %1$s إلى %2$s كل يوم.</string>
+    <string name="onboarding_note_evening_title">نافذة مسائية</string>
+    <string name="onboarding_note_evening_detail">من %1$s إلى %2$s كل يوم.</string>
+    <string name="onboarding_note_earn_title">وضع الكسب</string>
+    <string name="onboarding_note_earn_detail">أنجز مهمة لتفتح دقائق ترفيه. وعلّم العمل الذي تستمتع به أصلًا كـ«ممتع» فلن يدفع شيئًا، عن قصد.</string>
+
+    <!-- الرسائل المكتوبة على النوافذ الزمنية التي تنشئها التهيئة. -->
+    <string name="onboarding_schedule_school">ساعات المدرسة</string>
+    <string name="onboarding_schedule_morning">صباحًا، قبل أن يبدأ الهاتف</string>
+    <string name="onboarding_schedule_evening">المساء</string>
+</resources>

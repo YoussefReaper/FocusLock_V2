@@ -1,0 +1,11 @@
+<!-- Library: shelved things, ready to reach for. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="#FFFFFF">
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M4,3h3v18L4,21zM8.5,3h3v18h-3zM13.6,3.4l2.9,-0.8 4.9,17.4 -2.9,0.8z" />
+</vector>

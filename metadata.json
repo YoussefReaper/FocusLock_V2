@@ -1,0 +1,8 @@
+{
+  "name": "FocusLock",
+  "description": "Minimalist App Blocker, Schedule Guardian, and Safe YouTube visual filter for Android.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

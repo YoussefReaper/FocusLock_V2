@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The rotated half of Copy.kt's strings: each array is fed through
+  Copy.pick(), which indexes into it by a 5-minute wall-clock bucket so the
+  line doesn't shuffle under a screen that redraws every tick. Paired 1:1 by
+  name with values-ar/copy_arrays.xml - same name, same item count, same
+  order, every array here must exist there too.
+-->
+<resources>
+
+    <string-array name="copy_block_headline_kind">
+        <item>%1$s is resting</item>
+        <item>Not %1$s right now</item>
+        <item>%1$s is put away for now</item>
+    </string-array>
+
+    <string-array name="copy_block_detail_kind">
+        <item>You decided this one gets in the way. That decision is still good.</item>
+        <item>Earlier you asked for this to be out of reach. Here it is, out of reach.</item>
+        <item>This was your call, made calmly, ahead of time.</item>
+    </string-array>
+
+    <string-array name="copy_pause_headline_kind">
+        <item>Before %1$s opens</item>
+        <item>One moment first</item>
+        <item>A short pause</item>
+    </string-array>
+
+    <string-array name="copy_pause_detail_kind">
+        <item>Take a breath. If you still want it after this, it opens.</item>
+        <item>No judgement either way. Just a few seconds between the reach and the app.</item>
+        <item>Most of the time the urge passes in less time than this takes.</item>
+    </string-array>
+
+    <string-array name="copy_kiosk_detail_kind">
+        <item>Kiosk is running for another %1$s. The phone comes back on its own.</item>
+        <item>%1$s left in this session. Nothing here needs you to be strong right now.</item>
+        <item>You set this up so you would not have to decide again. %1$s to go.</item>
+    </string-array>
+
+    <string-array name="copy_schedule_detail_kind">
+        <item>You put this window in the calendar yourself. It opens up again at %1$s.</item>
+        <item>Until %1$s, the phone is holding the line for you.</item>
+        <item>Back to normal at %1$s.</item>
+    </string-array>
+
+    <string-array name="copy_schedule_overlay_detail_kind">
+        <item>You set this one to overlay, so nothing - not even a break - talks you out of it. Opens up again at %1$s.</item>
+        <item>This window doesn\'t bend. Back to normal at %1$s.</item>
+        <item>No exceptions until %1$s - that was the whole point of locking it.</item>
+    </string-array>
+
+    <string-array name="copy_bedtime_detail_kind">
+        <item>This comes back at %1$s. Sleep is the thing that makes tomorrow work.</item>
+        <item>Nothing on there needs an answer tonight. Back at %1$s.</item>
+        <item>You asked for quiet after this hour. Quiet until %1$s.</item>
+    </string-array>
+
+    <string-array name="copy_earn_headline_kind">
+        <item>%1$s is waiting on the task</item>
+        <item>Task first, then %1$s</item>
+        <item>Not yet, %1$s</item>
+    </string-array>
+
+    <string-array name="copy_earn_completed_kind">
+        <item>You earned %1$d minutes. It was your time to begin with.</item>
+        <item>%1$d minutes back. Spend them or bank them.</item>
+        <item>That is %1$d minutes, on the deal you set yourself.</item>
+    </string-array>
+
+
+    <string-array name="copy_earn_photo_retry_kind">
+        <item>Have another go. Nothing was recorded about that one.</item>
+        <item>Try a different angle.</item>
+        <item>That did not pass. No harm done, take another.</item>
+    </string-array>
+
+    <string-array name="copy_session_started_kind">
+        <item>Session running. Nothing else to decide for a while.</item>
+        <item>%1$s is on. The phone will hold this for you.</item>
+        <item>You are in. Go do the thing.</item>
+    </string-array>
+
+
+    <string-array name="copy_relapse_note_kind">
+        <item>A gap is not a collapse. Pick it up from here.</item>
+        <item>Nothing to make up for. Just carry on.</item>
+        <item>One day off the pattern does not undo the pattern.</item>
+    </string-array>
+
+    <!-- contentGuardHeadline: %1$s app label, %2$s the matched keyword rule's own phrase -->
+    <string-array name="copy_content_guard_headline_kind">
+        <item>%1$s matched your rule about %2$s</item>
+        <item>%2$s showed up in %1$s</item>
+        <item>Caught %2$s in %1$s</item>
+    </string-array>
+
+</resources>
