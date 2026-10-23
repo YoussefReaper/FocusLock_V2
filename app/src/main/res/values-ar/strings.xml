@@ -23,8 +23,8 @@
     <string name="pro_free_badge">النسخة المجانية</string>
     <string name="pro_card_title_unlocked">نسخة FocusLock Pro مفعّلة</string>
     <string name="pro_card_subtitle_unlocked">جميع أوضاع التركيز (Sanctuary وKiosk) وتعتيم وقت النوم وقواعد الأماكن وواي فاي ووضع الكسب والقواعد المخصصة مفعّلة بالكامل على هذا الجهاز.</string>
-    <string name="pro_card_title_free">مقارنة المجاني وPro (‏$9.99)</string>
-    <string name="pro_card_subtitle_free">مجاني دائمًا: كل أنواع حجب التطبيقات والمواقع، والجداول، والحدود اليومية، والحُرّاس. ونسخة Pro (‏$9.99 لمرة واحدة): Sanctuary وKiosk، ووضع الكسب، ووقت النوم، والأماكن، والقواعد المخصّصة.</string>
+    <string name="pro_card_title_free">FocusLock Pro · ‏$9.99 لمرة واحدة</string>
+    <string name="pro_card_subtitle_free">Sanctuary وKiosk ووقت النوم والكسب والأماكن</string>
     <string name="pro_upgrade_button">اطّلع على مزايا Pro (‏$9.99)</string>
     <string name="pro_buy_button">شراء Pro (‏$9.99 لمرة واحدة)</string>
     <string name="pro_enter_code_button">لديّ رمز بالفعل</string>

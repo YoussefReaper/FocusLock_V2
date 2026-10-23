@@ -25,8 +25,8 @@
     <string name="pro_free_badge">Free tier</string>
     <string name="pro_card_title_unlocked">FocusLock Pro is active</string>
     <string name="pro_card_subtitle_unlocked">All session strengths (Sanctuary &amp; Kiosk), Bedtime dimming, Place &amp; Wi-Fi rules, Earn Mode, and Custom rules are unlocked on this device.</string>
-    <string name="pro_card_title_free">FocusLock Free vs. Pro ($9.99)</string>
-    <string name="pro_card_subtitle_free">Free forever: every kind of app &amp; web blocking, schedules, daily limits, and guards. Pro ($9.99 once): Sanctuary &amp; Kiosk, Earn mode, Bedtime, Places and custom rules.</string>
+    <string name="pro_card_title_free">FocusLock Pro · $9.99 once</string>
+    <string name="pro_card_subtitle_free">Sanctuary, Kiosk, Bedtime, Earn and Places</string>
     <string name="pro_upgrade_button">See what is in Pro ($9.99)</string>
     <string name="pro_buy_button">Buy Pro ($9.99 one-time)</string>
     <string name="pro_enter_code_button">I already have a code</string>

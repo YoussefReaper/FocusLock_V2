@@ -41,9 +41,10 @@ class YouTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activity
 
         add(FocusUi.pageHeader(activity, tokens, "You", activity.getString(R.string.youtab_subtitle)))
 
-        add(buildProCard())
-
         add(buildProgressCard())
+
+        add(FocusUi.spacer(activity, 12))
+        add(buildProCard())
 
         if (UiPrefs.showStats(activity) && UsageAnalytics.isEnabled(activity)) {
             add(FocusUi.sectionLabel(activity, tokens, activity.getString(R.string.youtab_section_today)))
@@ -68,67 +69,30 @@ class YouTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activity
     // ── FocusLock Pro status & unlock ─────────────────────────────
 
     private fun buildProCard(): View {
+        // Quiet Pine: one row, not three stacked buttons. The Pro sheet it opens
+        // already holds Buy and "I already have a code", so the choice is made
+        // there, once, with the price and the list in front of the person.
         val pro = DemoMode.isPro(activity)
-        val card = FocusUi.card(activity, tokens, elevated = !pro)
-
-        val header = FocusUi.row(activity)
-        val title = FocusUi.heading(
-            activity,
-            tokens,
-            activity.getString(if (pro) R.string.pro_card_title_unlocked else R.string.pro_card_title_free)
-        )
-        title.layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f)
-        header.addView(title)
-        header.addView(
-            FocusUi.pill(
-                activity,
-                tokens,
-                activity.getString(if (pro) R.string.pro_badge else R.string.pro_free_badge),
-                if (pro) tokens.success else tokens.accent
-            )
-        )
-        card.addView(header)
-
-        card.addView(FocusUi.spacer(activity, 6))
+        val card = FocusUi.card(activity, tokens)
+        card.setPadding(0, 0, 0, 0)
         card.addView(
-            FocusUi.secondary(
+            FocusUi.listRow(
                 activity,
                 tokens,
-                activity.getString(if (pro) R.string.pro_card_subtitle_unlocked else R.string.pro_card_subtitle_free)
-            )
+                activity.getString(if (pro) R.string.pro_card_title_unlocked else R.string.pro_card_title_free),
+                activity.getString(if (pro) R.string.pro_card_subtitle_unlocked else R.string.pro_card_subtitle_free),
+                trailing = if (pro) FocusUi.pill(activity, tokens, activity.getString(R.string.pro_badge), tokens.success)
+                else FocusUi.chevron(activity, tokens),
+                leading = FocusUi.iconTile(
+                    activity,
+                    tokens,
+                    R.drawable.ic_glyph_kiosk,
+                    if (pro) FocusUi.IconTone.ACCENT else FocusUi.IconTone.SOLID
+                )
+            ) {
+                if (!pro) DemoMode.showUpgradeDialog(activity) { render() }
+            }
         )
-
-        if (!pro) {
-            card.addView(FocusUi.spacer(activity, 14))
-            card.addView(
-                FocusUi.primaryButton(activity, tokens, activity.getString(R.string.pro_buy_button)) {
-                    try {
-                        activity.startActivity(
-                            Intent(Intent.ACTION_VIEW, android.net.Uri.parse(DemoMode.BUY_PRO_URL))
-                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        )
-                    } catch (_: Exception) {
-                        DemoMode.showUpgradeDialog(activity) { render() }
-                    }
-                }
-            )
-            card.addView(FocusUi.spacer(activity, 8))
-            card.addView(
-                FocusUi.secondaryButton(activity, tokens, activity.getString(R.string.pro_enter_code_button)) {
-                    DemoMode.showEnterCodeDialog(activity) {
-                        render()
-                    }
-                }
-            )
-            card.addView(FocusUi.spacer(activity, 6))
-            card.addView(
-                FocusUi.ghostButton(activity, tokens, activity.getString(R.string.pro_upgrade_button)) {
-                    DemoMode.showUpgradeDialog(activity) {
-                        render()
-                    }
-                }
-            )
-        }
         return card
     }
 
