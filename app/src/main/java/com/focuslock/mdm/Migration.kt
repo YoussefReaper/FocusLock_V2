@@ -174,6 +174,13 @@ object Migration {
         val alreadyHasPolicies = AppRules.allPolicies(context).isNotEmpty()
         if (alreadyHasPolicies) return
 
+        // A phone that has never run FocusLock has nothing to carry over. Seeding the
+        // built-in kill list there blocked ~40 apps the person never picked (Chrome and
+        // the Play Store among them), and the Rules screen counted them as "blocked".
+        // Their own choices come from onboarding instead. An upgrader still gets the
+        // seed: their old build was already enforcing that list.
+        if (isFreshInstall(context)) return
+
         val allowed = legacyAllowlist ?: Constants.LEGACY_WHITELIST
         AppRules.setPolicies(context, allowed, AppPolicy.ALLOW)
 
@@ -182,6 +189,12 @@ object Migration {
             .filterNot { it in allowed }
         AppRules.setPolicies(context, blocked, AppPolicy.BLOCK)
     }
+
+    /** True only when no setting of any kind has been written yet; any doubt means "upgrader". */
+    internal fun isFreshInstall(context: Context): Boolean =
+        isFresh(FocusStore.prefs(context).all.keys)
+
+    internal fun isFresh(storedKeys: Set<String>): Boolean = storedKeys.all { it == KEY_VERSION }
 
     private fun migrateAlwaysAllowed(context: Context) {
         if (AppRules.alwaysAllowedRaw(context).isNotEmpty()) return

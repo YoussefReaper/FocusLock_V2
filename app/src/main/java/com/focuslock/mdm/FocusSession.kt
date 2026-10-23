@@ -518,16 +518,30 @@ object SessionManager {
         }
     }
 
-    fun formatCountdown(ms: Long): String {
-        if (ms <= 0L) return "0d 00h 00m 00s"
-        val days = ms / 86_400_000L
-        val hours = (ms % 86_400_000L) / 3_600_000L
-        val minutes = (ms % 3_600_000L) / 60_000L
-        val seconds = (ms % 60_000L) / 1_000L
-        return String.format(
-            java.util.Locale.getDefault(),
-            "%dd %02dh %02dm %02ds",
-            days, hours, minutes, seconds
-        )
+    /**
+     * A clock, not "0d 00h 59m 12s": 42:18 under an hour, 1:21:05 past it, and a
+     * day count in front only when there are days. No letters means nothing to
+     * mix with Arabic digits, which is what scrambled the old format.
+     */
+    fun formatCountdown(
+        ms: Long,
+        daysLabel: (Long) -> String = { "${it}d" },
+        locale: java.util.Locale = java.util.Locale.getDefault()
+    ): String {
+        val total = ms.coerceAtLeast(0L) / 1_000L
+        val days = total / 86_400L
+        val hours = (total % 86_400L) / 3_600L
+        val minutes = (total % 3_600L) / 60L
+        val seconds = total % 60L
+        val clock = if (days > 0L || hours > 0L) {
+            String.format(locale, "%d:%02d:%02d", hours, minutes, seconds)
+        } else {
+            String.format(locale, "%02d:%02d", minutes, seconds)
+        }
+        return if (days > 0L) daysLabel(days) + " " + clock else clock
     }
+
+    /** [formatCountdown] with the day label in the app's language. */
+    fun formatCountdown(context: Context, ms: Long): String =
+        formatCountdown(ms, { context.getString(R.string.countdown_days, it.toInt()) })
 }

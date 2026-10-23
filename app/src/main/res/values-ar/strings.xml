@@ -7,7 +7,7 @@
     <!-- ── نسخة العرض ──────────────────────────────────────────────── -->
     <string name="demo_badge">عرض</string>
     <string name="demo_mode_locked_pill">النسخة الكاملة</string>
-    <string name="demo_banner_body">هذا هو التطبيق كاملًا، مع حدّين. يشغّل جلسة واحدة، ويعرض عليك شاشة الحجب بدل أن ينتزع الشاشة منك. أما Sanctuary وKiosk — الوضعان اللذان يَعِدان بإبقاء الهاتف مغلقًا — فمُطفأان هنا.</string>
+    <string name="demo_banner_body">هذا هو التطبيق كاملًا، مع حدّين. يشغّل جلسة واحدة، ويعرض عليك شاشة الحجب بدل أن ينتزع الشاشة منك. أما ملاذ وكشك — الوضعان اللذان يَعِدان بإبقاء الهاتف مغلقًا — فمُطفأان هنا.</string>
     <string name="demo_banner_running">هذه هي الجلسة الوحيدة في نسخة العرض. كل شيء يعمل كما في النسخة الكاملة، إلا أن الحجب يُعرض ولا يُنفَّذ.</string>
     <string name="demo_banner_spent">تلك كانت الجلسة الوحيدة في نسخة العرض. كل شاشة وقاعدة وجدول ومهمة ما زالت هنا للاطلاع، وما زال «اختبر الحجب» يعرض قواعدك على أي تطبيق تفتحه.</string>
     <string name="demo_start_used_up">انتهت جلسة نسخة العرض</string>
@@ -22,23 +22,23 @@
     <string name="pro_badge">Pro</string>
     <string name="pro_free_badge">النسخة المجانية</string>
     <string name="pro_card_title_unlocked">نسخة FocusLock Pro مفعّلة</string>
-    <string name="pro_card_subtitle_unlocked">جميع أوضاع التركيز (Sanctuary وKiosk) وتعتيم وقت النوم وقواعد الأماكن وواي فاي ووضع الكسب والقواعد المخصصة مفعّلة بالكامل على هذا الجهاز.</string>
+    <string name="pro_card_subtitle_unlocked">جميع أوضاع التركيز (ملاذ وكشك) وتعتيم وقت النوم وقواعد الأماكن وواي فاي ووضع الكسب والقواعد المخصصة مفعّلة بالكامل على هذا الجهاز.</string>
     <string name="pro_card_title_free">FocusLock Pro · ‏$9.99 لمرة واحدة</string>
-    <string name="pro_card_subtitle_free">Sanctuary وKiosk ووقت النوم والكسب والأماكن</string>
+    <string name="pro_card_subtitle_free">ملاذ وكشك ووقت النوم والكسب والأماكن</string>
     <string name="pro_upgrade_button">اطّلع على مزايا Pro (‏$9.99)</string>
     <string name="pro_buy_button">شراء Pro (‏$9.99 لمرة واحدة)</string>
     <string name="pro_enter_code_button">لديّ رمز بالفعل</string>
     <string name="pro_dialog_title">FocusLock Pro — ‏$9.99 لمرة واحدة</string>
     <string name="pro_dialog_subtitle">شراء لمرة واحدة بـ $9.99 مع تحديثات مجانية دائمًا. بلا اشتراكات وبلا حسابات، ويُتحقق منه دون إنترنت.</string>
     <string name="pro_dialog_feature_prompt">ميزة «%1$s» جزء من FocusLock Pro (‏$9.99 لمرة واحدة).</string>
-    <string name="pro_dialog_bullets">• Sanctuary وKiosk، أقوى درجتين\n• وضع الكسب: مهام تمنحك وقت شاشة\n• وقت نوم يعتّم الشاشة ويهدّئها كل ليلة\n• الأماكن وWi-Fi والقواعد المخصّصة</string>
+    <string name="pro_dialog_bullets">• ملاذ وكشك، أقوى درجتين\n• وضع الكسب: مهام تمنحك وقت شاشة\n• وقت نوم يعتّم الشاشة ويهدّئها كل ليلة\n• الأماكن وWi-Fi والقواعد المخصّصة</string>
     <string name="pro_dialog_unlock_cta">شراء Pro (‏$9.99)</string>
     <string name="pro_unlocked_toast">تم تفعيل FocusLock Pro — شكرًا لك!</string>
     <string name="pro_code_dialog_title">أدخل رمزك</string>
     <string name="pro_code_dialog_subtitle">ستجده في الصفحة التي ظهرت بعد الدفع. اضغط «افتح في FocusLock» هناك، أو انسخ الرمز كاملًا والصقه هنا. يتم التحقق منه على هاتفك دون إنترنت.</string>
     <string name="pro_code_dialog_hint">الصق رمز FL2</string>
     <string name="pro_code_verify_button">تحقق وفعّل</string>
-    <string name="pro_code_invalid_toast">رمز الترخيص غير صالح. تأكد من كتابته بشكل صحيح وحاول مرة أخرى.</string>
+    <string name="pro_code_invalid_toast">الرمز غير صالح. تأكد من كتابته بشكل صحيح وحاول مرة أخرى.</string>
 
     <!-- Streamlined 3-tab Focus cards & sub-screen header -->
     <string name="dashboard_tasks_and_tools">المهام والأدوات الآمنة</string>
@@ -75,7 +75,7 @@
     <string name="capabilities_show_all_button">عرض كل المفاتيح (%1$d)</string>
     <string name="capabilities_show_fewer_button">عرض المفاتيح العشرة الأساسية فقط</string>
     <string name="dashboard_unbreakable_card_title">هل تريد قفلًا أقوى؟</string>
-    <string name="dashboard_unbreakable_card_body">إعداد مدته 5 دقائق من الكمبيوتر يجعل Sanctuary وKiosk يصمدان، ويمكنه منع إلغاء التثبيت أثناء الجلسة. إعادة ضبط المصنع تبقى ممكنة دائمًا.</string>
+    <string name="dashboard_unbreakable_card_body">إعداد مدته 5 دقائق من الكمبيوتر يجعل ملاذ وكشك يصمدان، ويمكنه منع إلغاء التثبيت أثناء الجلسة. إعادة ضبط المصنع تبقى ممكنة دائمًا.</string>
 
     <!-- First block warm note & daily opens stopped -->
     <string name="intercept_first_block_warm_note">أول تشتيت تم إيقافه. قاعدتك تعمل بهدوء.</string>

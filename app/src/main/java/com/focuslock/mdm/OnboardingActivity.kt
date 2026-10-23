@@ -344,6 +344,12 @@ class OnboardingActivity : AppCompatActivity() {
             row.addView(FocusUi.spacerH(this, 10))
             val check = FocusUi.rowTitle(this, tokens, "✓")
             check.setTextColor(tokens.accent)
+            // rowTitle() is match-parent wide. Next to the weighted label that left
+            // the label zero pixels, so it wrapped one letter per line into a tall card.
+            check.layoutParams = LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
             row.addView(check)
         }
 
@@ -424,6 +430,10 @@ class OnboardingActivity : AppCompatActivity() {
         }
 
         CapabilityRegistry.applySet(this, values)
+        // These flags are the person's own answer. Without this, SessionManager.start()
+        // sees a mode it has not loaded yet and stamps the template over them, which
+        // turned "Strict" back into a session you can end with one tap.
+        SessionManager.markPresetApplied(this, mode)
         AppRules.setAlwaysAllowed(this, essentials)
 
         val toBlock = chosenDistractions.filterNot { it in essentials }
@@ -490,6 +500,12 @@ class OnboardingActivity : AppCompatActivity() {
         CapabilityRegistry.markSeeded(this)
         if (AppRules.alwaysAllowedRaw(this).isEmpty()) {
             AppRules.setAlwaysAllowed(this, AppCatalog.detectEssentials(this))
+        }
+        // Skipping the questions still ends up with the same starting blocks the first
+        // screen would have ticked, rather than an empty list or the built-in one.
+        val starters = chosenDistractions.filterNot { it in essentials }
+        if (starters.isNotEmpty() && AppRules.allPolicies(this).isEmpty()) {
+            AppRules.setPolicies(this, starters, AppPolicy.BLOCK)
         }
         finishOnboarding()
     }

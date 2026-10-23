@@ -20,8 +20,8 @@
     <string name="copy_pause_detail_plain">Wait for the timer, then continue or go back.</string>
 
     <!-- softDetail -->
-    <string name="copy_soft_detail_kind">Soft mode does not hold anything shut. This is only a reminder of what you asked for.</string>
-    <string name="copy_soft_detail_plain">Soft mode. Continue or go back.</string>
+    <string name="copy_soft_detail_kind">Gentle mode does not hold anything shut. This is only a reminder of what you asked for.</string>
+    <string name="copy_soft_detail_plain">Gentle mode. Continue or go back.</string>
 
     <!-- kioskDetail plain (kind is rotated, see arrays) -->
     <string name="copy_kiosk_detail_plain">Kiosk session active. %1$s remaining.</string>

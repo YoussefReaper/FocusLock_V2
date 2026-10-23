@@ -40,7 +40,7 @@
     <string name="pro_code_dialog_subtitle">It is on the page you got after paying. Tap Open in FocusLock there, or copy the whole code and paste it here. Checked on this phone, no internet needed.</string>
     <string name="pro_code_dialog_hint">Paste your FL2 code</string>
     <string name="pro_code_verify_button">Verify &amp; Unlock</string>
-    <string name="pro_code_invalid_toast">That licence code is not valid. Check for typos and try again.</string>
+    <string name="pro_code_invalid_toast">That code is not valid. Check for typos and try again.</string>
 
     <!-- Streamlined 3-tab Focus cards & sub-screen header -->
     <string name="dashboard_tasks_and_tools">Tasks &amp; safe tools</string>

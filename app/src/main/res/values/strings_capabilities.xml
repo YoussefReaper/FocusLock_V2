@@ -5,7 +5,7 @@
     edit the text here, not in the Kotlin.
 -->
 <resources>
-    <string name="cap_advisory_mode_label">Soft mode</string>
+    <string name="cap_advisory_mode_label">Gentle mode</string>
     <string name="cap_advisory_mode_blurb">A pause and a gentle nudge when you open something distracting. Nothing is forced.</string>
     <string name="cap_sanctuary_mode_label">Sanctuary mode</string>
     <string name="cap_sanctuary_mode_blurb">Your normal home screen stays. Distracting apps disappear from it and go quiet.</string>

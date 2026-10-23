@@ -32,7 +32,7 @@ class EarnSessionActivity : FocusScreenActivity() {
     private val handler = Handler(Looper.getMainLooper())
     private val ticker = object : Runnable {
         override fun run() {
-            timerView?.text = SessionManager.formatCountdown(EarnSession.elapsedMs(this@EarnSessionActivity))
+            timerView?.text = SessionManager.formatCountdown(this@EarnSessionActivity, EarnSession.elapsedMs(this@EarnSessionActivity))
             handler.postDelayed(this, 1_000L)
         }
     }
@@ -119,7 +119,7 @@ class EarnSessionActivity : FocusScreenActivity() {
         val elapsed = FocusUi.display(
             this,
             tokens,
-            SessionManager.formatCountdown(EarnSession.elapsedMs(this))
+            SessionManager.formatCountdown(this, EarnSession.elapsedMs(this))
         )
         elapsed.gravity = Gravity.CENTER
         timerView = elapsed

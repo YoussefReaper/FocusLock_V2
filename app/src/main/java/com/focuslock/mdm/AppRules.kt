@@ -92,11 +92,53 @@ object AppRules {
      * The policy actually in force: the app's own setting, else its category's
      * setting, else "open freely".
      */
-    fun effectivePolicy(context: Context, packageName: String): AppPolicy {
-        if (isAlwaysAllowed(context, packageName)) return AppPolicy.ALLOW
-        explicitPolicy(context, packageName)?.let { return it }
-        val category = AppCatalog.categoryOf(context, packageName)
-        return categoryPolicy(context, category) ?: AppPolicy.ALLOW
+    fun effectivePolicy(context: Context, packageName: String): AppPolicy = resolvePolicy(
+        alwaysAllowed = { isAlwaysAllowed(context, packageName) },
+        explicitId = { explicitPolicy(context, packageName)?.id },
+        categoryId = { categoryPolicy(context, AppCatalog.categoryOf(context, packageName))?.id }
+    )
+
+    /**
+     * The one place the order is decided: always-allowed beats the app's own
+     * setting, which beats its category's, which beats "open freely". The
+     * lookups are lambdas so a single-app caller still stops at the first hit.
+     */
+    internal fun resolvePolicy(
+        alwaysAllowed: () -> Boolean,
+        explicitId: () -> String?,
+        categoryId: () -> String?
+    ): AppPolicy {
+        if (alwaysAllowed()) return AppPolicy.ALLOW
+        explicitId()?.let { return AppPolicy.fromId(it) }
+        return categoryId()?.let { AppPolicy.fromId(it) } ?: AppPolicy.ALLOW
+    }
+
+    /**
+     * [effectivePolicy] for a whole list, reading each store once. The Apps
+     * screen used to call the single-app version for every installed app, three
+     * times a render, and each call re-parsed the stored JSON.
+     */
+    fun effectivePolicies(context: Context, apps: List<InstalledApp>): Map<String, AppPolicy> {
+        val allowed = alwaysAllowedSet(context)
+        val explicit = FocusStore.getJsonObject(context, KEY_POLICIES)
+        val byCategory = FocusStore.getJsonObject(context, KEY_CATEGORY_POLICIES)
+        val out = HashMap<String, AppPolicy>(apps.size * 2)
+        apps.forEach { app ->
+            val pkg = app.packageName
+            out[pkg] = resolvePolicy(
+                alwaysAllowed = { pkg in allowed },
+                explicitId = { if (explicit.has(pkg)) explicit.optString(pkg, "") else null },
+                categoryId = { if (byCategory.has(app.category.id)) byCategory.optString(app.category.id, "") else null }
+            )
+        }
+        return out
+    }
+
+    /** Every package [isAlwaysAllowed] would say yes to (FocusLock itself always is). */
+    fun alwaysAllowedSet(context: Context): Set<String> {
+        val own = context.packageName
+        if (!CapabilityRegistry.isEnabled(context, Capabilities.ALWAYS_ALLOWED)) return setOf(own)
+        return FocusStore.getSet(context, KEY_ALWAYS_ALLOWED) + own
     }
 
     /**

@@ -24,6 +24,37 @@ class AppRulesActivity : FocusScreenActivity() {
     /** Once the "show the other N apps" link is tapped, every category stays fully expanded. */
     private var expanded: Boolean = false
 
+    // The first open of this screen used to stall the main thread for seconds on a
+    // phone with hundreds of apps (labels, categories, icons), long enough for the
+    // "isn't responding" dialog. The slow part now runs on a worker; until it is done
+    // the screen is a single "Loading" card.
+    private var warm = false
+    private var warming = false
+    private var policies: Map<String, AppPolicy> = emptyMap()
+    private var allowed: Set<String> = emptySet()
+
+    private fun policyOf(packageName: String): AppPolicy =
+        policies[packageName] ?: AppRules.effectivePolicy(this, packageName)
+
+    private fun warmUp() {
+        if (warming) return
+        warming = true
+        val appContext = applicationContext
+        Thread {
+            try {
+                AppCatalog.launchable(appContext).take(400).forEach { app ->
+                    try { AppCatalog.icon(appContext, app.packageName) } catch (_: Exception) { }
+                }
+            } catch (_: Exception) { }
+            runOnUiThread {
+                warming = false
+                if (isFinishing || isDestroyed) return@runOnUiThread
+                warm = true
+                refresh()
+            }
+        }.start()
+    }
+
     private companion object {
         /** Rows shown per category before "show the other N apps" takes over - keeps a 50+ app phone from being one long scroll. */
         const val PREVIEW_PER_CATEGORY = 3
@@ -44,6 +75,14 @@ class AppRulesActivity : FocusScreenActivity() {
     override fun screenSubtitle(): String = getString(R.string.app_rules_subtitle)
 
     override fun buildContent(column: LinearLayout) {
+        if (!warm) {
+            column.addView(FocusUi.emptyState(this, tokens, getString(R.string.redesign_loading_apps)))
+            warmUp()
+            return
+        }
+        val launchable = AppCatalog.launchable(this)
+        policies = AppRules.effectivePolicies(this, launchable)
+        allowed = AppRules.alwaysAllowedSet(this)
         column.addView(buildCategoryCard())
         column.addView(sectionLabel(getString(R.string.app_rules_individual_apps_section)))
         column.addView(buildSearch())
@@ -56,7 +95,7 @@ class AppRulesActivity : FocusScreenActivity() {
         val counts = IntArray(filters.size)
         AppCatalog.launchable(this).forEach { app ->
             counts[0]++
-            when (AppRules.effectivePolicy(this, app.packageName)) {
+            when (policyOf(app.packageName)) {
                 AppPolicy.BLOCK, AppPolicy.HIDE -> counts[1]++
                 AppPolicy.FRICTION -> counts[2]++
                 AppPolicy.LIMIT -> counts[3]++
@@ -165,7 +204,7 @@ class AppRulesActivity : FocusScreenActivity() {
                     app.label.lowercase(Locale.getDefault()).contains(needle) ||
                     app.packageName.lowercase(Locale.getDefault()).contains(needle)
             }
-            .filter { app -> matchesFilter(AppRules.effectivePolicy(this, app.packageName)) }
+            .filter { app -> matchesFilter(policyOf(app.packageName)) }
 
         if (apps.isEmpty()) {
             listHost.addView(FocusUi.emptyState(this, tokens, getString(R.string.app_rules_no_apps_match)))
@@ -219,10 +258,10 @@ class AppRulesActivity : FocusScreenActivity() {
 
     /** "Social · 3 blocked", "Essentials · never blocked", "Games · 14 apps, budgeted" - the overline uppercases it. */
     private fun categoryHeader(category: AppCategory, apps: List<InstalledApp>): String {
-        if (apps.all { AppRules.isAlwaysAllowed(this, it.packageName) }) {
+        if (apps.all { it.packageName in allowed }) {
             return getString(R.string.app_rules_category_header_never_blocked, category.label(this))
         }
-        val policies = apps.map { AppRules.effectivePolicy(this, it.packageName) }
+        val policies = apps.map { policyOf(it.packageName) }
         val blocked = policies.count { it == AppPolicy.BLOCK || it == AppPolicy.HIDE }
         return when {
             blocked == apps.size -> getString(R.string.app_rules_category_header_blocked, category.label(this), blocked)
@@ -243,8 +282,8 @@ class AppRulesActivity : FocusScreenActivity() {
     }
 
     private fun buildAppRow(app: InstalledApp): View {
-        val policy = AppRules.effectivePolicy(this, app.packageName)
-        val alwaysAllowed = AppRules.isAlwaysAllowed(this, app.packageName)
+        val policy = policyOf(app.packageName)
+        val alwaysAllowed = app.packageName in allowed
 
         val subtitle = when {
             alwaysAllowed -> getString(R.string.app_rules_always_allowed_subtitle)

@@ -49,7 +49,7 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
 
     override fun onTick() {
         if (!SessionManager.isActive(activity)) return
-        countdownView?.text = SessionManager.formatCountdown(SessionManager.remainingMs(activity))
+        countdownView?.text = SessionManager.formatCountdown(activity, SessionManager.remainingMs(activity))
         val percent = SessionManager.progressPercent(activity)
         progressView?.text = percent.toString() + "%"
         ring?.let { if (it.progress != percent) it.progress = percent }
@@ -241,7 +241,7 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
             android.widget.FrameLayout.LayoutParams.WRAP_CONTENT,
             android.widget.FrameLayout.LayoutParams.WRAP_CONTENT
         ).apply { gravity = Gravity.CENTER }
-        val timeLeft = FocusUi.display(activity, tokens, SessionManager.formatCountdown(SessionManager.remainingMs(activity)))
+        val timeLeft = FocusUi.display(activity, tokens, SessionManager.formatCountdown(activity, SessionManager.remainingMs(activity)))
         timeLeft.gravity = Gravity.CENTER
         timeLeft.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -383,7 +383,7 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
         // asking. Every other mode keeps the percent, which still doubles as
         // the tick source for onTick() below either way.
         if (kiosk) {
-            val timeLeft = FocusUi.display(activity, tokens, SessionManager.formatCountdown(SessionManager.remainingMs(activity)))
+            val timeLeft = FocusUi.display(activity, tokens, SessionManager.formatCountdown(activity, SessionManager.remainingMs(activity)))
             timeLeft.gravity = Gravity.CENTER
             timeLeft.layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -472,7 +472,7 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
             val countdown = FocusUi.heading(
                 activity,
                 tokens,
-                SessionManager.formatCountdown(SessionManager.remainingMs(activity))
+                SessionManager.formatCountdown(activity, SessionManager.remainingMs(activity))
             )
             countdown.gravity = Gravity.CENTER
             countdownView = countdown

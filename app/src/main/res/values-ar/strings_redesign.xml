@@ -47,4 +47,6 @@
         <item quantity="many">متابعة مع %1$d تطبيقًا</item>
         <item quantity="other">متابعة مع %1$d تطبيق</item>
     </plurals>
+    <string name="redesign_loading_apps">جارٍ تحميل تطبيقاتك…</string>
+    <string name="countdown_days">%1$d يوم</string>
 </resources>

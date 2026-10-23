@@ -44,4 +44,6 @@
         <item quantity="one">Continue with %1$d app</item>
         <item quantity="other">Continue with %1$d apps</item>
     </plurals>
+    <string name="redesign_loading_apps">Loading your apps…</string>
+    <string name="countdown_days">%1$dd</string>
 </resources>

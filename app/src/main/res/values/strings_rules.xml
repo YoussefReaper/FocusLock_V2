@@ -554,7 +554,7 @@
 
     <string name="rules_test_active_body">Live right now, %1$s left. Open any app to see exactly what your rules would do to it.</string>
     <string name="rules_test_end_button">End the test</string>
-    <string name="rules_test_session_running">A session is already running, so this isn\'t needed - you\'re already living it.</string>
+    <string name="rules_test_session_running">A session is running right now, so there is nothing to test.</string>
     <string name="rules_test_start_button">Start a test</string>
     <string name="rules_test_length_title">How long?</string>
     <string name="rules_test_length_subtitle">Ends on its own, or tap End the test any time before that.</string>

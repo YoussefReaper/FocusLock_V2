@@ -555,7 +555,7 @@
 
     <string name="rules_test_active_body">يعمل الآن فعليًا، تبقى %1$s. افتح أي تطبيق لترى بالضبط ما ستفعله قواعدك به.</string>
     <string name="rules_test_end_button">إنهاء الاختبار</string>
-    <string name="rules_test_session_running">هناك جلسة تعمل بالفعل، فلا حاجة لهذا - أنت تعيشها بالفعل.</string>
+    <string name="rules_test_session_running">هناك جلسة قيد التشغيل الآن، فلا حاجة لاختبار.</string>
     <string name="rules_test_start_button">بدء اختبار</string>
     <string name="rules_test_length_title">كم المدة؟</string>
     <string name="rules_test_length_subtitle">ينتهي من تلقاء نفسه، أو اضغط إنهاء الاختبار في أي وقت قبل ذلك.</string>

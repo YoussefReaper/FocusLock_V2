@@ -82,7 +82,7 @@ class RulesTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activi
                 RuleRow(
                     R.drawable.ic_glyph_apps,
                     activity.getString(R.string.rules_editor_apps_title),
-                    activity.getString(R.string.rules_grid_blocked_count, AppRules.blockedPackages(activity).size),
+                    activity.getString(R.string.rules_grid_blocked_count, AppRules.blockedPackages(activity).count { AppCatalog.isInstalled(activity, it) }),
                     Intent(activity, AppRulesActivity::class.java)
                 ),
                 RuleRow(
