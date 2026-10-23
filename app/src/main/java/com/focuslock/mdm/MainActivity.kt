@@ -86,6 +86,7 @@ class MainActivity : AppCompatActivity() {
 
         Migration.run(this)
         LockManager.initLock(this)
+        handleLicenceLink(intent)
 
         if (!FocusStore.getBool(this, Constants.KEY_ONBOARDING_DONE, false)) {
             handingOffToOnboarding = true
@@ -126,8 +127,31 @@ class MainActivity : AppCompatActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
+        if (handleLicenceLink(intent)) {
+            tabs[currentTab]?.onShow()
+            return
+        }
         val tab = intent.getIntExtra(EXTRA_TAB, -1)
         if (tab >= 0) selectTab(tab)
+    }
+
+    /**
+     * `focuslock://pro/FL2-...` from the access page's "Open in FocusLock"
+     * button. The code is checked offline exactly like a pasted one, so a
+     * link can never unlock anything a typed code could not.
+     */
+    private fun handleLicenceLink(intent: Intent?): Boolean {
+        val linkIntent = intent ?: return false
+        val data = linkIntent.data ?: return false
+        if (data.scheme != "focuslock" || data.host != "pro") return false
+        // Consumed: a rotation or a later resume must not redeem it again.
+        linkIntent.data = null
+        val unlocked = DemoMode.redeemLicenceCode(this, data.toString())
+        FocusDialog.toast(
+            this,
+            getString(if (unlocked) R.string.pro_unlocked_toast else R.string.pro_code_invalid_toast)
+        )
+        return true
     }
 
     // ── Policy ────────────────────────────────────────────────────

@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
  * First-run setup: 3 questions, or 1-tap presets, then go.
  *
  *  1. Which apps pull you? (Pick from installed apps, or tap Study / Sleep / Social detox)
- *  2. How firm? (Gentle · Firm · Unbreakable)
+ *  2. How firm? (Gentle · Block · Strict)
  *  3. When? (Start now, or a daily schedule)
  *
  * Asks only for Usage Access with one plain sentence on FocusLock's own screen
@@ -31,7 +31,7 @@ class OnboardingActivity : AppCompatActivity() {
 
     private val essentials = LinkedHashSet<String>()
     private val chosenDistractions = LinkedHashSet<String>()
-    private var strictness = 1 // 0 = Gentle, 1 = Firm, 2 = Unbreakable
+    private var strictness = 1 // 0 = Gentle, 1 = Block, 2 = Strict (no early exit)
     private var whenChoice = "now" // "now", "evening", "study", "bedtime"
 
     override fun onCreate(savedInstanceState: Bundle?) {

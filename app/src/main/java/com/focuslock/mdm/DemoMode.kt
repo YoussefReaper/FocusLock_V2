@@ -10,8 +10,8 @@ import android.net.Uri
  *
  *  - **Free Tier (Forever):** Every kind of app blocking, schedules, daily limits,
  *    keyword guard, always-allowed essentials, Gentle & Block modes, and Safe Tools.
- *  - **FocusLock Pro ($9.99 one-time):** Sanctuary & Kiosk (the unbreakable
- *    Device Owner modes), Earn Mode, Bedtime, Places, and Custom Rules.
+ *  - **FocusLock Pro ($9.99 one-time):** Sanctuary & Kiosk (the two
+ *    firmest strengths, held by Device Owner), Earn Mode, Bedtime, Places, and Custom Rules.
  *
  * Pro is unlocked only with a licence code signed by the payment server after
  * checkout (`FL2-…`), verified offline against the server's public key.

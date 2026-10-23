@@ -14,7 +14,7 @@ import android.content.Context
 object Migration {
 
     private const val KEY_VERSION = "store_migration_version"
-    private const val CURRENT_VERSION = 7
+    private const val CURRENT_VERSION = 8
 
     fun run(context: Context) {
         val version = FocusStore.getInt(context, KEY_VERSION, 0)
@@ -52,7 +52,27 @@ object Migration {
             }
         }
 
+        if (version in 1..7) {
+            keepGuardsForUpgraders(context)
+        }
+
         FocusStore.setInt(context, KEY_VERSION, CURRENT_VERSION)
+    }
+
+    /**
+     * 2.0 moved the WhatsApp, Shorts and Reels guards to Experimental and
+     * switched their defaults from on to off. A switch nobody touched follows
+     * its default, so without this a 1.x user who relied on them would update
+     * and silently lose them. Upgraders keep the old "on" as an explicit
+     * choice; fresh installs (version 0) get the new defaults; anything the
+     * person set themselves is left alone.
+     */
+    private fun keepGuardsForUpgraders(context: Context) {
+        for (id in listOf(Capabilities.WHATSAPP_GUARD, Capabilities.SHORTS_BLOCK, Capabilities.REELS_BLOCK)) {
+            if (!CapabilityRegistry.isUserSet(context, id)) {
+                CapabilityRegistry.writeEnabled(context, id, true)
+            }
+        }
     }
 
     /**

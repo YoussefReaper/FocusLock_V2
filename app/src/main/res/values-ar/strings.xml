@@ -24,14 +24,14 @@
     <string name="pro_card_title_unlocked">نسخة FocusLock Pro مفعّلة</string>
     <string name="pro_card_subtitle_unlocked">جميع أوضاع التركيز (Sanctuary وKiosk) وتعتيم وقت النوم وقواعد الأماكن وواي فاي ووضع الكسب والقواعد المخصصة مفعّلة بالكامل على هذا الجهاز.</string>
     <string name="pro_card_title_free">مقارنة المجاني وPro (‏$9.99)</string>
-    <string name="pro_card_subtitle_free">مجاني دائمًا: كل أنواع حجب التطبيقات والمواقع، والجداول، والحدود اليومية، وحارس الكلمات. ونسخة Pro (‏$9.99 لمرة واحدة): وضعا Sanctuary وKiosk غير القابلين للإلغاء، ووضع الكسب، ووقت النوم، والأماكن.</string>
+    <string name="pro_card_subtitle_free">مجاني دائمًا: كل أنواع حجب التطبيقات والمواقع، والجداول، والحدود اليومية، والحُرّاس. ونسخة Pro (‏$9.99 لمرة واحدة): Sanctuary وKiosk، ووضع الكسب، ووقت النوم، والأماكن، والقواعد المخصّصة.</string>
     <string name="pro_upgrade_button">اطّلع على مزايا Pro (‏$9.99)</string>
     <string name="pro_buy_button">شراء Pro (‏$9.99 لمرة واحدة)</string>
     <string name="pro_enter_code_button">لديّ رمز ترخيص</string>
     <string name="pro_dialog_title">FocusLock Pro — ‏$9.99 لمرة واحدة</string>
     <string name="pro_dialog_subtitle">شراء لمرة واحدة بـ $9.99 مع تحديثات مجانية دائمًا. بلا اشتراكات وبلا حسابات، ويُتحقق منه دون إنترنت.</string>
     <string name="pro_dialog_feature_prompt">ميزة «%1$s» جزء من FocusLock Pro (‏$9.99 لمرة واحدة).</string>
-    <string name="pro_dialog_bullets">• وضعا التركيز الصارمان Sanctuary وKiosk عبر مالك الجهاز\n• مهام وضع الكسب ورصيد الوقت المكتسب\n• تعتيم الشاشة وحارس وقت النوم التلقائي\n• قواعد الأماكن التلقائية عبر Wi-Fi وGPS\n• القواعد الشرطية المخصّصة</string>
+    <string name="pro_dialog_bullets">• Sanctuary وKiosk، أقوى درجتين\n• وضع الكسب: مهام تمنحك وقت شاشة\n• وقت نوم يعتّم الشاشة ويهدّئها كل ليلة\n• الأماكن وWi-Fi والقواعد المخصّصة</string>
     <string name="pro_dialog_unlock_cta">شراء Pro (‏$9.99)</string>
     <string name="pro_unlocked_toast">تم تفعيل FocusLock Pro — شكرًا لك!</string>
     <string name="pro_code_dialog_title">أدخل رمز ترخيص Pro</string>
@@ -74,8 +74,8 @@
     <!-- Short switch list & Unbreakable upgrade card -->
     <string name="capabilities_show_all_button">عرض كل المفاتيح (%1$d)</string>
     <string name="capabilities_show_fewer_button">عرض المفاتيح العشرة الأساسية فقط</string>
-    <string name="dashboard_unbreakable_card_title">هل تريد قفلًا لا يمكن التراجع عنه؟</string>
-    <string name="dashboard_unbreakable_card_body">5 دقائق أمام الكمبيوتر تفعّل «مالك الجهاز» بحيث لا يمكن إيقاف Sanctuary وKiosk أو إلغاء تثبيت التطبيق أثناء الجلسة.</string>
+    <string name="dashboard_unbreakable_card_title">هل تريد قفلًا أقوى؟</string>
+    <string name="dashboard_unbreakable_card_body">إعداد مدته 5 دقائق من الكمبيوتر يجعل Sanctuary وKiosk يصمدان، ويمكنه منع إلغاء التثبيت أثناء الجلسة. إعادة ضبط المصنع تبقى ممكنة دائمًا.</string>
 
     <!-- First block warm note & daily opens stopped -->
     <string name="intercept_first_block_warm_note">أول تشتيت تم إيقافه. قاعدتك تعمل بهدوء.</string>

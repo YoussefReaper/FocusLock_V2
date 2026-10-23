@@ -49,6 +49,13 @@
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+            <!-- Pro licence links from the purchase page: focuslock://pro/FL2-... -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="focuslock" android:host="pro" />
+            </intent-filter>
         </activity>
 
         <activity

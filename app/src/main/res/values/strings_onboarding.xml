@@ -33,10 +33,10 @@
     <string name="onboarding_firm_note">You can change this any time. Starting gentler and tightening later works better than starting at maximum and abandoning it.</string>
     <string name="onboarding_firm_gentle_label">Gentle</string>
     <string name="onboarding_firm_gentle_detail">A pause and a nudge. Nothing is held shut.</string>
-    <string name="onboarding_firm_firm_label">Firm</string>
-    <string name="onboarding_firm_firm_detail">Distractions stop opening during a session.</string>
-    <string name="onboarding_firm_all_label">All the way</string>
-    <string name="onboarding_firm_all_detail">Kiosk sessions available, escape routes closed.</string>
+    <string name="onboarding_firm_firm_label">Block</string>
+    <string name="onboarding_firm_firm_detail">Your chosen apps stop opening during a session. You can end it early.</string>
+    <string name="onboarding_firm_all_label">Strict</string>
+    <string name="onboarding_firm_all_detail">No early exit. A session runs until its timer ends. Your first one is 1 hour.</string>
 
     <string name="onboarding_times_title">When is it hardest?</string>
     <string name="onboarding_times_subtitle">This suggests schedule windows and a bedtime.</string>
