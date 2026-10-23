@@ -12,7 +12,7 @@ package com.focuslock.mdm
  */
 object Constants {
 
-    const val OWN_PACKAGE = "com.focuslock.mdm"
+    const val OWN_PACKAGE = BuildConfig.APPLICATION_ID
 
     // ─────────────────────────────────────────────────────────────
     //  LEGACY SEEDS - read exactly once, by Migration

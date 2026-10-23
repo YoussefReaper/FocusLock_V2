@@ -58,6 +58,10 @@ android {
     buildTypes {
         debug {
             // Uses Android's default debug key automatically on any machine and in CI.
+            // Own package id, so a debug build installs beside the signed release
+            // instead of asking to uninstall it (which would drop Device Owner).
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "-debug"
         }
         release {
             // Shrinks unused code and resources (most of it Media3's) but
