@@ -6,7 +6,7 @@ name: Android
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, 'redesign/**' ]
   pull_request:
   workflow_dispatch:
 
@@ -26,7 +26,14 @@ jobs:
           distribution: temurin
           java-version: '21'
 
-      - uses: gradle/actions/setup-gradle@v4
+      # Gradle comes from the checked-in wrapper; cache its downloads with the
+      # GitHub-made cache action so the repo can stay on "GitHub actions only".
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle.kts', 'gradle/wrapper/gradle-wrapper.properties', 'gradle/libs.versions.toml') }}
 
       - name: Unit tests
         run: ./gradlew --no-daemon :app:testDebugUnitTest
