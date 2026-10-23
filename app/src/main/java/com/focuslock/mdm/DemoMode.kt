@@ -4,9 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import java.nio.charset.StandardCharsets
-import javax.crypto.Mac
-import javax.crypto.spec.SecretKeySpec
 
 /**
  * Commercial Free vs. Pro tier manager.
@@ -16,8 +13,8 @@ import javax.crypto.spec.SecretKeySpec
  *  - **FocusLock Pro ($9.99 one-time):** Sanctuary & Kiosk (the unbreakable
  *    Device Owner modes), Earn Mode, Bedtime, Places, and Custom Rules.
  *
- * Pro is unlocked only with an offline-verified licence code (`FL2-XXXX-XXXX-XXXX-SSSS`)
- * issued by the payment server after checkout confirmation.
+ * Pro is unlocked only with a licence code signed by the payment server after
+ * checkout (`FL2-…`), verified offline against the server's public key.
  */
 object DemoMode {
 
@@ -26,13 +23,7 @@ object DemoMode {
     private const val KEY_LICENCE_CODE = "focuslock_pro_licence_code"
 
     const val PRO_PRICE_DISPLAY = "$9.99"
-    const val BUY_PRO_URL = "https://focus-lock-c0xg.onrender.com/#buy"
-
-    private const val LICENCE_PREFIX = "FL2"
-    private const val PAYLOAD_LENGTH = 12
-    private const val SIGNATURE_LENGTH = 4
-    private const val SIGNING_CONTEXT = "FocusLock-V2-Pro-Licence-v1:com.focuslock.mdm"
-    private const val ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
+    const val BUY_PRO_URL = "https://focus-lock-c0xg.onrender.com/#get"
 
     /** Retained for compatibility with legacy callers. */
     const val SESSIONS_ALLOWED = Int.MAX_VALUE
@@ -70,66 +61,14 @@ object DemoMode {
     }
 
     /**
-     * Pure, offline signature check for a FocusLock V2 licence code.
-     *
-     * Expected canonical shape: `FL2-XXXX-XXXX-XXXX-SSSS`
-     * where `XXXX-XXXX-XXXX` is the 12-char receipt payload and `SSSS` is the
-     * 4-char HMAC-SHA256 tag over `FL2:<payload>`.
+     * Offline check of a Pro licence code. The signature is made by the
+     * payment server's private key and checked here with its public key;
+     * see [LicenceVerifier]. Nothing in this APK can produce a valid code.
      */
-    fun verifyLicenceCode(rawCode: String?): Boolean {
-        if (rawCode.isNullOrBlank()) return false
-        val cleaned = rawCode.uppercase()
-            .replace("-", "")
-            .replace(" ", "")
-            .trim()
-        val expectedTotal = LICENCE_PREFIX.length + PAYLOAD_LENGTH + SIGNATURE_LENGTH
-        if (cleaned.length != expectedTotal) return false
-        if (!cleaned.startsWith(LICENCE_PREFIX)) return false
+    fun verifyLicenceCode(rawCode: String?): Boolean = LicenceVerifier.verify(rawCode)
 
-        val body = cleaned.substring(LICENCE_PREFIX.length)
-        if (body.any { it !in ALPHABET }) return false
-
-        val payload = body.substring(0, PAYLOAD_LENGTH)
-        val providedSig = body.substring(PAYLOAD_LENGTH, PAYLOAD_LENGTH + SIGNATURE_LENGTH)
-        val expectedSig = computeSignatureTag(payload)
-        return constantTimeEquals(providedSig, expectedSig)
-    }
-
-    /** Computes the 4-character base32 signature tag for a 12-character uppercase payload. */
-    fun computeSignatureTag(payload: String): String {
-        val cleanPayload = payload.uppercase().replace("-", "").replace(" ", "").trim()
-        val mac = Mac.getInstance("HmacSHA256")
-        val keySpec = SecretKeySpec(SIGNING_CONTEXT.toByteArray(StandardCharsets.UTF_8), "HmacSHA256")
-        mac.init(keySpec)
-        val digest = mac.doFinal(("FL2:$cleanPayload").toByteArray(StandardCharsets.UTF_8))
-        val out = StringBuilder(SIGNATURE_LENGTH)
-        for (i in 0 until SIGNATURE_LENGTH) {
-            val idx = (digest[i].toInt() and 0xFF) % ALPHABET.length
-            out.append(ALPHABET[idx])
-        }
-        return out.toString()
-    }
-
-    /** Formats a valid raw code as `FL2-XXXX-XXXX-XXXX-SSSS`. */
-    fun normalizeAndFormat(rawCode: String): String? {
-        val cleaned = rawCode.uppercase().replace("-", "").replace(" ", "").trim()
-        val expectedTotal = LICENCE_PREFIX.length + PAYLOAD_LENGTH + SIGNATURE_LENGTH
-        if (cleaned.length != expectedTotal || !cleaned.startsWith(LICENCE_PREFIX)) return null
-        val p1 = cleaned.substring(3, 7)
-        val p2 = cleaned.substring(7, 11)
-        val p3 = cleaned.substring(11, 15)
-        val sig = cleaned.substring(15, 19)
-        return "FL2-$p1-$p2-$p3-$sig"
-    }
-
-    private fun constantTimeEquals(a: String, b: String): Boolean {
-        if (a.length != b.length) return false
-        var diff = 0
-        for (i in a.indices) {
-            diff = diff or (a[i].code xor b[i].code)
-        }
-        return diff == 0
-    }
+    /** Canonical `FL2-XXXXX-...` form of a well-formed code, or null. */
+    fun normalizeAndFormat(rawCode: String): String? = LicenceVerifier.format(rawCode)
 
     /**
      * Modes that require FocusLock Pro (Sanctuary and Kiosk).
