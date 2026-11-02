@@ -10,8 +10,12 @@ plugins {
 // If the file is absent the release build still succeeds, signed with the debug
 // key — fine for a local smoke test, not shippable.
 val keystoreProps = Properties().apply {
-    val f = rootProject.file("keystore.properties")
-    if (f.exists()) f.inputStream().use { load(it) }
+    // This project's own file first; otherwise the V1 project's next door, so V2
+    // is signed with the same key and installs over V1 as an update (keeping
+    // Device Owner) without the passwords being copied anywhere.
+    val f = listOf(rootProject.file("keystore.properties"), rootProject.file("../keystore.properties"))
+        .firstOrNull { it.exists() }
+    f?.inputStream()?.use { load(it) }
 }
 val hasReleaseKey = keystoreProps.getProperty("storeFile")
     ?.let { file(it).exists() } == true
