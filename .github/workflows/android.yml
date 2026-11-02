@@ -36,13 +36,13 @@ jobs:
           key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle.kts', 'gradle/wrapper/gradle-wrapper.properties', 'gradle/libs.versions.toml') }}
 
       - name: Unit tests
-        run: ./gradlew --no-daemon :app:testDebugUnitTest
+        run: ./gradlew --no-daemon :app:testStoreDebugUnitTest
 
       - name: Lint (release)
-        run: ./gradlew --no-daemon :app:lintRelease
+        run: ./gradlew --no-daemon :app:lintStoreRelease
 
       - name: Build debug APK
-        run: ./gradlew --no-daemon :app:assembleDebug
+        run: ./gradlew --no-daemon :app:assembleStoreDebug
 
       - name: Keep test and lint reports
         if: always()

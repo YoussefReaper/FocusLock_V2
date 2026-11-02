@@ -116,6 +116,36 @@ object AllowlistStore {
         return patterns.toTypedArray()
     }
 
+    /**
+     * The one answer to "is this address on the user's list?", shared by the safe
+     * browser and the Keeper so they can never disagree. The adult filter wins over
+     * everything, including the list.
+     */
+    fun isListedUrl(context: Context, target: String): Boolean = try {
+        val uri = Uri.parse(target)
+        val scheme = uri.scheme?.lowercase()
+        val host = uri.host?.lowercase()?.removePrefix("www.")
+        when {
+            scheme != "https" && scheme != "http" -> false
+            host.isNullOrBlank() -> false
+            isBlockedHost(context, host) -> false
+            SystemSurfaces.authDomains.any { hostMatches(host, it) } -> true
+            else -> getWebAllowlistUrls(context).any { allowed ->
+                val allowedHost = try { Uri.parse(allowed).host?.lowercase()?.removePrefix("www.").orEmpty() } catch (_: Exception) { "" }
+                allowedHost.isNotBlank() && hostMatches(host, allowedHost)
+            }
+        }
+    } catch (_: Exception) {
+        false
+    }
+
+    private fun hostMatches(targetHost: String, allowedHost: String): Boolean =
+        targetHost == allowedHost || targetHost.endsWith(".$allowedHost")
+
+    /** First http(s) address in shared text ("Exam link: https://...") or null. */
+    fun firstUrlIn(text: String?): String? =
+        text?.let { Regex("https?://[^\\s<>\"']+").find(it)?.value?.trimEnd('.', ',', ')', ']') }
+
     /** Hosts the adult filter refuses even if they somehow reach the allowlist. */
     fun isBlockedHost(context: Context, host: String): Boolean {
         if (!CapabilityRegistry.isEnabled(context, Capabilities.ADULT_BLOCK)) return false

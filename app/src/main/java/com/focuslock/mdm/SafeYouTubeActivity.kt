@@ -1,7 +1,6 @@
 package com.focuslock.mdm
 
 import android.content.Intent
-import android.net.Uri
 import android.view.View
 import android.widget.LinearLayout
 import java.util.Locale
@@ -10,9 +9,8 @@ import java.util.UUID
 /**
  * Approved YouTube Channels.
  *
- * Keeps a calm list of user-approved channels that open directly in the
- * YouTube app or browser — no embedded WebView, no ad-blocking, no page
- * rewriting, and no video downloading.
+ * The trusted list: channels open inside SafeTube, and their videos skip the
+ * Keeper's check (it still blurs every thumbnail and removes Shorts).
  */
 class SafeYouTubeActivity : FocusScreenActivity() {
 
@@ -146,17 +144,13 @@ class SafeYouTubeActivity : FocusScreenActivity() {
         }
     }
 
+    /**
+     * Inside SafeTube, never the YouTube app: this used to hand the real app a
+     * 30-minute pass, which opened everything else on YouTube along with it.
+     */
     private fun openChannelInYouTube(channel: SafeChannel) {
-        val url = channel.url.ifBlank { "https://www.youtube.com/${channel.handle}" }
-        // Grant a temporary 30-minute pass for YouTube so opening an approved channel works smoothly.
-        TakeABreak.grantTempPass(this, "com.google.android.youtube", 30)
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        }
-        try {
-            startActivity(intent)
-        } catch (_: Exception) {
-            FocusDialog.toast(this, getString(R.string.common_page_not_available))
-        }
+        val url = channel.url.ifBlank { "https://m.youtube.com/${channel.handle}" }
+            .replace("://www.youtube.com", "://m.youtube.com")
+        startActivity(Intent(this, SafeTubeBrowserActivity::class.java).putExtra(SafeTubeBrowserActivity.EXTRA_START_URL, url))
     }
 }

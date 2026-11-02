@@ -144,7 +144,7 @@ class LibraryTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(acti
 
     private fun buildSafeYouTubeCard(): View {
         val card = FocusUi.card(activity, tokens) {
-            activity.startActivity(Intent(activity, SafeYouTubeActivity::class.java))
+            activity.startActivity(Intent(activity, SafeTubeBrowserActivity::class.java))
         }
 
         card.addView(FocusUi.heading(activity, tokens, activity.getString(R.string.library_safetube_heading)))
@@ -172,7 +172,18 @@ class LibraryTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(acti
         card.addView(FocusUi.spacer(activity, 14))
         card.addView(
             FocusUi.primaryButton(activity, tokens, activity.getString(R.string.library_safetube_open_button)) {
+                activity.startActivity(Intent(activity, SafeTubeBrowserActivity::class.java))
+            }
+        )
+        card.addView(FocusUi.spacer(activity, 8))
+        card.addView(
+            FocusUi.ghostButton(activity, tokens, activity.getString(R.string.library_safetube_trusted_button)) {
                 activity.startActivity(Intent(activity, SafeYouTubeActivity::class.java))
+            }
+        )
+        card.addView(
+            FocusUi.ghostButton(activity, tokens, activity.getString(R.string.library_keeper_button)) {
+                activity.startActivity(Intent(activity, KeeperSettingsActivity::class.java))
             }
         )
         return card

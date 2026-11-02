@@ -100,7 +100,7 @@ class WebViewActivity : AppCompatActivity() {
             if (isUrlAllowed(normalized)) {
                 openLink(Constants.WebLink(normalized, normalized, "All"))
             } else {
-                FocusDialog.toast(this, getString(R.string.webview_not_in_list))
+                askKeeper(normalized)
             }
         }
     }
@@ -222,7 +222,7 @@ class WebViewActivity : AppCompatActivity() {
                     return false
                 }
 
-                FocusDialog.toast(this@WebViewActivity, getString(R.string.webview_not_in_list))
+                askKeeper(url)
                 return true
             }
 
@@ -270,32 +270,18 @@ class WebViewActivity : AppCompatActivity() {
      * the sign-in domains the listed sites hand off to. The adult filter always
      * wins, even over an explicitly listed host.
      */
-    private fun isUrlAllowed(target: String): Boolean {
-        return try {
-            val uri = Uri.parse(target)
-            val scheme = uri.scheme?.lowercase() ?: return false
-            if (scheme != "https" && scheme != "http") return false
+    private fun isUrlAllowed(target: String): Boolean =
+        AllowlistStore.isListedUrl(this, target) ||
+            (!isAdultHost(target) && KeeperCache.isApprovedPage(this, target))
 
-            val host = uri.host?.lowercase()?.removePrefix("www.") ?: return false
-            if (AllowlistStore.isBlockedHost(this, host)) return false
-
-            if (SystemSurfaces.authDomains.any { hostMatches(host, it) }) return true
-
-            AllowlistStore.getWebAllowlistUrls(this).any { allowed ->
-                val allowedHost = try {
-                    Uri.parse(allowed).host?.lowercase()?.removePrefix("www.").orEmpty()
-                } catch (_: Exception) {
-                    ""
-                }
-                allowedHost.isNotBlank() && hostMatches(host, allowedHost)
-            }
-        } catch (_: Exception) {
-            false
+    /** Not on the list: the Keeper looks at the page itself instead of a flat "no". */
+    private fun askKeeper(url: String) {
+        if (isAdultHost(url)) {
+            FocusDialog.toast(this, getString(R.string.webview_not_in_list))
+            return
         }
+        startActivity(Intent(this, KeeperActivity::class.java).putExtra(KeeperActivity.EXTRA_URL, url))
     }
-
-    private fun hostMatches(targetHost: String, allowedHost: String): Boolean =
-        targetHost == allowedHost || targetHost.endsWith("." + allowedHost)
 
     private fun isAdultHost(url: String): Boolean = try {
         val host = Uri.parse(url).host?.lowercase() ?: ""

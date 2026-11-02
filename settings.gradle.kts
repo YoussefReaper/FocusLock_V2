@@ -16,6 +16,8 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        // NewPipeExtractor (personal build only) is published there and nowhere else.
+        maven("https://jitpack.io") { content { includeGroupByRegex("(?i)com\\.github\\.teamnewpipe.*") } }
     }
 }
 

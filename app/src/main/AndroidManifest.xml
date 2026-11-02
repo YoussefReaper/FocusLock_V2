@@ -120,6 +120,55 @@
             android:launchMode="singleTop"
             android:lockTaskMode="if_whitelisted" />
 
+        <!-- The Keeper: "Share → Pinehold" and "Open with Pinehold" for any link. -->
+        <activity
+            android:name=".KeeperActivity"
+            android:exported="true"
+            android:label="@string/keeper_share_label"
+            android:launchMode="singleTop"
+            android:lockTaskMode="if_whitelisted"
+            android:excludeFromRecents="true">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" />
+                <data android:scheme="http" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".KeeperSettingsActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:lockTaskMode="if_whitelisted"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".SafeTubeBrowserActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:lockTaskMode="if_whitelisted"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+
+        <activity
+            android:name=".VideoCheckActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:lockTaskMode="if_whitelisted" />
+
+        <activity
+            android:name=".SafeTubePlayerActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:lockTaskMode="if_whitelisted"
+            android:configChanges="orientation|screenSize|keyboardHidden" />
+
         <activity
             android:name=".WebAllowlistEditorActivity"
             android:exported="false"

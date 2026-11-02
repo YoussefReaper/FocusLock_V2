@@ -33,12 +33,28 @@ android {
         buildConfigField("boolean", "ENFORCEMENT", "true")
         buildConfigField("boolean", "DEMO", "false")
         buildConfigField("String", "TIER", "\"full\"")
+        buildConfigField("boolean", "PERSONAL_DOWNLOADS", "false")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildFeatures {
         buildConfig = true
+    }
+
+    // "personal": Youssef's own phone. Adds SafeTube downloads, which break
+    // YouTube's terms and need GPL code (NewPipeExtractor), so they live only here.
+    // "store": the build that could be distributed; videos play through YouTube's
+    // official player instead. Same package id: one replaces the other in place.
+    flavorDimensions += "dist"
+    productFlavors {
+        create("personal") {
+            dimension = "dist"
+            buildConfigField("boolean", "PERSONAL_DOWNLOADS", "true")
+        }
+        create("store") {
+            dimension = "dist"
+        }
     }
 
     signingConfigs {
@@ -81,6 +97,8 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+        // NewPipeExtractor uses java.nio APIs that need desugaring below API 33.
+        isCoreLibraryDesugaringEnabled = true
     }
     kotlinOptions {
         jvmTarget = "11"
@@ -109,6 +127,9 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs_nio:2.1.5")
+    // Personal build only (GPL-3.0): finds YouTube stream addresses for SafeTube downloads.
+    "personalImplementation"("com.github.teamnewpipe:NewPipeExtractor:v0.26.5")
     testImplementation(libs.junit)
     // The real org.json for unit tests; Android's own is a stub off-device.
     testImplementation("org.json:json:20240303")
