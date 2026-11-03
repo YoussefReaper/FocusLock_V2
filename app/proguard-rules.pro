@@ -36,3 +36,4 @@
 -dontwarn javax.script.**
 -dontwarn org.jsoup.**
 -dontwarn com.google.re2j.**
+-dontwarn jdk.dynalink.**
