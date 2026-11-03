@@ -65,4 +65,7 @@
     <string name="download_cleaning">Removing the cut parts…</string>
     <string name="download_done">Saved to your folder.</string>
     <string name="download_failed">Could not download this video.</string>
+    <string name="safetube_browser_title">SafeTube</string>
+    <string name="safetube_search_hint">Search YouTube</string>
+    <string name="safetube_home_hint">Search for what you came for.</string>
 </resources>

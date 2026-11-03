@@ -93,7 +93,7 @@
     <!-- Approved YouTube Channels -->
     <string name="cap_safe_youtube_label">Approved YouTube channels</string>
     <string name="cap_safe_youtube_blurb">Keep a list of educational channels that open directly in YouTube without starting on the home feed.</string>
-    <string name="safetube_title">Approved YouTube channels</string>
+    <string name="safetube_title">Trusted channels</string>
     <string name="safetube_subtitle">Your own list of channels that open directly in YouTube.</string>
     <string name="safetube_empty_channels">No channels added yet. Add a channel below or pick one of the suggestions.</string>
     <string name="safetube_suggestions_section">Suggested educational channels</string>
@@ -103,7 +103,7 @@
     <string name="safetube_add_channel_btn">Add channel</string>
     <string name="safetube_channel_added">Channel added to your list</string>
     <string name="safetube_open">Open</string>
-    <string name="library_safetube_heading">Approved YouTube channels</string>
-    <string name="library_safetube_body">Open your chosen educational channels directly in YouTube without landing on the home feed.</string>
-    <string name="library_safetube_open_button">Open approved channels</string>
+    <string name="library_safetube_heading">SafeTube</string>
+    <string name="library_safetube_body">YouTube with every thumbnail blurred and no Shorts. Each video is checked before it plays.</string>
+    <string name="library_safetube_open_button">Open SafeTube</string>
 </resources>

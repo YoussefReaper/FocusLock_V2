@@ -19,7 +19,6 @@
     <string name="dialog_no_date">بلا تاريخ</string>
     <string name="dialog_back">‹  رجوع</string>
     <string name="insights_first_day">اليوم الأول، أي وقت تبدأ فيه.</string>
-    <string name="insights_best_run">أفضل سلسلة: %1$d يومًا. ابدأ اليوم من جديد فتُستأنف من واحد.</string>
     <string name="insights_run_one">%1$d يوم متتالٍ</string>
     <string name="insights_run_many">%1$d أيام متتالية</string>
     <string name="status_guard_off">حارس المحتوى مطفأ — قواعد الكلمات لا تعمل</string>
@@ -45,4 +44,12 @@
     <string name="webview_blocked_link">هذا الرابط يشير إلى مكان محجوب.</string>
     <string name="webview_text_only">وضع النص فقط مفعّل، لذا صفحات الصور والفيديو مطفأة.</string>
     <string name="webview_not_in_list">هذا العنوان ليس في قائمتك.</string>
+    <plurals name="insights_best_run">
+        <item quantity="one">أفضل سلسلة: يوم واحد. ابدأ اليوم من جديد فتُستأنف من واحد.</item>
+        <item quantity="zero">أفضل سلسلة: %1$d يومًا. ابدأ اليوم من جديد فتُستأنف من واحد.</item>
+        <item quantity="two">أفضل سلسلة: %1$d يومًا. ابدأ اليوم من جديد فتُستأنف من واحد.</item>
+        <item quantity="few">أفضل سلسلة: %1$d يومًا. ابدأ اليوم من جديد فتُستأنف من واحد.</item>
+        <item quantity="many">أفضل سلسلة: %1$d يومًا. ابدأ اليوم من جديد فتُستأنف من واحد.</item>
+        <item quantity="other">أفضل سلسلة: %1$d يومًا. ابدأ اليوم من جديد فتُستأنف من واحد.</item>
+    </plurals>
 </resources>

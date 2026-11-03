@@ -91,7 +91,7 @@
     <!-- Approved YouTube Channels -->
     <string name="cap_safe_youtube_label">قنوات يوتيوب المعتمدة</string>
     <string name="cap_safe_youtube_blurb">احتفظ بقائمة من القنوات التعليمية التي تُفتح مباشرة في يوتيوب دون المرور بالصفحة الرئيسية.</string>
-    <string name="safetube_title">قنوات يوتيوب المعتمدة</string>
+    <string name="safetube_title">القنوات الموثوقة</string>
     <string name="safetube_subtitle">قائمتك الخاصة من القنوات التي تُفتح مباشرة في تطبيق يوتيوب.</string>
     <string name="safetube_empty_channels">لم تُضف أي قناة بعد. أضف قناة أدناه أو اختر من القنوات المقترحة.</string>
     <string name="safetube_suggestions_section">قنوات تعليمية مقترحة</string>
@@ -101,7 +101,7 @@
     <string name="safetube_add_channel_btn">إضافة قناة</string>
     <string name="safetube_channel_added">تمت إضافة القناة إلى قائمتك</string>
     <string name="safetube_open">فتح</string>
-    <string name="library_safetube_heading">قنوات يوتيوب المعتمدة</string>
-    <string name="library_safetube_body">افتح قنواتك التعليمية المختارة مباشرة في يوتيوب دون الوقوع في الصفحة الرئيسية.</string>
-    <string name="library_safetube_open_button">فتح القنوات المعتمدة</string>
+    <string name="library_safetube_heading">SafeTube</string>
+    <string name="library_safetube_body">يوتيوب بكل الصور المصغّرة مموّهة وبلا Shorts. يُفحص كل فيديو قبل تشغيله.</string>
+    <string name="library_safetube_open_button">افتح SafeTube</string>
 </resources>

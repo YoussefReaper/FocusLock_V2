@@ -64,4 +64,7 @@
     <string name="download_cleaning">حذف الأجزاء المقطوعة…</string>
     <string name="download_done">حُفظ في مجلدك.</string>
     <string name="download_failed">تعذّر تنزيل هذا الفيديو.</string>
+    <string name="safetube_browser_title">SafeTube</string>
+    <string name="safetube_search_hint">ابحث في يوتيوب</string>
+    <string name="safetube_home_hint">ابحث عمّا جئت من أجله.</string>
 </resources>

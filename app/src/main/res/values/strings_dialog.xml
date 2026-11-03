@@ -16,7 +16,6 @@
     <string name="dialog_no_date">No date at all</string>
     <string name="dialog_back">‹  Back</string>
     <string name="insights_first_day">First day whenever you start.</string>
-    <string name="insights_best_run">Best run: %1$d days. Start again today and it picks up from one.</string>
     <string name="insights_run_one">%1$d day in a row</string>
     <string name="insights_run_many">%1$d days in a row</string>
     <string name="status_guard_off">Content guard is off — keyword rules are not running</string>
@@ -42,4 +41,8 @@
     <string name="webview_blocked_link">That link points somewhere blocked.</string>
     <string name="webview_text_only">Text only is on, so image and video pages are off.</string>
     <string name="webview_not_in_list">That address is not on your list.</string>
+    <plurals name="insights_best_run">
+        <item quantity="one">Best run: %1$d day. Start again today and it picks up from one.</item>
+        <item quantity="other">Best run: %1$d days. Start again today and it picks up from one.</item>
+    </plurals>
 </resources>

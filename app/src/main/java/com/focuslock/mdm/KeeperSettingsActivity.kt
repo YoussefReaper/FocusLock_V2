@@ -50,7 +50,7 @@ class KeeperSettingsActivity : FocusScreenActivity() {
             c.addView(FocusUi.caption(this, tokens, getString(R.string.keeper_usage_detail, unlock, video, KeeperBudget.DAILY_LIMIT - KeeperBudget.VIDEO_CAP)))
         })
 
-        column.addView(sectionLabel(getString(R.string.safetube_title)))
+        column.addView(sectionLabel(getString(R.string.safetube_browser_title)))
         column.addView(card { c ->
             val folder = FocusStore.getString(this, KEY_SAVE_FOLDER, "")
             c.addView(FocusUi.body(this, tokens, getString(R.string.safetube_folder_heading)))

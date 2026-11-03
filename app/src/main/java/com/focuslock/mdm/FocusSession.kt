@@ -512,8 +512,8 @@ object SessionManager {
         val hours = (totalMinutes % 1_440L) / 60L
         val minutes = totalMinutes % 60L
         return when {
-            days > 0L -> days.toString() + "d " + hours + "h"
-            hours > 0L -> hours.toString() + "h " + minutes + "m"
+            days > 0L -> if (hours == 0L) days.toString() + "d" else days.toString() + "d " + hours + "h"
+            hours > 0L -> if (minutes == 0L) hours.toString() + "h" else hours.toString() + "h " + minutes + "m"
             else -> minutes.toString() + "m"
         }
     }

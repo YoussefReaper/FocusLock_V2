@@ -78,6 +78,12 @@ class SafeTubeBrowserActivity : AppCompatActivity() {
 
     private lateinit var tokens: UiPrefs.Tokens
     private lateinit var web: WebView
+    private lateinit var homeHint: android.widget.TextView
+
+    private fun showHomeHint(url: String?) {
+        val path = try { Uri.parse(url ?: "").path.orEmpty() } catch (_: Exception) { "" }
+        homeHint.visibility = if (path.isEmpty() || path == "/" || path.startsWith("/feed")) android.view.View.VISIBLE else android.view.View.GONE
+    }
 
     @SuppressLint("SetJavaScriptEnabled", "AddJavascriptInterface")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,7 +96,7 @@ class SafeTubeBrowserActivity : AppCompatActivity() {
             val p = FocusUi.dp(this@SafeTubeBrowserActivity, 12)
             setPadding(p, p, p, p)
         }
-        bar.addView(FocusUi.heading(this, tokens, getString(R.string.safetube_title)).apply {
+        bar.addView(FocusUi.heading(this, tokens, getString(R.string.safetube_browser_title)).apply {
             layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f)
         })
         bar.addView(FocusUi.smallButton(this, tokens, getString(R.string.safetube_trusted_short)) {
@@ -100,8 +106,35 @@ class SafeTubeBrowserActivity : AppCompatActivity() {
         bar.addView(FocusUi.smallButton(this, tokens, getString(R.string.common_close)) { finish() })
         root.addView(bar)
 
+        // Our own search box: the page's home and search UI change often, this does not.
+        val search = FocusUi.input(this, tokens, getString(R.string.safetube_search_hint))
+        search.imeOptions = android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH
+        search.inputType = android.text.InputType.TYPE_CLASS_TEXT
+        search.isSingleLine = true
+        search.setOnEditorActionListener { v, _, _ ->
+            val q = v.text?.toString()?.trim().orEmpty()
+            if (q.isNotEmpty()) {
+                web.loadUrl("https://m.youtube.com/results?search_query=" + Uri.encode(q))
+                (getSystemService(INPUT_METHOD_SERVICE) as android.view.inputmethod.InputMethodManager).hideSoftInputFromWindow(v.windowToken, 0)
+            }
+            true
+        }
+        search.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply {
+            val m = FocusUi.dp(this@SafeTubeBrowserActivity, 12); setMargins(m, 0, m, m)
+        }
+        root.addView(search)
+
+        val stage = android.widget.FrameLayout(this)
+        stage.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f)
         web = WebView(this)
-        web.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f)
+        web.layoutParams = android.widget.FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        // In place of YouTube's home feed: nothing to scroll, only a reason to search.
+        homeHint = FocusUi.body(this, tokens, getString(R.string.safetube_home_hint)).apply {
+            gravity = android.view.Gravity.CENTER
+            setBackgroundColor(tokens.background)
+            layoutParams = android.widget.FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+            isClickable = true
+        }
         web.settings.apply {
             javaScriptEnabled = true
             domStorageEnabled = true
@@ -118,16 +151,21 @@ class SafeTubeBrowserActivity : AppCompatActivity() {
                 return route(url)
             }
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) { view?.evaluateJavascript(JS, null) }
-            override fun onPageFinished(view: WebView?, url: String?) { view?.evaluateJavascript(JS, null) }
+            override fun onPageFinished(view: WebView?, url: String?) { view?.evaluateJavascript(JS, null); showHomeHint(url) }
             override fun doUpdateVisitedHistory(view: WebView?, url: String?, isReload: Boolean) {
                 // YouTube changes pages without reloading: catch watch and Shorts routes here too.
                 val u = url ?: return
                 if (VideoCheck.videoIdFrom(u) != null) { view?.stopLoading(); if (view?.canGoBack() == true) view.goBack(); route(u) }
                 view?.evaluateJavascript(JS, null)
+                showHomeHint(u)
             }
         }
-        root.addView(web)
-        setContentView(root)
+        stage.addView(web)
+        stage.addView(homeHint)
+        root.addView(stage)
+        // Explicitly full-window: without it the root wraps its content and the
+        // weighted page area gets zero height (the page loads but nothing shows).
+        setContentView(root, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() { if (web.canGoBack()) web.goBack() else finish() }

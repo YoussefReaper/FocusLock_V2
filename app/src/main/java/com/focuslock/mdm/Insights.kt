@@ -83,7 +83,7 @@ object Streaks {
         val currentRun = current(context)
         if (currentRun <= 0) return context.getString(R.string.insights_first_day)
         if (isPaused(context)) {
-            return context.getString(R.string.insights_best_run, best(context))
+            return context.resources.getQuantityString(R.plurals.insights_best_run, best(context), best(context))
         }
         return context.getString(
             if (currentRun == 1) R.string.insights_run_one else R.string.insights_run_many,

@@ -42,7 +42,7 @@ class SafeTubePlayerActivity : AppCompatActivity() {
 
         val root = FocusUi.column(this).apply { setBackgroundColor(tokens.background) }
         val bar = FocusUi.row(this).apply { val p = FocusUi.dp(this@SafeTubePlayerActivity, 12); setPadding(p, p, p, p) }
-        bar.addView(FocusUi.heading(this, tokens, getString(R.string.safetube_title)).apply {
+        bar.addView(FocusUi.heading(this, tokens, getString(R.string.safetube_browser_title)).apply {
             layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f)
         })
         bar.addView(FocusUi.smallButton(this, tokens, getString(R.string.common_close)) { finish() })
@@ -74,7 +74,7 @@ class SafeTubePlayerActivity : AppCompatActivity() {
             info.addView(FocusUi.body(this, tokens, getString(R.string.video_allowed_title)))
         }
         root.addView(info)
-        setContentView(root)
+        setContentView(root, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
 
         web.loadDataWithBaseURL(BASE, page(id, cuts), "text/html", "utf-8", null)
     }
