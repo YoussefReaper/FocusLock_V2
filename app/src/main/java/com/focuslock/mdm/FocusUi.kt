@@ -1652,7 +1652,7 @@ object FocusUi {
 
         if (onBack != null) {
             val back = TextView(context)
-            back.text = "‹  " + context.getString(R.string.dialog_back)
+            back.text = context.getString(R.string.dialog_back)
             back.setTextSize(TypedValue.COMPLEX_UNIT_SP, tokens.scaled(14f))
             back.setTextColor(tokens.accent)
             applyFont(back, tokens, weight = 600)
