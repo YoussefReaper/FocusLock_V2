@@ -356,6 +356,17 @@ class YouTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activity
         // those switches already lives in CapabilitiesActivity, which is the
         // screen built for them. Two places to change the same flag is not a
         // convenience, it is a second place to look when one of them is wrong.
+        // The Keeper's key lives here too, not only behind the Focus tab's tools tile.
+        card.addView(
+            FocusUi.listRow(
+                activity,
+                tokens,
+                activity.getString(R.string.keeper_settings_title),
+                activity.getString(if (Keeper.isReady(activity)) R.string.youtab_keeper_ready else R.string.youtab_keeper_missing),
+                trailing = FocusUi.chevron(activity, tokens)
+            ) { activity.startActivity(Intent(activity, KeeperSettingsActivity::class.java)) }
+        )
+        card.addView(FocusUi.divider(activity, tokens))
         val enabledCount = Capabilities.all.count { CapabilityRegistry.isEnabled(activity, it.id) }
         card.addView(
             FocusUi.listRow(

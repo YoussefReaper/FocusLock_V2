@@ -68,4 +68,6 @@
     <string name="safetube_browser_title">SafeTube</string>
     <string name="safetube_search_hint">Search YouTube</string>
     <string name="safetube_home_hint">Search for what you came for.</string>
+    <string name="youtab_keeper_ready">Key added. Ready to check links and videos.</string>
+    <string name="youtab_keeper_missing">No key yet. Add your OpenRouter key here.</string>
 </resources>
