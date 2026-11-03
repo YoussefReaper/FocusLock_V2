@@ -101,8 +101,20 @@ class VideoCheckActivity : AppCompatActivity() {
                 if (SafeTubeDownloads.available) {
                     column.addView(FocusUi.spacer(this, 8))
                     column.addView(FocusUi.secondaryButton(this, tokens, getString(R.string.video_download)) {
-                        SafeTubeDownloads.start(this, id, outcome.meta?.title ?: id, v.cuts)
-                        finish()
+                        if (FocusStore.getString(this, KeeperSettingsActivity.KEY_SAVE_FOLDER, "").isBlank()) {
+                            // No folder yet: send them to pick one and keep this screen, instead
+                            // of a toast and a closed screen they have to find their way back to.
+                            FocusDialog.toast(this, getString(R.string.safetube_folder_none))
+                            startActivity(Intent(this, KeeperSettingsActivity::class.java))
+                        } else {
+                            SafeTubeDownloads.start(this, id, outcome.meta?.title ?: id, v.cuts)
+                            // Progress and "saved" live in a notification; without the permission
+                            // the download runs invisibly, so ask, and stay on screen while asking.
+                            if (android.os.Build.VERSION.SDK_INT >= 33 &&
+                                checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                                requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 4108)
+                            } else finish()
+                        }
                     })
                 }
             }

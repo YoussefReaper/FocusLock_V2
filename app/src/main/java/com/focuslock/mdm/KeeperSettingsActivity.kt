@@ -41,6 +41,37 @@ class KeeperSettingsActivity : FocusScreenActivity() {
             }
         })
 
+        column.addView(sectionLabel(getString(R.string.keeper_focus_heading)))
+        column.addView(card { c ->
+            c.addView(FocusUi.secondary(this, tokens, getString(R.string.keeper_focus_intro)))
+            c.addView(FocusUi.spacer(this, 8))
+            KeeperFocus.ITEMS.forEach { item ->
+                c.addView(FocusUi.toggleRow(this, tokens, getString(item.labelRes), null, KeeperFocus.isOn(this, item.id)) { on ->
+                    KeeperFocus.setOn(this, item.id, on)
+                })
+            }
+            c.addView(FocusUi.spacer(this, 10))
+            c.addView(FocusUi.body(this, tokens, getString(R.string.keeper_focus_custom_heading)))
+            c.addView(FocusUi.spacer(this, 4))
+            val own = KeeperFocus.custom(this)
+            if (own.isEmpty()) c.addView(FocusUi.caption(this, tokens, getString(R.string.keeper_focus_custom_none)))
+            own.forEach { w ->
+                c.addView(FocusUi.listRow(this, tokens, w, getString(R.string.keeper_focus_custom_remove)) {
+                    KeeperFocus.removeCustom(this, w); refresh()
+                })
+            }
+            c.addView(FocusUi.spacer(this, 8))
+            c.addView(FocusUi.secondaryButton(this, tokens, getString(R.string.keeper_focus_custom_add)) {
+                FocusDialog.textInput(this, title = getString(R.string.keeper_focus_custom_add),
+                    subtitle = getString(R.string.keeper_focus_custom_prompt), hint = "", confirmLabel = getString(R.string.common_save)) { input ->
+                    if (!KeeperFocus.addCustom(this, input)) FocusDialog.toast(this, getString(R.string.keeper_focus_custom_rejected, KeeperFocus.MAX_CUSTOM))
+                    refresh()
+                }
+            })
+            c.addView(FocusUi.spacer(this, 12))
+            c.addView(FocusUi.caption(this, tokens, getString(R.string.keeper_focus_never)))
+        })
+
         column.addView(sectionLabel(getString(R.string.keeper_usage_heading)))
         column.addView(card { c ->
             val unlock = KeeperBudget.used(this, Keeper.Purpose.UNLOCK)
@@ -56,7 +87,7 @@ class KeeperSettingsActivity : FocusScreenActivity() {
             c.addView(FocusUi.body(this, tokens, getString(R.string.safetube_folder_heading)))
             c.addView(FocusUi.spacer(this, 4))
             c.addView(FocusUi.caption(this, tokens,
-                if (folder.isBlank()) getString(R.string.safetube_folder_none) else Uri.decode(Uri.parse(folder).lastPathSegment.orEmpty())))
+                if (folder.isBlank()) getString(R.string.safetube_folder_none) else Uri.decode(Uri.parse(folder).lastPathSegment.orEmpty()).substringAfter(':')))
             c.addView(FocusUi.spacer(this, 12))
             c.addView(FocusUi.secondaryButton(this, tokens, getString(R.string.safetube_folder_pick)) { pickFolder() })
         })

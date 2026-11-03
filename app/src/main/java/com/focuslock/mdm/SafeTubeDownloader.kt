@@ -56,6 +56,7 @@ object SafeTubeDownloader {
                 saveToFolder(app, Uri.parse(folder), safeName(title) + ".mp4", out)
                 done(app, notifyId, title, app.getString(R.string.download_done))
             } catch (e: Exception) {
+                android.util.Log.w("SafeTube", "download $videoId failed", e)
                 done(app, notifyId, title, app.getString(R.string.download_failed))
             } finally {
                 vFile.delete(); aFile.delete(); out.delete()

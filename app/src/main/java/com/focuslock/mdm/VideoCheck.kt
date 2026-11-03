@@ -69,9 +69,9 @@ object VideoCheck {
 
         onStep(Step.DECIDING)
         val user = KeeperPrompts.videoUser(meta.title, meta.channel, meta.description, meta.durationS, grid.second, transcript)
-        return when (val r = KeeperClient.ask(context, Keeper.Purpose.VIDEO, KeeperPrompts.VIDEO_SYSTEM, user, KeeperClient.jpegDataUrl(grid.first, maxWidth = 1280, quality = 80))) {
+        return when (val r = KeeperClient.ask(context, Keeper.Purpose.VIDEO, KeeperPrompts.videoSystem(context), user, KeeperClient.jpegDataUrl(grid.first, maxWidth = 1280, quality = 80))) {
             is KeeperResult.Answered -> {
-                val v = KeeperParse.videoVerdict(r.json, meta.durationS).let { padCuts(it, meta.durationS) }
+                val v = KeeperParse.videoVerdict(r.json, meta.durationS, KeeperFocus.activeIds(context)).let { padCuts(it, meta.durationS) }
                 KeeperCache.rememberVideo(context, videoId, v)
                 Outcome(v, meta, spentRequest = true)
             }

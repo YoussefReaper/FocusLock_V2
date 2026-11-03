@@ -70,4 +70,19 @@
     <string name="safetube_home_hint">Search for what you came for.</string>
     <string name="youtab_keeper_ready">Key added. Ready to check links and videos.</string>
     <string name="youtab_keeper_missing">No key yet. Add your OpenRouter key here.</string>
+    <string name="keeper_focus_heading">What the Keeper looks for</string>
+    <string name="keeper_focus_intro">The Keeper looks for these and nothing else. Anything it refuses has to be one of them.</string>
+    <string name="focus_nudity">Nudity</string>
+    <string name="focus_sexual">Sexual acts, talk or jokes</string>
+    <string name="focus_suggestive">Seductive posing and dancing</string>
+    <string name="focus_revealing">Revealing clothes as the focus (lingerie, swimwear)</string>
+    <string name="focus_intimate">Intimate scenes (making out, bedroom)</string>
+    <string name="focus_adult_sites">Dating, hookup and adult sites</string>
+    <string name="keeper_focus_custom_heading">Your own words</string>
+    <string name="keeper_focus_custom_none">None yet. Add a name, a show or a word that pulls you back.</string>
+    <string name="keeper_focus_custom_remove">Tap to remove</string>
+    <string name="keeper_focus_custom_add">Add a word</string>
+    <string name="keeper_focus_custom_prompt">The Keeper treats anything about it the same way as the list above.</string>
+    <string name="keeper_focus_custom_rejected">Not added. It was empty, already there, or you have %1$d already.</string>
+    <string name="keeper_focus_never">Never blocked or cut: horror, blood, gore, violence, war, weapons, medicine and surgery, scary scenes, profanity and anything else not on this list. Changing the list makes the Keeper look at things again.</string>
 </resources>

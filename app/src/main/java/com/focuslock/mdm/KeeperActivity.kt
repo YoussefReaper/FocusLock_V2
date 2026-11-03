@@ -149,7 +149,7 @@ class KeeperActivity : AppCompatActivity() {
             } catch (_: Exception) { null }
             thread(name = "keeper-web") {
                 val img = shot?.let { KeeperClient.jpegDataUrl(it, maxWidth = 768) }
-                val result = KeeperClient.ask(this, Keeper.Purpose.UNLOCK, KeeperPrompts.WEB_SYSTEM, KeeperPrompts.webUser(finalUrl, title, text), img)
+                val result = KeeperClient.ask(this, Keeper.Purpose.UNLOCK, KeeperPrompts.webSystem(this), KeeperPrompts.webUser(finalUrl, title, text), img)
                 main.post { onAnswer(finalUrl, result) }
             }
         }
@@ -159,7 +159,7 @@ class KeeperActivity : AppCompatActivity() {
         if (isFinishing || isDestroyed) return
         when (result) {
             is KeeperResult.Answered -> {
-                val verdict = KeeperParse.webVerdict(result.json)
+                val verdict = KeeperParse.webVerdict(result.json, KeeperFocus.activeIds(this))
                 KeeperCache.rememberPage(this, finalUrl, verdict)
                 if (verdict.allow) openInSafeBrowser(finalUrl) else showDenied(verdict.reason, remembered = false)
             }

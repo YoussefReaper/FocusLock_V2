@@ -171,3 +171,39 @@ class SafeTubeCutTest {
         assertNull(AllowlistStore.firstUrlIn("no link here"))
     }
 }
+
+class KeeperFocusTest {
+    private val active = setOf("nudity", "sexual", "suggestive", "revealing", "intimate", "adult_sites")
+
+    @Test fun goreIsNotOnTheListSoACutIsOverruled() {
+        val v = KeeperParse.videoVerdict(JSONObject("""{"verdict":"cut","confidence":0.9,"matched":["violence","gore"],
+            "cuts":[{"from":10,"to":20}]}"""), 600, active)
+        assertTrue(v.allow); assertEquals("allow", v.action); assertTrue(v.cuts.isEmpty())
+    }
+
+    @Test fun aListedItemStillCuts() {
+        val v = KeeperParse.videoVerdict(JSONObject("""{"verdict":"cut","confidence":0.9,"matched":["revealing"],
+            "cuts":[{"from":10,"to":20}]}"""), 600, active)
+        assertEquals("cut", v.action); assertEquals(listOf(10 to 20), v.cuts)
+    }
+
+    @Test fun aRefusalThatNamesNothingStaysARefusal() =
+        assertFalse(KeeperParse.videoVerdict(JSONObject("""{"verdict":"block","confidence":0.9}"""), 600, active).allow)
+
+    @Test fun unsureStaysBlocked() =
+        assertFalse(KeeperParse.webVerdict(JSONObject("""{"verdict":"deny","matched":["unsure"],"confidence":0.4}"""), active).allow)
+
+    @Test fun feedsAreStillDenied() =
+        assertFalse(KeeperParse.webVerdict(JSONObject("""{"verdict":"deny","matched":["feed"],"confidence":0.9}"""), active).allow)
+
+    @Test fun aHorrorPageDeniedForHorrorOpens() =
+        assertTrue(KeeperParse.webVerdict(JSONObject("""{"verdict":"deny","matched":["horror"],"confidence":0.9}"""), active).allow)
+
+    @Test fun aSwitchedOffItemNoLongerCounts() {
+        val v = KeeperParse.videoVerdict(JSONObject("""{"verdict":"block","confidence":0.9,"matched":["intimate"]}"""), 600, active - "intimate")
+        assertTrue(v.allow)
+    }
+
+    @Test fun matchedAsAPlainStringIsRead() =
+        assertEquals(listOf("nudity"), KeeperParse.matched(JSONObject("""{"matched":"Nudity"}""")))
+}
