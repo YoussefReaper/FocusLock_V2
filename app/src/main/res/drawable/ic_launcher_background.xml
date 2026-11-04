@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   Adaptive-icon background. Full-bleed so the launcher can mask it to any
-  shape without exposing a corner. The gradient runs the app's accent blue
+  shape without exposing a corner. The gradient runs the Pine accent
   from light to deep, which is the same pair the site header uses.
 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,8 +16,8 @@
                 android:startX="0" android:startY="0"
                 android:endX="108" android:endY="108"
                 android:type="linear">
-                <item android:offset="0" android:color="#FF4C93FF" />
-                <item android:offset="1" android:color="#FF1D4ED8" />
+                <item android:offset="0" android:color="#FF2E8A6E" />
+                <item android:offset="1" android:color="#FF134838" />
             </gradient>
         </aapt:attr>
     </path>
