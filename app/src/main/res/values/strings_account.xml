@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The Pinehold account screen and the Keeper Plus card in Keeper settings. -->
+<resources>
+    <string name="account_title">Account</string>
+    <string name="account_subtitle">One sign-in for Pro and Keeper Plus, on phone and PC.</string>
+    <string name="account_not_signed_in">Not signed in</string>
+    <string name="account_email_hint">Email</string>
+    <string name="account_password_hint">Password</string>
+    <string name="account_sign_in">Sign in</string>
+    <string name="account_create">Create account</string>
+    <string name="account_working">One moment…</string>
+    <string name="account_missing_fields">Enter your email and a password.</string>
+    <string name="account_signed_in_as">Signed in as %1$s</string>
+    <string name="account_pro_active">Pinehold Pro: active</string>
+    <string name="account_pro_inactive">Pinehold Pro: not active</string>
+    <string name="account_plus_active">Keeper Plus: active</string>
+    <string name="account_plus_active_until">Keeper Plus: active until %1$s</string>
+    <string name="account_plus_inactive">Keeper Plus: not active</string>
+    <string name="account_sign_out">Sign out</string>
+
+    <string name="account_err_not_available">Accounts are not available yet.</string>
+    <string name="account_err_subscriptions">Subscriptions are not available yet.</string>
+    <string name="account_err_invalid_input">Check the email and password, then try again.</string>
+    <string name="account_err_taken">That email may already have an account. Try signing in.</string>
+    <string name="account_err_bad_credentials">That email and password do not match.</string>
+    <string name="account_err_too_many">Too many tries. Wait a little, then try again.</string>
+    <string name="account_err_signed_out">You are signed out. Sign in again.</string>
+    <string name="account_err_not_found">That subscription was not found.</string>
+    <string name="account_err_inactive">That subscription is not active.</string>
+    <string name="account_err_already_used">That subscription is already linked to another account.</string>
+    <string name="account_err_invalid_code">That does not look like a subscription ID. It starts with I-.</string>
+    <string name="account_err_network">Could not reach the server. Check your connection and try again.</string>
+
+    <string name="keeper_plus_title">Keeper Plus</string>
+    <string name="keeper_plus_body">$4/month · 200 checks a day, shared across phone and PC · no key needed</string>
+    <string name="keeper_plus_active">Active</string>
+    <string name="keeper_plus_active_until">Active until %1$s</string>
+    <plurals name="keeper_plus_checks_left">
+        <item quantity="one">%1$d check left today</item>
+        <item quantity="other">%1$d checks left today</item>
+    </plurals>
+    <string name="keeper_plus_subscribe">Subscribe</string>
+    <string name="keeper_plus_redeem_prompt">Already subscribed? Paste your PayPal subscription ID (I-…)</string>
+    <string name="keeper_plus_activate">Activate</string>
+    <string name="keeper_plus_sign_in_first">Sign in first.</string>
+    <string name="keeper_plus_activated">Keeper Plus is on.</string>
+</resources>

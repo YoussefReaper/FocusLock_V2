@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="account_title">الحساب</string>
+    <string name="account_subtitle">تسجيل دخول واحد لـ Pro وKeeper Plus على الهاتف والحاسوب.</string>
+    <string name="account_not_signed_in">لم تسجّل الدخول</string>
+    <string name="account_email_hint">البريد الإلكتروني</string>
+    <string name="account_password_hint">كلمة المرور</string>
+    <string name="account_sign_in">تسجيل الدخول</string>
+    <string name="account_create">إنشاء حساب</string>
+    <string name="account_working">لحظة…</string>
+    <string name="account_missing_fields">أدخل بريدك الإلكتروني وكلمة مرور.</string>
+    <string name="account_signed_in_as">مسجّل الدخول باسم %1$s</string>
+    <string name="account_pro_active">Pinehold Pro: مفعّل</string>
+    <string name="account_pro_inactive">Pinehold Pro: غير مفعّل</string>
+    <string name="account_plus_active">Keeper Plus: مفعّل</string>
+    <string name="account_plus_active_until">Keeper Plus: مفعّل حتى %1$s</string>
+    <string name="account_plus_inactive">Keeper Plus: غير مفعّل</string>
+    <string name="account_sign_out">تسجيل الخروج</string>
+
+    <string name="account_err_not_available">الحسابات غير متاحة بعد.</string>
+    <string name="account_err_subscriptions">الاشتراكات غير متاحة بعد.</string>
+    <string name="account_err_invalid_input">تحقّق من البريد الإلكتروني وكلمة المرور، ثم حاول مجددًا.</string>
+    <string name="account_err_taken">قد يكون لهذا البريد حساب بالفعل. جرّب تسجيل الدخول.</string>
+    <string name="account_err_bad_credentials">البريد الإلكتروني وكلمة المرور غير متطابقين.</string>
+    <string name="account_err_too_many">محاولات كثيرة. انتظر قليلًا ثم حاول مجددًا.</string>
+    <string name="account_err_signed_out">لقد خرجت من حسابك. سجّل الدخول مجددًا.</string>
+    <string name="account_err_not_found">لم يُعثر على هذا الاشتراك.</string>
+    <string name="account_err_inactive">هذا الاشتراك غير نشط.</string>
+    <string name="account_err_already_used">هذا الاشتراك مرتبط بحساب آخر بالفعل.</string>
+    <string name="account_err_invalid_code">لا يبدو هذا معرّف اشتراك. يبدأ المعرّف بـ I-.</string>
+    <string name="account_err_network">تعذّر الوصول إلى الخادم. تحقّق من اتصالك وحاول مجددًا.</string>
+
+    <string name="keeper_plus_title">Keeper Plus</string>
+    <string name="keeper_plus_body">4$ شهريًا · 200 فحص يوميًا مشتركة بين الهاتف والحاسوب · دون الحاجة إلى مفتاح</string>
+    <string name="keeper_plus_active">مفعّل</string>
+    <string name="keeper_plus_active_until">مفعّل حتى %1$s</string>
+    <plurals name="keeper_plus_checks_left">
+        <item quantity="zero">الفحوصات المتبقية اليوم: %1$d</item>
+        <item quantity="one">الفحوصات المتبقية اليوم: %1$d</item>
+        <item quantity="two">الفحوصات المتبقية اليوم: %1$d</item>
+        <item quantity="few">الفحوصات المتبقية اليوم: %1$d</item>
+        <item quantity="many">الفحوصات المتبقية اليوم: %1$d</item>
+        <item quantity="other">الفحوصات المتبقية اليوم: %1$d</item>
+    </plurals>
+    <string name="keeper_plus_subscribe">اشترك</string>
+    <string name="keeper_plus_redeem_prompt">مشترك بالفعل؟ الصق معرّف اشتراك PayPal الخاص بك (I-…)</string>
+    <string name="keeper_plus_activate">تفعيل</string>
+    <string name="keeper_plus_sign_in_first">سجّل الدخول أولًا.</string>
+    <string name="keeper_plus_activated">Keeper Plus مفعّل الآن.</string>
+</resources>

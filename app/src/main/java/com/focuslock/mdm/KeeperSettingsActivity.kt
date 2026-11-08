@@ -2,6 +2,9 @@ package com.focuslock.mdm
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.LinearLayout
 import java.net.HttpURLConnection
 import java.net.URL
@@ -21,10 +24,23 @@ class KeeperSettingsActivity : FocusScreenActivity() {
         const val KEY_SAVE_FOLDER = "safetube_save_folder_uri"
     }
 
+    /** The Keeper Plus card's state, kept outside the views so [refresh] does not drop it. */
+    private var subscriptionId = ""
+    private var redeeming = false
+    private var redeemError: String? = null
+
     override fun screenTitle(): String = getString(R.string.keeper_settings_title)
     override fun screenSubtitle(): String = getString(R.string.keeper_settings_subtitle)
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Account.refreshAsync(this) { runOnUiThread { if (!isFinishing && !isDestroyed && !redeeming) refresh() } }
+    }
+
     override fun buildContent(column: LinearLayout) {
+        column.addView(card { c -> keeperPlusCard(c) })
+        column.addView(FocusUi.spacer(this, 12))
+
         column.addView(card { c ->
             val ready = Keeper.isReady(this)
             c.addView(FocusUi.heading(this, tokens, getString(R.string.keeper_key_heading)))
@@ -93,6 +109,84 @@ class KeeperSettingsActivity : FocusScreenActivity() {
         })
         column.addView(FocusUi.spacer(this, 10))
         column.addView(FocusUi.caption(this, tokens, getString(R.string.keeper_privacy_note)))
+    }
+
+    private fun keeperPlusCard(c: LinearLayout) {
+        c.addView(FocusUi.heading(this, tokens, getString(R.string.keeper_plus_title)))
+        c.addView(FocusUi.spacer(this, 6))
+        c.addView(FocusUi.secondary(this, tokens, getString(R.string.keeper_plus_body)))
+        c.addView(FocusUi.spacer(this, 14))
+        if (Account.keeperPlusActive(this)) {
+            val until = Account.entitlement(this, EntitlementRules.KEEPER_PLUS)?.expiresAtMs
+            val parts = mutableListOf(
+                if (until != null) getString(R.string.keeper_plus_active_until, AccountActivity.dateLabel(until))
+                else getString(R.string.keeper_plus_active)
+            )
+            Account.checksLeftToday(this)?.let { left ->
+                parts.add(resources.getQuantityString(R.plurals.keeper_plus_checks_left, left, left))
+            }
+            c.addView(FocusUi.body(this, tokens, parts.joinToString(" · ")))
+            return
+        }
+        c.addView(FocusUi.primaryButton(this, tokens, getString(R.string.keeper_plus_subscribe)) { openKeeperPlus() })
+        c.addView(FocusUi.spacer(this, 14))
+        c.addView(FocusUi.caption(this, tokens, getString(R.string.keeper_plus_redeem_prompt)))
+        c.addView(FocusUi.spacer(this, 6))
+        val field = FocusUi.input(this, tokens, "I-…", subscriptionId)
+        field.isEnabled = !redeeming
+        field.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, a: Int, b: Int, n: Int) = Unit
+            override fun onTextChanged(s: CharSequence?, a: Int, b: Int, n: Int) = Unit
+            override fun afterTextChanged(s: Editable?) { subscriptionId = s?.toString().orEmpty() }
+        })
+        c.addView(field)
+        redeemError?.let {
+            c.addView(FocusUi.caption(this, tokens, it).apply { setTextColor(tokens.danger) })
+            c.addView(FocusUi.spacer(this, 8))
+        }
+        if (!Account.signedIn(this)) {
+            c.addView(FocusUi.caption(this, tokens, getString(R.string.keeper_plus_sign_in_first)))
+            c.addView(FocusUi.spacer(this, 8))
+        }
+        c.addView(FocusUi.secondaryButton(this, tokens,
+            getString(if (redeeming) R.string.account_working else R.string.keeper_plus_activate)) { activate() })
+    }
+
+    /** Same opening as [DemoMode.openCheckout]: the browser gets a settings window so the blocker lets it through. */
+    private fun openKeeperPlus() {
+        try {
+            LockManager.allowSettingsUntil(this, System.currentTimeMillis() + 5 * 60 * 1000)
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Account.KEEPER_PLUS_URL)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        } catch (_: Exception) {
+            FocusDialog.toast(this, getString(R.string.common_page_not_available))
+        }
+    }
+
+    private fun activate() {
+        if (redeeming) return
+        if (!Account.signedIn(this)) {
+            startActivity(Intent(this, AccountActivity::class.java))
+            return
+        }
+        val raw = subscriptionId
+        redeeming = true
+        redeemError = null
+        refresh()
+        val app = applicationContext
+        thread(name = "keeper-plus-redeem") {
+            val problem = try { Account.redeem(app, raw) } catch (_: Exception) { AccountProblem.NETWORK }
+            runOnUiThread {
+                redeeming = false
+                if (isFinishing || isDestroyed) return@runOnUiThread
+                if (problem == null) {
+                    subscriptionId = ""
+                    if (Account.keeperPlusActive(this)) FocusDialog.toast(this, getString(R.string.keeper_plus_activated))
+                } else {
+                    redeemError = AccountActivity.problemText(this, problem)
+                }
+                refresh()
+            }
+        }
     }
 
     private fun promptKey() {

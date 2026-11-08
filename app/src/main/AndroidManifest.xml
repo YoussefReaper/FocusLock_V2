@@ -150,6 +150,13 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity
+            android:name=".AccountActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:lockTaskMode="if_whitelisted"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
             android:name=".SafeTubeBrowserActivity"
             android:exported="false"
             android:launchMode="singleTop"

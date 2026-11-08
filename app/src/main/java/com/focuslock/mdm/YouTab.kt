@@ -356,6 +356,17 @@ class YouTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activity
         // those switches already lives in CapabilitiesActivity, which is the
         // screen built for them. Two places to change the same flag is not a
         // convenience, it is a second place to look when one of them is wrong.
+        // The optional account sits beside the Keeper: Keeper Plus is what it is mostly for.
+        card.addView(
+            FocusUi.listRow(
+                activity,
+                tokens,
+                activity.getString(R.string.account_title),
+                if (Account.signedIn(activity)) Account.email(activity) else activity.getString(R.string.account_not_signed_in),
+                trailing = FocusUi.chevron(activity, tokens)
+            ) { activity.startActivity(Intent(activity, AccountActivity::class.java)) }
+        )
+        card.addView(FocusUi.divider(activity, tokens))
         // The Keeper's key lives here too, not only behind the Focus tab's tools tile.
         card.addView(
             FocusUi.listRow(
