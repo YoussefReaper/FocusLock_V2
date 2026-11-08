@@ -202,9 +202,11 @@ class KeeperActivity : AppCompatActivity() {
         val body = when (why) {
             KeeperResult.Why.BUDGET, KeeperResult.Why.QUOTA -> R.string.keeper_failed_budget
             KeeperResult.Why.NO_KEY -> R.string.keeper_needs_key_body
+            KeeperResult.Why.DAILY_LIMIT -> R.string.keeper_plus_daily_limit
             else -> R.string.keeper_failed_network
         }
-        showMessage(getString(R.string.keeper_failed_title), getString(body))
+        val text = if (why == KeeperResult.Why.DAILY_LIMIT) getString(body, Account.keeperLimit(this)) else getString(body)
+        showMessage(getString(R.string.keeper_failed_title), text)
     }
 
     private fun showNeedsKey() {

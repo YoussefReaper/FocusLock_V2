@@ -33,9 +33,11 @@ object DemoMode {
 
     /**
      * Whether FocusLock Pro is unlocked on this device.
-     * Requires both the unlock flag and a valid offline-verified licence code.
+     * Either a valid offline-verified licence code on this device, or mobile_pro
+     * on the signed-in account (cached; see [Account]).
      */
     fun isPro(context: Context): Boolean {
+        if (Account.hasMobilePro(context)) return true
         if (!FocusStore.getBool(context, KEY_PRO_UNLOCKED, false)) return false
         val code = FocusStore.getString(context, KEY_LICENCE_CODE, "")
         return verifyLicenceCode(code)

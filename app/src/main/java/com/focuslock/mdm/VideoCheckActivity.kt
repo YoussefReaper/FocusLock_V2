@@ -72,11 +72,12 @@ class VideoCheckActivity : AppCompatActivity() {
             v == null -> {
                 column.addView(FocusUi.title(this, tokens, getString(R.string.video_failed_title)).apply { gravity = Gravity.CENTER })
                 column.addView(FocusUi.spacer(this, 10))
-                column.addView(FocusUi.body(this, tokens, getString(when (outcome.failure) {
-                    KeeperResult.Why.BUDGET, KeeperResult.Why.QUOTA -> R.string.keeper_failed_budget
-                    KeeperResult.Why.UNREADABLE -> R.string.video_failed_frames
-                    else -> R.string.keeper_failed_network
-                })).apply { gravity = Gravity.CENTER })
+                column.addView(FocusUi.body(this, tokens, when (outcome.failure) {
+                    KeeperResult.Why.BUDGET, KeeperResult.Why.QUOTA -> getString(R.string.keeper_failed_budget)
+                    KeeperResult.Why.UNREADABLE -> getString(R.string.video_failed_frames)
+                    KeeperResult.Why.DAILY_LIMIT -> getString(R.string.keeper_plus_daily_limit, Account.keeperLimit(this))
+                    else -> getString(R.string.keeper_failed_network)
+                }).apply { gravity = Gravity.CENTER })
             }
             !v.allow -> {
                 column.addView(FocusUi.title(this, tokens, getString(R.string.video_blocked_title)).apply { gravity = Gravity.CENTER })

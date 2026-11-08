@@ -75,7 +75,7 @@ object VideoCheck {
                 KeeperCache.rememberVideo(context, videoId, v)
                 Outcome(v, meta, spentRequest = true)
             }
-            is KeeperResult.Failed -> Outcome(null, meta, r.why, spentRequest = r.why != KeeperResult.Why.NO_KEY && r.why != KeeperResult.Why.BUDGET)
+            is KeeperResult.Failed -> Outcome(null, meta, r.why, spentRequest = r.why != KeeperResult.Why.NO_KEY && r.why != KeeperResult.Why.BUDGET && r.why != KeeperResult.Why.DAILY_LIMIT)
         }
     }
 

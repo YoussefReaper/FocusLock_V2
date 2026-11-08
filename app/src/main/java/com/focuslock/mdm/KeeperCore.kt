@@ -43,7 +43,8 @@ object Keeper {
 
     enum class Purpose { UNLOCK, VIDEO }
 
-    fun isReady(context: Context): Boolean = KeeperKey.has(context)
+    /** Ready with the person's own key, or with Keeper Plus on their account. */
+    fun isReady(context: Context): Boolean = KeeperKey.has(context) || Account.keeperPlusActive(context)
 }
 
 // ───────────────────────────────────────────────────────────── the key
@@ -279,7 +280,7 @@ sealed class KeeperResult {
     data class Answered(val json: JSONObject) : KeeperResult()
     /** No decision could be made: the caller keeps things blocked. */
     data class Failed(val why: Why, val detail: String = "") : KeeperResult()
-    enum class Why { NO_KEY, BUDGET, NETWORK, QUOTA, UNREADABLE }
+    enum class Why { NO_KEY, BUDGET, NETWORK, QUOTA, UNREADABLE, DAILY_LIMIT }
 }
 
 object KeeperClient {
@@ -291,9 +292,29 @@ object KeeperClient {
         return "data:image/jpeg;base64," + Base64.encodeToString(out.toByteArray(), Base64.NO_WRAP)
     }
 
-    /** Blocking; call off the main thread. Spends one request from [purpose]'s budget when it goes out. */
+    /**
+     * Blocking; call off the main thread. With Keeper Plus active the check goes
+     * to the account's proxy; otherwise to OpenRouter with the person's own key,
+     * spending one request from [purpose]'s budget when it goes out.
+     */
     fun ask(context: Context, purpose: Keeper.Purpose, system: String, user: String, imageDataUrl: String?): KeeperResult {
-        val key = KeeperKey.read(context) ?: return KeeperResult.Failed(KeeperResult.Why.NO_KEY)
+        val ownKey = KeeperKey.read(context)
+        val route = KeeperRouting.choose(Account.signedIn(context), Account.keeperPlusActive(context), ownKey != null)
+        if (route == KeeperRoute.PLUS) {
+            when (val p = askPlus(context, system, user, imageDataUrl)) {
+                is KeeperRouting.Proxy.Reply -> {
+                    Account.recordUsage(context, p.usedToday, p.limit)
+                    val json = KeeperParse.firstJsonObject(p.text) ?: return KeeperResult.Failed(KeeperResult.Why.UNREADABLE)
+                    return KeeperResult.Answered(json)
+                }
+                is KeeperRouting.Proxy.Fail -> {
+                    if (p.why == KeeperResult.Why.DAILY_LIMIT) Account.recordUsage(context, p.limit, p.limit)
+                    return KeeperResult.Failed(p.why)
+                }
+                KeeperRouting.Proxy.Fallback -> if (ownKey == null) return KeeperResult.Failed(KeeperResult.Why.NETWORK, "plus unavailable")
+            }
+        }
+        val key = ownKey ?: return KeeperResult.Failed(KeeperResult.Why.NO_KEY)
         if (!KeeperBudget.canSpend(context, purpose)) return KeeperResult.Failed(KeeperResult.Why.BUDGET)
         val wait = KeeperBudget.waitMs(context)
         if (wait > 0) Thread.sleep(wait)
@@ -328,6 +349,19 @@ object KeeperClient {
         } catch (e: Exception) {
             KeeperResult.Failed(KeeperResult.Why.NETWORK, e.javaClass.simpleName)
         }
+    }
+
+    /** POST /v1/keeper: the same prompts and image, the server's model and its daily count. */
+    private fun askPlus(context: Context, system: String, user: String, imageDataUrl: String?): KeeperRouting.Proxy {
+        if (!KeeperRouting.imageFits(imageDataUrl)) return KeeperRouting.Proxy.Fallback
+        val token = Account.keeperToken(context) ?: return KeeperRouting.Proxy.Fallback
+        val body = JSONObject().put("system", system).put("user", user).put("image", imageDataUrl)
+        // The server waits up to a minute on the model; leave room for a cold start on top.
+        val r = Account.call("POST", "/keeper", body, token, readTimeoutMs = 90_000)
+        val mapped = KeeperRouting.mapProxy(r.code, r.json.toString())
+        // The session or the subscription may have ended: let the next check know.
+        if (r.code == 401 || r.code == 403) Account.refreshAsync(context)
+        return mapped
     }
 }
 
