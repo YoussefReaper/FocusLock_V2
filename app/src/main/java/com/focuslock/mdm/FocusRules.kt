@@ -313,6 +313,12 @@ object RuleEngine {
 
         if (AppRules.isAlwaysAllowed(context, packageName)) return allow("alwaysAllowed")
 
+        // Outside a session every blocker below - schedule windows, bedtime,
+        // places, limits, budgets and custom rules - waits on the one master
+        // switch "Let blockers work outside a session" (default off). Inside
+        // a session the switch is irrelevant and nothing here changes.
+        val mayAct = Standalone.mayActNow(context, sessionActiveOverride)
+
         // An overlay window is absolute: not a break pass (even one granted
         // before the window started), not Earn, not a place or a custom rule -
         // nothing below this gets a vote. Checked before everything else that
@@ -321,7 +327,7 @@ object RuleEngine {
         // stronger version of the ordinary schedule block further down. See
         // [ScheduleWindow.overlay] and [KioskPolicy.buildLockTaskPackages] for
         // the matching Device-Owner lock-task side of this.
-        ScheduleManager.activeWindowIfEnabled(context)?.takeIf { it.overlay }?.let { window ->
+        if (mayAct) ScheduleManager.activeWindowIfEnabled(context)?.takeIf { it.overlay }?.let { window ->
             val allowed = AppRules.alwaysAllowed(context) + window.allowedApps
             if (packageName !in allowed) {
                 return GuardDecision(
@@ -341,7 +347,7 @@ object RuleEngine {
         // everything else that could otherwise let something through. Checking
         // it down with the ordinary bedtime block (where it used to be) would
         // have left a break pass granted at 9pm still working at midnight.
-        if (Bedtime.isOverlay(context) && Bedtime.blocks(context, packageName)) {
+        if (mayAct && Bedtime.isOverlay(context) && Bedtime.blocks(context, packageName)) {
             return GuardDecision(
                 packageName,
                 GuardOutcome.BLOCK,
@@ -376,7 +382,7 @@ object RuleEngine {
         // the gate above has already turned everything below into a no-op when
         // nothing is running. An overlay window already returned above,
         // absolutely; this is only ever reached for the ordinary, escapable kind.
-        ScheduleManager.activeWindowIfEnabled(context)?.takeIf { !it.overlay }?.let { window ->
+        if (mayAct) ScheduleManager.activeWindowIfEnabled(context)?.takeIf { !it.overlay }?.let { window ->
             val allowed = AppRules.alwaysAllowed(context) + window.allowedApps
             if (packageName !in allowed) {
                 return GuardDecision(
@@ -391,7 +397,7 @@ object RuleEngine {
             return allow("scheduleAllowed")
         }
 
-        if (Bedtime.blocks(context, packageName)) {
+        if (mayAct && Bedtime.blocks(context, packageName)) {
             return GuardDecision(
                 packageName,
                 GuardOutcome.BLOCK,
@@ -405,14 +411,7 @@ object RuleEngine {
             )
         }
 
-        // Places, daily limits, budgets and custom rules act inside a session;
-        // outside one, each only with its own "runs on its own" switch on.
-        val sessionRunning = SessionManager.isEnforcing(context, sessionActiveOverride)
-        val acts = { switchId: String ->
-            Standalone.mayAct(sessionRunning, CapabilityRegistry.isEnabled(context, switchId))
-        }
-
-        if (acts(Capabilities.PLACES_STANDALONE)) PlaceRules.blocks(context, packageName)?.let { place ->
+        if (mayAct) PlaceRules.blocks(context, packageName)?.let { place ->
             return GuardDecision(
                 packageName,
                 GuardOutcome.BLOCK,
@@ -433,7 +432,7 @@ object RuleEngine {
         // paying. Letting this block fire for a Budgeted app would make the
         // pool unreachable, which is the whole thing the pool exists for.
         val budgeted = AppRules.effectivePolicy(context, packageName) == AppPolicy.LIMIT
-        if (!budgeted && acts(Capabilities.LIMITS_STANDALONE)) {
+        if (!budgeted && mayAct) {
             AppLimits.exhaustedReason(context, packageName)?.let { reason ->
                 return GuardDecision(
                     packageName,
@@ -444,12 +443,12 @@ object RuleEngine {
                     offersBreak = TakeABreak.canStart(context)
                 )
             }
-        } else if (budgeted && EarnMode.isEnabled(context) && acts(Capabilities.BUDGET_STANDALONE)) {
+        } else if (budgeted && EarnMode.isEnabled(context) && mayAct) {
             val budgetCheck = budgetedDecision(context, packageName)
             if (!budgetCheck.isAllowed) return budgetCheck
         }
 
-        if (CapabilityRegistry.isEnabled(context, Capabilities.RULE_ENGINE) && acts(Capabilities.RULES_STANDALONE)) {
+        if (CapabilityRegistry.isEnabled(context, Capabilities.RULE_ENGINE) && mayAct) {
             matchRule(context, packageName, sessionActiveOverride)?.let { match ->
                 when (match.action) {
                     RuleAction.ALLOW -> return allow("rule:" + match.id)

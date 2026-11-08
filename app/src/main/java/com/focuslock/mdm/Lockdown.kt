@@ -53,10 +53,10 @@ object Lockdown {
     /** The active overlay window that also bricks the app, if there is one. */
     private fun scheduleBrick(context: Context): ScheduleWindow? =
         ScheduleManager.activeWindowIfEnabled(context)
-            ?.takeIf { it.overlay && it.bricksApp }
+            ?.takeIf { it.overlay && it.bricksApp && Standalone.mayActNow(context) }
 
     private fun bedtimeBricks(context: Context): Boolean =
-        Bedtime.isActive(context) && Bedtime.bricksApp(context)
+        Standalone.mayActNow(context) && Bedtime.isActive(context) && Bedtime.bricksApp(context)
 
     /** When it lifts, as minutes past midnight, or null when nothing is holding. */
     fun liftsAtMinutes(context: Context): Int? {

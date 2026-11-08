@@ -1,37 +1,33 @@
 package com.focuslock.mdm
 
-import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/** Blocking with no session running is opt-in, and every opt-in starts off. */
+/** Blocking with no session running waits on one master switch, which starts off. */
 class StandaloneGateTest {
 
     @Test
-    fun withNoSessionAndTheSwitchOffNothingActs() {
-        assertFalse(Standalone.mayAct(sessionRunning = false, runsOnItsOwn = false))
+    fun aRunningSessionActsWhateverTheMasterSays() {
+        assertTrue(Standalone.mayAct(sessionRunning = true, outsideAllowed = false))
+        assertTrue(Standalone.mayAct(sessionRunning = true, outsideAllowed = true))
     }
 
     @Test
-    fun withNoSessionAndTheSwitchOnTheRuleActs() {
-        assertTrue(Standalone.mayAct(sessionRunning = false, runsOnItsOwn = true))
+    fun withNoSessionAndTheMasterOffNothingActs() {
+        assertFalse(Standalone.mayAct(sessionRunning = false, outsideAllowed = false))
     }
 
     @Test
-    fun aRunningSessionActsWhateverTheSwitchSays() {
-        assertTrue(Standalone.mayAct(sessionRunning = true, runsOnItsOwn = false))
-        assertTrue(Standalone.mayAct(sessionRunning = true, runsOnItsOwn = true))
+    fun withNoSessionAndTheMasterOnTheBlockerActs() {
+        assertTrue(Standalone.mayAct(sessionRunning = false, outsideAllowed = true))
     }
 
     @Test
-    fun everyRunsOnItsOwnSwitchDefaultsOffAndIsLabelled() {
-        val ids = Standalone.switches + Capabilities.SCHEDULES + Capabilities.BEDTIME_MODE
-        assertEquals(8, ids.distinct().size)
-        for (id in ids) {
-            val spec = Capabilities.spec(id) ?: throw AssertionError("no spec for $id")
-            assertFalse("$id must start off", spec.default)
-            assertTrue("$id must say it runs on its own", spec.runsOnItsOwn)
-        }
+    fun theMasterSwitchExistsAndStartsOff() {
+        val spec = Capabilities.spec(Capabilities.OUTSIDE_SESSION)
+        assertNotNull(spec)
+        assertFalse(spec!!.default)
     }
 }

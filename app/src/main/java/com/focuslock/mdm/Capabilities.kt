@@ -68,9 +68,7 @@ data class CapabilitySpec(
     val needsUsageAccess: Boolean = false,
     val needsNotificationAccess: Boolean = false,
     val needsLocation: Boolean = false,
-    val detailScreen: String? = null,
-    /** Switching this on lets something block with no session; its row says so. */
-    val runsOnItsOwn: Boolean = false
+    val detailScreen: String? = null
 ) {
     fun label(context: Context): String = context.getString(labelRes)
     fun blurb(context: Context): String = context.getString(blurbRes)
@@ -147,19 +145,15 @@ object Capabilities {
     const val SAFE_BOOT_BLOCK = "safeBootBlock"
     const val PERSISTENT_HOME = "persistentHome"
 
-    // Runs on its own: lets a feature block with no session (see [Standalone])
-    const val LIMITS_STANDALONE = "limitsStandalone"
-    const val BUDGET_STANDALONE = "budgetStandalone"
-    const val PLACES_STANDALONE = "placesStandalone"
-    const val RULES_STANDALONE = "rulesStandalone"
-    const val CONTENT_STANDALONE = "contentStandalone"
-    const val NOTIFICATION_STANDALONE = "notificationStandalone"
+    // Outside a session: one master switch for every blocker that can act on its own (see [Standalone])
+    const val OUTSIDE_SESSION = "outsideSession"
 
     /**
      * The 10 switches most people use, shown first in CapabilitiesActivity
      * before "Show all" is tapped.
      */
     val coreIds: List<String> = listOf(
+        OUTSIDE_SESSION,
         APP_BLOCK,
         SCHEDULES,
         PER_APP_LIMITS,
@@ -173,6 +167,14 @@ object Capabilities {
     )
 
     val all: List<CapabilitySpec> = listOf(
+
+        CapabilitySpec(
+            id = OUTSIDE_SESSION,
+            labelRes = R.string.cap_outside_session_label,
+            blurbRes = R.string.cap_outside_session_blurb,
+            group = CapabilityGroup.MODES,
+            default = false
+        ),
 
         CapabilitySpec(
             id = ADVISORY_MODE,
@@ -277,14 +279,6 @@ object Capabilities {
             needsUsageAccess = true,
             detailScreen = Screens.LIMITS
         ),
-        CapabilitySpec(
-            id = LIMITS_STANDALONE,
-            labelRes = R.string.cap_limits_standalone_label,
-            blurbRes = R.string.cap_standalone_blurb,
-            group = CapabilityGroup.BLOCKING,
-            default = false,
-            runsOnItsOwn = true
-        ),
 
         CapabilitySpec(
             id = EARN_MODE,
@@ -296,14 +290,6 @@ object Capabilities {
             weakenNoteRes = R.string.cap_earn_mode_weaken_note,
             needsUsageAccess = true,
             detailScreen = Screens.TASKS
-        ),
-        CapabilitySpec(
-            id = BUDGET_STANDALONE,
-            labelRes = R.string.cap_budget_standalone_label,
-            blurbRes = R.string.cap_standalone_blurb,
-            group = CapabilityGroup.MODES,
-            default = false,
-            runsOnItsOwn = true
         ),
 
         CapabilitySpec(
@@ -332,24 +318,15 @@ object Capabilities {
             default = false,
             needsAccessibility = true
         ),
-        CapabilitySpec(
-            id = CONTENT_STANDALONE,
-            labelRes = R.string.cap_content_standalone_label,
-            blurbRes = R.string.cap_standalone_blurb,
-            group = CapabilityGroup.CONTENT,
-            default = false,
-            runsOnItsOwn = true
-        ),
 
         CapabilitySpec(
             id = SCHEDULES,
             labelRes = R.string.cap_schedules_label,
             blurbRes = R.string.cap_schedules_blurb,
             group = CapabilityGroup.ENVIRONMENT,
-            default = false,
+            default = true,
             weakenNoteRes = R.string.cap_schedules_weaken_note,
-            detailScreen = Screens.SCHEDULES,
-            runsOnItsOwn = true
+            detailScreen = Screens.SCHEDULES
         ),
         CapabilitySpec(
             id = BEDTIME_MODE,
@@ -358,8 +335,7 @@ object Capabilities {
             group = CapabilityGroup.ENVIRONMENT,
             default = false,
             weakenNoteRes = R.string.cap_bedtime_mode_weaken_note,
-            detailScreen = Screens.BEDTIME,
-            runsOnItsOwn = true
+            detailScreen = Screens.BEDTIME
         ),
         CapabilitySpec(
             id = NOTIFICATION_BLOCK,
@@ -369,14 +345,6 @@ object Capabilities {
             default = false,
             weakenNoteRes = R.string.cap_notification_block_weaken_note,
             needsNotificationAccess = true
-        ),
-        CapabilitySpec(
-            id = NOTIFICATION_STANDALONE,
-            labelRes = R.string.cap_notification_standalone_label,
-            blurbRes = R.string.cap_standalone_blurb,
-            group = CapabilityGroup.ENVIRONMENT,
-            default = false,
-            runsOnItsOwn = true
         ),
 
         CapabilitySpec(
@@ -498,28 +466,12 @@ object Capabilities {
             detailScreen = Screens.PLACES
         ),
         CapabilitySpec(
-            id = PLACES_STANDALONE,
-            labelRes = R.string.cap_places_standalone_label,
-            blurbRes = R.string.cap_standalone_blurb,
-            group = CapabilityGroup.ADVANCED,
-            default = false,
-            runsOnItsOwn = true
-        ),
-        CapabilitySpec(
             id = RULE_ENGINE,
             labelRes = R.string.cap_rule_engine_label,
             blurbRes = R.string.cap_rule_engine_blurb,
             group = CapabilityGroup.ADVANCED,
             default = false,
             detailScreen = Screens.RULES_LIST
-        ),
-        CapabilitySpec(
-            id = RULES_STANDALONE,
-            labelRes = R.string.cap_rules_standalone_label,
-            blurbRes = R.string.cap_standalone_blurb,
-            group = CapabilityGroup.ADVANCED,
-            default = false,
-            runsOnItsOwn = true
         ),
 
         // Experimental: Fragile screen-reading guards, off by default

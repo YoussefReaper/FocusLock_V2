@@ -56,8 +56,7 @@ object Migration {
             keepGuardsForUpgraders(context)
         }
         if (version in 1..8) {
-            keepSchedulesAsSet(context)
-            standaloneOffForUpgraders(context)
+            outsideSessionOffForUpgraders(context)
         }
 
         FocusStore.setInt(context, KEY_VERSION, CURRENT_VERSION)
@@ -80,26 +79,12 @@ object Migration {
     }
 
     /**
-     * Schedules' default went from on to off (blocking with no session is
-     * opt-in now). An upgrader who never touched the switch was running with
-     * it on, so that stays an explicit choice; one they set is left alone.
+     * Blockers that can act with no session now sit behind one master switch,
+     * "Let blockers work outside a session". An existing install starts with it
+     * written off, so nothing keeps blocking on its own after the update.
      */
-    private fun keepSchedulesAsSet(context: Context) {
-        if (!CapabilityRegistry.isUserSet(context, Capabilities.SCHEDULES)) {
-            CapabilityRegistry.writeEnabled(context, Capabilities.SCHEDULES, true)
-        }
-    }
-
-    /**
-     * Places, limits, budgets, custom rules, the content guard and the
-     * notification shield used to act with no session running. Each now needs
-     * its own "runs on its own" switch, and an existing install starts with
-     * all of them off, so nothing keeps blocking silently after the update.
-     */
-    private fun standaloneOffForUpgraders(context: Context) {
-        for (id in Standalone.switches) {
-            CapabilityRegistry.writeEnabled(context, id, false)
-        }
+    private fun outsideSessionOffForUpgraders(context: Context) {
+        CapabilityRegistry.writeEnabled(context, Capabilities.OUTSIDE_SESSION, false)
     }
 
     /**

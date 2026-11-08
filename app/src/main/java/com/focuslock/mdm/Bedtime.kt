@@ -6,17 +6,10 @@ import java.util.Calendar
 /**
  * The night shift.
  *
- * Bedtime runs on the clock, and the line between its two halves matters:
- *
- * - **What it holds back** - the categories the user named, and the hard lock
- *   if [isOverlay] is on - only bites while a session is running. It used to
- *   fire regardless, which meant the app could take the phone away on a night
- *   nobody had asked it to. See [SessionManager.isEnforcing].
- * - **How it looks** - the dim and the quiet theme - is not gated, because it
- *   is comfort rather than enforcement. Dimming the screen at midnight takes
- *   nothing away from anyone, and gating it would leave the whole bedtime
- *   screen doing nothing at all for the many people who never start a session
- *   at night.
+ * Bedtime runs on the clock. With a session running it acts as it always did.
+ * With no session it acts - block, overlay lock, dimmer and quiet theme - only
+ * when the master switch "Let blockers work outside a session"
+ * ([Capabilities.OUTSIDE_SESSION], default off) is on. See [Standalone].
  *
  * Everything about it is a setting, including which categories.
  */
@@ -178,7 +171,8 @@ object Bedtime {
         )
 
     /** Whether tonight's window is currently demanding the hard lock. */
-    fun requiresLockTask(context: Context): Boolean = isActive(context) && isOverlay(context)
+    fun requiresLockTask(context: Context): Boolean =
+        Standalone.mayActNow(context) && isActive(context) && isOverlay(context)
 
     /** Minutes until bedtime lifts, for the "back at 6:00" line on the block screen. */
     fun minutesUntilEnd(context: Context, now: Calendar = Calendar.getInstance()): Int {

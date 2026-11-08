@@ -244,7 +244,7 @@ object KioskPolicy {
 
         val kioskWanted = SessionManager.shouldLockTask(context)
         val scheduleOverlay = ScheduleManager.activeWindowIfEnabled(context)
-            ?.takeIf { it.overlay }
+            ?.takeIf { it.overlay && Standalone.mayActNow(context) }
         val bedtimeOverlay = Bedtime.requiresLockTask(context)
         val persistentHome = kioskWanted &&
             CapabilityRegistry.isEnabled(context, Capabilities.PERSISTENT_HOME)

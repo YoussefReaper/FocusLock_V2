@@ -268,7 +268,7 @@ class AppBlockerService : Service() {
         if (SessionManager.hasAlwaysOnRules(this)) return true
         if (TestMode.isActive(this)) return true
         if (FocusLedger.hasAmbientTasks(this)) return true
-        if (Bedtime.isActive(this) && Bedtime.dimPercent(this) > 0 && Settings.canDrawOverlays(this)) return true
+        if (Standalone.mayActNow(this) && Bedtime.isActive(this) && Bedtime.dimPercent(this) > 0 && Settings.canDrawOverlays(this)) return true
         return false
     }
 
@@ -1191,7 +1191,7 @@ class AppBlockerService : Service() {
      * rather than only FocusLock's own activities.
      */
     private fun syncBedtimeDimOverlay() {
-        val wantedPercent = if (Bedtime.isActive(this) && Settings.canDrawOverlays(this)) {
+        val wantedPercent = if (Standalone.mayActNow(this) && Bedtime.isActive(this) && Settings.canDrawOverlays(this)) {
             Bedtime.dimPercent(this)
         } else {
             0
@@ -1430,7 +1430,7 @@ class AppBlockerService : Service() {
                 SessionManager.hasAlwaysOnRules(context) ||
                 TestMode.isActive(context) ||
                 FocusLedger.hasAmbientTasks(context) ||
-                (Bedtime.isActive(context) && Bedtime.dimPercent(context) > 0 && Settings.canDrawOverlays(context)) ||
+                (Standalone.mayActNow(context) && Bedtime.isActive(context) && Bedtime.dimPercent(context) > 0 && Settings.canDrawOverlays(context)) ||
                 LockManager.hasKioskExpired(context) ||
                 PermissionGuard.isEmergency(context)
             if (needed) start(context)

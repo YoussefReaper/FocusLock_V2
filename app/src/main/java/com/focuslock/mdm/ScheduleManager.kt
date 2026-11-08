@@ -174,7 +174,7 @@ object ScheduleManager {
      * [ScheduleWindow.overlay].
      */
     fun requiresLockTask(context: Context, now: Calendar = Calendar.getInstance()): Boolean =
-        activeWindowIfEnabled(context, now)?.overlay == true
+        Standalone.mayActNow(context) && activeWindowIfEnabled(context, now)?.overlay == true
 
     fun getActiveWindow(context: Context, now: Calendar = Calendar.getInstance()): ScheduleWindow? {
         val schedules = getSchedules(context)

@@ -34,7 +34,7 @@ class ScheduleActivity : FocusScreenActivity() {
                 this,
                 tokens,
                 getString(R.string.schedule_title),
-                getString(R.string.schedule_toggle_subtitle) + "\n" + getString(R.string.cap_runs_on_its_own),
+                getString(R.string.schedule_toggle_subtitle) + "\n" + getString(R.string.cap_needs_outside_session),
                 CapabilityRegistry.isEnabled(this, Capabilities.SCHEDULES)
             ) { value ->
                 if (!CapabilityRegistry.setEnabled(this, Capabilities.SCHEDULES, value)) {

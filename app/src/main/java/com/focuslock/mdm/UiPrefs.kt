@@ -529,7 +529,7 @@ object UiPrefs {
      * the user losing their daytime theme.
      */
     fun resolve(context: Context): Tokens {
-        val bedtimeNow = Bedtime.isActive(context) && Bedtime.forcesDarkTheme(context)
+        val bedtimeNow = Standalone.mayActNow(context) && Bedtime.isActive(context) && Bedtime.forcesDarkTheme(context)
         val base = if (bedtimeNow) {
             themes.firstOrNull { it.id == "nocturne" } ?: getTheme(context)
         } else {
@@ -586,7 +586,7 @@ object UiPrefs {
             density = getDensity(context),
             reducedMotion = reducedMotion(context),
             wallpaperRes = getWallpaper(context).drawableRes,
-            dimPercent = if (Bedtime.isActive(context)) Bedtime.dimPercent(context) else 0
+            dimPercent = if (Standalone.mayActNow(context) && Bedtime.isActive(context)) Bedtime.dimPercent(context) else 0
         )
     }
 
@@ -653,8 +653,8 @@ object UiPrefs {
         getTextScale(context).toString(),
         highContrast(context).toString(),
         reducedMotion(context).toString(),
-        Bedtime.isActive(context).toString(),
-        (if (Bedtime.isActive(context)) Bedtime.dimPercent(context) else 0).toString()
+        (Standalone.mayActNow(context) && Bedtime.isActive(context)).toString(),
+        (if (Standalone.mayActNow(context) && Bedtime.isActive(context)) Bedtime.dimPercent(context) else 0).toString()
     ).joinToString("|")
 
     /** Black or white, whichever is actually readable on the given colour. */

@@ -190,13 +190,7 @@ class CapabilitiesActivity : FocusScreenActivity() {
 
         val column = FocusUi.column(this)
         column.addView(
-            FocusUi.listRow(
-                this,
-                tokens,
-                spec.label(this),
-                if (spec.runsOnItsOwn) getString(R.string.cap_runs_on_its_own) else null,
-                trailing = trailing
-            ) {
+            FocusUi.listRow(this, tokens, spec.label(this), null, trailing = trailing) {
                 if (frozen) {
                     FocusDialog.toast(this, SessionLock.refusalMessage(this))
                 } else {

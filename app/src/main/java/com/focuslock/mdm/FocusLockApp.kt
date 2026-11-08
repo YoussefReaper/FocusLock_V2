@@ -36,7 +36,7 @@ class FocusLockApp : Application() {
         override fun onActivityResumed(activity: Activity) {
             val root = activity.findViewById<FrameLayout>(android.R.id.content) ?: return
             val existing = root.findViewWithTag<View>(TAG)
-            val percent = if (Bedtime.isActive(activity) && !AppBlockerService.isBedtimeDimOverlayShowing) {
+            val percent = if (Standalone.mayActNow(activity) && Bedtime.isActive(activity) && !AppBlockerService.isBedtimeDimOverlayShowing) {
                 Bedtime.dimPercent(activity)
             } else {
                 0

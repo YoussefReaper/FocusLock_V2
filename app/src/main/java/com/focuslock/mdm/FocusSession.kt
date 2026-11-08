@@ -207,6 +207,8 @@ object SessionManager {
      * needs [AppBlockerService] watching in the background.
      */
     fun hasAlwaysOnRules(context: Context): Boolean {
+        // With no session and the master switch off, none of these rules acts.
+        if (!Standalone.mayActNow(context)) return false
         if (CapabilityRegistry.isEnabled(context, Capabilities.SCHEDULES) &&
             ScheduleManager.getSchedules(context).isNotEmpty()
         ) {

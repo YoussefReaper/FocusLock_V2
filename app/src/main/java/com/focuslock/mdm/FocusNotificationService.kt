@@ -53,8 +53,7 @@ class FocusNotificationService : NotificationListenerService() {
         if (AppRules.isAlwaysAllowed(this, packageName)) return false
         if (TakeABreak.hasActivePass(this, packageName)) return false
 
-        val runsOnItsOwn = CapabilityRegistry.isEnabled(this, Capabilities.NOTIFICATION_STANDALONE)
-        if (!Standalone.mayAct(SessionManager.isEnforcing(this), runsOnItsOwn)) return false
+        if (!Standalone.mayActNow(this)) return false
         if (!SessionManager.isGuardActive(this)) return false
 
         return RuleEngine.decide(this, packageName).isBlocked
