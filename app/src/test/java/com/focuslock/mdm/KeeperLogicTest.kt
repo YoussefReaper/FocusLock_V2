@@ -206,4 +206,12 @@ class KeeperFocusTest {
 
     @Test fun matchedAsAPlainStringIsRead() =
         assertEquals(listOf("nudity"), KeeperParse.matched(JSONObject("""{"matched":"Nudity"}""")))
+
+    @Test fun chatForumsAndStoresAreJudgedOnContentNotBanned() {
+        val p = KeeperFocus.PLATFORMS
+        listOf("Telegram", "Discord", "Reddit", "app stores", "download pages", "never which site").forEach {
+            assertTrue("rule names $it", p.contains(it))
+        }
+        assertTrue("gore-only NSFW is not a reason", p.contains("gore or violence is not a reason"))
+    }
 }

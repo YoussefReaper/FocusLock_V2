@@ -29,6 +29,22 @@ object KeeperFocus {
         "medicine and surgery, anatomy taught without nudity, profanity, dark humour, politics, religion, music, games, sports, " +
         "and ordinary romance that has none of the listed items"
 
+    /**
+     * How the Keeper treats a page by the kind of site it is on. Chats, forums and
+     * stores are where people talk, study and get their tools, so the site alone is
+     * never the reason: only what the page actually shows. Not editable on purpose.
+     */
+    const val PLATFORMS =
+        "Judge what this page shows, never which site it is on. Messaging and community sites (Telegram, Discord, " +
+        "WhatsApp, Reddit, forums, comment threads, Q&A sites), app stores and app or file download pages are allowed " +
+        "whenever nothing visible matches the list: a chat, a server channel, a subreddit, a thread or an app listing is " +
+        "judged on its visible messages, posts, images, names and descriptions. Deny such a page only when it shows a " +
+        "listed item, or when it is a community, channel, server, chat or app that is itself about a listed item (for " +
+        "example one marked NSFW or 18+ for sexual content, or a dating or adult app); a community marked NSFW only for " +
+        "gore or violence is not a reason. Also deny endless short-video or image feeds (short-video feeds, reels, explore " +
+        "pages, image boards), because those surface the listed content unpredictably; a list of text posts, threads, " +
+        "chats or messages is not such a feed and is judged on what it shows."
+
     const val MAX_CUSTOM = 20
     private const val KEY_OFF = "keeper_focus_off"
     private const val KEY_CUSTOM = "keeper_focus_custom"
