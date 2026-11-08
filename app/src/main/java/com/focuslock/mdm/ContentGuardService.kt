@@ -136,7 +136,11 @@ class ContentGuardService : AccessibilityService() {
      */
     private fun hasWork(): Boolean {
         if (!CapabilityRegistry.isEnabled(this, Capabilities.CONTENT_GUARD)) return false
-        if (!SessionManager.isGuardActive(this, TestMode.overrideFor(this))) return false
+        val override = TestMode.overrideFor(this)
+        val sessionRunning = SessionManager.isEnforcing(this, override)
+        val runsOnItsOwn = CapabilityRegistry.isEnabled(this, Capabilities.CONTENT_STANDALONE)
+        if (!Standalone.mayAct(sessionRunning, runsOnItsOwn)) return false
+        if (!SessionManager.isGuardActive(this, override)) return false
         return rules().isNotEmpty() || TelegramGuard.isEnabled(this)
     }
 

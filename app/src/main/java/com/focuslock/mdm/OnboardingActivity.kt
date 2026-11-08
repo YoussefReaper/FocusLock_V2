@@ -396,7 +396,6 @@ class OnboardingActivity : AppCompatActivity() {
         values[Capabilities.ALWAYS_ALLOWED] = true
         values[Capabilities.APP_BLOCK] = true
         values[Capabilities.TAKE_A_BREAK] = true
-        values[Capabilities.SCHEDULES] = true
         values[Capabilities.SAFE_BROWSER] = true
         values[Capabilities.TEXT_SEARCH] = true
         values[Capabilities.SAFE_YOUTUBE] = true

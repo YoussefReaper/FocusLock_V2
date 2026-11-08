@@ -134,4 +134,14 @@
 
     <!-- عنوان الحوار الذي يظهر بعد إطفاء قدرة أمان. -->
     <string name="cap_is_off">%1$s مطفأ</string>
+
+    <!-- Runs on its own: switches that let a feature block with no session running. -->
+    <string name="cap_runs_on_its_own">يعمل وحده، حتى دون جلسة</string>
+    <string name="cap_standalone_blurb">يسمح لهذا بالحجب حتى لو لم تبدأ جلسة.</string>
+    <string name="cap_limits_standalone_label">الحدود اليومية دون جلسة</string>
+    <string name="cap_budget_standalone_label">التطبيقات ذات الميزانية دون جلسة</string>
+    <string name="cap_places_standalone_label">الأماكن دون جلسة</string>
+    <string name="cap_rules_standalone_label">القواعد المخصصة دون جلسة</string>
+    <string name="cap_content_standalone_label">حارس المحتوى دون جلسة</string>
+    <string name="cap_notification_standalone_label">درع الإشعارات دون جلسة</string>
 </resources>

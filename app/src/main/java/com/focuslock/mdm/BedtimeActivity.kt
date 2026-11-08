@@ -41,7 +41,7 @@ class BedtimeActivity : FocusScreenActivity() {
                 this,
                 tokens,
                 getString(R.string.bedtime_title),
-                getString(R.string.bedtime_toggle_subtitle),
+                getString(R.string.bedtime_toggle_subtitle) + "\n" + getString(R.string.cap_runs_on_its_own),
                 CapabilityRegistry.isEnabled(this, Capabilities.BEDTIME_MODE)
             ) { value ->
                 if (!CapabilityRegistry.setEnabled(this, Capabilities.BEDTIME_MODE, value)) {

@@ -134,4 +134,14 @@
 
     <!-- Title of the dialog shown after switching a safety capability off. -->
     <string name="cap_is_off">%1$s is off</string>
+
+    <!-- Runs on its own: switches that let a feature block with no session running. -->
+    <string name="cap_runs_on_its_own">Runs on its own, even with no session</string>
+    <string name="cap_standalone_blurb">Lets this block even when you haven\'t started a session.</string>
+    <string name="cap_limits_standalone_label">Daily limits with no session</string>
+    <string name="cap_budget_standalone_label">Budgeted apps with no session</string>
+    <string name="cap_places_standalone_label">Places with no session</string>
+    <string name="cap_rules_standalone_label">Custom rules with no session</string>
+    <string name="cap_content_standalone_label">Content guard with no session</string>
+    <string name="cap_notification_standalone_label">Notification shield with no session</string>
 </resources>
