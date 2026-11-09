@@ -135,6 +135,7 @@ class ContentGuardService : AccessibilityService() {
      * that.
      */
     private fun hasWork(): Boolean {
+        if (Personal.on) return true   // the owner's AI-site rule runs always
         if (!CapabilityRegistry.isEnabled(this, Capabilities.CONTENT_GUARD)) return false
         val override = TestMode.overrideFor(this)
         if (!Standalone.mayActNow(this, override)) return false
@@ -321,10 +322,19 @@ class ContentGuardService : AccessibilityService() {
     // ── Rules ─────────────────────────────────────────────────────
 
     @Synchronized
+    private val BROWSERS = setOf(
+        "com.android.chrome", "com.chrome.beta", "org.mozilla.firefox", "com.microsoft.emmx",
+        "com.opera.browser", "com.brave.browser", "com.mi.globalbrowser", "com.sec.android.app.sbrowser",
+        "com.duckduckgo.mobile.android", "com.vivaldi.browser", "com.kiwibrowser.browser",
+    )
+
     private fun rules(): List<Prepared> {
         val revision = PolicySync.revision()
         if (revision != cachedRevision) {
-            cachedRules = KeywordRules.activeRules(this).map { rule ->
+            val personal = if (!Personal.on) emptyList() else Personal.AI_HOSTS.map {
+                KeywordRule("personal_ai_$it", it, BROWSERS, GuardAction.STEP_BACK, true, "personal")
+            }
+            cachedRules = (KeywordRules.activeRules(this) + personal).map { rule ->
                 val phrase = rule.phrase.lowercase(Locale.US)
                 Prepared(
                     rule = rule,

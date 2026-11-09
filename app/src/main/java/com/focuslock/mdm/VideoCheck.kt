@@ -43,7 +43,7 @@ object VideoCheck {
 
     /** Blocking; run off the main thread. */
     fun run(context: Context, videoId: String, onStep: (Step) -> Unit = {}): Outcome {
-        KeeperCache.lookupVideo(context, videoId)?.let { return Outcome(it, null) }
+        KeeperCache.lookupVideo(context, videoId)?.let { return Outcome(Personal.gate(context, videoId, it), null) }
 
         onStep(Step.DETAILS)
         val meta = try { fetchMeta(videoId) } catch (_: Exception) { null }
@@ -51,7 +51,8 @@ object VideoCheck {
 
         quickVerdict(context, meta)?.let { v ->
             KeeperCache.rememberVideo(context, videoId, v)
-            return Outcome(v, meta)
+            if (isTrustedChannel(context, meta)) Personal.rememberCurriculum(context, videoId, true)
+            return Outcome(Personal.gate(context, videoId, v), meta)
         }
 
         val transcript = meta.captionUrl?.let { try { fetchTranscript(it) } catch (_: Exception) { "" } }.orEmpty()
@@ -73,7 +74,8 @@ object VideoCheck {
             is KeeperResult.Answered -> {
                 val v = KeeperParse.videoVerdict(r.json, meta.durationS, KeeperFocus.activeIds(context)).let { padCuts(it, meta.durationS) }
                 KeeperCache.rememberVideo(context, videoId, v)
-                Outcome(v, meta, spentRequest = true)
+                Personal.rememberCurriculum(context, videoId, r.json.optBoolean("curriculum", false))
+                Outcome(Personal.gate(context, videoId, v), meta, spentRequest = true)
             }
             is KeeperResult.Failed -> Outcome(null, meta, r.why, spentRequest = r.why != KeeperResult.Why.NO_KEY && r.why != KeeperResult.Why.BUDGET && r.why != KeeperResult.Why.DAILY_LIMIT && r.why != KeeperResult.Why.BUSY)
         }

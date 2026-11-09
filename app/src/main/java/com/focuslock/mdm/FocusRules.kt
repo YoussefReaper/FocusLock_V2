@@ -293,6 +293,23 @@ object RuleEngine {
         if (packageName == context.packageName) return allow("self")
         if (SystemSurfaces.isCritical(packageName)) return allow("system")
 
+        // The owner's own rules (personal build only): AI chat apps never open, and around
+        // every prayer only calls and the Quran do.
+        if (Personal.on) {
+            if (packageName in Personal.AI_PACKAGES) {
+                return GuardDecision(packageName, GuardOutcome.BLOCK, "AI chat is off on this phone",
+                    "Use it on the laptop, 8 am to 4 pm, or any time on Thursday and Friday.", "personalAi", offersBreak = false)
+            }
+            Personal.salahWindow()?.let { (name, at) ->
+                if (!Personal.allowedInSalah(packageName)) {
+                    val back = java.text.SimpleDateFormat("h:mm a", java.util.Locale.getDefault())
+                        .format(java.util.Date(at + Personal.AFTER_MIN * 60_000L))
+                    return GuardDecision(packageName, GuardOutcome.BLOCK, "Time for $name",
+                        "The phone opens again at $back. Calls and the Quran stay available.", "personalSalah", offersBreak = false)
+                }
+            }
+        }
+
         // Settings pages the user opened from inside FocusLock, plus the USB
         // page, stay reachable: locking someone out of their own USB settings
         // during a 90-day session is how a phone becomes a brick.
