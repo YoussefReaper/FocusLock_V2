@@ -116,8 +116,15 @@ object KeeperRouting {
 /** What went wrong with an account call, in words the screen can pick a string for. */
 enum class AccountProblem {
     NOT_AVAILABLE, SUBSCRIPTIONS_NOT_AVAILABLE, INVALID_INPUT, TAKEN, BAD_CREDENTIALS, TOO_MANY,
-    SIGNED_OUT, NOT_FOUND, INACTIVE, ALREADY_USED, INVALID_CODE, NETWORK
+    SIGNED_OUT, NOT_FOUND, INACTIVE, ALREADY_USED, INVALID_CODE, NETWORK,
+    PASSWORD_TOO_SHORT, PASSWORD_TOO_COMMON, WRONG_EMAIL_CODE, CODE_EXPIRED, CODE_LOCKED,
+    MAIL_NOT_CONFIGURED, PROVIDER_NOT_CONFIGURED, EMAIL_UNVERIFIED,
+    // Only from the browser sign-in's pinehold://auth?error=<code>.
+    SIGN_IN_EXPIRED, SIGN_IN_CANCELLED, PROVIDER_ERROR, PROVIDER_EMAIL_UNVERIFIED, ACCOUNT_UNVERIFIED
 }
+
+/** A problem plus what the server added to it: tries left on a code, seconds until a resend. */
+data class AccountFailure(val problem: AccountProblem, val attemptsLeft: Int? = null, val retryAfterSec: Int? = null)
 
 object AccountRules {
     private val SUBSCRIPTION_ID = Regex("^I-[A-Z0-9]{6,40}$")
@@ -126,24 +133,107 @@ object AccountRules {
     fun subscriptionId(raw: String?): String? =
         raw?.trim()?.uppercase()?.takeIf { SUBSCRIPTION_ID.matches(it) }
 
-    /** Non-2xx answers from /v1 → a problem. [code] is -1 when nothing came back. */
-    fun problem(code: Int, reason: String?): AccountProblem = when {
+    /** The server's own minimum (auth.js); checked here first so a short one never leaves the phone. */
+    const val MIN_PASSWORD = 10
+
+    /**
+     * Non-2xx answers from /v1 → a problem. [code] is -1 when nothing came back.
+     * [emailCode] is set by the calls that send a 6-digit code (verify, reset),
+     * where `invalid_code` means that code, not a subscription id.
+     */
+    fun problem(code: Int, reason: String?, emailCode: Boolean = false): AccountProblem = when {
         code < 0 -> AccountProblem.NETWORK
         reason == "subscriptions_not_configured" -> AccountProblem.SUBSCRIPTIONS_NOT_AVAILABLE
+        reason == "mail_not_configured" -> AccountProblem.MAIL_NOT_CONFIGURED
+        reason == "provider_not_configured" -> AccountProblem.PROVIDER_NOT_CONFIGURED
         code == 503 -> AccountProblem.NOT_AVAILABLE
+        reason == "too_many_attempts" -> AccountProblem.CODE_LOCKED
         code == 429 -> AccountProblem.TOO_MANY
         reason == "invalid_credentials" -> AccountProblem.BAD_CREDENTIALS
         code == 401 -> AccountProblem.SIGNED_OUT
+        reason == "email_unverified" -> AccountProblem.EMAIL_UNVERIFIED
         reason == "registration_failed" -> AccountProblem.TAKEN
+        reason == "password_too_short" -> AccountProblem.PASSWORD_TOO_SHORT
+        reason == "password_too_common" -> AccountProblem.PASSWORD_TOO_COMMON
+        reason == "code_expired" -> AccountProblem.CODE_EXPIRED
         reason == "already_used" -> AccountProblem.ALREADY_USED
         reason == "subscription_inactive" || code == 402 -> AccountProblem.INACTIVE
-        reason == "invalid_code" -> AccountProblem.INVALID_CODE
+        reason == "invalid_code" -> if (emailCode) AccountProblem.WRONG_EMAIL_CODE else AccountProblem.INVALID_CODE
         code == 400 -> AccountProblem.INVALID_INPUT
         code == 404 -> AccountProblem.NOT_FOUND
         else -> AccountProblem.NETWORK
     }
 
+    /** The same mapping, keeping `attemptsLeft` and `retryAfter` when the server sent them. */
+    fun failure(code: Int, json: JSONObject, emailCode: Boolean = false): AccountFailure = AccountFailure(
+        problem(code, json.optString("reason").takeIf { it.isNotBlank() }, emailCode),
+        if (json.has("attemptsLeft")) json.optInt("attemptsLeft") else null,
+        if (json.has("retryAfter")) json.optInt("retryAfter") else null
+    )
+
+    /** `pinehold://auth?error=<code>` → a problem. Anything unknown reads as the provider failing. */
+    fun oauthProblem(error: String?): AccountProblem = when (error) {
+        "invalid_state", "try_again" -> AccountProblem.SIGN_IN_EXPIRED
+        "access_denied" -> AccountProblem.SIGN_IN_CANCELLED
+        "email_unverified" -> AccountProblem.PROVIDER_EMAIL_UNVERIFIED
+        "account_unverified" -> AccountProblem.ACCOUNT_UNVERIFIED
+        "provider_not_configured" -> AccountProblem.PROVIDER_NOT_CONFIGURED
+        else -> AccountProblem.PROVIDER_ERROR
+    }
+
     /** Checks left today, or null when the server has not reported on today (UTC). */
     fun checksLeft(usedDay: String, usedToday: Int, limit: Int, todayUtc: String): Int? =
         if (limit <= 0 || usedDay != todayUtc) null else (limit - usedToday).coerceAtLeast(0)
+}
+
+/** What `pinehold://auth?…` carried, once checked. */
+sealed class AuthLink {
+    data class Token(val token: String) : AuthLink()
+    data class Error(val problem: AccountProblem) : AuthLink()
+    object Invalid : AuthLink()
+
+    companion object {
+        /** The session is 32 random bytes in a URL-safe encoding; anything far longer is not ours. */
+        const val MAX_TOKEN = 256
+        private const val MIN_TOKEN = 16
+        private val TOKEN = Regex("^[A-Za-z0-9_.~-]+$")
+        private val ERROR = Regex("^[a-z_]{1,40}$")
+
+        /**
+         * Any app can open this link, so nothing in it is trusted: exactly one of
+         * `token` or `error`, a token of URL-safe characters within [MAX_TOKEN],
+         * an error of lowercase words. Percent-escapes are refused, not decoded.
+         */
+        fun parse(raw: String?): AuthLink {
+            if (raw == null || raw.length > MAX_TOKEN + 64) return Invalid
+            val uri = try { java.net.URI(raw) } catch (_: Exception) { return Invalid }
+            if (uri.scheme != "pinehold" || uri.host != "auth") return Invalid
+            val pairs = uri.rawQuery?.split('&')?.filter { it.isNotEmpty() }?.map { it.substringBefore('=') to it.substringAfter('=', "") }
+                ?: return Invalid
+            if (pairs.size != 1) return Invalid
+            val (key, value) = pairs[0]
+            return when {
+                key == "token" && value.length in MIN_TOKEN..MAX_TOKEN && TOKEN.matches(value) -> Token(value)
+                key == "error" && ERROR.matches(value) -> Error(AccountRules.oauthProblem(value))
+                else -> Invalid
+            }
+        }
+    }
+}
+
+/** The "Resend code" countdown. Times are [android.os.SystemClock.elapsedRealtime] milliseconds. */
+object ResendRules {
+    const val COOLDOWN_SEC = 60
+    private const val MAX_WAIT_SEC = 600
+
+    /** When the next resend may go: the server's `retryAfter` if it sent one, else the usual minute. */
+    fun availableAt(nowMs: Long, retryAfterSec: Int? = null): Long =
+        nowMs + (retryAfterSec ?: COOLDOWN_SEC).coerceIn(1, MAX_WAIT_SEC) * 1000L
+
+    /** Whole seconds left, rounded up; 0 means the button is live. */
+    fun secondsLeft(availableAtMs: Long, nowMs: Long): Int {
+        val left = availableAtMs - nowMs
+        if (left <= 0) return 0
+        return ((left + 999) / 1000).coerceAtMost(MAX_WAIT_SEC.toLong()).toInt()
+    }
 }

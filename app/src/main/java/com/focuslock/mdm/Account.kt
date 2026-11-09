@@ -41,6 +41,13 @@ object Account {
     private const val K_USED_DAY = "keeper_used_day"
     private const val K_USED = "keeper_used"
     private const val K_LIMIT = "keeper_limit"
+    private const val K_VERIFIED = "verified"
+
+    /** Kept apart from [PREFS]: [forget] clears that file, and a browser sign-in in flight must survive it. */
+    private const val OAUTH_PREFS = "account_oauth"
+    private const val K_OAUTH_STARTED = "started_at"
+    /** The server's state lives 10 minutes; a little longer here for a slow return from the browser. */
+    private const val OAUTH_WINDOW_MS = 15L * 60 * 1000
     private val PRODUCTS = listOf(EntitlementRules.MOBILE_PRO, "pc_pro", EntitlementRules.KEEPER_PLUS)
 
     private fun prefs(c: Context) = c.applicationContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
@@ -84,6 +91,17 @@ object Account {
     fun signedIn(c: Context): Boolean = prefs(c).contains(K_CIPHER)
 
     fun email(c: Context): String = prefs(c).getString(K_EMAIL, "").orEmpty()
+
+    /**
+     * Whether the server says the email is confirmed. Until it has said (an
+     * account signed in before this field existed) it counts as verified: the
+     * server still refuses what needs it with `email_unverified`.
+     */
+    fun verified(c: Context): Boolean = prefs(c).getBoolean(K_VERIFIED, true)
+
+    private fun saveVerified(c: Context, json: JSONObject?) {
+        if (json != null && json.has("verified")) prefs(c).edit().putBoolean(K_VERIFIED, json.optBoolean("verified", true)).apply()
+    }
 
     // ── what the server last said ─────────────────────────────────
 
@@ -168,6 +186,7 @@ object Account {
         forget(c)
         saveToken(c, token)
         prefs(c).edit().putString(K_EMAIL, r.json.optJSONObject("user")?.optString("email") ?: email.trim().lowercase()).apply()
+        saveVerified(c, r.json.optJSONObject("user"))
         refresh(c)
         return null
     }
@@ -179,6 +198,7 @@ object Account {
         if (r.code == 401) { forget(c); return AccountProblem.SIGNED_OUT }
         if (!r.ok) return AccountRules.problem(r.code, r.reason)
         r.json.optString("email").takeIf { it.isNotBlank() }?.let { prefs(c).edit().putString(K_EMAIL, it).apply() }
+        saveVerified(c, r.json)
         saveProducts(c, r.json.optJSONObject("products"))
         r.json.optJSONObject("keeper")?.let { recordUsage(c, it.optInt("usedToday", 0), it.optInt("limit", KeeperRouting.DEFAULT_DAILY_LIMIT)) }
         return null
@@ -209,6 +229,91 @@ object Account {
     fun signOut(c: Context) {
         token(c)?.let { call("POST", "/auth/logout", JSONObject(), it) }
         forget(c)
+    }
+
+    /** POST /auth/logout-all. Signed out here only once the server has done it everywhere. Null on success. */
+    fun signOutEverywhere(c: Context): AccountProblem? {
+        val t = token(c) ?: run { forget(c); return null }
+        val r = call("POST", "/auth/logout-all", JSONObject(), t)
+        if (!r.ok && r.code != 401) return AccountRules.problem(r.code, r.reason)
+        forget(c)
+        return null
+    }
+
+    // ── email codes and browser sign-in ───────────────────────────
+
+    /** What GET /auth/providers says is switched on. */
+    data class Providers(val google: Boolean, val github: Boolean, val email: Boolean, val mailConfigured: Boolean)
+
+    /** GET /auth/providers, or null when the server did not answer. */
+    fun providers(): Providers? {
+        val r = call("GET", "/auth/providers", null, null, readTimeoutMs = 15_000)
+        if (!r.ok) return null
+        return Providers(r.json.optBoolean("google"), r.json.optBoolean("github"), r.json.optBoolean("email", true), r.json.optBoolean("mailConfigured"))
+    }
+
+    /** POST /auth/verify. On success the cached account is marked verified and refreshed. Null on success. */
+    fun verify(c: Context, email: String, code: String): AccountFailure? {
+        val r = call("POST", "/auth/verify", JSONObject().put("email", email.trim()).put("code", code.trim()), null)
+        if (!r.ok) return AccountRules.failure(r.code, r.json, emailCode = true)
+        if (signedIn(c)) {
+            prefs(c).edit().putBoolean(K_VERIFIED, true).apply()
+            refresh(c)
+        }
+        return null
+    }
+
+    /** POST /auth/resend: a new verification code. Null on success. */
+    fun resend(email: String): AccountFailure? {
+        val r = call("POST", "/auth/resend", JSONObject().put("email", email.trim()), null)
+        return if (r.ok) null else AccountRules.failure(r.code, r.json)
+    }
+
+    /** POST /auth/forgot: the server answers the same whether or not the email has an account. Null on success. */
+    fun forgot(email: String): AccountFailure? {
+        val r = call("POST", "/auth/forgot", JSONObject().put("email", email.trim()), null)
+        return if (r.ok) null else AccountRules.failure(r.code, r.json)
+    }
+
+    /**
+     * POST /auth/reset. The server ends every session of that account, so if it
+     * is the one signed in here, it is forgotten too. Null on success.
+     */
+    fun reset(c: Context, email: String, code: String, newPassword: String): AccountFailure? {
+        val body = JSONObject().put("email", email.trim()).put("code", code.trim()).put("newPassword", newPassword)
+        val r = call("POST", "/auth/reset", body, null)
+        if (!r.ok) return AccountRules.failure(r.code, r.json, emailCode = true)
+        if (signedIn(c) && email(c).equals(email.trim(), ignoreCase = true)) forget(c)
+        return null
+    }
+
+    /** Where "Continue with Google/GitHub" goes; the server sends the browser back to pinehold://auth. */
+    fun providerStartUrl(provider: String): String = "$API/auth/$provider/start?client=app"
+
+    /** Called as the browser opens, so [AuthCallbackActivity] knows a sign-in was asked for. */
+    fun markOAuthStarted(c: Context) {
+        c.applicationContext.getSharedPreferences(OAUTH_PREFS, Context.MODE_PRIVATE).edit()
+            .putLong(K_OAUTH_STARTED, System.currentTimeMillis()).apply()
+    }
+
+    /**
+     * True once, if a browser sign-in began here within [OAUTH_WINDOW_MS]. Any
+     * app can fire pinehold://auth; this stops one from signing the phone into
+     * an account of its choosing when no sign-in was under way.
+     */
+    fun consumeOAuthStarted(c: Context): Boolean {
+        val p = c.applicationContext.getSharedPreferences(OAUTH_PREFS, Context.MODE_PRIVATE)
+        val started = p.getLong(K_OAUTH_STARTED, 0L)
+        p.edit().remove(K_OAUTH_STARTED).apply()
+        val age = System.currentTimeMillis() - started
+        return started > 0L && age in 0..OAUTH_WINDOW_MS
+    }
+
+    /** Keep a session the browser sign-in handed back. Accounts made that way are verified. */
+    fun adoptToken(c: Context, token: String) {
+        forget(c)
+        saveToken(c, token)
+        prefs(c).edit().putBoolean(K_VERIFIED, true).apply()
     }
 
     /** Bearer for the Keeper proxy; only [KeeperClient] uses it. */

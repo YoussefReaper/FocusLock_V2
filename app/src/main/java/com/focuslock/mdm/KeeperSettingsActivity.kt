@@ -168,6 +168,11 @@ class KeeperSettingsActivity : FocusScreenActivity() {
             startActivity(Intent(this, AccountActivity::class.java))
             return
         }
+        if (!Account.verified(this)) {
+            FocusDialog.toast(this, getString(R.string.keeper_plus_verify_first))
+            startActivity(Intent(this, AccountActivity::class.java))
+            return
+        }
         val raw = subscriptionId
         redeeming = true
         redeemError = null

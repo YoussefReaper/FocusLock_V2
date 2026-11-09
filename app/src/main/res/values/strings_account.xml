@@ -44,4 +44,54 @@
     <string name="keeper_plus_activate">Activate</string>
     <string name="keeper_plus_sign_in_first">Sign in first.</string>
     <string name="keeper_plus_activated">Keeper Plus is on.</string>
+
+    <!-- Sign-in options, email codes, password reset. -->
+    <string name="account_continue_google">Continue with Google</string>
+    <string name="account_continue_github">Continue with GitHub</string>
+    <string name="account_or">or</string>
+    <string name="account_password_rule">At least 10 characters.</string>
+    <string name="account_forgot">Forgot password?</string>
+    <string name="account_verify_title">Check your email</string>
+    <string name="account_verify_body">We sent a 6-digit code to %1$s.</string>
+    <string name="account_code_hint">6-digit code</string>
+    <string name="account_code_format">Enter the 6-digit code.</string>
+    <string name="account_verify">Verify</string>
+    <string name="account_resend">Resend code</string>
+    <string name="account_resend_in">Resend in %1$ds</string>
+    <string name="account_not_now">Not now</string>
+    <string name="account_code_sent">A new code is on its way.</string>
+    <string name="account_verified_done">Email verified.</string>
+    <string name="account_badge_verified">Verified</string>
+    <string name="account_badge_unverified">Unverified</string>
+    <string name="account_verify_action">Verify your email</string>
+    <string name="account_sign_out_everywhere">Sign out everywhere</string>
+    <string name="account_signed_out_everywhere">Signed out on every device.</string>
+    <string name="account_forgot_title">Reset your password</string>
+    <string name="account_forgot_body">We\'ll email you a 6-digit code.</string>
+    <string name="account_send_code">Send code</string>
+    <string name="account_forgot_sent">If that email has an account, a code is on its way.</string>
+    <string name="account_reset_body">Enter the code sent to %1$s and a new password.</string>
+    <string name="account_new_password_hint">New password</string>
+    <string name="account_change_password">Change password</string>
+    <string name="account_password_changed">Password changed. Sign in with the new one.</string>
+    <string name="account_back">Back</string>
+    <string name="account_oauth_signed_in">You\'re signed in.</string>
+    <string name="account_err_password_short">Use at least 10 characters.</string>
+    <string name="account_err_password_common">That password is too common. Choose another.</string>
+    <string name="account_err_wrong_code">That code is not right.</string>
+    <string name="account_err_code_expired">That code has expired. Send a new one.</string>
+    <string name="account_err_code_locked">Too many wrong codes. Send a new one.</string>
+    <string name="account_err_mail">Email codes are not available right now. Try again later.</string>
+    <string name="account_err_provider_off">That sign-in option is not available yet.</string>
+    <string name="account_err_email_unverified">Verify your email first.</string>
+    <string name="account_err_sign_in_expired">Sign-in took too long. Try again.</string>
+    <string name="account_err_sign_in_cancelled">Sign-in was cancelled.</string>
+    <string name="account_err_provider">Sign-in did not finish. Try again.</string>
+    <string name="account_err_provider_email">That account\'s email is not verified with the provider.</string>
+    <string name="account_err_account_unverified">This email has an account waiting for verification. Sign in with your password and verify it first.</string>
+    <string name="keeper_plus_verify_first">Verify your email first.</string>
+    <plurals name="account_err_wrong_code_left">
+        <item quantity="one">That code is not right. %1$d try left.</item>
+        <item quantity="other">That code is not right. %1$d tries left.</item>
+    </plurals>
 </resources>
