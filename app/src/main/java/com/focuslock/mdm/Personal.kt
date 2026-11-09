@@ -21,12 +21,11 @@ object Personal {
         "com.google.android.apps.bard", "com.anthropic.claude", "com.openai.chatgpt",
         "ai.perplexity.app.android", "com.microsoft.copilot", "com.deepseek.chat", "ai.x.grok",
         "ai.character.app", "com.poe.android", "com.quora.poe", "com.mistral.lechat", "ai.meta.app",
-        "com.google.android.apps.labs.language.tailwind", // NotebookLM
     )
     val AI_HOSTS = listOf(
-        "gemini.google.com", "aistudio.google.com", "bard.google.com", "notebooklm.google.com",
+        "gemini.google.com", "aistudio.google.com", "bard.google.com",
         "claude.ai", "chatgpt.com", "chat.openai.com", "perplexity.ai", "copilot.microsoft.com",
-        "poe.com", "chat.deepseek.com", "grok.com", "character.ai", "janitorai.com", "openrouter.ai",
+        "poe.com", "chat.deepseek.com", "grok.com", "character.ai", "janitorai.com",
         "chat.mistral.ai", "meta.ai", "t3.chat", "lmarena.ai", "pi.ai", "chub.ai", "kimi.com", "chat.qwen.ai",
     )
 

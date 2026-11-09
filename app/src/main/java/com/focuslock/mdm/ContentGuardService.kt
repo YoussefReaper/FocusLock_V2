@@ -321,13 +321,13 @@ class ContentGuardService : AccessibilityService() {
 
     // ── Rules ─────────────────────────────────────────────────────
 
-    @Synchronized
     private val BROWSERS = setOf(
         "com.android.chrome", "com.chrome.beta", "org.mozilla.firefox", "com.microsoft.emmx",
         "com.opera.browser", "com.brave.browser", "com.mi.globalbrowser", "com.sec.android.app.sbrowser",
         "com.duckduckgo.mobile.android", "com.vivaldi.browser", "com.kiwibrowser.browser",
     )
 
+    @Synchronized
     private fun rules(): List<Prepared> {
         val revision = PolicySync.revision()
         if (revision != cachedRevision) {
