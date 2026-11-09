@@ -79,7 +79,7 @@
     <string name="rules_editor_places_title">Places and networks</string>
     <string name="rules_editor_custom_rules_title">Custom rules</string>
 
-    <string name="capabilities_title">What Pinehold may do</string>
+    <string name="capabilities_title">Advanced</string>
     <string name="capabilities_needs_access_chip">Needs access</string>
 
     <string name="rules_capability_intro">Every behaviour Pinehold has is one switch here. Turn any of them off and it stops immediately. If a switch needs a permission Android has not granted yet, it says so.</string>

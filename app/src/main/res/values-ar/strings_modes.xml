@@ -7,15 +7,15 @@
     لمدة ٩٠ يومًا يستحق أن يعرف ذلك قبل أن يضغط، لا بعدها.
 -->
 <resources>
-    <string name="mode_soft_label">هادئ</string>
+    <string name="mode_soft_label">لين</string>
     <string name="mode_soft_oneliner">وقفة وتنبيه لطيف عندما تمدّ يدك إلى شيء مشتّت.</string>
     <string name="mode_soft_exitline">اخرج في أي وقت. لا شيء مُغلق عليك.</string>
 
-    <string name="mode_block_label">حجب</string>
+    <string name="mode_block_label">حازم</string>
     <string name="mode_block_oneliner">تتوقف التطبيقات المشتّتة عن الفتح. وباقي الهاتف يعمل طبيعيًا.</string>
     <string name="mode_block_exitline">أنهِ الجلسة من هذه الشاشة متى شئت.</string>
 
-    <string name="mode_sanctuary_label">ملاذ</string>
+    <string name="mode_sanctuary_label">مُحكم</string>
     <string name="mode_sanctuary_oneliner">تختفي المشتّتات من الشاشة الرئيسية وتهدأ. وتبقى شاشتك الرئيسية ملكك.</string>
     <string name="mode_sanctuary_exitline">أنهِ الجلسة من هنا. تعود التطبيقات في غضون ثوانٍ.</string>
 

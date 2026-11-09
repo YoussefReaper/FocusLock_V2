@@ -134,8 +134,10 @@ class ContentGuardService : AccessibilityService() {
      * because this read isActive directly and a test deliberately never sets
      * that.
      */
-    private fun hasWork(): Boolean {
-        if (Personal.on) return true   // the owner's AI-site rule runs always
+    /** The owner's AI-site rule (personal build) runs always, but only inside browsers. */
+    private fun hasWork(): Boolean = Personal.on || regularWork()
+
+    private fun regularWork(): Boolean {
         if (!CapabilityRegistry.isEnabled(this, Capabilities.CONTENT_GUARD)) return false
         val override = TestMode.overrideFor(this)
         if (!Standalone.mayActNow(this, override)) return false
@@ -198,6 +200,9 @@ class ContentGuardService : AccessibilityService() {
         // or began without a write, and narrows or widens the scope.
         applyEventScope()
         if (fullScope != true) return
+        // Battery: when the personal rule is the only reason to be awake, every screen that
+        // is not a browser is dropped here, before any work is queued.
+        if (Personal.on && event.packageName?.toString() !in BROWSERS && !regularWork()) return
 
         val packageName = event.packageName?.toString() ?: return
         if (packageName == applicationContext.packageName) return

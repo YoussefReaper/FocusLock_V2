@@ -12,14 +12,14 @@
     <string name="redesign_tasks_none">Plan what earns time</string>
     <string name="redesign_tools_title">Safe tools</string>
     <string name="redesign_tools_sub">Browser, SafeTube, Keeper</string>
-    <string name="redesign_mode_on">%1$s is on</string>
+    <string name="redesign_mode_on">Held · %1$s</string>
     <string name="redesign_stay_with_it">Stay with it</string>
     <string name="redesign_left_of">left of %1$s</string>
     <string name="redesign_ends_at_line">Ends at %1$s. Distracting apps will not open until then.</string>
     <string name="redesign_opens_stopped">opens stopped</string>
     <string name="redesign_focused_so_far">focused so far</string>
     <string name="redesign_apps_open">apps allowed</string>
-    <string name="redesign_end_early">End session early</string>
+    <string name="redesign_end_early">End this promise early</string>
     <string name="redesign_time_counts">The time you already did still counts.</string>
     <string name="redesign_more_info">More about this strength</string>
     <string name="common_selected">selected</string>

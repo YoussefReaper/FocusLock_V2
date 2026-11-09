@@ -24,7 +24,7 @@
     <string name="youtab_font_system_default">System default</string>
     <string name="youtab_theme_subtitle">Changes every screen in the app - the block screens included.</string>
 
-    <string name="youtab_capabilities_title">What Pinehold may do</string>
+    <string name="youtab_capabilities_title">Advanced</string>
     <string name="youtab_device_owner_title">Device Owner setup</string>
     <string name="youtab_device_owner_active">Active. Safe Mode and uninstall can be closed.</string>
     <string name="youtab_device_owner_inactive">Not set. Kiosk and Safe-Mode blocking need this.</string>

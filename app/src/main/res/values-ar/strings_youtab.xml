@@ -27,7 +27,7 @@
     <string name="youtab_font_system_default">خط النظام</string>
     <string name="youtab_theme_subtitle">يغيّر كل شاشة في التطبيق — بما فيها شاشات الحجب.</string>
 
-    <string name="youtab_capabilities_title">ما يُسمح لـ Pinehold بفعله</string>
+    <string name="youtab_capabilities_title">متقدّم</string>
     <string name="youtab_device_owner_title">إعداد مالك الجهاز</string>
     <string name="youtab_device_owner_active">مفعّل. يمكن إغلاق الوضع الآمن وإلغاء التثبيت.</string>
     <string name="youtab_device_owner_inactive">غير مضبوط. وضع الكشك وحجب الوضع الآمن يحتاجان هذا.</string>

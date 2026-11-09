@@ -31,7 +31,7 @@
 
     <string name="onboarding_firm_title">How firm should it start?</string>
     <string name="onboarding_firm_note">You can change this any time. Starting gentler and tightening later works better than starting at maximum and abandoning it.</string>
-    <string name="onboarding_firm_gentle_label">Gentle</string>
+    <string name="onboarding_firm_gentle_label">Soft</string>
     <string name="onboarding_firm_gentle_detail">A pause and a nudge. Nothing is held shut.</string>
     <string name="onboarding_firm_firm_label">Block</string>
     <string name="onboarding_firm_firm_detail">Your chosen apps stop opening during a session. You can end it early.</string>
@@ -63,7 +63,7 @@
     <string name="onboarding_use_defaults">Use plain defaults instead</string>
 
     <string name="onboarding_kiosk_needs_computer">Kiosk needs a computer</string>
-    <string name="onboarding_kiosk_needs_computer_detail">Device Owner is set over ADB. Until then, kiosk falls back to Sanctuary.</string>
+    <string name="onboarding_kiosk_needs_computer_detail">Device Owner is set over ADB. Until then, kiosk falls back to Sealed.</string>
 
     <!-- The "also set up" notes: a title and a one-line explanation. -->
     <string name="onboarding_note_shorts_title">Shorts and Reels guards</string>

@@ -11,14 +11,14 @@
     <string name="redesign_tasks_none">خطّط لما يكسبك الوقت</string>
     <string name="redesign_tools_title">أدوات آمنة</string>
     <string name="redesign_tools_sub">المتصفح وSafeTube والحارس</string>
-    <string name="redesign_mode_on">%1$s مفعّل</string>
+    <string name="redesign_mode_on">محفوظ · %1$s</string>
     <string name="redesign_stay_with_it">استمر</string>
     <string name="redesign_left_of">متبقٍ من %1$s</string>
     <string name="redesign_ends_at_line">تنتهي في %1$s. لن تُفتح التطبيقات المشتّتة حتى ذلك الحين.</string>
     <string name="redesign_opens_stopped">محاولات فتح أُوقفت</string>
     <string name="redesign_focused_so_far">من التركيز حتى الآن</string>
     <string name="redesign_apps_open">تطبيقات مسموحة</string>
-    <string name="redesign_end_early">إنهاء الجلسة مبكرًا</string>
+    <string name="redesign_end_early">إنهاء هذا العهد مبكرًا</string>
     <string name="redesign_time_counts">الوقت الذي أنجزته ما زال محسوبًا.</string>
     <string name="redesign_more_info">المزيد عن هذه الدرجة</string>
     <string name="common_selected">محدد</string>

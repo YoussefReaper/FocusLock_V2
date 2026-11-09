@@ -9,7 +9,7 @@
     <!-- ── The demo tier ───────────────────────────────────────────── -->
     <string name="demo_badge">Demo</string>
     <string name="demo_mode_locked_pill">Full version</string>
-    <string name="demo_banner_body">This is the whole app, with two limits. It runs one session, and it shows you the block screen instead of taking the screen away from you. Sanctuary and Kiosk \u2014 the two modes that promise to hold the phone shut \u2014 are switched off here.</string>
+    <string name="demo_banner_body">This is the whole app, with two limits. It runs one session, and it shows you the block screen instead of taking the screen away from you. Sealed and Kiosk \u2014 the two modes that promise to hold the phone shut \u2014 are switched off here.</string>
     <string name="demo_banner_running">This is the demo\'s one session. Everything works as it does in the full version, except that a block is shown rather than enforced.</string>
     <string name="demo_banner_spent">That was the demo\'s one session. Every screen, rule, schedule and task is still here to look at, and Test the block still previews your rules against whatever you open.</string>
     <string name="demo_start_used_up">The demo\'s session is used up</string>
@@ -24,16 +24,16 @@
     <string name="pro_badge">Pro</string>
     <string name="pro_free_badge">Free tier</string>
     <string name="pro_card_title_unlocked">Pinehold Pro is active</string>
-    <string name="pro_card_subtitle_unlocked">All session strengths (Sanctuary &amp; Kiosk), Bedtime dimming, Place &amp; Wi-Fi rules, Earn Mode, and Custom rules are unlocked on this device.</string>
+    <string name="pro_card_subtitle_unlocked">All session strengths (Sealed &amp; Kiosk), Bedtime dimming, Place &amp; Wi-Fi rules, Earn Mode, and Custom rules are unlocked on this device.</string>
     <string name="pro_card_title_free">Pinehold Pro · $9.99 once</string>
-    <string name="pro_card_subtitle_free">Sanctuary, Kiosk, Bedtime, Earn and Places</string>
+    <string name="pro_card_subtitle_free">Sealed, Kiosk, Bedtime, Earn and Places</string>
     <string name="pro_upgrade_button">See what is in Pro ($9.99)</string>
     <string name="pro_buy_button">Buy Pro ($9.99 one-time)</string>
     <string name="pro_enter_code_button">I already have a code</string>
     <string name="pro_dialog_title">Pinehold Pro — $9.99 one-time</string>
     <string name="pro_dialog_subtitle">$9.99 one-time purchase with free updates forever. No subscriptions, no accounts, verified offline.</string>
     <string name="pro_dialog_feature_prompt">%1$s is part of Pinehold Pro ($9.99 one-time).</string>
-    <string name="pro_dialog_bullets">• Sanctuary &amp; Kiosk, the two firmest strengths\n• Earn mode: tasks that pay screen time\n• Bedtime that dims and quiets every night\n• Places, Wi-Fi and custom rules</string>
+    <string name="pro_dialog_bullets">• Sealed &amp; Kiosk, the two firmest strengths\n• Earn mode: tasks that pay screen time\n• Bedtime that dims and quiets every night\n• Places, Wi-Fi and custom rules</string>
     <string name="pro_dialog_unlock_cta">Buy Pro ($9.99)</string>
     <string name="pro_unlocked_toast">Pinehold Pro unlocked — thank you!</string>
     <string name="pro_code_dialog_title">Enter your code</string>
@@ -77,7 +77,7 @@
     <string name="capabilities_show_all_button">Show all switches (%1$d)</string>
     <string name="capabilities_show_fewer_button">Show only the 10 core switches</string>
     <string name="dashboard_unbreakable_card_title">Want a firmer lock?</string>
-    <string name="dashboard_unbreakable_card_body">A 5-minute setup from a computer lets Sanctuary and Kiosk hold, and can close uninstalling during a session. A factory reset always stays possible.</string>
+    <string name="dashboard_unbreakable_card_body">A 5-minute setup from a computer lets Sealed and Kiosk hold, and can close uninstalling during a session. A factory reset always stays possible.</string>
 
     <!-- First block warm note & daily opens stopped -->
     <string name="intercept_first_block_warm_note">Your first distraction stopped. Your rule is holding quietly.</string>

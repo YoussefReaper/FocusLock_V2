@@ -7,15 +7,15 @@
     a 90-day kiosk session deserves to know that before they tap, not after.
 -->
 <resources>
-    <string name="mode_soft_label">Gentle</string>
+    <string name="mode_soft_label">Soft</string>
     <string name="mode_soft_oneliner">A pause and a nudge when you reach for something distracting.</string>
     <string name="mode_soft_exitline">Leave any time. Nothing is held shut.</string>
 
-    <string name="mode_block_label">Block</string>
+    <string name="mode_block_label">Firm</string>
     <string name="mode_block_oneliner">Distracting apps stop opening. The rest of the phone works normally.</string>
     <string name="mode_block_exitline">End the session from this screen whenever you want.</string>
 
-    <string name="mode_sanctuary_label">Sanctuary</string>
+    <string name="mode_sanctuary_label">Sealed</string>
     <string name="mode_sanctuary_oneliner">Distractions disappear from the launcher and go silent. Your home screen stays yours.</string>
     <string name="mode_sanctuary_exitline">End the session here. Apps come back within a few seconds.</string>
 
