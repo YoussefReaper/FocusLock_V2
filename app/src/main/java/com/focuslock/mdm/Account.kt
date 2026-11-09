@@ -30,6 +30,12 @@ import kotlin.concurrent.thread
  */
 object Account {
     const val API = "https://focuslock-payment.onrender.com/v1"
+    /** Email/password sign-up and sign-in are switched off for now; the code paths stay. Browser sign-in (Google, GitHub) is the way in. */
+    const val EMAIL_SIGNIN_ENABLED = false
+
+    /** Render's free plan cold-starts in up to a minute, so connect and read both wait that long. */
+    private const val TIMEOUT_MS = 60_000
+
     const val KEEPER_PLUS_URL = "https://focus-lock-c0xg.onrender.com/keeper-plus.html"
 
     private const val PREFS = "account"
@@ -177,9 +183,9 @@ object Account {
         val reason: String? get() = json.optString("reason").takeIf { it.isNotBlank() }
     }
 
-    fun call(method: String, path: String, body: JSONObject?, bearer: String?, readTimeoutMs: Int = 30_000): Reply = try {
+    fun call(method: String, path: String, body: JSONObject?, bearer: String?, readTimeoutMs: Int = TIMEOUT_MS): Reply = try {
         val conn = (URL(API + path).openConnection() as HttpURLConnection).apply {
-            requestMethod = method; connectTimeout = 20_000; readTimeout = readTimeoutMs
+            requestMethod = method; connectTimeout = TIMEOUT_MS; readTimeout = readTimeoutMs
             setRequestProperty("Accept", "application/json")
             if (bearer != null) setRequestProperty("Authorization", "Bearer $bearer")
             if (body != null) { doOutput = true; setRequestProperty("Content-Type", "application/json") }
@@ -263,7 +269,7 @@ object Account {
 
     /** GET /auth/providers, or null when the server did not answer. */
     fun providers(): Providers? {
-        val r = call("GET", "/auth/providers", null, null, readTimeoutMs = 15_000)
+        val r = call("GET", "/auth/providers", null, null)
         if (!r.ok) return null
         return Providers(r.json.optBoolean("google"), r.json.optBoolean("github"), r.json.optBoolean("email", true), r.json.optBoolean("mailConfigured"))
     }

@@ -99,4 +99,9 @@
         <item quantity="one">That code is not right. %1$d try left.</item>
         <item quantity="other">That code is not right. %1$d tries left.</item>
     </plurals>
+
+    <!-- Cold server and no sign-in provider yet. -->
+    <string name="account_waking">Waking the server…</string>
+    <string name="account_waking_up">Sign-in is waking up — try again in a moment</string>
+    <string name="account_retry">Retry</string>
 </resources>

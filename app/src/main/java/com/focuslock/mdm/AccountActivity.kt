@@ -11,7 +11,10 @@ import android.text.Editable
 import android.text.InputFilter
 import android.text.InputType
 import android.text.TextWatcher
+import android.graphics.Color
 import android.view.Gravity
+import android.view.View
+import android.widget.ImageView
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -39,6 +42,7 @@ class AccountActivity : FocusScreenActivity() {
         fun dateLabel(ms: Long): String = DateFormat.getDateInstance(DateFormat.MEDIUM).format(Date(ms))
 
         private const val CODE_LENGTH = 6
+        private const val SLOW_MS = 5_000L
     }
 
     private enum class Step { FORM, FORGOT_EMAIL, FORGOT_RESET }
@@ -55,6 +59,16 @@ class AccountActivity : FocusScreenActivity() {
     /** The "Check your email" card, shown while the account is unverified unless put off with "Not now". */
     private var verifyOpen = true
     private var providers: Account.Providers? = null
+    /** The providers call is in flight / came back empty-handed; see [loadProviders]. */
+    private var providersLoading = false
+    private var providersFailed = false
+    /** True once a call has been waiting past [SLOW_MS]: the server is likely cold-starting. */
+    private var waking = false
+    private val slow = Runnable {
+        if (isFinishing || isDestroyed || !(busy || providersLoading)) return@Runnable
+        waking = true
+        refresh()
+    }
 
     /** [SystemClock.elapsedRealtime] when Resend comes back; see [ResendRules]. */
     private var resendAt = 0L
@@ -76,16 +90,38 @@ class AccountActivity : FocusScreenActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Account.refreshAsync(this) { runOnUiThread { if (!isFinishing && !isDestroyed && !busy) refresh() } }
+        loadProviders()
+        if (savedInstanceState == null) handleOAuth(intent)
+    }
+
+    private fun loadProviders() {
+        providersLoading = true
+        providersFailed = false
+        armSlow()
         thread(name = "account-providers") {
             val p = try { Account.providers() } catch (_: Exception) { null }
             runOnUiThread {
-                if (isFinishing || isDestroyed || p == null) return@runOnUiThread
-                providers = p
+                if (isFinishing || isDestroyed) return@runOnUiThread
+                providersLoading = false
+                if (p == null) providersFailed = true else providers = p
+                settleSlow()
                 if (!busy) refresh()
             }
         }
-        if (savedInstanceState == null) handleOAuth(intent)
     }
+
+    private fun armSlow() {
+        ticker.removeCallbacks(slow)
+        ticker.postDelayed(slow, SLOW_MS)
+    }
+
+    private fun settleSlow() {
+        if (busy || providersLoading) return
+        waking = false
+        ticker.removeCallbacks(slow)
+    }
+
+    private fun workingText(): String = getString(if (waking) R.string.account_waking else R.string.account_working)
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
@@ -142,17 +178,32 @@ class AccountActivity : FocusScreenActivity() {
 
     private fun signInForm(c: LinearLayout) {
         val p = providers
-        if (p != null && (p.google || p.github)) {
-            if (p.google) {
-                c.addView(FocusUi.secondaryButton(this, tokens, getString(R.string.account_continue_google)) { openProvider("google") })
+        val anyProvider = p != null && (p.google || p.github)
+        if (anyProvider) {
+            if (p!!.google) {
+                c.addView(brandButton(R.string.account_continue_google, R.drawable.ic_brand_google, google = true) { openProvider("google") })
                 c.addView(FocusUi.spacer(this, 8))
             }
             if (p.github) {
-                c.addView(FocusUi.secondaryButton(this, tokens, getString(R.string.account_continue_github)) { openProvider("github") })
+                c.addView(brandButton(R.string.account_continue_github, R.drawable.ic_brand_github, google = false) { openProvider("github") })
                 c.addView(FocusUi.spacer(this, 8))
             }
-            c.addView(orDivider())
-            c.addView(FocusUi.spacer(this, 8))
+            if (Account.EMAIL_SIGNIN_ENABLED) {
+                c.addView(orDivider())
+                c.addView(FocusUi.spacer(this, 8))
+            }
+        }
+        if (!Account.EMAIL_SIGNIN_ENABLED) {
+            messages(c)
+            when {
+                busy || providersLoading -> c.addView(FocusUi.secondary(this, tokens, workingText()))
+                !anyProvider -> {
+                    c.addView(FocusUi.secondary(this, tokens, getString(R.string.account_waking_up)))
+                    c.addView(FocusUi.spacer(this, 10))
+                    c.addView(FocusUi.secondaryButton(this, tokens, getString(R.string.account_retry)) { loadProviders(); refresh() })
+                }
+            }
+            return
         }
         c.addView(inputField(getString(R.string.account_email_hint), email,
             InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS) { email = it })
@@ -162,7 +213,7 @@ class AccountActivity : FocusScreenActivity() {
         c.addView(FocusUi.spacer(this, 10))
         messages(c)
         if (busy) {
-            c.addView(FocusUi.secondary(this, tokens, getString(R.string.account_working)))
+            c.addView(FocusUi.secondary(this, tokens, workingText()))
             return
         }
         c.addView(FocusUi.primaryButton(this, tokens, getString(R.string.account_sign_in)) { submit(create = false) })
@@ -170,6 +221,46 @@ class AccountActivity : FocusScreenActivity() {
         c.addView(FocusUi.secondaryButton(this, tokens, getString(R.string.account_create)) { submit(create = true) })
         c.addView(FocusUi.spacer(this, 4))
         c.addView(FocusUi.ghostButton(this, tokens, getString(R.string.account_forgot)) { go(Step.FORGOT_EMAIL) })
+    }
+
+    /**
+     * A provider's own sign-in button: Google white (light) or #131314 (dark) with a
+     * 1dp #747775 / #8E918F border, GitHub #24292F with a white mark. 48dp tall,
+     * mark 20dp left of the label, the app's font.
+     */
+    private fun brandButton(label: Int, mark: Int, google: Boolean, onClick: () -> Unit): LinearLayout {
+        val light = tokens.isLight
+        val fill = if (!google) Color.parseColor("#24292F") else if (light) Color.WHITE else Color.parseColor("#131314")
+        val stroke = if (!google) null else Color.parseColor(if (light) "#747775" else "#8E918F")
+        val textColor = when {
+            !google -> Color.WHITE
+            light -> Color.parseColor("#1F1F1F")
+            else -> Color.parseColor("#E3E3E3")
+        }
+        val row = LinearLayout(this)
+        row.orientation = LinearLayout.HORIZONTAL
+        row.gravity = Gravity.CENTER
+        row.isClickable = true
+        row.isFocusable = true
+        row.background = FocusUi.withRipple(this, FocusUi.roundedShape(this, fill, tokens.buttonRadiusDp, stroke), tokens)
+        row.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, FocusUi.dp(this, 48))
+        row.addView(ImageView(this).apply {
+            setImageResource(mark)
+            importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
+            layoutParams = LinearLayout.LayoutParams(FocusUi.dp(this@AccountActivity, 20), FocusUi.dp(this@AccountActivity, 20))
+        })
+        row.addView(FocusUi.body(this, tokens, getString(label)).apply {
+            setTextColor(textColor)
+            FocusUi.applyFont(this, tokens, weight = 600)
+            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply {
+                marginStart = FocusUi.dp(this@AccountActivity, 12)
+            }
+        })
+        row.setOnClickListener {
+            Motion.tap(row, tokens)
+            onClick()
+        }
+        return row
     }
 
     private fun orDivider(): LinearLayout {
@@ -197,7 +288,7 @@ class AccountActivity : FocusScreenActivity() {
         c.addView(FocusUi.spacer(this, 6))
         messages(c)
         if (busy) {
-            c.addView(FocusUi.secondary(this, tokens, getString(R.string.account_working)))
+            c.addView(FocusUi.secondary(this, tokens, workingText()))
             return
         }
         c.addView(FocusUi.primaryButton(this, tokens, getString(R.string.account_send_code)) { sendResetCode() })
@@ -217,7 +308,7 @@ class AccountActivity : FocusScreenActivity() {
         c.addView(FocusUi.spacer(this, 10))
         messages(c)
         if (busy) {
-            c.addView(FocusUi.secondary(this, tokens, getString(R.string.account_working)))
+            c.addView(FocusUi.secondary(this, tokens, workingText()))
             return
         }
         c.addView(FocusUi.primaryButton(this, tokens, getString(R.string.account_change_password)) { resetPassword() })
@@ -238,7 +329,7 @@ class AccountActivity : FocusScreenActivity() {
         c.addView(FocusUi.spacer(this, 6))
         messages(c)
         if (busy) {
-            c.addView(FocusUi.secondary(this, tokens, getString(R.string.account_working)))
+            c.addView(FocusUi.secondary(this, tokens, workingText()))
             return
         }
         c.addView(FocusUi.primaryButton(this, tokens, getString(R.string.account_verify)) { verify() })
@@ -276,7 +367,7 @@ class AccountActivity : FocusScreenActivity() {
         if (showMessages) messages(c)
         c.addView(FocusUi.spacer(this, 4))
         if (busy) {
-            c.addView(FocusUi.secondary(this, tokens, getString(R.string.account_working)))
+            c.addView(FocusUi.secondary(this, tokens, workingText()))
             return
         }
         c.addView(FocusUi.secondaryButton(this, tokens, getString(R.string.account_sign_out)) { signOut() })
@@ -459,12 +550,14 @@ class AccountActivity : FocusScreenActivity() {
         busy = true
         error = null
         notice = null
+        armSlow()
         refresh()
         val app = applicationContext
         thread(name = "account-call") {
             val failure = try { work(app) } catch (_: Exception) { AccountFailure(AccountProblem.NETWORK) }
             runOnUiThread {
                 busy = false
+                settleSlow()
                 if (isFinishing || isDestroyed) return@runOnUiThread
                 if (failure == null) password = ""
                 error = failure?.let { failureText(it) }

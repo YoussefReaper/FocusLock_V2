@@ -110,4 +110,9 @@
         <item quantity="many">الرمز غير صحيح. المحاولات المتبقية: %1$d</item>
         <item quantity="other">الرمز غير صحيح. المحاولات المتبقية: %1$d</item>
     </plurals>
+
+    <!-- الخادم يستيقظ ولا توجد وسيلة تسجيل دخول بعد. -->
+    <string name="account_waking">جارٍ إيقاظ الخادم…</string>
+    <string name="account_waking_up">تسجيل الدخول يستيقظ — حاول مجددًا بعد لحظة</string>
+    <string name="account_retry">إعادة المحاولة</string>
 </resources>
