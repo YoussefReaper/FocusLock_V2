@@ -29,6 +29,11 @@ object Personal {
         "chat.mistral.ai", "meta.ai", "t3.chat", "lmarena.ai", "pi.ai", "chub.ai", "kimi.com", "chat.qwen.ai",
     )
 
+    /** Gemini also runs inside the Google app, as its "robin" assistant screens. */
+    fun isAiScreen(pkg: String, cls: String?): Boolean =
+        pkg == "com.google.android.googlequicksearchbox" && cls != null &&
+            (cls.contains(".robin.", true) || cls.contains("assistant", true))
+
     fun isAiHost(host: String): Boolean {
         val h = host.lowercase().removePrefix("www.")
         return AI_HOSTS.any { h == it || h.endsWith(".$it") }

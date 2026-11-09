@@ -296,7 +296,7 @@ object RuleEngine {
         // The owner's own rules (personal build only): AI chat apps never open, and around
         // every prayer only calls and the Quran do.
         if (Personal.on) {
-            if (packageName in Personal.AI_PACKAGES) {
+            if (packageName in Personal.AI_PACKAGES || Personal.isAiScreen(packageName, className)) {
                 return GuardDecision(packageName, GuardOutcome.BLOCK, "AI chat is off on this phone",
                     "Use it on the laptop, 8 am to 4 pm, or any time on Thursday and Friday.", "personalAi", offersBreak = false)
             }
