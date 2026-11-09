@@ -84,5 +84,6 @@
     <string name="keeper_focus_custom_prompt">يعامل الحارس أي شيء عنها مثل القائمة أعلاه.</string>
     <string name="keeper_focus_custom_rejected">لم تُضف. كانت فارغة أو موجودة أو لديك %1$d بالفعل.</string>
     <string name="keeper_focus_never">لا يُحجب ولا يُقص أبدًا: الرعب والدم والعنف والحرب والأسلحة والطب والجراحة والمشاهد المخيفة والألفاظ وأي شيء ليس في هذه القائمة. تغيير القائمة يجعل الحارس يعيد النظر.</string>
+    <string name="keeper_busy">الحارس مشغول الآن — حاول مرة أخرى بعد دقيقة.</string>
     <string name="keeper_plus_daily_limit">استُخدمت فحوصات اليوم الـ%1$d، وتتجدد عند منتصف الليل بتوقيت UTC.</string>
 </resources>

@@ -85,5 +85,6 @@
     <string name="keeper_focus_custom_prompt">The Keeper treats anything about it the same way as the list above.</string>
     <string name="keeper_focus_custom_rejected">Not added. It was empty, already there, or you have %1$d already.</string>
     <string name="keeper_focus_never">Never blocked or cut: horror, blood, gore, violence, war, weapons, medicine and surgery, scary scenes, profanity and anything else not on this list. Changing the list makes the Keeper look at things again.</string>
+    <string name="keeper_busy">The Keeper is busy right now — try again in a minute.</string>
     <string name="keeper_plus_daily_limit">Today\'s %1$d checks are used; resets at midnight UTC.</string>
 </resources>

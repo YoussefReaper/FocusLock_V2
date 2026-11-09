@@ -128,7 +128,18 @@ class KeeperSettingsActivity : FocusScreenActivity() {
             c.addView(FocusUi.body(this, tokens, parts.joinToString(" · ")))
             return
         }
-        c.addView(FocusUi.primaryButton(this, tokens, getString(R.string.keeper_plus_subscribe)) { openKeeperPlus() })
+        if (Account.keeperTier(this) == "free") {
+            val left = Account.checksLeftToday(this) ?: Account.keeperLimit(this)
+            c.addView(FocusUi.body(this, tokens, resources.getQuantityString(R.plurals.keeper_free_checks_left, left, left)))
+            c.addView(FocusUi.spacer(this, 8))
+            c.addView(FocusUi.caption(this, tokens, getString(R.string.keeper_free_upgrade)).apply {
+                setTextColor(tokens.accent)
+                setOnClickListener { openKeeperPlus() }
+            })
+            c.addView(FocusUi.spacer(this, 14))
+        } else {
+            c.addView(FocusUi.primaryButton(this, tokens, getString(R.string.keeper_plus_subscribe)) { openKeeperPlus() })
+        }
         c.addView(FocusUi.spacer(this, 14))
         c.addView(FocusUi.caption(this, tokens, getString(R.string.keeper_plus_redeem_prompt)))
         c.addView(FocusUi.spacer(this, 6))

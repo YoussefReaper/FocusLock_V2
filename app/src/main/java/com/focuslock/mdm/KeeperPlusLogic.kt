@@ -16,6 +16,7 @@ data class Entitlement(val active: Boolean, val expiresAtMs: Long?)
 object EntitlementRules {
     const val MOBILE_PRO = "mobile_pro"
     const val KEEPER_PLUS = "keeper_plus"
+    const val KEEPER_FREE = "keeper_free"
 
     /** Offline, the last answer from the server counts for this long. */
     const val OFFLINE_GRACE_MS = 7L * 24 * 60 * 60 * 1000
@@ -31,6 +32,16 @@ object EntitlementRules {
         val age = nowMs - fetchedAtMs
         if (age < 0 || age > OFFLINE_GRACE_MS) return false
         return e.expiresAtMs == null || nowMs < e.expiresAtMs
+    }
+
+    /**
+     * Which server tier of the Keeper counts at [nowMs]: the tier /v1/me named ("plus" or
+     * "free"), only while its own entitlement passes [isActive]. Null means no server tier.
+     */
+    fun serverTier(tier: String?, plus: Entitlement?, free: Entitlement?, fetchedAtMs: Long, nowMs: Long): String? = when (tier) {
+        "plus" -> "plus".takeIf { isActive(plus, fetchedAtMs, nowMs) }
+        "free" -> "free".takeIf { isActive(free, fetchedAtMs, nowMs) }
+        else -> null
     }
 
     /** The server writes `Date.toISOString()`: 2026-12-01T10:00:00.000Z. */
@@ -70,7 +81,10 @@ object KeeperRouting {
     const val IMAGE_PREFIX = "data:image/jpeg;base64,"
     const val DEFAULT_DAILY_LIMIT = 200
 
-    /** Keeper Plus wins whenever it is active; the person's own key is used only without it. */
+    /**
+     * The server (Keeper Plus or the free tier) wins whenever one is available; the person's
+     * own key is used only without it. [plusActive] means "a server tier is available".
+     */
     fun choose(signedIn: Boolean, plusActive: Boolean, hasOwnKey: Boolean): KeeperRoute = when {
         signedIn && plusActive -> KeeperRoute.PLUS
         hasOwnKey -> KeeperRoute.OWN_KEY
@@ -105,6 +119,9 @@ object KeeperRouting {
                 else Proxy.Reply(ok.optString("reply"), ok.optInt("usedToday", 0), ok.optInt("limit", DEFAULT_DAILY_LIMIT))
             }
             code == 429 -> Proxy.Fail(KeeperResult.Why.DAILY_LIMIT, o?.optInt("limit", DEFAULT_DAILY_LIMIT) ?: DEFAULT_DAILY_LIMIT)
+            // The free tier's upstream rate limit; the count was refunded. Say so, don't switch keys.
+            code == 503 && (o?.optString("error") == "upstream_busy" || o?.optString("reason") == "upstream_busy") ->
+                Proxy.Fail(KeeperResult.Why.BUSY)
             // 503: accounts or the proxy not set up yet. 401/403: the session or the
             // subscription is gone. None of these is final for someone with a key.
             code == 503 || code == 401 || code == 403 || code < 0 -> Proxy.Fallback

@@ -203,6 +203,7 @@ class KeeperActivity : AppCompatActivity() {
             KeeperResult.Why.BUDGET, KeeperResult.Why.QUOTA -> R.string.keeper_failed_budget
             KeeperResult.Why.NO_KEY -> R.string.keeper_needs_key_body
             KeeperResult.Why.DAILY_LIMIT -> R.string.keeper_plus_daily_limit
+            KeeperResult.Why.BUSY -> R.string.keeper_busy
             else -> R.string.keeper_failed_network
         }
         val text = if (why == KeeperResult.Why.DAILY_LIMIT) getString(body, Account.keeperLimit(this)) else getString(body)

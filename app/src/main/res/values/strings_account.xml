@@ -39,6 +39,11 @@
         <item quantity="one">%1$d check left today</item>
         <item quantity="other">%1$d checks left today</item>
     </plurals>
+    <plurals name="keeper_free_checks_left">
+        <item quantity="one">Free Keeper · %1$d check left today</item>
+        <item quantity="other">Free Keeper · %1$d checks left today</item>
+    </plurals>
+    <string name="keeper_free_upgrade">Upgrade to Keeper Plus</string>
     <string name="keeper_plus_subscribe">Subscribe</string>
     <string name="keeper_plus_redeem_prompt">Already subscribed? Paste your PayPal subscription ID (I-…)</string>
     <string name="keeper_plus_activate">Activate</string>

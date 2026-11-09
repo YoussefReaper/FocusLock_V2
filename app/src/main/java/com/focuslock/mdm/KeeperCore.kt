@@ -44,7 +44,7 @@ object Keeper {
     enum class Purpose { UNLOCK, VIDEO }
 
     /** Ready with the person's own key, or with Keeper Plus on their account. */
-    fun isReady(context: Context): Boolean = KeeperKey.has(context) || Account.keeperPlusActive(context)
+    fun isReady(context: Context): Boolean = KeeperKey.has(context) || Account.keeperServerAvailable(context)
 }
 
 // ───────────────────────────────────────────────────────────── the key
@@ -280,7 +280,7 @@ sealed class KeeperResult {
     data class Answered(val json: JSONObject) : KeeperResult()
     /** No decision could be made: the caller keeps things blocked. */
     data class Failed(val why: Why, val detail: String = "") : KeeperResult()
-    enum class Why { NO_KEY, BUDGET, NETWORK, QUOTA, UNREADABLE, DAILY_LIMIT }
+    enum class Why { NO_KEY, BUDGET, NETWORK, QUOTA, UNREADABLE, DAILY_LIMIT, BUSY }
 }
 
 object KeeperClient {
@@ -299,7 +299,7 @@ object KeeperClient {
      */
     fun ask(context: Context, purpose: Keeper.Purpose, system: String, user: String, imageDataUrl: String?): KeeperResult {
         val ownKey = KeeperKey.read(context)
-        val route = KeeperRouting.choose(Account.signedIn(context), Account.keeperPlusActive(context), ownKey != null)
+        val route = KeeperRouting.choose(Account.signedIn(context), Account.keeperServerAvailable(context), ownKey != null)
         if (route == KeeperRoute.PLUS) {
             when (val p = askPlus(context, system, user, imageDataUrl)) {
                 is KeeperRouting.Proxy.Reply -> {

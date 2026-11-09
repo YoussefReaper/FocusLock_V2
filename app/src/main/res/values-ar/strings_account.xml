@@ -42,6 +42,15 @@
         <item quantity="many">الفحوصات المتبقية اليوم: %1$d</item>
         <item quantity="other">الفحوصات المتبقية اليوم: %1$d</item>
     </plurals>
+    <plurals name="keeper_free_checks_left">
+        <item quantity="zero">Keeper المجاني · الفحوصات المتبقية اليوم: %1$d</item>
+        <item quantity="one">Keeper المجاني · الفحوصات المتبقية اليوم: %1$d</item>
+        <item quantity="two">Keeper المجاني · الفحوصات المتبقية اليوم: %1$d</item>
+        <item quantity="few">Keeper المجاني · الفحوصات المتبقية اليوم: %1$d</item>
+        <item quantity="many">Keeper المجاني · الفحوصات المتبقية اليوم: %1$d</item>
+        <item quantity="other">Keeper المجاني · الفحوصات المتبقية اليوم: %1$d</item>
+    </plurals>
+    <string name="keeper_free_upgrade">الترقية إلى Keeper Plus</string>
     <string name="keeper_plus_subscribe">اشترك</string>
     <string name="keeper_plus_redeem_prompt">مشترك بالفعل؟ الصق معرّف اشتراك PayPal الخاص بك (I-…)</string>
     <string name="keeper_plus_activate">تفعيل</string>

@@ -41,6 +41,7 @@ object Account {
     private const val K_USED_DAY = "keeper_used_day"
     private const val K_USED = "keeper_used"
     private const val K_LIMIT = "keeper_limit"
+    private const val K_TIER = "keeper_tier"
     private const val K_VERIFIED = "verified"
 
     /** Kept apart from [PREFS]: [forget] clears that file, and a browser sign-in in flight must survive it. */
@@ -48,7 +49,7 @@ object Account {
     private const val K_OAUTH_STARTED = "started_at"
     /** The server's state lives 10 minutes; a little longer here for a slow return from the browser. */
     private const val OAUTH_WINDOW_MS = 15L * 60 * 1000
-    private val PRODUCTS = listOf(EntitlementRules.MOBILE_PRO, "pc_pro", EntitlementRules.KEEPER_PLUS)
+    private val PRODUCTS = listOf(EntitlementRules.MOBILE_PRO, "pc_pro", EntitlementRules.KEEPER_PLUS, EntitlementRules.KEEPER_FREE)
 
     private fun prefs(c: Context) = c.applicationContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
 
@@ -119,6 +120,20 @@ object Account {
 
     fun keeperPlusActive(c: Context): Boolean = isActive(c, EntitlementRules.KEEPER_PLUS)
 
+    /** "plus", "free", or null: the server tier the Keeper can use now (expiry and offline grace apply). */
+    fun keeperTier(c: Context): String? {
+        if (!signedIn(c)) return null
+        val p = prefs(c)
+        return EntitlementRules.serverTier(
+            p.getString(K_TIER, null),
+            entitlement(c, EntitlementRules.KEEPER_PLUS), entitlement(c, EntitlementRules.KEEPER_FREE),
+            p.getLong(K_FETCHED, 0L), System.currentTimeMillis()
+        )
+    }
+
+    /** Whether Keeper checks can go through the server: Keeper Plus or the free tier. */
+    fun keeperServerAvailable(c: Context): Boolean = keeperTier(c) != null
+
     fun keeperLimit(c: Context): Int = prefs(c).getInt(K_LIMIT, KeeperRouting.DEFAULT_DAILY_LIMIT)
 
     /** Checks left on the server today, if it has told us. */
@@ -135,7 +150,7 @@ object Account {
     private fun todayUtc(): String =
         SimpleDateFormat("yyyy-MM-dd", Locale.US).apply { timeZone = TimeZone.getTimeZone("UTC") }.format(Date())
 
-    private fun saveProducts(c: Context, products: JSONObject?) {
+    private fun saveProducts(c: Context, products: JSONObject?, tier: String?) {
         val wasPro = hasMobilePro(c)
         val parsed = EntitlementRules.parseProducts(products)
         val e = prefs(c).edit()
@@ -143,6 +158,7 @@ object Account {
             val ent = parsed[id] ?: Entitlement(false, null)
             e.putBoolean("ent_${id}_active", ent.active).putLong("ent_${id}_exp", ent.expiresAtMs ?: -1L)
         }
+        e.putString(K_TIER, tier)
         e.putLong(K_FETCHED, System.currentTimeMillis()).commit()
         if (wasPro != hasMobilePro(c)) PolicySync.request(c, "pro_tier_change")
     }
@@ -199,7 +215,7 @@ object Account {
         if (!r.ok) return AccountRules.problem(r.code, r.reason)
         r.json.optString("email").takeIf { it.isNotBlank() }?.let { prefs(c).edit().putString(K_EMAIL, it).apply() }
         saveVerified(c, r.json)
-        saveProducts(c, r.json.optJSONObject("products"))
+        saveProducts(c, r.json.optJSONObject("products"), r.json.optJSONObject("keeper")?.let { k -> if (k.isNull("tier")) null else k.optString("tier").takeIf { it.isNotBlank() } })
         r.json.optJSONObject("keeper")?.let { recordUsage(c, it.optInt("usedToday", 0), it.optInt("limit", KeeperRouting.DEFAULT_DAILY_LIMIT)) }
         return null
     }

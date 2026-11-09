@@ -72,6 +72,19 @@ class KeeperPlusLogicTest {
     @Test fun signedOutPlusIgnored() = assertEquals(KeeperRoute.OWN_KEY, KeeperRouting.choose(signedIn = false, plusActive = true, hasOwnKey = true))
     @Test fun nothingMeansNone() = assertEquals(KeeperRoute.NONE, KeeperRouting.choose(signedIn = false, plusActive = false, hasOwnKey = false))
 
+    @Test fun freeTierRoutesToServer() {
+        val free = Entitlement(true, null)
+        val tier = EntitlementRules.serverTier("free", null, free, fetchedAtMs = 1_000L, nowMs = 2_000L)
+        assertEquals("free", tier)
+        assertEquals(KeeperRoute.PLUS, KeeperRouting.choose(signedIn = true, plusActive = tier != null, hasOwnKey = true))
+    }
+    @Test fun noServerTierUsesOwnKey() {
+        assertEquals(null, EntitlementRules.serverTier(null, Entitlement(true, null), Entitlement(true, null), 1_000L, 2_000L))
+        assertEquals(null, EntitlementRules.serverTier("free", null, Entitlement(false, null), 1_000L, 2_000L))
+    }
+    @Test fun upstreamBusyIsBusy() =
+        assertEquals(KeeperRouting.Proxy.Fail(KeeperResult.Why.BUSY), KeeperRouting.mapProxy(503, """{"ok":false,"error":"upstream_busy"}"""))
+
     // ── account answers ──
 
     @Test fun notConfiguredReadsAsNotAvailable() =

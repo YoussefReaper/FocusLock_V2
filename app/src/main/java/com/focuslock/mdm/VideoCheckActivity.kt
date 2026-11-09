@@ -76,6 +76,7 @@ class VideoCheckActivity : AppCompatActivity() {
                     KeeperResult.Why.BUDGET, KeeperResult.Why.QUOTA -> getString(R.string.keeper_failed_budget)
                     KeeperResult.Why.UNREADABLE -> getString(R.string.video_failed_frames)
                     KeeperResult.Why.DAILY_LIMIT -> getString(R.string.keeper_plus_daily_limit, Account.keeperLimit(this))
+                    KeeperResult.Why.BUSY -> getString(R.string.keeper_busy)
                     else -> getString(R.string.keeper_failed_network)
                 }).apply { gravity = Gravity.CENTER })
             }
