@@ -243,7 +243,8 @@ object Account {
         val r = call("POST", "/redeem", JSONObject().put("code", id), t)
         if (r.code == 401) { forget(c); return AccountProblem.SIGNED_OUT }
         if (!r.ok) return AccountRules.problem(r.code, r.reason)
-        saveProducts(c, r.json.optJSONObject("products"))
+        // Redeem only takes Keeper Plus subscription ids, so success means the paid tier.
+        saveProducts(c, r.json.optJSONObject("products"), "plus")
         return null
     }
 
