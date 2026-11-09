@@ -149,8 +149,25 @@ class InterceptActivity : AppCompatActivity() {
             top.addView(banner)
         }
 
-        top.addView(buildMark())
-        top.addView(FocusUi.spacer(this, 22))
+        // The gate speaks in the person's own words: their picture and their reason come first.
+        val promiseWords = Promise.words(this)
+        val promiseMedia = Promise.mediaView(this, 170)
+        if (promiseMedia != null) {
+            top.addView(promiseMedia)
+            top.addView(FocusUi.spacer(this, 16))
+        } else {
+            top.addView(buildMark())
+            top.addView(FocusUi.spacer(this, 22))
+        }
+        if (promiseWords.isNotBlank()) {
+            val said = FocusUi.title(this, tokens, "\u201C" + promiseWords + "\u201D")
+            said.gravity = Gravity.CENTER
+            top.addView(said)
+            val when_ = FocusUi.caption(this, tokens, getString(R.string.intercept_promise_caption))
+            when_.gravity = Gravity.CENTER
+            top.addView(when_)
+            top.addView(FocusUi.spacer(this, 18))
+        }
         top.addView(buildOverline())
         top.addView(FocusUi.spacer(this, 6))
 

@@ -33,6 +33,11 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
     // always runs Sanctuary for 25 minutes re-picked both, every time, and one
     // missed tap started a session in a mode whose presets they never chose.
     private var selectedMode: FocusMode = SessionManager.lastMode(activity) ?: FocusMode.BLOCK
+    private var selectedStrength: Promise.Strength = Promise.strength(activity)
+    private var selectedProtects: MutableSet<String> = Promise.protects(activity).toMutableSet()
+    private var draftWords: String = Promise.words(activity)
+    /** Set by the promise card just before confirmStart; null means "leave the mode's setting". */
+    private var pendingNoExit: Boolean? = null
     private var selectedDurationMs: Long =
         FocusStore.getLong(activity, KEY_LAST_DURATION_MS, 0L).takeIf { it > 0L } ?: (2L * 60 * 60 * 1000)
 
@@ -221,6 +226,7 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
         status.addView(View(activity).apply { layoutParams = LinearLayout.LayoutParams(0, 1, 1f) })
         status.addView(buildInfoGlyph { showModeDetail(mode) })
         column.addView(status)
+        buildPromiseReminder()?.let { column.addView(it) }
 
         val ringHolder = android.widget.FrameLayout(activity)
         ringHolder.layoutParams = LinearLayout.LayoutParams(
@@ -342,6 +348,26 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
             column.addView(note)
         }
         return column
+    }
+
+    /** Their own words, and their picture if they added one, while a promise is held. */
+    private fun buildPromiseReminder(): View? {
+        val words = Promise.words(activity)
+        val media = Promise.mediaView(activity, 150)
+        if (words.isBlank() && media == null) return null
+        val box = FocusUi.column(activity)
+        box.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+        ).apply { topMargin = FocusUi.dp(activity, 12) }
+        media?.let { box.addView(it) }
+        if (words.isNotBlank()) {
+            val line = FocusUi.heading(activity, tokens, "\u201C" + words + "\u201D")
+            line.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply { topMargin = FocusUi.dp(activity, if (media != null) 10 else 0) }
+            box.addView(line)
+        }
+        return box
     }
 
     private fun buildKioskSession(): View {
@@ -563,66 +589,142 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
 
     // ── Starting a session ────────────────────────────────────────
 
+    /**
+     * The promise card: what you are protecting, how firm, how long, and why in your own
+     * words. Three strengths stand in for the four modes; the modes and their switches are
+     * still there under You > Advanced for anyone who wants them.
+     */
     private fun buildStarter(): View {
-        val available = FocusMode.available(activity)
         val card = FocusUi.card(activity, tokens)
-        if (available.isEmpty()) {
-            card.addView(FocusUi.body(activity, tokens, activity.getString(R.string.all_modes_off_body)))
-            card.addView(FocusUi.spacer(activity, 12))
-            card.addView(
-                FocusUi.secondaryButton(activity, tokens, activity.getString(R.string.dashboard_open_rules)) {
-                    activity.selectTab(MainActivity.TAB_RULES)
-                }
+        fun label(res: Int): View {
+            val v = FocusUi.caption(activity, tokens, activity.getString(res))
+            FocusUi.applyFont(v, tokens, weight = 650)
+            v.setTextColor(tokens.textSecondary)
+            return v
+        }
+        fun flow(): com.google.android.material.chip.ChipGroup {
+            val g = com.google.android.material.chip.ChipGroup(activity)
+            g.chipSpacingHorizontal = FocusUi.dp(activity, 8)
+            g.chipSpacingVertical = FocusUi.dp(activity, 8)
+            g.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
             )
-            return card
+            return g
         }
 
-        // Never leave the selection on a mode that cannot be started, so the
-        // Start button always describes something real.
-        if (selectedMode !in available || DemoMode.isModeLocked(activity, selectedMode)) {
-            selectedMode = available.firstOrNull { !DemoMode.isModeLocked(activity, it) } ?: available.first()
-        }
-
-        card.addView(FocusUi.heading(activity, tokens, activity.getString(R.string.redesign_start_title)))
-        val sub = FocusUi.caption(activity, tokens, activity.getString(R.string.redesign_start_sub))
-        sub.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        ).apply { topMargin = FocusUi.dp(activity, 2) }
-        card.addView(sub)
-        card.addView(FocusUi.spacer(activity, 16))
-
-        card.addView(buildModeLadder(available))
+        card.addView(FocusUi.heading(activity, tokens, activity.getString(R.string.promise_title)))
         card.addView(FocusUi.spacer(activity, 12))
-        card.addView(buildModeSummaryLine())
-        card.addView(FocusUi.spacer(activity, 16))
+        val protects = flow()
+        Promise.PROTECTS.forEach { (id, res) ->
+            val chip = FocusUi.chip(activity, tokens, activity.getString(res), id in selectedProtects) {
+                if (!selectedProtects.remove(id)) selectedProtects.add(id)
+                render()
+            }
+            (chip.layoutParams as? LinearLayout.LayoutParams)?.marginEnd = 0
+            protects.addView(chip)
+        }
+        card.addView(protects)
 
-        val howLong = FocusUi.caption(activity, tokens, activity.getString(R.string.redesign_for_how_long))
-        FocusUi.applyFont(howLong, tokens, weight = 650)
-        howLong.setTextColor(tokens.textSecondary)
-        card.addView(howLong)
+        card.addView(FocusUi.spacer(activity, 18))
+        card.addView(label(R.string.promise_how_firm))
+        card.addView(FocusUi.spacer(activity, 8))
+        Promise.Strength.values().forEach { card.addView(buildStrengthOption(it)) }
+
+        card.addView(FocusUi.spacer(activity, 10))
+        card.addView(label(R.string.redesign_for_how_long))
         card.addView(FocusUi.spacer(activity, 8))
         card.addView(buildDurationPicker())
-        card.addView(FocusUi.spacer(activity, 16))
 
+        card.addView(FocusUi.spacer(activity, 18))
+        val words = FocusUi.input(activity, tokens, activity.getString(R.string.promise_words_hint), draftWords)
+        words.filters = arrayOf(android.text.InputFilter.LengthFilter(Promise.MAX_WORDS))
+        words.addTextChangedListener(object : android.text.TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) = Unit
+            override fun onTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) = Unit
+            override fun afterTextChanged(s: android.text.Editable?) { draftWords = s?.toString().orEmpty() }
+        })
+        card.addView(words)
+
+        card.addView(FocusUi.spacer(activity, 10))
+        Promise.mediaView(activity, 150)?.let { card.addView(it); card.addView(FocusUi.spacer(activity, 8)) }
+        val mediaRow = FocusUi.row(activity)
+        mediaRow.addView(
+            FocusUi.ghostButton(
+                activity, tokens,
+                activity.getString(if (Promise.hasMedia(activity)) R.string.promise_change_media else R.string.promise_add_media)
+            ) { activity.startActivity(Intent(activity, PromisePickActivity::class.java)) }
+        )
+        if (Promise.hasMedia(activity)) {
+            mediaRow.addView(FocusUi.spacerH(activity, 8))
+            mediaRow.addView(
+                FocusUi.ghostButton(activity, tokens, activity.getString(R.string.promise_remove_media)) {
+                    Promise.clearMedia(activity)
+                    render()
+                }
+            )
+        }
+        card.addView(mediaRow)
+
+        card.addView(FocusUi.spacer(activity, 16))
         val canStart = DemoMode.hasSessionLeft(activity)
         card.addView(
             FocusUi.primaryButton(
-                activity,
-                tokens,
-                if (canStart) {
-                    activity.getString(R.string.mode_start_button, selectedMode.label(activity), SessionManager.formatDuration(selectedDurationMs))
-                } else {
-                    activity.getString(R.string.demo_start_used_up)
-                }
-            ) { confirmStart() }
+                activity, tokens,
+                activity.getString(if (canStart) R.string.promise_make else R.string.demo_start_used_up)
+            ) { makePromise() }
         )
-
-        if (selectedMode == FocusMode.KIOSK) {
-            card.addView(FocusUi.spacer(activity, 8))
-            card.addView(buildKioskOptionsLink())
-        }
         return card
+    }
+
+    private fun buildStrengthOption(strength: Promise.Strength): View {
+        val selected = strength == selectedStrength
+        val locked = DemoMode.isModeLocked(activity, strength.mode)
+        val option = FocusUi.column(activity)
+        val pad = FocusUi.dp(activity, 14)
+        option.setPadding(pad, pad, pad, pad)
+        option.background = FocusUi.roundedShape(
+            activity,
+            if (selected) tokens.surfaceAlt else tokens.surface,
+            18,
+            if (selected) tokens.accent else tokens.divider,
+            if (selected) 2 else 1
+        )
+        option.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+        ).apply { bottomMargin = FocusUi.dp(activity, 8) }
+        val name = FocusUi.rowTitle(
+            activity, tokens,
+            activity.getString(strength.labelRes) + if (locked) "  ·  " + activity.getString(R.string.pro_badge) else ""
+        )
+        FocusUi.applyDisplayFont(name, tokens)
+        option.addView(name)
+        option.addView(FocusUi.caption(activity, tokens, activity.getString(strength.lineRes)))
+        option.isClickable = true
+        option.isFocusable = true
+        option.contentDescription = activity.getString(strength.labelRes) + ". " + activity.getString(strength.lineRes) +
+            if (selected) ", " + activity.getString(R.string.common_selected) else ""
+        option.setOnClickListener {
+            if (locked) {
+                DemoMode.showUpgradeDialog(activity, activity.getString(strength.labelRes)) {
+                    selectedStrength = strength
+                    render()
+                }
+            } else {
+                selectedStrength = strength
+                render()
+            }
+        }
+        return option
+    }
+
+    /** Saves the promise as written, then hands over to the usual confirm-and-start. */
+    private fun makePromise() {
+        Promise.setWords(activity, draftWords)
+        Promise.setStrength(activity, selectedStrength)
+        Promise.setProtects(activity, selectedProtects)
+        selectedMode = selectedStrength.mode
+        pendingNoExit = selectedStrength.noExit
+        confirmStart()
     }
 
     /**
@@ -1038,7 +1140,7 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
             confirmLabel = activity.getString(R.string.common_start),
             cancelLabel = activity.getString(R.string.common_cancel),
             onConfirm = {
-                if (SessionManager.start(activity, mode, selectedDurationMs)) {
+                if (SessionManager.start(activity, mode, selectedDurationMs, pendingNoExit)) {
                     // Its own key: the session's duration is cleared when it
                     // ends and grows when it is extended, and neither is what
                     // the person picked.

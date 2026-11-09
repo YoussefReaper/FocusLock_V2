@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="promise_title">ما الذي تحميه؟</string>
+    <string name="protect_study">المذاكرة</string>
+    <string name="protect_sleep">النوم</string>
+    <string name="protect_salah">الصلاة</string>
+    <string name="protect_eyes">بصري</string>
+    <string name="protect_family">وقت الأسرة</string>
+    <string name="promise_how_firm">ما مدى الحزم؟</string>
+    <string name="strength_soft">لين</string>
+    <string name="strength_soft_line">توقّف وسؤال قبل فتح أي شيء. يمكنك إنهاؤه في أي وقت.</string>
+    <string name="strength_firm">حازم</string>
+    <string name="strength_firm_line">التطبيقات المحظورة تبقى مغلقة. ما زال بإمكانك إنهاؤه مبكرًا.</string>
+    <string name="strength_sealed">مُحكم</string>
+    <string name="strength_sealed_line">التطبيقات المحظورة تختفي، ولا مخرج حتى ينتهي.</string>
+    <string name="promise_words_hint">لماذا؟ بكلماتك أنت</string>
+    <string name="promise_add_media">أضف صورة أو مقطعًا</string>
+    <string name="promise_change_media">غيّر الصورة</string>
+    <string name="promise_remove_media">إزالة</string>
+    <string name="promise_media_saved">تم الحفظ. ستظهر عندما يُمنع شيء.</string>
+    <string name="promise_media_failed">تعذّر استخدام هذا الملف. جرّب صورة أو GIF أو مقطعًا قصيرًا أقل من 40 ميغابايت.</string>
+    <string name="promise_make">اقطع العهد</string>
+    <string name="intercept_promise_caption">كتبتَ هذا حين قطعتَ عهدك.</string>
+</resources>

@@ -344,11 +344,13 @@ object SessionManager {
      * greyed-out tile is a hint; this is the rule, and it holds even if a
      * future screen forgets to ask.
      */
-    fun start(context: Context, mode: FocusMode, durationMs: Long): Boolean {
+    fun start(context: Context, mode: FocusMode, durationMs: Long, noExit: Boolean? = null): Boolean {
         if (DemoMode.isModeLocked(mode)) return false
         if (!DemoMode.hasSessionLeft(context)) return false
 
         applyPresetIfModeChanged(context, mode)
+        // A promise states its own early exit: Sealed has none, Soft and Firm have one.
+        if (noExit != null) CapabilityRegistry.setEnabled(context, Capabilities.CAN_END_EARLY, !noExit)
         FocusStore.setString(context, KEY_MODE, mode.id)
         LockManager.startKiosk(
             context,

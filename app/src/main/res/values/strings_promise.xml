@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="promise_title">What are you protecting?</string>
+    <string name="protect_study">Study</string>
+    <string name="protect_sleep">Sleep</string>
+    <string name="protect_salah">Salah</string>
+    <string name="protect_eyes">My eyes</string>
+    <string name="protect_family">Family time</string>
+    <string name="promise_how_firm">How firm?</string>
+    <string name="strength_soft">Soft</string>
+    <string name="strength_soft_line">A pause and a question before anything opens. End it any time.</string>
+    <string name="strength_firm">Firm</string>
+    <string name="strength_firm_line">Blocked apps stay closed. You can still end it early.</string>
+    <string name="strength_sealed">Sealed</string>
+    <string name="strength_sealed_line">Blocked apps disappear, and there is no way out until it ends.</string>
+    <string name="promise_words_hint">Why, in your own words</string>
+    <string name="promise_add_media">Add a picture or clip</string>
+    <string name="promise_change_media">Change picture</string>
+    <string name="promise_remove_media">Remove</string>
+    <string name="promise_media_saved">Saved. It will show when something is held back.</string>
+    <string name="promise_media_failed">That file could not be used. Try a picture, GIF or short clip under 40 MB.</string>
+    <string name="promise_make">Make the promise</string>
+    <string name="intercept_promise_caption">You wrote this when you made your promise.</string>
+</resources>

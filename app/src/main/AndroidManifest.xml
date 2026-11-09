@@ -150,6 +150,12 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity
+            android:name=".PromisePickActivity"
+            android:exported="false"
+            android:lockTaskMode="if_whitelisted"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <activity
             android:name=".AccountActivity"
             android:exported="false"
             android:launchMode="singleTop"
