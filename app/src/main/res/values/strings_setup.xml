@@ -116,7 +116,7 @@
     <string name="permission_recovery_needs_reprovisioning">This can only be restored by re-provisioning device owner from a computer, over ADB, the same way it was set up.</string>
     <string name="permission_recovery_end_session_note">Ending the session works the same as always, and clears this too.</string>
     <string name="permission_recovery_end_session_button">End the session</string>
-    <string name="permission_recovery_end_session_title">End the session?</string>
+    <string name="permission_recovery_end_session_title">End this promise?</string>
     <string name="permission_recovery_end_session_message">Everything unlocks straight away, including this. The time you already did still counts.</string>
     <string name="permission_recovery_end_session_confirm">End it</string>
     <string name="permission_recovery_end_session_cancel">Keep going</string>

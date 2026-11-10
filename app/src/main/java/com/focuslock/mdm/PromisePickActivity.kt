@@ -2,10 +2,10 @@ package com.focuslock.mdm
 
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
 
 /** Opens the system picker for a picture, GIF or short clip, copies the choice in, and closes. */
-class PromisePickActivity : AppCompatActivity() {
+class PromisePickActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val picker = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->

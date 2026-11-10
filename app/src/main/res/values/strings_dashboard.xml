@@ -20,7 +20,7 @@
     <string name="dashboard_early_exit_off_body">You turned the early exit off for this session. It runs to the end.</string>
     <string name="dashboard_break_ends_in">Break ends in %1$s</string>
     <string name="dashboard_end_now">End now</string>
-    <string name="dashboard_end_confirm_title">End the session?</string>
+    <string name="dashboard_end_confirm_title">End this promise?</string>
     <string name="dashboard_end_confirm_message">Everything unlocks straight away. The time you already did still counts.</string>
     <string name="dashboard_end_confirm_button">End it</string>
     <string name="dashboard_end_keep_button">Keep going</string>
