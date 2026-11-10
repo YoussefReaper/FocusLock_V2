@@ -654,16 +654,16 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
                 activity.getString(if (Promise.hasMedia(activity)) R.string.promise_change_media else R.string.promise_add_media)
             ) { activity.startActivity(Intent(activity, PromisePickActivity::class.java)) }
         )
+        card.addView(mediaRow)
         if (Promise.hasMedia(activity)) {
-            mediaRow.addView(FocusUi.spacerH(activity, 8))
-            mediaRow.addView(
+            // Its own row: the buttons are full width, so a second one beside the first is pushed off screen.
+            card.addView(
                 FocusUi.ghostButton(activity, tokens, activity.getString(R.string.promise_remove_media)) {
                     Promise.clearMedia(activity)
                     render()
                 }
             )
         }
-        card.addView(mediaRow)
 
         card.addView(FocusUi.spacer(activity, 16))
         val canStart = DemoMode.hasSessionLeft(activity)
