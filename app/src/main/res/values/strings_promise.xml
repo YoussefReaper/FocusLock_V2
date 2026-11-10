@@ -19,6 +19,9 @@
     <string name="promise_remove_media">Remove</string>
     <string name="promise_media_saved">Saved. It will show when something is held back.</string>
     <string name="promise_media_failed">That file could not be used. Try a picture, GIF or short clip under 40 MB.</string>
+    <string name="promise_confirm_title">A %1$s promise for %2$s?</string>
+    <string name="promise_confirm_yes">I promise</string>
+    <string name="promise_confirm_no">Not yet</string>
     <string name="promise_make">Make the promise</string>
     <string name="intercept_promise_caption">You wrote this when you made your promise.</string>
 </resources>

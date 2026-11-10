@@ -1135,10 +1135,10 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
 
         FocusDialog.alert(
             activity,
-            title = activity.getString(R.string.mode_start_confirm_title, mode.label(activity), SessionManager.formatDuration(shownDurationMs)),
+            title = activity.getString(R.string.promise_confirm_title, mode.label(activity), SessionManager.formatDuration(shownDurationMs)),
             message = message,
-            confirmLabel = activity.getString(R.string.common_start),
-            cancelLabel = activity.getString(R.string.common_cancel),
+            confirmLabel = activity.getString(R.string.promise_confirm_yes),
+            cancelLabel = activity.getString(R.string.promise_confirm_no),
             onConfirm = {
                 if (SessionManager.start(activity, mode, selectedDurationMs, pendingNoExit)) {
                     // Its own key: the session's duration is cleared when it
