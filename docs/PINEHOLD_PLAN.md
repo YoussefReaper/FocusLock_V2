@@ -9,6 +9,18 @@ Owner: Youssef (solo developer, student, Egypt, Africa/Cairo time). He reads sho
 
 ## Progress log (newest first)
 
+**2026-11-11, pass 1c**
+- A3: a silent MP4 plays on the gate (emulator, Firm gate). A6: blocker tick backs off to 600 ms
+  once the same app has been in front 8 s; steady state with the launcher in front is about 0.4%
+  of one core. A5: phone strings audited; the 18 long ones left are disclosures and help pages.
+- B5: `build-setup.ps1` makes `dist-setup\Pinehold-Windows-Setup.exe` (self-contained, about
+  110 MB, one UAC prompt, versioned folder in Program Files, service install + start, Start menu
+  and desktop shortcuts, Settings > Apps entry whose uninstall the service refuses during a
+  promise). **Not run yet:** it changes the real service, so Youssef runs it (that is also B6).
+  110 MB is over GitHub's 100 MB file limit: host it as a GitHub Release asset, not in the site repo.
+  Draft download page in the session outputs (`windows.html`), not on the site yet.
+- E4: 14 video scripts and Reddit drafts in `docs/LAUNCH_POSTS.md`, for approval.
+
 **2026-11-11, pass 1b**
 - Sealed removal guard **verified on the emulator** with a minted Pro code: Pinehold's app info,
   the uninstall dialog and Device admin settings all bounce back to Pinehold; Wi-Fi settings stay open.
