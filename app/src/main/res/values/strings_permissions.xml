@@ -15,7 +15,7 @@
     <string name="perms_notification_title">Hold back notifications</string>
     <string name="perms_notification_detail">Lets the shield dismiss alerts from blocked apps. Always-allowed apps are never touched.</string>
     <string name="perms_overlay_title">Step in when a blocked app opens</string>
-    <string name="perms_overlay_detail">Called Display over other apps in Settings. Without it, Android stops Pinehold from stepping in once it has been in the background for a minute.</string>
+    <string name="perms_overlay_detail">Called Display over other apps in Settings. Without it, Android stops Pinehold from stepping in once it has been in the background for a minute. Find Pinehold in the list and switch it on.</string>
     <string name="setup_issue_overlay">Let Pinehold step in</string>
     <string name="setup_issue_overlay_detail">Without Display over other apps, blocked apps can open once Pinehold is in the background.</string>
     <string name="perms_post_notifications_title">Notifications</string>
