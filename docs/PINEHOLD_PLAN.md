@@ -9,6 +9,14 @@ Owner: Youssef (solo developer, student, Egypt, Africa/Cairo time). He reads sho
 
 ## Progress log (newest first)
 
+### Pass 3 (2026-11-11 night)
+- Everywhere's Keeper months are claimable: redeeming its PC code while signed in grants keeper_plus for N x 30 days, once (server test + negative check). Phone Keeper screen accepts FLP codes; access page says how.
+- PC update notice: /api/windows/latest (env WINDOWS_LATEST_VERSION + WINDOWS_DOWNLOAD_URL, null until set); app shows one footer link when newer.
+- Phone session password; Firm needs it on both devices.
+- Phone Blossom layout: floating dock, sprout greeting card (checked on emulator).
+- Safe Browser takes theme colours. Tray menu is the native Windows menu (follows Windows' own theme); there is no block page (WFP drops traffic).
+- Left in code: B7 owner PC rules (video rule, Keeper downloads); sync E2E and the wiped-emulator walk need devices.
+
 ### Pass 2 (2026-11-11 evening)
 - PC: quick Firm/Sealed promises were endable with one click (empty authored unlock policy). Fixed in SessionManager.QuickStartPolicy + test. Phrase/code unlocks now reach the service. Themed end-early and confirm dialogs. Minutes box live. Slab follows accent. Week chart live.
 - PC update path: the old service keeps running until restart (by design); setup now says so and the app explains instead of "Unknown command". Youssef's laptop still runs the Nov 8 service until he restarts.
