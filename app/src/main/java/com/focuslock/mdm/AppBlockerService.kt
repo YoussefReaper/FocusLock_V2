@@ -654,7 +654,8 @@ class AppBlockerService : Service() {
                     }
                     return
                 }
-                if (SystemSurfaces.isCritical(packageName)) {
+                // The uninstall dialog is a critical surface, except while a Sealed promise holds it.
+                if (SystemSurfaces.isCritical(packageName) && decision.source != "removalGuard") {
                     hideBlockerOverlay()
                     return
                 }
