@@ -253,6 +253,20 @@ object Account {
         return null
     }
 
+    /** POST /partner/request: emails the partner a code with the person's words. Null on success, else the reason. */
+    fun partnerRequest(c: Context, email: String, words: String): String? {
+        val t = token(c) ?: return "signed_out"
+        val r = call("POST", "/partner/request", JSONObject().put("partnerEmail", email).put("words", words), t)
+        return if (r.ok) null else r.reason ?: "network"
+    }
+
+    /** POST /partner/verify. Null when the code is right, else the reason. */
+    fun partnerVerify(c: Context, code: String): String? {
+        val t = token(c) ?: return "signed_out"
+        val r = call("POST", "/partner/verify", JSONObject().put("code", code), t)
+        return if (r.ok) null else r.reason ?: "network"
+    }
+
     /** POST /auth/logout if we can, then forget everything here either way. */
     fun signOut(c: Context) {
         token(c)?.let { call("POST", "/auth/logout", JSONObject(), it) }

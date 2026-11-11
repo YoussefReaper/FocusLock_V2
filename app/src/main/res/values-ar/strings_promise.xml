@@ -50,4 +50,26 @@
     <string name="session_password_current_hint">كلمة المرور الحالية</string>
     <string name="session_password_saved">تم حفظ كلمة مرور الجلسة.</string>
     <string name="session_password_too_short">استخدم ٨ أحرف على الأقل.</string>
+    <string name="settings_lock_title">قفل الإعدادات</string>
+    <string name="settings_lock_off">مغلق. يمكن تخفيف القواعد بحرية.</string>
+    <string name="settings_lock_on">مفعّل. تخفيف أي قاعدة يحتاج كلمة مرور الجلسة.</string>
+    <string name="settings_lock_open">مفتوح لبضع دقائق.</string>
+    <string name="settings_lock_needs_password">ضع كلمة مرور للجلسة أولًا.</string>
+    <string name="settings_lock_ask">اكتب كلمة مرور الجلسة لفتح الإعدادات لمدة ١٠ دقائق.</string>
+    <string name="settings_lock_opened">إعداداتك مفتوحة لمدة ١٠ دقائق.</string>
+    <string name="settings_lock_turn_off">إيقاف القفل</string>
+    <string name="settings_lock_refused">الإعدادات مقفلة. افتحها من أنت > قفل الإعدادات بكلمة مرور الجلسة.</string>
+    <string name="partner_title">شخص يساعدني على الالتزام</string>
+    <string name="partner_none">لا أحد بعد</string>
+    <string name="partner_help">بريده الإلكتروني. لإنهاء وعد حازم مبكرًا ستحتاج رمزًا نرسله إليه مع الكلمات التي كتبتها. اتركه فارغًا لعدم وجود أحد.</string>
+    <string name="partner_email_hint">بريده الإلكتروني</string>
+    <string name="partner_err_email">هذا لا يبدو بريدًا إلكترونيًا.</string>
+    <string name="partner_ask_title">اسأل شريكك</string>
+    <string name="partner_ask_body">أرسلنا رمزًا من ٦ أرقام إلى %1$s مع الكلمات التي كتبتها. اكتب الرمز الذي يعطيك إياه.</string>
+    <string name="partner_code_hint">رمز من ٦ أرقام</string>
+    <string name="partner_err_signed_out">سجّل الدخول أولًا: الرمز يُرسل عبر حسابك في Pinehold.</string>
+    <string name="partner_err_rate">أُرسلت ثلاثة رموز هذه الساعة. حاول لاحقًا.</string>
+    <string name="partner_err_wrong">هذا ليس الرمز.</string>
+    <string name="partner_err_expired">انتهت صلاحية الرمز. اطلب رمزًا جديدًا.</string>
+    <string name="partner_err_network">لم يتمكن Pinehold من الوصول إلى خادمه، لذلك لم يُرسل رمز.</string>
 </resources>

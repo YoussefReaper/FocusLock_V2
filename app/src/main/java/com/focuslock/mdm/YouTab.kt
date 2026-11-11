@@ -387,6 +387,28 @@ class YouTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activity
             ) { askSessionPassword() }
         )
         card.addView(FocusUi.divider(activity, tokens))
+        card.addView(
+            FocusUi.listRow(
+                activity, tokens,
+                activity.getString(R.string.settings_lock_title),
+                activity.getString(when {
+                    !SessionPassword.settingsLock(activity) -> R.string.settings_lock_off
+                    SessionPassword.settingsOpen(activity) -> R.string.settings_lock_open
+                    else -> R.string.settings_lock_on
+                }),
+                trailing = FocusUi.chevron(activity, tokens)
+            ) { onSettingsLock() }
+        )
+        card.addView(FocusUi.divider(activity, tokens))
+        card.addView(
+            FocusUi.listRow(
+                activity, tokens,
+                activity.getString(R.string.partner_title),
+                SessionPassword.partner(activity).ifEmpty { activity.getString(R.string.partner_none) },
+                trailing = FocusUi.chevron(activity, tokens)
+            ) { askPartnerEmail() }
+        )
+        card.addView(FocusUi.divider(activity, tokens))
         // The Keeper's key lives here too, not only behind the Focus tab's tools tile.
         card.addView(
             FocusUi.listRow(
@@ -748,6 +770,39 @@ class YouTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activity
     }
 
     /** The laptop shows a code; typing it here links the laptop to this account. */
+    /** The settings lock: turning it on is free; opening or turning it off needs the password. */
+    private fun onSettingsLock() {
+        if (!SessionPassword.isSet(activity)) { FocusDialog.toast(activity, activity.getString(R.string.settings_lock_needs_password)); return }
+        if (!SessionPassword.settingsLock(activity)) {
+            SessionPassword.setSettingsLock(activity, true); activity.recreate(); return
+        }
+        FocusDialog.textInput(activity, activity.getString(R.string.settings_lock_title),
+            activity.getString(R.string.settings_lock_ask), activity.getString(R.string.session_password_hint), password = true,
+            confirmLabel = activity.getString(R.string.common_next)) { typed ->
+            if (!SessionPassword.verify(activity, typed)) { FocusDialog.toast(activity, activity.getString(R.string.firm_end_wrong)); return@textInput }
+            SessionPassword.openSettings(activity)
+            FocusDialog.alert(activity, activity.getString(R.string.settings_lock_title), activity.getString(R.string.settings_lock_opened),
+                confirmLabel = activity.getString(R.string.settings_lock_turn_off), cancelLabel = activity.getString(R.string.common_done),
+                onConfirm = { SessionPassword.setSettingsLock(activity, false); activity.recreate() })
+        }
+    }
+
+    /** The partner's email. Changing or removing it during a promise, or under the settings lock, is loosening. */
+    private fun askPartnerEmail() {
+        val current = SessionPassword.partner(activity)
+        if (current.isNotEmpty() && !SessionLock.allows(activity, EditDirection.LOOSEN)) {
+            FocusDialog.toast(activity, SessionLock.refusalMessage(activity)); return
+        }
+        FocusDialog.textInput(activity, activity.getString(R.string.partner_title), activity.getString(R.string.partner_help),
+            activity.getString(R.string.partner_email_hint), current) { email ->
+            val e = email.trim()
+            if (e.isNotEmpty() && !android.util.Patterns.EMAIL_ADDRESS.matcher(e).matches()) {
+                FocusDialog.toast(activity, activity.getString(R.string.partner_err_email)); return@textInput
+            }
+            SessionPassword.setPartner(activity, e); activity.recreate()
+        }
+    }
+
     /** Set or change the session password. Changing needs the current one first. */
     private fun askSessionPassword() {
         fun askNew(current: String?) = FocusDialog.textInput(

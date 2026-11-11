@@ -640,6 +640,8 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
                 return
             }
             SessionPassword.EndNeed.PASSWORD -> {
+                if (SessionPassword.partner(activity).isNotEmpty() && !partnerCleared) { askPartner(); return }
+                partnerCleared = false
                 FocusDialog.textInput(activity, activity.getString(R.string.firm_end_title),
                     activity.getString(R.string.firm_end_ask), activity.getString(R.string.session_password_hint),
                     password = true, confirmLabel = activity.getString(R.string.dashboard_end_confirm_button)) { typed ->
@@ -659,6 +661,41 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
             onConfirm = { endSessionNow() }
         )
     }
+
+    /** Set once the partner's code was right; the next step asks for the password. */
+    private var partnerCleared = false
+
+    /** A partner first: a code is emailed to them with the person's words, then typed here. */
+    private fun askPartner() {
+        val email = SessionPassword.partner(activity)
+        val app = activity.applicationContext
+        val words = Promise.words(activity)
+        kotlin.concurrent.thread(name = "partner-request") {
+            val why = try { Account.partnerRequest(app, email, words) } catch (_: Exception) { "network" }
+            activity.runOnUiThread {
+                if (why != null) { FocusDialog.toast(activity, partnerText(why)); return@runOnUiThread }
+                FocusDialog.textInput(activity, activity.getString(R.string.partner_ask_title),
+                    activity.getString(R.string.partner_ask_body, email), activity.getString(R.string.partner_code_hint),
+                    numeric = true, confirmLabel = activity.getString(R.string.common_next)) { code ->
+                    kotlin.concurrent.thread(name = "partner-verify") {
+                        val bad = try { Account.partnerVerify(app, code.trim()) } catch (_: Exception) { "network" }
+                        activity.runOnUiThread {
+                            if (bad != null) FocusDialog.toast(activity, partnerText(bad))
+                            else { partnerCleared = true; confirmEndSession() }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun partnerText(why: String): String = activity.getString(when (why) {
+        "signed_out" -> R.string.partner_err_signed_out
+        "rate_limited" -> R.string.partner_err_rate
+        "wrong_code" -> R.string.partner_err_wrong
+        "too_many_tries", "no_code" -> R.string.partner_err_expired
+        else -> R.string.partner_err_network
+    })
 
     private fun endSessionNow() {
                 SessionManager.end(activity)

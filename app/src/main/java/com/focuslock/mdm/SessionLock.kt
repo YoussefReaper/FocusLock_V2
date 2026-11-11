@@ -68,7 +68,7 @@ object SessionLock {
      * [EditDirection.TIGHTEN] is always permitted. Only loosening waits.
      */
     fun allows(context: Context, direction: EditDirection): Boolean =
-        direction == EditDirection.TIGHTEN || !isFrozen(context)
+        direction == EditDirection.TIGHTEN || (!isFrozen(context) && !SessionPassword.settingsShut(context))
 
     /**
      * The one line shown when something is refused.
@@ -80,6 +80,7 @@ object SessionLock {
      * "session" that is not actually the reason.
      */
     fun refusalMessage(context: Context): String {
+        if (!isFrozen(context) && SessionPassword.settingsShut(context)) return context.getString(R.string.settings_lock_refused)
         if (!SessionManager.isActive(context)) {
             ScheduleManager.activeWindowIfEnabled(context)?.takeIf { it.overlay }?.let { window ->
                 return Copy.rulesFrozenBySchedule(context, ScheduleManager.formatTime(context, window.endMinutes))

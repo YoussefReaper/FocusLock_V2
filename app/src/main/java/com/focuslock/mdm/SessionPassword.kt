@@ -47,6 +47,22 @@ object SessionPassword {
     fun firmSession(c: Context): Boolean = prefs(c).getBoolean("firm", false)
     fun setFirmSession(c: Context, firm: Boolean) = prefs(c).edit().putBoolean("firm", firm).apply()
 
+    // ── Settings lock ────────────────────────────────────────────
+    // With it on, anything that blocks less (unblocking, removing a rule, a longer budget)
+    // needs the session password first; it then stays open for ten minutes.
+
+    fun settingsLock(c: Context): Boolean = prefs(c).getBoolean("settings_lock", false) && isSet(c)
+    fun setSettingsLock(c: Context, on: Boolean) = prefs(c).edit().putBoolean("settings_lock", on).apply()
+    fun settingsOpen(c: Context): Boolean = System.currentTimeMillis() < prefs(c).getLong("open_until", 0L)
+    fun openSettings(c: Context, minutes: Int = 10) =
+        prefs(c).edit().putLong("open_until", System.currentTimeMillis() + minutes * 60_000L).apply()
+    /** True when the settings lock holds loosening writes back right now. */
+    fun settingsShut(c: Context): Boolean = settingsLock(c) && !settingsOpen(c)
+
+    // ── Accountability partner ───────────────────────────────────
+    fun partner(c: Context): String = prefs(c).getString("partner", "").orEmpty()
+    fun setPartner(c: Context, email: String) = prefs(c).edit().putString("partner", email.trim()).apply()
+
     /** What ending early needs right now: nothing, the password, or impossible (Firm with no password). */
     enum class EndNeed { NOTHING, PASSWORD, IMPOSSIBLE }
     fun endNeed(firm: Boolean, passwordSet: Boolean): EndNeed = when {

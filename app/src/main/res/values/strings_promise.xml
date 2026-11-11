@@ -50,4 +50,26 @@
     <string name="session_password_current_hint">Current password</string>
     <string name="session_password_saved">Session password saved.</string>
     <string name="session_password_too_short">Use at least 8 characters.</string>
+    <string name="settings_lock_title">Settings lock</string>
+    <string name="settings_lock_off">Off. Rules can be loosened freely.</string>
+    <string name="settings_lock_on">On. Loosening a rule needs your session password.</string>
+    <string name="settings_lock_open">Open for a few minutes.</string>
+    <string name="settings_lock_needs_password">Set a session password first.</string>
+    <string name="settings_lock_ask">Type your session password to open your settings for 10 minutes.</string>
+    <string name="settings_lock_opened">Your settings are open for 10 minutes.</string>
+    <string name="settings_lock_turn_off">Turn the lock off</string>
+    <string name="settings_lock_refused">Settings are locked. Open them in You > Settings lock with your session password.</string>
+    <string name="partner_title">Someone who keeps me honest</string>
+    <string name="partner_none">No one yet</string>
+    <string name="partner_help">Their email. To end a Firm promise early you\'ll need a code we send them, with the words you wrote. Leave it empty for no one.</string>
+    <string name="partner_email_hint">Their email</string>
+    <string name="partner_err_email">That doesn\'t look like an email address.</string>
+    <string name="partner_ask_title">Ask your partner</string>
+    <string name="partner_ask_body">We emailed a 6-digit code to %1$s, with the words you wrote. Type the code they give you.</string>
+    <string name="partner_code_hint">6-digit code</string>
+    <string name="partner_err_signed_out">Sign in first: the code is sent through your Pinehold account.</string>
+    <string name="partner_err_rate">Three codes have been sent this hour. Try again later.</string>
+    <string name="partner_err_wrong">That\'s not the code.</string>
+    <string name="partner_err_expired">That code has expired. Ask for a new one.</string>
+    <string name="partner_err_network">Pinehold couldn\'t reach its server, so no code was sent.</string>
 </resources>
