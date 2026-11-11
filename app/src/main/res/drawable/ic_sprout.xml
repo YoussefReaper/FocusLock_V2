@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Blossom's sprout: a stem and two leaves, the cute look's one ornament. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp" android:height="48dp" android:viewportWidth="48" android:viewportHeight="48">
+    <path android:fillColor="#FFE3EA" android:pathData="M24,46a20,6 0,1 0,0.1 0z" />
+    <path android:strokeColor="#6FAF7E" android:strokeWidth="3" android:strokeLineCap="round"
+        android:pathData="M24,42 L24,22" />
+    <path android:fillColor="#8FD19E" android:pathData="M24,26 C14,26 9,19 9,11 C18,11 24,17 24,26 Z" />
+    <path android:fillColor="#A9E0B4" android:pathData="M24,22 C24,13 30,7 40,7 C40,16 33,22 24,22 Z" />
+    <path android:fillColor="#F28AAE" android:pathData="M37,32a3,3 0,1 0,0.1 0z" />
+    <path android:fillColor="#F28AAE" android:pathData="M12,35a2,2 0,1 0,0.1 0z" />
+</vector>

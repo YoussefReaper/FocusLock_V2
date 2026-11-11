@@ -240,6 +240,10 @@ object UiPrefs {
     )
 
     const val BLOSSOM_THEME_ID = "blossom"
+
+    /** Blossom changes layouts too (dock, greeting), not only colours. Nocturne at bedtime wins. */
+    fun isBlossom(context: Context): Boolean = getTheme(context).id == BLOSSOM_THEME_ID &&
+        !(Standalone.mayActNow(context) && Bedtime.isActive(context) && Bedtime.forcesDarkTheme(context))
     private const val BLOSSOM_ACCENT = "#C2416C"
 
     /** The slab's colours: pine retinted to the chosen accent, or Blossom's own pinks. */

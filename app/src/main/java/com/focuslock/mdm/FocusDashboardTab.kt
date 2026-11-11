@@ -147,6 +147,7 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
     }
 
     private fun buildGreeting(): View {
+        if (UiPrefs.isBlossom(activity)) return buildBlossomGreeting()
         val column = FocusUi.column(activity)
         column.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
@@ -180,6 +181,40 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
             column.addView(subView)
         }
         return column
+    }
+
+    /**
+     * Blossom's greeting: a soft rounded card with a sprout, centred, the day's count as a
+     * gentle line. The same facts as the plain greeting, laid out to feel friendly.
+     */
+    private fun buildBlossomGreeting(): View {
+        val card = LinearLayout(activity)
+        card.orientation = LinearLayout.HORIZONTAL
+        card.gravity = android.view.Gravity.CENTER_VERTICAL
+        card.background = FocusUi.roundedShape(activity, tokens.surfaceAlt, 28)
+        val pad = FocusUi.dp(activity, 18)
+        card.setPadding(pad, pad, pad, pad)
+        card.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+        ).apply { bottomMargin = FocusUi.dp(activity, tokens.density.gapDp + 4) }
+
+        val sprout = android.widget.ImageView(activity)
+        sprout.setImageResource(R.drawable.ic_sprout)
+        sprout.layoutParams = LinearLayout.LayoutParams(FocusUi.dp(activity, 56), FocusUi.dp(activity, 56))
+            .apply { marginEnd = FocusUi.dp(activity, 14) }
+        card.addView(sprout)
+
+        val words = FocusUi.column(activity)
+        words.layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+        words.addView(FocusUi.secondary(activity, tokens, dayAndPeriod()))
+        val headline = FocusUi.title(activity, tokens, statusHeadline())
+        words.addView(headline)
+        val stoppedToday = Streaks.blocksStoppedToday(activity)
+        val line = if (stoppedToday > 0) activity.getString(R.string.intercept_opens_stopped_today, stoppedToday)
+            else activity.getString(R.string.blossom_little_steps)
+        words.addView(FocusUi.secondary(activity, tokens, line))
+        card.addView(words)
+        return card
     }
 
     private fun dayAndPeriod(): String {

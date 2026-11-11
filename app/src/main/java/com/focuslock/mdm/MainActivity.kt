@@ -326,21 +326,29 @@ class MainActivity : AppCompatActivity() {
      * 56dp regardless of text scale.
      */
     private fun buildNavBar(): LinearLayout {
+        val blossom = UiPrefs.isBlossom(this)
         val bar = LinearLayout(this)
         bar.orientation = LinearLayout.VERTICAL
-        bar.setBackgroundColor(tokens.surface)
-
-        val topLine = View(this)
-        topLine.setBackgroundColor(tokens.divider)
-        // Quiet Pine: 9dp top / 18dp bottom inside the bar, as in the design.
-        bar.addView(
-            topLine,
-            LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, FocusUi.dp(this, 1))
-        )
-
         val strip = LinearLayout(this)
         strip.orientation = LinearLayout.HORIZONTAL
-        strip.setPadding(FocusUi.dp(this, 12), FocusUi.dp(this, 9), FocusUi.dp(this, 12), FocusUi.dp(this, 12))
+        if (blossom) {
+            // Blossom: a floating, fully rounded dock over the page instead of a flat bar.
+            bar.setBackgroundColor(tokens.background)
+            bar.setPadding(FocusUi.dp(this, 18), FocusUi.dp(this, 6), FocusUi.dp(this, 18), FocusUi.dp(this, 14))
+            strip.background = FocusUi.roundedShape(this, tokens.surface, 30)
+            strip.elevation = FocusUi.dp(this, 6).toFloat()
+            strip.setPadding(FocusUi.dp(this, 8), FocusUi.dp(this, 6), FocusUi.dp(this, 8), FocusUi.dp(this, 6))
+        } else {
+            bar.setBackgroundColor(tokens.surface)
+            val topLine = View(this)
+            topLine.setBackgroundColor(tokens.divider)
+            // Quiet Pine: 9dp top / 18dp bottom inside the bar, as in the design.
+            bar.addView(
+                topLine,
+                LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, FocusUi.dp(this, 1))
+            )
+            strip.setPadding(FocusUi.dp(this, 12), FocusUi.dp(this, 9), FocusUi.dp(this, 12), FocusUi.dp(this, 12))
+        }
 
         TAB_SPECS.forEachIndexed { index, spec ->
             val item = LinearLayout(this)
@@ -410,7 +418,7 @@ class MainActivity : AppCompatActivity() {
 
             button.icon.imageTintList = android.content.res.ColorStateList.valueOf(color)
             button.iconHolder.background = if (active) {
-                FocusUi.roundedShape(this, tokens.accentSoft, 16)
+                FocusUi.roundedShape(this, tokens.accentSoft, if (UiPrefs.isBlossom(this)) 20 else 16)
             } else {
                 null
             }

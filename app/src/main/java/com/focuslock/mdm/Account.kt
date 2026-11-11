@@ -239,15 +239,17 @@ object Account {
         }
     }
 
-    /** POST /redeem with a PayPal subscription id (I-…). Null on success. */
+    /** POST /redeem with a PayPal subscription id (I-…) or an Everywhere PC code (FLP-…). Null on success. */
     fun redeem(c: Context, raw: String): AccountProblem? {
-        val id = AccountRules.subscriptionId(raw) ?: return AccountProblem.INVALID_CODE
+        val id = AccountRules.redeemable(raw) ?: return AccountProblem.INVALID_CODE
         val t = token(c) ?: return AccountProblem.SIGNED_OUT
         val r = call("POST", "/redeem", JSONObject().put("code", id), t)
         if (r.code == 401) { forget(c); return AccountProblem.SIGNED_OUT }
         if (!r.ok) return AccountRules.problem(r.code, r.reason)
-        // Redeem only takes Keeper Plus subscription ids, so success means the paid tier.
-        saveProducts(c, r.json.optJSONObject("products"), "plus")
+        // Success means Keeper Plus: a subscription, or the months an Everywhere code carries.
+        val products = r.json.optJSONObject("products")
+        val plus = products?.optJSONObject("keeper_plus")?.optBoolean("active") == true
+        saveProducts(c, products, if (plus) "plus" else prefs(c).getString(K_TIER, null))
         return null
     }
 

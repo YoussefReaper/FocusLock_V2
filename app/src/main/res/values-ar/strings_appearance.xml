@@ -41,4 +41,5 @@
     <string name="appearance_bg_sand">رملي</string>
     <string name="appearance_bg_pure_black">أسود صريح</string>
     <string name="appearance_theme_blossom">زهر</string>
+    <string name="blossom_little_steps">الخطوات الصغيرة تُحسب أيضًا.</string>
 </resources>

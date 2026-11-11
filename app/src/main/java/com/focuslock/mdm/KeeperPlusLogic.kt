@@ -150,6 +150,16 @@ object AccountRules {
     fun subscriptionId(raw: String?): String? =
         raw?.trim()?.uppercase()?.takeIf { SUBSCRIPTION_ID.matches(it) }
 
+    /**
+     * What /redeem takes on the Keeper screen: a subscription id, or the PC code from an
+     * Everywhere purchase, which carries months of Keeper Plus. Null for anything else.
+     */
+    fun redeemable(raw: String?): String? {
+        subscriptionId(raw)?.let { return it }
+        val t = raw?.trim()?.uppercase() ?: return null
+        return t.takeIf { it.startsWith("FLP") && it.replace(Regex("[^A-Z0-9]"), "").length >= 12 }
+    }
+
     /** The server's own minimum (auth.js); checked here first so a short one never leaves the phone. */
     const val MIN_PASSWORD = 10
 

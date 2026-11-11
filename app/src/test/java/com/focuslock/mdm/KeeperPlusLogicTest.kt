@@ -93,5 +93,10 @@ class KeeperPlusLogicTest {
     @Test fun subscriptionIdIsNormalised() {
         assertEquals("I-ABC123DEF", AccountRules.subscriptionId("  i-abc123def "))
         assertNull(AccountRules.subscriptionId("FL2-XXXX"))
+        // The Keeper screen also takes an Everywhere PC code; a phone code is not Keeper.
+        assertEquals("FLP-ABCD-EFGH-IJKL", AccountRules.redeemable(" flp-abcd-efgh-ijkl "))
+        assertEquals("I-ABC123DEF", AccountRules.redeemable("i-abc123def"))
+        assertNull(AccountRules.redeemable("FL2-ABCD-EFGH-IJKL"))
+        assertNull(AccountRules.redeemable("FLP-1"))
     }
 }

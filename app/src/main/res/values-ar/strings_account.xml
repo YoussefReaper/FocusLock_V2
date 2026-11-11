@@ -27,7 +27,7 @@
     <string name="account_err_not_found">لم يُعثر على هذا الاشتراك.</string>
     <string name="account_err_inactive">هذا الاشتراك غير نشط.</string>
     <string name="account_err_already_used">هذا الاشتراك مرتبط بحساب آخر بالفعل.</string>
-    <string name="account_err_invalid_code">لا يبدو هذا معرّف اشتراك. يبدأ المعرّف بـ I-.</string>
+    <string name="account_err_invalid_code">هذا لا يبدو رقم اشتراك (I-…) ولا رمز كمبيوتر من Everywhere (FLP-…).</string>
     <string name="account_err_network">تعذّر الوصول إلى الخادم. تحقّق من اتصالك وحاول مجددًا.</string>
 
     <string name="keeper_plus_title">Keeper Plus</string>
@@ -52,7 +52,7 @@
     </plurals>
     <string name="keeper_free_upgrade">الترقية إلى Keeper Plus</string>
     <string name="keeper_plus_subscribe">اشترك</string>
-    <string name="keeper_plus_redeem_prompt">مشترك بالفعل؟ الصق معرّف اشتراك PayPal الخاص بك (I-…)</string>
+    <string name="keeper_plus_redeem_prompt">مشترك بالفعل أو اشتريت Everywhere؟ الصق رقم اشتراك PayPal (I-…) أو رمز الكمبيوتر (FLP-…)</string>
     <string name="keeper_plus_activate">تفعيل</string>
     <string name="keeper_plus_sign_in_first">سجّل الدخول أولًا.</string>
     <string name="keeper_plus_activated">Keeper Plus مفعّل الآن.</string>
