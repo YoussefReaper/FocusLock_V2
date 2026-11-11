@@ -340,6 +340,8 @@ class AppBlockerService : Service() {
                     checkGuardStillOn()
                     checkPermissionRevocation()
                     TakeABreak.sweepExpired(this@AppBlockerService)
+                    // A promise made on the laptop, pulled at most once a minute while signed in.
+                    PromiseSync.pullAsync(this@AppBlockerService)
                 }
 
                 val foreground = getForegroundApp(now)
