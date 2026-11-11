@@ -9,6 +9,23 @@ Owner: Youssef (solo developer, student, Egypt, Africa/Cairo time). He reads sho
 
 ## Progress log (newest first)
 
+**2026-11-11, pass 1d: Phase C sync (code done, end-to-end not yet run)**
+- Server (live): `promises.js` mounted on the accounts router. `GET/POST /v1/promise`,
+  `POST /v1/promise/end` (Sealed refused, 409), merge never loosens (later end, stronger strength);
+  laptop link `POST /v1/link/start` (code + secret, 10 min), `/link/approve` (signed-in phone),
+  `/link/poll` (hands the laptop its own session token once). Throttled per IP. 6 tests; live smoke
+  OK (start gives a code, poll says not approved, /promise without a token is 401).
+- Phone: `PromiseSync` posts on start, ends everywhere on early end, pulls once a minute on resume
+  and starts a promise made elsewhere; You > Link a laptop (signed-in only). 2 tests.
+  **Pull runs when the app is opened, not in the background**: a laptop promise reaches the phone
+  the next time Pinehold is opened. Next step: pull from the blocker service's slow tick too.
+- Windows: `CloudPromise` in the service (link, push, end, pull every 60 s in the worker loop),
+  You > Your phone > Link with my phone (shows the code, polls until approved). Soft holds as Firm on
+  the laptop. Linking adds the account server to the always-allowed list. 3 tests, 477 total.
+  Setup rebuilt with it.
+- **E2E needs Youssef:** sign in on the phone (Google/GitHub), install the Windows setup, link, start
+  a promise on one and see it on the other.
+
 **2026-11-11, pass 1c**
 - A3: a silent MP4 plays on the gate (emulator, Firm gate). A6: blocker tick backs off to 600 ms
   once the same app has been in front 8 s; steady state with the launcher in front is about 0.4%
