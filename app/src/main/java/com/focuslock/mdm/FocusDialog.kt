@@ -445,6 +445,7 @@ object FocusDialog {
         value: String = "",
         multiline: Boolean = false,
         numeric: Boolean = false,
+        password: Boolean = false,
         confirmLabel: String = context.getString(R.string.common_save),
         onSave: (String) -> Unit
     ): Dialog {
@@ -454,6 +455,7 @@ object FocusDialog {
         if (!subtitle.isNullOrBlank()) addMessage(context, tokens, card, subtitle)
 
         val field = FocusUi.input(context, tokens, hint, value, multiline, numeric)
+        if (password) field.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
         field.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
@@ -462,7 +464,7 @@ object FocusDialog {
 
         addActions(
             context, tokens, card, confirmLabel, context.getString(R.string.common_cancel), false,
-            { onSave(field.text?.toString()?.trim().orEmpty()) }, null, dialog
+            { onSave(field.text?.toString()?.let { if (password) it else it.trim() }.orEmpty()) }, null, dialog
         )
         dialog.show()
         return dialog

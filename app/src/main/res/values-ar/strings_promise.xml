@@ -10,7 +10,7 @@
     <string name="strength_soft">لين</string>
     <string name="strength_soft_line">توقّف وسؤال قبل فتح أي شيء. يمكنك إنهاؤه في أي وقت.</string>
     <string name="strength_firm">حازم</string>
-    <string name="strength_firm_line">التطبيقات المحظورة تبقى مغلقة. ما زال بإمكانك إنهاؤه مبكرًا.</string>
+    <string name="strength_firm_line">التطبيقات المحظورة تبقى مغلقة. لا يُنهيه مبكرًا إلا كلمة مرور الجلسة.</string>
     <string name="strength_sealed">مُحكم</string>
     <string name="strength_sealed_line">التطبيقات المحظورة تختفي، ولا مخرج حتى ينتهي.</string>
     <string name="promise_words_hint">لماذا؟ بكلماتك أنت</string>
@@ -35,4 +35,19 @@
     <string name="link_laptop_confirm">ربط</string>
     <string name="link_laptop_done">تم ربط الحاسوب. الوعود تسري الآن على الاثنين.</string>
     <string name="link_laptop_failed">لم ينجح هذا الرمز. تحقق منه أو اطلب رمزًا جديدًا من الحاسوب.</string>
+    <string name="firm_needs_password_line">إنهاؤه مبكرًا يطلب كلمة مرور الجلسة.</string>
+    <string name="firm_no_password_line">لم تضع كلمة مرور للجلسة بعد، لذلك لا يمكن لأحد إنهاؤه مبكرًا، ولا أنت. ستنتظر حتى ينتهي. ضعها من صفحة أنت.</string>
+    <string name="firm_end_title">إنهاء هذا الوعد مبكرًا؟</string>
+    <string name="firm_end_ask">الوعد الحازم لا ينتهي مبكرًا إلا بكلمة مرور الجلسة. ستبدأ سلسلتك من جديد.</string>
+    <string name="firm_end_impossible">هذا وعد حازم ولا توجد كلمة مرور للجلسة، لذلك لا يمكن إنهاؤه مبكرًا. سينتهي وحده عند انتهاء الوقت.</string>
+    <string name="firm_end_wrong">كلمة المرور غير صحيحة.</string>
+    <string name="session_password_title">كلمة مرور الجلسة</string>
+    <string name="session_password_set">مضبوطة. تُنهي الوعد الحازم مبكرًا.</string>
+    <string name="session_password_unset">غير مضبوطة. بدونها لا يمكن إنهاء الحازم مبكرًا.</string>
+    <string name="session_password_help">٨ أحرف على الأقل. لا يوجد استرجاع: إن نسيتها ستنتظر حتى ينتهي الوعد. الأفضل أن يضعها شخص تثق به.</string>
+    <string name="session_password_hint">كلمة مرور الجلسة</string>
+    <string name="session_password_new_hint">كلمة مرور جديدة</string>
+    <string name="session_password_current_hint">كلمة المرور الحالية</string>
+    <string name="session_password_saved">تم حفظ كلمة مرور الجلسة.</string>
+    <string name="session_password_too_short">استخدم ٨ أحرف على الأقل.</string>
 </resources>

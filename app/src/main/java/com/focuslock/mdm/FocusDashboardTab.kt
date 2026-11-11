@@ -38,6 +38,8 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
     private var draftWords: String = Promise.words(activity)
     /** Set by the promise card just before confirmStart; null means "leave the mode's setting". */
     private var pendingNoExit: Boolean? = null
+    /** True while the start being confirmed is a Firm promise: ending it early asks for the session password. */
+    private var pendingFirm = false
     private var selectedDurationMs: Long =
         FocusStore.getLong(activity, KEY_LAST_DURATION_MS, 0L).takeIf { it > 0L } ?: (2L * 60 * 60 * 1000)
 
@@ -596,14 +598,36 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
     }
 
     private fun confirmEndSession() {
+        when (SessionPassword.endNeed(SessionPassword.firmSession(activity), SessionPassword.isSet(activity))) {
+            SessionPassword.EndNeed.IMPOSSIBLE -> {
+                FocusDialog.alert(activity, activity.getString(R.string.firm_end_title),
+                    activity.getString(R.string.firm_end_impossible))
+                return
+            }
+            SessionPassword.EndNeed.PASSWORD -> {
+                FocusDialog.textInput(activity, activity.getString(R.string.firm_end_title),
+                    activity.getString(R.string.firm_end_ask), activity.getString(R.string.session_password_hint),
+                    password = true, confirmLabel = activity.getString(R.string.dashboard_end_confirm_button)) { typed ->
+                    if (SessionPassword.verify(activity, typed)) endSessionNow()
+                    else FocusDialog.toast(activity, activity.getString(R.string.firm_end_wrong))
+                }
+                return
+            }
+            SessionPassword.EndNeed.NOTHING -> Unit
+        }
         FocusDialog.alert(
             activity,
             title = activity.getString(R.string.dashboard_end_confirm_title),
             message = activity.getString(R.string.dashboard_end_confirm_message),
             confirmLabel = activity.getString(R.string.dashboard_end_confirm_button),
             cancelLabel = activity.getString(R.string.dashboard_end_keep_button),
-            onConfirm = {
+            onConfirm = { endSessionNow() }
+        )
+    }
+
+    private fun endSessionNow() {
                 SessionManager.end(activity)
+                SessionPassword.setFirmSession(activity, false)
                 // Critical: release lock task here, not on the next onResume.
                 // Before Kiosk could be ended early this never mattered, because
                 // the only modes with an End button were never pinned. Now that
@@ -615,8 +639,6 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
                 KioskPolicy.syncLockTaskState(activity)
                 FocusDialog.toast(activity, Copy.sessionEndedEarly(activity))
                 render()
-            }
-        )
     }
 
     // ── Starting a session ────────────────────────────────────────
@@ -777,6 +799,7 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
         Promise.setProtects(activity, selectedProtects)
         selectedMode = selectedStrength.mode
         pendingNoExit = selectedStrength.noExit
+        pendingFirm = selectedStrength == Promise.Strength.FIRM
         confirmStart()
     }
 
@@ -1184,7 +1207,13 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
             activity.getString(R.string.dashboard_no_early_exit_line, SessionManager.formatDuration(shownDurationMs))
         }
 
-        val message = mode.oneLiner(activity) + "\n\n" + exitLine +
+        val firmLine = when {
+            !pendingFirm -> ""
+            SessionPassword.isSet(activity) -> "\n\n" + activity.getString(R.string.firm_needs_password_line)
+            else -> "\n\n" + activity.getString(R.string.firm_no_password_line)
+        }
+        // A Firm promise's exit is the password, so its line replaces the mode's generic one.
+        val message = mode.oneLiner(activity) + "\n\n" + (if (pendingFirm) firmLine.trimStart() else exitLine) +
             (if (capped) "\n\n" + activity.getString(R.string.redesign_first_session_cap) else "")
 
         FocusDialog.alert(
@@ -1195,6 +1224,7 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
             cancelLabel = activity.getString(R.string.promise_confirm_no),
             onConfirm = {
                 if (SessionManager.start(activity, mode, selectedDurationMs, pendingNoExit)) {
+                    SessionPassword.setFirmSession(activity, pendingFirm)
                     // Its own key: the session's duration is cleared when it
                     // ends and grows when it is extended, and neither is what
                     // the person picked.

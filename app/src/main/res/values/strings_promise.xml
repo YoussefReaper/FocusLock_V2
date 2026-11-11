@@ -10,7 +10,7 @@
     <string name="strength_soft">Soft</string>
     <string name="strength_soft_line">A pause and a question before anything opens. End it any time.</string>
     <string name="strength_firm">Firm</string>
-    <string name="strength_firm_line">Blocked apps stay closed. You can still end it early.</string>
+    <string name="strength_firm_line">Blocked apps stay closed. Only your session password ends it early.</string>
     <string name="strength_sealed">Sealed</string>
     <string name="strength_sealed_line">Blocked apps disappear, and there is no way out until it ends.</string>
     <string name="promise_words_hint">Why, in your own words</string>
@@ -35,4 +35,19 @@
     <string name="link_laptop_confirm">Link</string>
     <string name="link_laptop_done">Laptop linked. Promises now hold on both.</string>
     <string name="link_laptop_failed">That code did not work. Check it, or get a new one on the laptop.</string>
+    <string name="firm_needs_password_line">Ending it early asks for your session password.</string>
+    <string name="firm_no_password_line">You have no session password yet, so nobody can end this early, including you. You wait it out. Set one in You.</string>
+    <string name="firm_end_title">End this promise early?</string>
+    <string name="firm_end_ask">A Firm promise ends early only with your session password. Your streak starts again.</string>
+    <string name="firm_end_impossible">This is a Firm promise and no session password is set, so it can\'t be ended early. It ends by itself when the time is up.</string>
+    <string name="firm_end_wrong">That\'s not the password.</string>
+    <string name="session_password_title">Session password</string>
+    <string name="session_password_set">Set. Ends a Firm promise early.</string>
+    <string name="session_password_unset">Not set. Without one, Firm can\'t be ended early.</string>
+    <string name="session_password_help">At least 8 characters. There is no recovery: forget it and you wait the promise out. It\'s best if someone you trust sets it.</string>
+    <string name="session_password_hint">Session password</string>
+    <string name="session_password_new_hint">New password</string>
+    <string name="session_password_current_hint">Current password</string>
+    <string name="session_password_saved">Session password saved.</string>
+    <string name="session_password_too_short">Use at least 8 characters.</string>
 </resources>

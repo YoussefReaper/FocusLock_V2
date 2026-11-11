@@ -77,7 +77,10 @@ object PromiseSync {
                 if (SessionManager.isActive(app)) return@post
                 p.optString("words").takeIf { it.isNotBlank() }?.let { Promise.setWords(app, it) }
                 FocusStore.setString(app, KEY_ID, id)
-                if (SessionManager.start(app, mode, endAt - serverNow, noExit, fromSync = true)) onStarted?.invoke()
+                if (SessionManager.start(app, mode, endAt - serverNow, noExit, fromSync = true)) {
+                    SessionPassword.setFirmSession(app, p.optString("strength") == "firm")
+                    onStarted?.invoke()
+                }
             }
         }.start()
     }

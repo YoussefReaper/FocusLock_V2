@@ -378,6 +378,15 @@ class YouTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activity
             )
         }
         card.addView(FocusUi.divider(activity, tokens))
+        card.addView(
+            FocusUi.listRow(
+                activity, tokens,
+                activity.getString(R.string.session_password_title),
+                activity.getString(if (SessionPassword.isSet(activity)) R.string.session_password_set else R.string.session_password_unset),
+                trailing = FocusUi.chevron(activity, tokens)
+            ) { askSessionPassword() }
+        )
+        card.addView(FocusUi.divider(activity, tokens))
         // The Keeper's key lives here too, not only behind the Focus tab's tools tile.
         card.addView(
             FocusUi.listRow(
@@ -739,6 +748,28 @@ class YouTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activity
     }
 
     /** The laptop shows a code; typing it here links the laptop to this account. */
+    /** Set or change the session password. Changing needs the current one first. */
+    private fun askSessionPassword() {
+        fun askNew(current: String?) = FocusDialog.textInput(
+            activity, activity.getString(R.string.session_password_title),
+            activity.getString(R.string.session_password_help), activity.getString(R.string.session_password_new_hint),
+            password = true
+        ) { next ->
+            val ok = SessionPassword.set(activity, current, next)
+            FocusDialog.toast(activity, activity.getString(if (ok) R.string.session_password_saved else R.string.session_password_too_short))
+            if (ok) activity.recreate()
+        }
+        if (!SessionPassword.isSet(activity)) { askNew(null); return }
+        FocusDialog.textInput(
+            activity, activity.getString(R.string.session_password_title),
+            null, activity.getString(R.string.session_password_current_hint), password = true,
+            confirmLabel = activity.getString(R.string.common_next)
+        ) { current ->
+            if (SessionPassword.verify(activity, current)) askNew(current)
+            else FocusDialog.toast(activity, activity.getString(R.string.firm_end_wrong))
+        }
+    }
+
     private fun askLinkCode() {
         FocusDialog.textInput(
             activity,
