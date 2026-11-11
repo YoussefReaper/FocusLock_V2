@@ -214,7 +214,7 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
      * off goes through a Settings page the promise holds shut.
      */
     private fun askForDeviceAdmin() {
-        if (SetupChecks.isDeviceAdminActive(activity) || FocusStore.has(activity, KEY_ADMIN_ASKED)) return
+        if (SetupChecks.isDeviceAdminActive(activity) || SealedAdminReceiver.isActive(activity) || FocusStore.has(activity, KEY_ADMIN_ASKED)) return
         FocusStore.setLong(activity, KEY_ADMIN_ASKED, System.currentTimeMillis())
         LockManager.allowSettingsUntil(activity, System.currentTimeMillis() + 2 * 60_000L)
         try {
@@ -222,7 +222,7 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
                 Intent(android.app.admin.DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN)
                     .putExtra(
                         android.app.admin.DevicePolicyManager.EXTRA_DEVICE_ADMIN,
-                        android.content.ComponentName(activity, AdminReceiver::class.java)
+                        SealedAdminReceiver.component(activity)
                     )
                     .putExtra(
                         android.app.admin.DevicePolicyManager.EXTRA_ADD_EXPLANATION,
