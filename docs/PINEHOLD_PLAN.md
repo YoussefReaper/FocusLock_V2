@@ -7,6 +7,29 @@ Owner: Youssef (solo developer, student, Egypt, Africa/Cairo time). He reads sho
 
 ---
 
+## Progress log (newest first)
+
+**2026-11-11, pass 1 (Opus 5.5)**
+- Done: code maps for all three repos. A1 removal test: during a Firm promise, Settings > Apps >
+  Pinehold > Uninstall worked in three taps. A2: a Sealed promise now holds Pinehold's app info,
+  device-admin, special-access pages and the uninstall dialog, and asks once for device admin
+  (`SystemSurfaces.isRemovalScreen`, `FocusRules`, `askForDeviceAdmin`). Unit-tested; **not
+  device-tested, because Sealed needs a Pro code on the emulator.** Firm stays endable by design.
+- Done: A4 running promise on the slab; gate verified with words and a picture.
+- Done: B1 Blossom layouts for Rules (rule sets as cards) and Insights (garden week, numbers behind
+  one tap). You keeps the normal layout in Blossom.
+- Done: B4 PC Pro: `PcLicence` (offline FLP codes, compatible with the server's licence.js,
+  4 tests), the service refuses Sealed without Pro, You > Pinehold Pro to enter a code.
+  Only Sealed is gated so far. Runs against the new service only (his laptop still runs dist6).
+- Done: D3 plans: Windows Pro $14.99 (PC code), Everywhere $29.99 (phone + PC + 6 Keeper months,
+  env `BUNDLE_KEEPER_MONTHS`). Server live. **Keeper months are recorded but cannot be claimed yet**
+  (needs the account link in Phase C); do not sell Everywhere until then.
+- Done: D6 30-day any-reason refund on every page. D2 new landing page (slab look, real captures,
+  honest Cold Turkey table). **Site pushed, not deployed:** the live APK is still the old 2.0, so
+  deploy the site only together with A8.
+- Next: test Sealed on the emulator with a Pro code, A3 video on the gate, A5 trim, A6 battery,
+  A7 regression, then A8 publish + site deploy. Then B2, B5 installer, C sync.
+
 ## 0. Rules that override everything below
 
 **How he wants the work done**
