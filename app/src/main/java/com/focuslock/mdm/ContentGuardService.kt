@@ -336,10 +336,7 @@ class ContentGuardService : AccessibilityService() {
     private fun rules(): List<Prepared> {
         val revision = PolicySync.revision()
         if (revision != cachedRevision) {
-            val personal = if (!Personal.on) emptyList() else Personal.AI_HOSTS.map {
-                KeywordRule("personal_ai_$it", it, BROWSERS, GuardAction.STEP_BACK, true, "personal")
-            }
-            cachedRules = (KeywordRules.activeRules(this) + personal).map { rule ->
+            cachedRules = KeywordRules.activeRules(this).map { rule ->
                 val phrase = rule.phrase.lowercase(Locale.US)
                 Prepared(
                     rule = rule,

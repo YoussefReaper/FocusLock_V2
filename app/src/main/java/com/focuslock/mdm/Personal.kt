@@ -7,37 +7,12 @@ import java.util.TimeZone
 /**
  * The owner's own rules. Only in the personal build (flavor "personal"); the store build never
  * runs any of this.
- *  - AI chat apps and sites are blocked on the phone at all times.
  *  - Around every prayer (Cairo, Egyptian General Authority) only calls and the Quran open,
  *    from 5 minutes before the Adhan to 35 minutes after.
- *  - Videos: the first 14 days only his science-track curriculum; after that, also one
- *    non-curriculum video a day.
+ * (The AI-app block and the video quota were dropped at his request: he controls those himself.)
  */
 object Personal {
     val on: Boolean get() = BuildConfig.FLAVOR == "personal"
-
-    // ── AI chat ──────────────────────────────────────────────────
-    val AI_PACKAGES = setOf(
-        "com.google.android.apps.bard", "com.anthropic.claude", "com.openai.chatgpt",
-        "ai.perplexity.app.android", "com.microsoft.copilot", "com.deepseek.chat", "ai.x.grok",
-        "ai.character.app", "com.poe.android", "com.quora.poe", "com.mistral.lechat", "ai.meta.app",
-    )
-    val AI_HOSTS = listOf(
-        "gemini.google.com", "aistudio.google.com", "bard.google.com",
-        "claude.ai", "chatgpt.com", "chat.openai.com", "perplexity.ai", "copilot.microsoft.com",
-        "poe.com", "chat.deepseek.com", "grok.com", "character.ai", "janitorai.com",
-        "chat.mistral.ai", "meta.ai", "t3.chat", "lmarena.ai", "pi.ai", "chub.ai", "kimi.com", "chat.qwen.ai",
-    )
-
-    /** Gemini also runs inside the Google app, as its "robin" assistant screens. */
-    fun isAiScreen(pkg: String, cls: String?): Boolean =
-        pkg == "com.google.android.googlequicksearchbox" && cls != null &&
-            (cls.contains(".robin.", true) || cls.contains("assistant", true))
-
-    fun isAiHost(host: String): Boolean {
-        val h = host.lowercase().removePrefix("www.")
-        return AI_HOSTS.any { h == it || h.endsWith(".$it") }
-    }
 
     // ── Salah ────────────────────────────────────────────────────
     const val BEFORE_MIN = 5
@@ -120,57 +95,4 @@ object Personal {
     private fun acos(x: Double) = Math.toDegrees(Math.acos(x))
     private fun atan2(y: Double, x: Double) = Math.toDegrees(Math.atan2(y, x))
     private fun acot(x: Double) = Math.toDegrees(Math.atan(1 / x))
-
-    // ── Videos ───────────────────────────────────────────────────
-    const val CURRICULUM = "Egyptian STEM science track, grade 12: Physics, Chemistry, Biology, Geology, English, Arabic"
-    const val STRICT_DAYS = 14
-
-    val promptAddendum: String
-        get() = if (!on) "" else """
-Also judge the curriculum: set "curriculum" to true only if this video teaches one of these school subjects: $CURRICULUM. Anything else (other subjects, general interest, entertainment, motivation, vlogs) is false. Add it to the JSON as "curriculum": true|false."""
-
-    private const val PREFS = "personal_rules"
-
-    private fun prefs(c: Context) = c.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
-
-    fun startDay(c: Context): Long {
-        val p = prefs(c)
-        val s = p.getLong("start", 0L)
-        if (s != 0L) return s
-        val now = System.currentTimeMillis()
-        p.edit().putLong("start", now).apply()
-        return now
-    }
-
-    fun rememberCurriculum(c: Context, videoId: String, curriculum: Boolean) {
-        prefs(c).edit().putBoolean("cur_$videoId", curriculum).apply()
-    }
-
-    private fun today(): String {
-        val cal = Calendar.getInstance(cairo())
-        return "%04d-%02d-%02d".format(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH))
-    }
-
-    /** Pure decision, for tests: null = allow, else the reason it is held back. */
-    fun videoGate(curriculum: Boolean, daysIn: Long, todaysPick: String?, videoId: String): String? = when {
-        curriculum -> null
-        daysIn < STRICT_DAYS -> "Only your science subjects for the first $STRICT_DAYS days (day ${daysIn + 1})."
-        todaysPick == null || todaysPick == videoId -> null
-        else -> "You've had today's one free video. Tomorrow brings another."
-    }
-
-    /** The owner's video rule on top of the Keeper's verdict. */
-    fun gate(c: Context, videoId: String, v: KeeperVerdict, trusted: Boolean = false): KeeperVerdict {
-        if (!on || !v.allow) return v
-        val p = prefs(c)
-        val curriculum = trusted || p.getBoolean("cur_$videoId", false)
-        val daysIn = (System.currentTimeMillis() - startDay(c)) / 86_400_000L
-        val key = "pick_${today()}"
-        val why = videoGate(curriculum, daysIn, p.getString(key, null), videoId)
-            ?: run {
-                if (!curriculum) p.edit().putString(key, videoId).apply()
-                return v
-            }
-        return KeeperVerdict(false, reason = why, confidence = 1.0, action = "block")
-    }
 }

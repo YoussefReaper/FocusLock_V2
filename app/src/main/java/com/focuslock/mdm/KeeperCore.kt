@@ -260,7 +260,7 @@ Decide:
 - "block": the concern is frequent, central to the video, or cannot be removed by cutting.
 If unsure between allow and cut, cut. If unsure between cut and block, block.
 Reply with ONLY this JSON, no other text:
-{"verdict":"allow"|"cut"|"block","cuts":[{"from":seconds,"to":seconds}],"matched":["list ids", or "unsure"],"confidence":0.0-1.0,"reason":"one short sentence"}${Personal.promptAddendum}"""
+{"verdict":"allow"|"cut"|"block","cuts":[{"from":seconds,"to":seconds}],"matched":["list ids", or "unsure"],"confidence":0.0-1.0,"reason":"one short sentence"}"""
 
     fun videoUser(title: String, channel: String, description: String, durationS: Int, frameTimes: List<Int>, transcript: String): String =
         buildString {
