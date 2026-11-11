@@ -594,12 +594,26 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
      * words. Three strengths stand in for the four modes; the modes and their switches are
      * still there under You > Advanced for anyone who wants them.
      */
+    /** The promise sits on pine in every theme, so its children read the slab's colours, not the page's. */
+    private val pt: UiPrefs.Tokens by lazy {
+        fun c(hex: String) = android.graphics.Color.parseColor(hex)
+        tokens.copy(
+            isLight = false, background = c("#0E2A22"), surface = c("#1A4A3B"), surfaceAlt = c("#2C6E5A"),
+            textPrimary = c("#F4F0E6"), textSecondary = c("#BFD0C6"), textMuted = c("#8FAA9D"),
+            accent = c("#F4F0E6"), accentDeep = c("#E4DFD2"), onAccent = c("#0E2A22"), accentSoft = c("#2C6E5A"),
+            divider = c("#2A6453"), input = c("#1D5444"), track = c("#236150")
+        )
+    }
+
     private fun buildStarter(): View {
-        val card = FocusUi.card(activity, tokens)
+        val card = FocusUi.card(activity, pt)
+        card.background = SlabDrawable(activity)
+        val slabPad = FocusUi.dp(activity, 24)
+        card.setPadding(slabPad, slabPad, slabPad, slabPad)
         fun label(res: Int): View {
-            val v = FocusUi.caption(activity, tokens, activity.getString(res))
-            FocusUi.applyFont(v, tokens, weight = 650)
-            v.setTextColor(tokens.textSecondary)
+            val v = FocusUi.caption(activity, pt, activity.getString(res))
+            FocusUi.applyFont(v, pt, weight = 650)
+            v.setTextColor(pt.textSecondary)
             return v
         }
         fun flow(): com.google.android.material.chip.ChipGroup {
@@ -612,18 +626,21 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
             return g
         }
 
-        card.addView(FocusUi.heading(activity, tokens, activity.getString(R.string.promise_title)))
-        card.addView(FocusUi.spacer(activity, 12))
-        val protects = flow()
-        Promise.PROTECTS.forEach { (id, res) ->
-            val chip = FocusUi.chip(activity, tokens, activity.getString(res), id in selectedProtects) {
-                if (!selectedProtects.remove(id)) selectedProtects.add(id)
-                render()
-            }
-            (chip.layoutParams as? LinearLayout.LayoutParams)?.marginEnd = 0
-            protects.addView(chip)
-        }
-        card.addView(protects)
+        val kicker = FocusUi.caption(activity, pt, activity.getString(R.string.promise_kicker))
+        kicker.letterSpacing = 0.12f
+        kicker.setTextColor(pt.textMuted)
+        card.addView(kicker)
+        card.addView(FocusUi.spacer(activity, 10))
+        val words = FocusUi.input(activity, pt, activity.getString(R.string.promise_words_hint), draftWords)
+        words.filters = arrayOf(android.text.InputFilter.LengthFilter(Promise.MAX_WORDS))
+        words.addTextChangedListener(object : android.text.TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) = Unit
+            override fun onTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) = Unit
+            override fun afterTextChanged(s: android.text.Editable?) { draftWords = s?.toString().orEmpty() }
+        })
+        words.textSize = 20f
+        FocusUi.applyDisplayFont(words, pt)
+        card.addView(words)
 
         card.addView(FocusUi.spacer(activity, 18))
         card.addView(label(R.string.promise_how_firm))
@@ -636,21 +653,25 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
         card.addView(buildDurationPicker())
 
         card.addView(FocusUi.spacer(activity, 18))
-        val words = FocusUi.input(activity, tokens, activity.getString(R.string.promise_words_hint), draftWords)
-        words.filters = arrayOf(android.text.InputFilter.LengthFilter(Promise.MAX_WORDS))
-        words.addTextChangedListener(object : android.text.TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) = Unit
-            override fun onTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) = Unit
-            override fun afterTextChanged(s: android.text.Editable?) { draftWords = s?.toString().orEmpty() }
-        })
-        card.addView(words)
+        card.addView(label(R.string.promise_title))
+        card.addView(FocusUi.spacer(activity, 8))
+        val protects = flow()
+        Promise.PROTECTS.forEach { (id, res) ->
+            val chip = FocusUi.chip(activity, pt, activity.getString(res), id in selectedProtects) {
+                if (!selectedProtects.remove(id)) selectedProtects.add(id)
+                render()
+            }
+            (chip.layoutParams as? LinearLayout.LayoutParams)?.marginEnd = 0
+            protects.addView(chip)
+        }
+        card.addView(protects)
 
         card.addView(FocusUi.spacer(activity, 10))
         Promise.mediaView(activity, 150)?.let { card.addView(it); card.addView(FocusUi.spacer(activity, 8)) }
         val mediaRow = FocusUi.row(activity)
         mediaRow.addView(
             FocusUi.ghostButton(
-                activity, tokens,
+                activity, pt,
                 activity.getString(if (Promise.hasMedia(activity)) R.string.promise_change_media else R.string.promise_add_media)
             ) { activity.startActivity(Intent(activity, PromisePickActivity::class.java)) }
         )
@@ -658,7 +679,7 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
         if (Promise.hasMedia(activity)) {
             // Its own row: the buttons are full width, so a second one beside the first is pushed off screen.
             card.addView(
-                FocusUi.ghostButton(activity, tokens, activity.getString(R.string.promise_remove_media)) {
+                FocusUi.ghostButton(activity, pt, activity.getString(R.string.promise_remove_media)) {
                     Promise.clearMedia(activity)
                     render()
                 }
@@ -669,7 +690,7 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
         val canStart = DemoMode.hasSessionLeft(activity)
         card.addView(
             FocusUi.primaryButton(
-                activity, tokens,
+                activity, pt,
                 activity.getString(if (canStart) R.string.promise_make else R.string.demo_start_used_up)
             ) { makePromise() }
         )
@@ -684,21 +705,21 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
         option.setPadding(pad, pad, pad, pad)
         option.background = FocusUi.roundedShape(
             activity,
-            if (selected) tokens.surfaceAlt else tokens.surface,
+            if (selected) pt.surfaceAlt else pt.surface,
             18,
-            if (selected) tokens.accent else tokens.divider,
+            if (selected) pt.accent else pt.divider,
             if (selected) 2 else 1
         )
         option.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
         ).apply { bottomMargin = FocusUi.dp(activity, 8) }
         val name = FocusUi.rowTitle(
-            activity, tokens,
+            activity, pt,
             activity.getString(strength.labelRes) + if (locked) "  ·  " + activity.getString(R.string.pro_badge) else ""
         )
-        FocusUi.applyDisplayFont(name, tokens)
+        FocusUi.applyDisplayFont(name, pt)
         option.addView(name)
-        option.addView(FocusUi.caption(activity, tokens, activity.getString(strength.lineRes)))
+        option.addView(FocusUi.caption(activity, pt, activity.getString(strength.lineRes)))
         option.isClickable = true
         option.isFocusable = true
         option.contentDescription = activity.getString(strength.labelRes) + ". " + activity.getString(strength.lineRes) +
@@ -966,7 +987,7 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
         quickDurations.forEach { (_, ms) ->
-            val chip = FocusUi.chip(activity, tokens, SessionManager.formatDuration(ms), selectedDurationMs == ms) {
+            val chip = FocusUi.chip(activity, pt, SessionManager.formatDuration(ms), selectedDurationMs == ms) {
                 selectedDurationMs = ms
                 render()
             }
@@ -976,7 +997,7 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
         val isCustom = quickDurations.none { it.second == selectedDurationMs }
         val other = FocusUi.chip(
             activity,
-            tokens,
+            pt,
             if (isCustom) SessionManager.formatDuration(selectedDurationMs) else "+ " + activity.getString(R.string.redesign_other_duration),
             isCustom
         ) { openDurationChooser() }

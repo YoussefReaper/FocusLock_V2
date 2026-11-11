@@ -22,6 +22,7 @@
     <string name="promise_confirm_title">وعد %1$s لمدة %2$s؟</string>
     <string name="promise_confirm_yes">أعِدُ بذلك</string>
     <string name="promise_confirm_no">ليس بعد</string>
+    <string name="promise_kicker">وعدٌ لنفسك</string>
     <string name="promise_make">اقطع العهد</string>
     <string name="intercept_promise_caption">كتبتَ هذا حين قطعتَ عهدك.</string>
 </resources>

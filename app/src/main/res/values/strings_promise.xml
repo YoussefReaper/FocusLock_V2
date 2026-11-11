@@ -22,6 +22,7 @@
     <string name="promise_confirm_title">A %1$s promise for %2$s?</string>
     <string name="promise_confirm_yes">I promise</string>
     <string name="promise_confirm_no">Not yet</string>
+    <string name="promise_kicker">A PROMISE TO YOURSELF</string>
     <string name="promise_make">Make the promise</string>
     <string name="intercept_promise_caption">You wrote this when you made your promise.</string>
 </resources>
