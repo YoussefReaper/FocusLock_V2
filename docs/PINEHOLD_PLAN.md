@@ -9,6 +9,13 @@ Owner: Youssef (solo developer, student, Egypt, Africa/Cairo time). He reads sho
 
 ## Progress log (newest first)
 
+### Pass 2 (2026-11-11 evening)
+- PC: quick Firm/Sealed promises were endable with one click (empty authored unlock policy). Fixed in SessionManager.QuickStartPolicy + test. Phrase/code unlocks now reach the service. Themed end-early and confirm dialogs. Minutes box live. Slab follows accent. Week chart live.
+- PC update path: the old service keeps running until restart (by design); setup now says so and the app explains instead of "Unknown command". Youssef's laptop still runs the Nov 8 service until he restarts.
+- Phone: slab follows accent; Blossom theme added (palette, rose accent, rounder cards). Blossom's own phone layouts (like the PC cute views) are NOT built yet.
+- Phone installed on Youssef's phone (personal, same key, device owner kept; backup of previous APK in D:\Android_Apps\FocusLock\backup_phone_2026-11-11).
+- Open: sync E2E after laptop restart; phone Firm says "you can still end it early" while laptop Firm needs the password: decide one meaning.
+
 **2026-11-11, pass 1d: Phase C sync (code done, end-to-end not yet run)**
 - Server (live): `promises.js` mounted on the accounts router. `GET/POST /v1/promise`,
   `POST /v1/promise/end` (Sealed refused, 409), merge never loosens (later end, stronger strength);
