@@ -362,7 +362,22 @@ class AppBlockerService : Service() {
                 val activeNow = SessionManager.isGuardActive(this@AppBlockerService) ||
                     TestMode.isActive(this@AppBlockerService) ||
                     FocusLedger.hasAmbientTasks(this@AppBlockerService)
-                delay(if (activeNow) ENFORCEMENT_TICK_MS else IDLE_TICK_MS)
+                // Fast while the app in front is new; slower once the same allowed app has
+                // stayed in front a while. Opening something else still shows up within a
+                // calm tick, and the next one after that change is fast again.
+                val inFront = foreground?.packageName
+                if (inFront != lastTickForeground) {
+                    lastTickForeground = inFront
+                    lastForegroundChangeAt = now
+                }
+                val settled = now - lastForegroundChangeAt > SETTLED_AFTER_MS
+                delay(
+                    when {
+                        !activeNow -> IDLE_TICK_MS
+                        settled -> SETTLED_TICK_MS
+                        else -> ENFORCEMENT_TICK_MS
+                    }
+                )
             }
         }
     }
@@ -922,6 +937,9 @@ class AppBlockerService : Service() {
 
     // ── Surfacing the block ───────────────────────────────────────
 
+    private var lastTickForeground: String? = null
+    private var lastForegroundChangeAt = 0L
+
     private fun showIntercept(decision: GuardDecision) {
         runOnMain {
             try {
@@ -1352,6 +1370,9 @@ class AppBlockerService : Service() {
         private const val TAG = "FocusLockGuard"
         private const val NOTIFICATION_ID = 9001
         private const val ENFORCEMENT_TICK_MS = 250L
+        /** The tick once the same app has been in front for [SETTLED_AFTER_MS]. */
+        private const val SETTLED_TICK_MS = 600L
+        private const val SETTLED_AFTER_MS = 8_000L
         private const val IDLE_TICK_MS = 3_000L
         private const val POLICY_REFRESH_MS = 15_000L
 
