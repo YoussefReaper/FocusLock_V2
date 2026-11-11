@@ -65,6 +65,7 @@ object PromiseSync {
         FocusStore.setLong(app, KEY_LAST_PULL, now)
         Thread {
             val token = Account.sessionToken(app) ?: return@Thread
+            try { SettingsSync.syncBlocking(app, token) } catch (_: Exception) { /* offline: try next minute */ }
             val r = Account.call("GET", "/promise", null, token)
             val p = r.json.optJSONObject("promise") ?: return@Thread
             val id = p.optString("id")

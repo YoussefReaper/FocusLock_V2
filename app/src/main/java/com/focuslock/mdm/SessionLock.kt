@@ -67,8 +67,12 @@ object SessionLock {
      *
      * [EditDirection.TIGHTEN] is always permitted. Only loosening waits.
      */
+    /** True while shared rules from another device are written: that device's settings lock already said yes. */
+    @Volatile var applyingSharedRules = false
+
     fun allows(context: Context, direction: EditDirection): Boolean =
-        direction == EditDirection.TIGHTEN || (!isFrozen(context) && !SessionPassword.settingsShut(context))
+        direction == EditDirection.TIGHTEN ||
+            (!isFrozen(context) && (applyingSharedRules || !SessionPassword.settingsShut(context)))
 
     /**
      * The one line shown when something is refused.

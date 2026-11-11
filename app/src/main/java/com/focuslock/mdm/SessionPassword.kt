@@ -29,6 +29,7 @@ object SessionPassword {
         prefs(c).edit()
             .putString("salt", Base64.encodeToString(salt, Base64.NO_WRAP))
             .putString("hash", Base64.encodeToString(hash(next, salt), Base64.NO_WRAP))
+            .putInt("iter", ITERATIONS)
             .apply()
         return true
     }
@@ -36,12 +37,25 @@ object SessionPassword {
     fun verify(c: Context, attempt: String): Boolean {
         val salt = prefs(c).getString("salt", null)?.let { Base64.decode(it, Base64.NO_WRAP) } ?: return false
         val stored = prefs(c).getString("hash", null)?.let { Base64.decode(it, Base64.NO_WRAP) } ?: return false
-        return MessageDigest.isEqual(stored, hash(attempt, salt))
+        return MessageDigest.isEqual(stored, hash(attempt, salt, prefs(c).getInt("iter", ITERATIONS)))
     }
 
-    fun hash(password: String, salt: ByteArray): ByteArray =
+    fun hash(password: String, salt: ByteArray, iterations: Int = ITERATIONS): ByteArray =
         SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256")
-            .generateSecret(PBEKeySpec(password.toCharArray(), salt, ITERATIONS, 256)).encoded
+            .generateSecret(PBEKeySpec(password.toCharArray(), salt, iterations, 256)).encoded
+
+    /** The stored hash for syncing: (salt, hash, iterations), Base64. The password itself never leaves. */
+    fun exportHash(c: Context): Triple<String, String, Int>? {
+        val salt = prefs(c).getString("salt", null) ?: return null
+        val hash = prefs(c).getString("hash", null) ?: return null
+        return Triple(salt, hash, prefs(c).getInt("iter", ITERATIONS))
+    }
+
+    /** Takes a hash made on another device (the laptop uses the same PBKDF2-SHA256). */
+    fun importHash(c: Context, salt: String, hash: String, iterations: Int) {
+        if (salt.isBlank() || hash.isBlank() || iterations < 10_000) return
+        prefs(c).edit().putString("salt", salt).putString("hash", hash).putInt("iter", iterations).apply()
+    }
 
     /** Whether the running session was made as a Firm promise, so ending it asks for the password. */
     fun firmSession(c: Context): Boolean = prefs(c).getBoolean("firm", false)
