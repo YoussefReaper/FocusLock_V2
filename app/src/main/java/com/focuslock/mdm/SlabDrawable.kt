@@ -13,17 +13,18 @@ import android.graphics.Shader
 import android.graphics.drawable.Drawable
 
 /**
- * The pine slab the promise sits on: a deep green gradient with growth rings in one corner,
- * the same on the phone and the laptop.
+ * The slab the promise sits on: a deep gradient in the accent's hue (pine by default, pink in
+ * Blossom) with growth rings in one corner, the same on the phone and the laptop.
  */
 class SlabDrawable(context: Context) : Drawable() {
     private val density = context.resources.displayMetrics.density
     private val radius = 28 * density
     private val fill = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val colors = UiPrefs.slab(context)
     private val ring = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
         strokeWidth = density
-        color = Color.parseColor("#F4F0E6")
+        color = colors.ring
     }
     private val clip = Path()
     private val rect = RectF()
@@ -32,7 +33,7 @@ class SlabDrawable(context: Context) : Drawable() {
         rect.set(bounds)
         fill.shader = LinearGradient(
             rect.left, rect.top, rect.right, rect.bottom,
-            Color.parseColor("#174A3A"), Color.parseColor("#0C2720"), Shader.TileMode.CLAMP
+            colors.a, colors.b, Shader.TileMode.CLAMP
         )
         clip.reset()
         clip.addRoundRect(rect, radius, radius, Path.Direction.CW)

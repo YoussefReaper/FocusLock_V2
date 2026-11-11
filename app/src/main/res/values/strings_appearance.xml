@@ -40,4 +40,5 @@
     <string name="appearance_bg_emerald">Emerald</string>
     <string name="appearance_bg_sand">Sand</string>
     <string name="appearance_bg_pure_black">True black</string>
+    <string name="appearance_theme_blossom">Blossom</string>
 </resources>

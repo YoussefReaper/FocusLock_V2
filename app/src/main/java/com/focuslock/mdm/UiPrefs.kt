@@ -220,8 +220,66 @@ object UiPrefs {
             divider = Color.parseColor("#E4E1DA"),
             input = Color.parseColor("#EAE8E2"),
             muted = Color.parseColor("#5F6763")
+        ),
+        // Blossom: the soft, warm look, matching the laptop. Carries its own rose accent.
+        UiTheme(
+            id = BLOSSOM_THEME_ID,
+            labelRes = R.string.appearance_theme_blossom,
+            isLight = true,
+            background = Color.parseColor("#FFF5F1"),
+            card = Color.parseColor("#FFFFFF"),
+            cardAlt = Color.parseColor("#FFE9EE"),
+            textPrimary = Color.parseColor("#4A2333"),
+            textSecondary = Color.parseColor("#6E3F50"),
+            accent = Color.parseColor("#C2416C"),
+            track = Color.parseColor("#FFE3EA"),
+            divider = Color.parseColor("#F7D9E1"),
+            input = Color.parseColor("#FFF0F3"),
+            muted = Color.parseColor("#85566A")
         )
     )
+
+    const val BLOSSOM_THEME_ID = "blossom"
+    private const val BLOSSOM_ACCENT = "#C2416C"
+
+    /** The slab's colours: pine retinted to the chosen accent, or Blossom's own pinks. */
+    data class SlabColors(
+        val a: Int, val b: Int, val ink: Int, val inkSoft: Int, val inkFaint: Int,
+        val surface: Int, val surfaceAlt: Int, val divider: Int, val input: Int,
+        val track: Int, val bg: Int, val button: Int, val onButton: Int, val ring: Int, val isLight: Boolean
+    )
+
+    private val PINE_REF = Color.parseColor("#1E6A54")
+
+    /** Moves a pine tone onto the accent's hue, keeping its lightness, as the laptop does. */
+    fun retint(color: Int, to: Int): Int {
+        if (to == PINE_REF) return color
+        val c = FloatArray(3); val f = FloatArray(3); val t = FloatArray(3)
+        androidx.core.graphics.ColorUtils.colorToHSL(color, c)
+        androidx.core.graphics.ColorUtils.colorToHSL(PINE_REF, f)
+        androidx.core.graphics.ColorUtils.colorToHSL(to, t)
+        c[0] = ((c[0] - f[0] + t[0]) % 360f + 360f) % 360f
+        c[1] = if (f[1] <= 0f) c[1] else (c[1] * t[1] / f[1]).coerceIn(0f, 1f)
+        return androidx.core.graphics.ColorUtils.HSLToColor(c)
+    }
+
+    fun slab(context: Context): SlabColors {
+        fun c(hex: String) = Color.parseColor(hex)
+        if (getTheme(context).id == BLOSSOM_THEME_ID) return SlabColors(
+            a = c("#FFC2D4"), b = c("#FFD9BF"), ink = c("#4A2333"), inkSoft = c("#6E3F50"), inkFaint = c("#85566A"),
+            surface = c("#FFE9EE"), surfaceAlt = c("#FFF1F4"), divider = c("#F5A9BF"), input = c("#FFF0F3"),
+            track = c("#FFE3EA"), bg = c("#FFF5F1"), button = c("#4A2333"), onButton = c("#FFFFFF"),
+            ring = c("#4A2333"), isLight = true
+        )
+        val to = getAccent(context).color
+        fun r(hex: String) = retint(c(hex), to)
+        return SlabColors(
+            a = r("#174A3A"), b = r("#0C2720"), ink = c("#F4F0E6"), inkSoft = r("#BFD0C6"), inkFaint = r("#8FAA9D"),
+            surface = r("#1A4A3B"), surfaceAlt = r("#2C6E5A"), divider = r("#2A6453"), input = r("#1D5444"),
+            track = r("#236150"), bg = r("#0E2A22"), button = c("#F4F0E6"), onButton = r("#0E2A22"),
+            ring = c("#F4F0E6"), isLight = false
+        )
+    }
 
     /**
      * Cut from 6 to 3 (2026-09, design system pass): Sans, Serif, Light and
@@ -540,7 +598,8 @@ object UiPrefs {
         val backgroundChoice = getBackground(context).color
         val background = if (backgroundChoice == Color.TRANSPARENT) base.background else backgroundChoice
         val highContrast = highContrast(context)
-        val accent = if (base.isLight) accentChoice.color else (accentChoice.darkColor ?: accentChoice.color)
+        val accent = if (base.id == BLOSSOM_THEME_ID) Color.parseColor(BLOSSOM_ACCENT)
+            else if (base.isLight) accentChoice.color else (accentChoice.darkColor ?: accentChoice.color)
 
         val textPrimary = if (highContrast) {
             if (base.isLight) Color.parseColor("#000000") else Color.parseColor("#FFFFFF")
@@ -581,7 +640,8 @@ object UiPrefs {
             typeface = resolveTypeface(context, getFont(context).id),
             monoTypeface = resolveMonoTypeface(context),
             displayTypeface = resolveDisplayTypeface(context),
-            radiusDp = getCardRadiusDp(context).coerceIn(0, 32),
+            // Blossom is rounder all over: soft corners are part of the look, not just pink.
+            radiusDp = if (base.id == BLOSSOM_THEME_ID) maxOf(getCardRadiusDp(context), 26).coerceAtMost(32) else getCardRadiusDp(context).coerceIn(0, 32),
             textScale = getTextScale(context).coerceIn(0.8f, 1.4f),
             density = getDensity(context),
             reducedMotion = reducedMotion(context),

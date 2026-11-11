@@ -626,14 +626,14 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
      * words. Three strengths stand in for the four modes; the modes and their switches are
      * still there under You > Advanced for anyone who wants them.
      */
-    /** The promise sits on pine in every theme, so its children read the slab's colours, not the page's. */
+    /** The promise sits on the slab, so its children read the slab's colours, not the page's. */
     private val pt: UiPrefs.Tokens by lazy {
-        fun c(hex: String) = android.graphics.Color.parseColor(hex)
+        val k = UiPrefs.slab(activity)
         tokens.copy(
-            isLight = false, background = c("#0E2A22"), surface = c("#1A4A3B"), surfaceAlt = c("#2C6E5A"),
-            textPrimary = c("#F4F0E6"), textSecondary = c("#BFD0C6"), textMuted = c("#8FAA9D"),
-            accent = c("#F4F0E6"), accentDeep = c("#E4DFD2"), onAccent = c("#0E2A22"), accentSoft = c("#2C6E5A"),
-            divider = c("#2A6453"), input = c("#1D5444"), track = c("#236150")
+            isLight = k.isLight, background = k.bg, surface = k.surface, surfaceAlt = k.surfaceAlt,
+            textPrimary = k.ink, textSecondary = k.inkSoft, textMuted = k.inkFaint,
+            accent = k.button, accentDeep = k.button, onAccent = k.onButton, accentSoft = k.surfaceAlt,
+            divider = k.divider, input = k.input, track = k.track
         )
     }
 
