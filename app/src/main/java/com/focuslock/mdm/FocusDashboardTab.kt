@@ -216,7 +216,7 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
     private fun askForDeviceAdmin() {
         if (SetupChecks.isDeviceAdminActive(activity) || SealedAdminReceiver.isActive(activity) || FocusStore.has(activity, KEY_ADMIN_ASKED)) return
         FocusStore.setLong(activity, KEY_ADMIN_ASKED, System.currentTimeMillis())
-        LockManager.allowSettingsUntil(activity, System.currentTimeMillis() + 2 * 60_000L)
+        LockManager.allowSettingsUntil(activity, System.currentTimeMillis() + 45_000L)
         try {
             activity.startActivity(
                 Intent(android.app.admin.DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN)
