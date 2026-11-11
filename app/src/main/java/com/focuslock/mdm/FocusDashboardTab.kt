@@ -244,10 +244,14 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
         column.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
-        ).apply { bottomMargin = FocusUi.dp(activity, tokens.density.gapDp) }
+        ).apply { bottomMargin = FocusUi.dp(activity, pt.density.gapDp) }
+        // The running promise sits on the same pine slab it was made on.
+        column.background = SlabDrawable(activity)
+        val slabPad = FocusUi.dp(activity, 24)
+        column.setPadding(slabPad, slabPad, slabPad, slabPad)
 
         val status = FocusUi.row(activity)
-        val pill = FocusUi.pill(activity, tokens, activity.getString(R.string.redesign_mode_on, mode.label(activity)), tokens.accent)
+        val pill = FocusUi.pill(activity, pt, activity.getString(R.string.redesign_mode_on, mode.label(activity)), pt.accent)
         status.addView(pill)
         status.addView(View(activity).apply { layoutParams = LinearLayout.LayoutParams(0, 1, 1f) })
         status.addView(buildInfoGlyph { showModeDetail(mode) })
@@ -259,7 +263,7 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         ).apply { topMargin = FocusUi.dp(activity, 8) }
-        val indicator = FocusUi.progressRing(activity, tokens, 236)
+        val indicator = FocusUi.progressRing(activity, pt, 236)
         indicator.layoutParams = android.widget.FrameLayout.LayoutParams(
             android.widget.FrameLayout.LayoutParams.WRAP_CONTENT,
             android.widget.FrameLayout.LayoutParams.WRAP_CONTENT
@@ -273,7 +277,7 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
             android.widget.FrameLayout.LayoutParams.WRAP_CONTENT,
             android.widget.FrameLayout.LayoutParams.WRAP_CONTENT
         ).apply { gravity = Gravity.CENTER }
-        val timeLeft = FocusUi.display(activity, tokens, SessionManager.formatCountdown(activity, SessionManager.remainingMs(activity)))
+        val timeLeft = FocusUi.display(activity, pt, SessionManager.formatCountdown(activity, SessionManager.remainingMs(activity)))
         timeLeft.gravity = Gravity.CENTER
         FocusUi.fitInRing(timeLeft, 236)
         countdownView = timeLeft
@@ -281,7 +285,7 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
         centre.addView(timeLeft)
         val leftOf = FocusUi.caption(
             activity,
-            tokens,
+            pt,
             activity.getString(R.string.redesign_left_of, SessionManager.formatDuration(SessionManager.durationMs(activity)))
         )
         leftOf.gravity = Gravity.CENTER
@@ -292,10 +296,10 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
         centre.addView(leftOf)
         ringHolder.addView(centre)
         column.addView(ringHolder)
-        Motion.animateProgress(indicator, SessionManager.progressPercent(activity), tokens)
+        Motion.animateProgress(indicator, SessionManager.progressPercent(activity), pt)
 
-        val stay = FocusUi.title(activity, tokens, activity.getString(R.string.redesign_stay_with_it))
-        stay.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, tokens.scaled(22f))
+        val stay = FocusUi.title(activity, pt, activity.getString(R.string.redesign_stay_with_it))
+        stay.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, pt.scaled(22f))
         stay.gravity = Gravity.CENTER
         stay.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
@@ -306,7 +310,7 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
         val holdsShut = CapabilityRegistry.isEnabled(activity, Capabilities.HARD_BLOCK)
         val ends = FocusUi.caption(
             activity,
-            tokens,
+            pt,
             activity.getString(
                 if (holdsShut) R.string.redesign_ends_at_line else R.string.redesign_ends_at_line_gentle,
                 TimeText.dateTime(activity, SessionManager.endsAt(activity))
@@ -324,9 +328,9 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
             FocusUi.tileRow(
                 activity,
                 listOf(
-                    FocusUi.statTile(activity, tokens, Streaks.blocksStoppedToday(activity).toString(), activity.getString(if (holdsShut) R.string.redesign_opens_stopped else R.string.redesign_nudges_given)),
-                    FocusUi.statTile(activity, tokens, SessionManager.formatDuration(SessionManager.elapsedMs(activity)), activity.getString(R.string.redesign_focused_so_far)),
-                    FocusUi.statTile(activity, tokens, AppRules.alwaysAllowed(activity).count { AppCatalog.isInstalled(activity, it) }.toString(), activity.getString(R.string.redesign_apps_open))
+                    FocusUi.statTile(activity, pt, Streaks.blocksStoppedToday(activity).toString(), activity.getString(if (holdsShut) R.string.redesign_opens_stopped else R.string.redesign_nudges_given)),
+                    FocusUi.statTile(activity, pt, SessionManager.formatDuration(SessionManager.elapsedMs(activity)), activity.getString(R.string.redesign_focused_so_far)),
+                    FocusUi.statTile(activity, pt, AppRules.alwaysAllowed(activity).count { AppCatalog.isInstalled(activity, it) }.toString(), activity.getString(R.string.redesign_apps_open))
                 ),
                 gapDp = 10
             )
@@ -335,19 +339,19 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
         val passes = TakeABreak.activePasses(activity)
         if (passes.isNotEmpty()) {
             column.addView(FocusUi.spacer(activity, 12))
-            val card = FocusUi.card(activity, tokens)
+            val card = FocusUi.card(activity, pt)
             passes.forEach { entry ->
                 card.addView(
                     FocusUi.listRow(
                         activity,
-                        tokens,
+                        pt,
                         AppCatalog.label(activity, entry.key),
                         activity.getString(R.string.dashboard_break_ends_in, SessionManager.formatDuration(entry.value)),
-                        trailing = FocusUi.smallButton(activity, tokens, activity.getString(R.string.dashboard_end_now)) {
+                        trailing = FocusUi.smallButton(activity, pt, activity.getString(R.string.dashboard_end_now)) {
                             TakeABreak.endEarly(activity, entry.key)
                             render()
                         },
-                        leading = FocusUi.appIcon(activity, tokens, entry.key, 32)
+                        leading = FocusUi.appIcon(activity, pt, entry.key, 32)
                     )
                 )
             }
@@ -357,16 +361,16 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
         column.addView(FocusUi.spacer(activity, 14))
         if (SessionManager.canEndEarly(activity)) {
             // Outlined, so it reads as a button and not as a line of text.
-            val end = FocusUi.secondaryButton(activity, tokens, activity.getString(R.string.redesign_end_early)) { confirmEndSession() }
-            end.setTextColor(tokens.textSecondary)
+            val end = FocusUi.secondaryButton(activity, pt, activity.getString(R.string.redesign_end_early)) { confirmEndSession() }
+            end.setTextColor(pt.textSecondary)
             column.addView(end)
-            val counts = FocusUi.caption(activity, tokens, activity.getString(R.string.redesign_time_counts))
+            val counts = FocusUi.caption(activity, pt, activity.getString(R.string.redesign_time_counts))
             counts.gravity = Gravity.CENTER
             column.addView(counts)
         } else {
             val note = FocusUi.caption(
                 activity,
-                tokens,
+                pt,
                 if (mode.isHard) activity.getString(R.string.dashboard_hard_mode_body)
                 else activity.getString(R.string.dashboard_early_exit_off_body)
             )
@@ -387,7 +391,9 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
         ).apply { topMargin = FocusUi.dp(activity, 12) }
         media?.let { box.addView(it) }
         if (words.isNotBlank()) {
-            val line = FocusUi.heading(activity, tokens, "\u201C" + words + "\u201D")
+            val line = FocusUi.heading(activity, pt, "\u201C" + words + "\u201D")
+            line.textSize = 22f
+            FocusUi.applyDisplayFont(line, pt)
             line.layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
             ).apply { topMargin = FocusUi.dp(activity, if (media != null) 10 else 0) }
