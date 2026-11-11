@@ -36,4 +36,11 @@ class PromiseTest {
         assertFalse(Promise.acceptsType("application/pdf"))
         assertFalse(Promise.acceptsType(""))
     }
+
+    @Test fun aSealedPromiseIsNeverDescribedAsEndable() {
+        // The start question read "You can end it early" for Sealed, because it asked the mode.
+        assertFalse(Promise.endsEarly(noExit = true, fallback = true))
+        assertTrue(Promise.endsEarly(noExit = false, fallback = false))
+        assertTrue(Promise.endsEarly(noExit = null, fallback = true))
+    }
 }

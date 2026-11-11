@@ -397,12 +397,12 @@ object SessionManager {
         if (!canEndEarly && sessionsFinished == 0) minOf(durationMs, FIRST_NO_EXIT_CAP_MS) else durationMs
 
     /** Whether [start] would shorten this session; the UI says so before it starts. */
-    fun firstSessionCapApplies(context: Context, mode: FocusMode, durationMs: Long): Boolean {
-        val endsEarlyAfterPreset = if (presetPending(context, mode)) {
+    fun firstSessionCapApplies(context: Context, mode: FocusMode, durationMs: Long, noExit: Boolean? = null): Boolean {
+        val endsEarlyAfterPreset = Promise.endsEarly(noExit, if (presetPending(context, mode)) {
             mode.preset()[Capabilities.CAN_END_EARLY] ?: canEndEarly(context)
         } else {
             canEndEarly(context)
-        }
+        })
         return capFirstNoExitSession(durationMs, endsEarlyAfterPreset, totalSessions(context)) < durationMs
     }
 

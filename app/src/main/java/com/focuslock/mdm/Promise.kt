@@ -21,6 +21,9 @@ import java.io.File
  * existing modes, and everything finer stays under You > Advanced.
  */
 object Promise {
+    /** Whether a session can be ended early: the promise's own word if it gave one, else [fallback]. */
+    fun endsEarly(noExit: Boolean?, fallback: Boolean): Boolean = noExit?.let { !it } ?: fallback
+
 
     enum class Strength(
         val id: String,

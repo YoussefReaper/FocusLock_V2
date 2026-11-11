@@ -1113,15 +1113,16 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
         // Read-only: the template is loaded by SessionManager.start, on confirm.
         // Working it out by actually applying it here would change the person's
         // settings just because they opened a dialog and then cancelled.
-        val willEndEarly = if (SessionManager.presetPending(activity, mode)) {
+        // A promise states its own exit (Sealed has none), and that wins over the mode's default.
+        val willEndEarly = Promise.endsEarly(pendingNoExit, if (SessionManager.presetPending(activity, mode)) {
             mode.preset()[Capabilities.CAN_END_EARLY] == true
         } else {
             SessionManager.canEndEarly(activity)
-        }
+        })
 
         // A first session with no way out is held to an hour (SessionManager.start
         // enforces it); say so here so the title never promises a longer one.
-        val capped = SessionManager.firstSessionCapApplies(activity, mode, selectedDurationMs)
+        val capped = SessionManager.firstSessionCapApplies(activity, mode, selectedDurationMs, pendingNoExit)
         val shownDurationMs = if (capped) SessionManager.FIRST_NO_EXIT_CAP_MS else selectedDurationMs
 
         val exitLine = if (willEndEarly) {
