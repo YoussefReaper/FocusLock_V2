@@ -19,8 +19,7 @@ class AdminReceiver : DeviceAdminReceiver() {
      * refuse the deactivation entirely – this message is a fallback.
      */
     override fun onDisableRequested(context: Context, intent: Intent): CharSequence =
-        "⛔  FocusLock kiosk is active for ${LockManager.getDaysRemaining(context)} more days. " +
-        "Device Owner removal happens when the timer ends."
+        context.getString(R.string.admin_disable_warning)
 
     override fun onDisabled(context: Context, intent: Intent) {
         super.onDisabled(context, intent)

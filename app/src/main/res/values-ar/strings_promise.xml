@@ -25,4 +25,8 @@
     <string name="promise_kicker">وعدٌ لنفسك</string>
     <string name="promise_make">اقطع العهد</string>
     <string name="intercept_promise_caption">كتبتَ هذا حين قطعتَ عهدك.</string>
+    <string name="removal_guard_headline">وعدك ما زال قائمًا</string>
+    <string name="removal_guard_detail">تُفتح إعدادات Pinehold مجددًا حين ينتهي.</string>
+    <string name="sealed_admin_explanation">الوعد المُحكم لا مخرج منه حتى ينتهي. هذا يمنع حذف Pinehold أو إيقافه أثناءه.</string>
+    <string name="admin_disable_warning">إيقاف هذا يسمح بحذف Pinehold.</string>
 </resources>

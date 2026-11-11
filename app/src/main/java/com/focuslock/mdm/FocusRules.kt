@@ -291,6 +291,20 @@ object RuleEngine {
         }
 
         if (packageName == context.packageName) return allow("self")
+
+        // A promise with no early exit cannot be undone from Settings either: Pinehold's app
+        // info (Uninstall, Force stop), device admin and permission pages are held while it
+        // runs. Pages Pinehold itself opened stay reachable for their short window.
+        if (SessionManager.isActive(context) && !SessionManager.canEndEarly(context) &&
+            !LockManager.isSettingsAccessAllowed(context) && SystemSurfaces.isRemovalScreen(packageName, className)
+        ) {
+            return GuardDecision(
+                packageName, GuardOutcome.BLOCK,
+                context.getString(R.string.removal_guard_headline),
+                context.getString(R.string.removal_guard_detail),
+                "removalGuard", offersBreak = false
+            )
+        }
         if (SystemSurfaces.isCritical(packageName)) return allow("system")
 
         // The owner's own rules (personal build only): AI chat apps never open, and around

@@ -137,6 +137,24 @@ object SystemSurfaces {
         return overlayPermissionClassHints.any { normalized.contains(it) }
     }
 
+    /** Class-name fragments for the pages that remove Pinehold or take its powers away. */
+    val removalClassHints: Set<String> = setOf(
+        "spaactivity", "installedappdetails", "appinfo", "applicationdetails", "manageapplications",
+        "deviceadmin", "accessibility", "usageaccess", "specialaccess", "appopsdetails"
+    )
+
+    /**
+     * True for the screens through which a promise could be undone from outside Pinehold: an
+     * app's info page (Uninstall, Force stop), device-admin and special-access pages, and the
+     * uninstall dialog itself. Wi-Fi, sound, display and the rest of Settings stay open.
+     */
+    fun isRemovalScreen(packageName: String, className: String?): Boolean {
+        val normalized = normalize(className) ?: return false
+        if (packageName.endsWith("packageinstaller")) return normalized.contains("uninstall")
+        if (packageName !in settings) return false
+        return removalClassHints.any { normalized.contains(it) }
+    }
+
     fun isUsbSettingsScreen(packageName: String, className: String?): Boolean {
         if (packageName !in settings) return false
         val normalized = normalize(className) ?: return false

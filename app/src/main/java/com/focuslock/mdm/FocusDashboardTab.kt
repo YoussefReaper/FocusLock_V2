@@ -208,6 +208,32 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
 
     // ── Active session ────────────────────────────────────────────
 
+    /**
+     * A Sealed promise also asks for device admin, once. With it active, Android will not
+     * uninstall Pinehold, and the "stop" button for running apps leaves it alone; turning admin
+     * off goes through a Settings page the promise holds shut.
+     */
+    private fun askForDeviceAdmin() {
+        if (SetupChecks.isDeviceAdminActive(activity) || FocusStore.has(activity, KEY_ADMIN_ASKED)) return
+        FocusStore.setLong(activity, KEY_ADMIN_ASKED, System.currentTimeMillis())
+        LockManager.allowSettingsUntil(activity, System.currentTimeMillis() + 2 * 60_000L)
+        try {
+            activity.startActivity(
+                Intent(android.app.admin.DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN)
+                    .putExtra(
+                        android.app.admin.DevicePolicyManager.EXTRA_DEVICE_ADMIN,
+                        android.content.ComponentName(activity, AdminReceiver::class.java)
+                    )
+                    .putExtra(
+                        android.app.admin.DevicePolicyManager.EXTRA_ADD_EXPLANATION,
+                        activity.getString(R.string.sealed_admin_explanation)
+                    )
+            )
+        } catch (_: Exception) {
+            // Not offered on this phone; the Settings guard still holds.
+        }
+    }
+
     private fun buildActiveSession(): View {
         val mode = SessionManager.mode(activity)
         if (mode == FocusMode.KIOSK) return buildKioskSession()
@@ -1168,6 +1194,7 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
                     // the person picked.
                     FocusStore.setLong(activity, KEY_LAST_DURATION_MS, selectedDurationMs)
                     FocusDialog.toast(activity, Copy.sessionStarted(activity, mode))
+                    if (pendingNoExit == true) askForDeviceAdmin()
                 } else {
                     FocusDialog.toast(activity, SessionLock.refusalMessage(activity))
                 }
@@ -1459,5 +1486,6 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
 
     private companion object {
         const val KEY_LAST_DURATION_MS = "dashboard_last_duration_ms"
+        const val KEY_ADMIN_ASKED = "dashboard_admin_asked_at"
     }
 }

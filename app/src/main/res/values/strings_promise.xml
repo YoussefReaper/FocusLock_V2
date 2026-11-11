@@ -25,4 +25,8 @@
     <string name="promise_kicker">A PROMISE TO YOURSELF</string>
     <string name="promise_make">Make the promise</string>
     <string name="intercept_promise_caption">You wrote this when you made your promise.</string>
+    <string name="removal_guard_headline">Your promise is still running</string>
+    <string name="removal_guard_detail">Pinehold’s settings open again when it ends.</string>
+    <string name="sealed_admin_explanation">A Sealed promise has no way out until it ends. This stops Pinehold being uninstalled or stopped while it runs.</string>
+    <string name="admin_disable_warning">Turning this off lets Pinehold be uninstalled.</string>
 </resources>
