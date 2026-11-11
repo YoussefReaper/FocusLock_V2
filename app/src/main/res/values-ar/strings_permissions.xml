@@ -14,8 +14,10 @@
     <string name="perms_accessibility_detail">يُسمّى «إمكانية الوصول». يقرأ النص فقط، حتى يتعرّف حارس الكلمات وShorts وReels وواتساب على السطح المطلوب. ولا يكتب ولا ينقر أبدًا.</string>
     <string name="perms_notification_title">اكتم الإشعارات</string>
     <string name="perms_notification_detail">يتيح للدرع إخفاء تنبيهات التطبيقات المحجوبة. والتطبيقات المسموح بها دائمًا لا تُمس.</string>
-    <string name="perms_overlay_title">اعرض فوق التطبيقات الأخرى</string>
-    <string name="perms_overlay_detail">بديل لِعرض شاشة الحجب عندما لا يسمح أندرويد لـ Pinehold بفتح نافذة.</string>
+    <string name="perms_overlay_title">التدخّل عند فتح تطبيق محجوب</string>
+    <string name="perms_overlay_detail">اسمها في الإعدادات «الظهور فوق التطبيقات الأخرى». بدونها يمنع أندرويد Pinehold من التدخّل بعد دقيقة من بقائه في الخلفية.</string>
+    <string name="setup_issue_overlay">اسمح لـ Pinehold بالتدخّل</string>
+    <string name="setup_issue_overlay_detail">بدون «الظهور فوق التطبيقات الأخرى» قد تُفتح التطبيقات المحجوبة عندما يكون Pinehold في الخلفية.</string>
     <string name="perms_post_notifications_title">الإشعارات</string>
     <string name="perms_post_notifications_detail">تعرض ما يعمل الآن، وتنبهك إذا أُوقف حارس المحتوى أثناء الجلسة. لا شيء غير ذلك.</string>
     <string name="perms_battery_title">اعمل بلا قيود البطارية</string>

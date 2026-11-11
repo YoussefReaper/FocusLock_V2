@@ -36,9 +36,9 @@
     <string name="onboarding_firm_note">تستطيع تغيير هذا في أي وقت. أن تبدأ بلطف ثم تشدّ لاحقًا أفضل من أن تبدأ بأقصى قوة ثم تترك الأمر.</string>
     <string name="onboarding_firm_gentle_label">لطيف</string>
     <string name="onboarding_firm_gentle_detail">وقفة وتنبيه. لا شيء مُغلق عليك.</string>
-    <string name="onboarding_firm_firm_label">حظر</string>
+    <string name="onboarding_firm_firm_label">حازم</string>
     <string name="onboarding_firm_firm_detail">تتوقف التطبيقات التي اخترتها عن الفتح أثناء الجلسة. يمكنك إنهاؤها مبكرًا.</string>
-    <string name="onboarding_firm_all_label">صارم</string>
+    <string name="onboarding_firm_all_label">مُحكم</string>
     <string name="onboarding_firm_all_detail">لا خروج مبكر. تستمر الجلسة حتى ينتهي وقتها. أول جلسة مدتها ساعة واحدة.</string>
 
     <string name="onboarding_times_title">متى يكون الأمر أصعب؟</string>

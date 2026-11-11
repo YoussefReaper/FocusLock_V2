@@ -1197,6 +1197,15 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
                 )
             )
         }
+        if (!SetupChecks.canDrawOverlays(activity) && !SetupChecks.isDeviceOwner(activity)) {
+            issues.add(
+                SetupIssue(
+                    activity.getString(R.string.setup_issue_overlay),
+                    activity.getString(R.string.setup_issue_overlay_detail),
+                    PermissionIntents.overlay(activity)
+                )
+            )
+        }
         if (needsAccessibility() && !SetupChecks.isContentGuardEnabled(activity)) {
             issues.add(
                 SetupIssue(

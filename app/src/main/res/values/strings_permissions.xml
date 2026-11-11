@@ -14,8 +14,10 @@
     <string name="perms_accessibility_detail">Called Accessibility. Only ever reads text, so the keyword, Shorts, Reels and WhatsApp guards can recognise a surface. It never types or taps.</string>
     <string name="perms_notification_title">Hold back notifications</string>
     <string name="perms_notification_detail">Lets the shield dismiss alerts from blocked apps. Always-allowed apps are never touched.</string>
-    <string name="perms_overlay_title">Draw over other apps</string>
-    <string name="perms_overlay_detail">A fallback for showing the block screen when Android will not let Pinehold open a window.</string>
+    <string name="perms_overlay_title">Step in when a blocked app opens</string>
+    <string name="perms_overlay_detail">Called Display over other apps in Settings. Without it, Android stops Pinehold from stepping in once it has been in the background for a minute.</string>
+    <string name="setup_issue_overlay">Let Pinehold step in</string>
+    <string name="setup_issue_overlay_detail">Without Display over other apps, blocked apps can open once Pinehold is in the background.</string>
     <string name="perms_post_notifications_title">Notifications</string>
     <string name="perms_post_notifications_detail">Shows what is running, and warns you if the content guard is switched off mid-session. Nothing else.</string>
     <string name="perms_battery_title">Run without battery limits</string>

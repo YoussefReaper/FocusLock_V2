@@ -29,6 +29,7 @@ class OnboardingActivity : AppCompatActivity() {
     private var step = 0
     private var rerun = false
     private var awaitingUsagePermission = false
+    private var awaitingOverlayPermission = false
 
     private val essentials = LinkedHashSet<String>()
     private val chosenDistractions = LinkedHashSet<String>()
@@ -65,6 +66,11 @@ class OnboardingActivity : AppCompatActivity() {
         super.onResume()
         if (awaitingUsagePermission) {
             awaitingUsagePermission = false
+            requestOverlayIfNeededAndFinish()
+            return
+        }
+        if (awaitingOverlayPermission) {
+            awaitingOverlayPermission = false
             completeAndStart()
             return
         }
@@ -364,7 +370,7 @@ class OnboardingActivity : AppCompatActivity() {
 
     private fun requestUsageAccessIfNeededAndFinish() {
         if (SetupChecks.hasUsageAccess(this)) {
-            completeAndStart()
+            requestOverlayIfNeededAndFinish()
             return
         }
         FocusDialog.alert(
@@ -383,6 +389,33 @@ class OnboardingActivity : AppCompatActivity() {
             onCancel = {
                 completeAndStart()
             }
+        )
+    }
+
+    /**
+     * The second and last thing asked for on the first night. Usage access tells Pinehold which
+     * app is in front; this is what lets it step in. Without it Android refuses to open the gate
+     * from the background after about a minute, and blocking quietly stops working.
+     */
+    private fun requestOverlayIfNeededAndFinish() {
+        if (!SetupChecks.hasUsageAccess(this) || SetupChecks.canDrawOverlays(this)) {
+            completeAndStart()
+            return
+        }
+        FocusDialog.alert(
+            this,
+            title = getString(R.string.perms_overlay_title),
+            message = getString(R.string.perms_overlay_detail),
+            confirmLabel = getString(R.string.dashboard_grant),
+            cancelLabel = getString(R.string.common_not_now),
+            onConfirm = {
+                awaitingOverlayPermission = true
+                if (!PermissionIntents.launchFirst(this, PermissionIntents.overlay(this))) {
+                    awaitingOverlayPermission = false
+                    completeAndStart()
+                }
+            },
+            onCancel = { completeAndStart() }
         )
     }
 
