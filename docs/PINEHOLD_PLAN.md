@@ -51,6 +51,11 @@ Owner: Youssef (solo developer, student, Egypt, Africa/Cairo time). He reads sho
 | Website | laptop `D:\FocusLockWeb` | `Hello` | Render static site, **manual deploy** (service `srv-da8s63942hec73du9h90`). https://focus-lock-c0xg.onrender.com |
 | QA scripts | laptop `D:\Android_Apps\FocusLock\qa` | - | See section 9 |
 
+**Code maps (read these instead of re-scanning the code; regenerate after big changes)**
+- Android: `docs/CODEMAP_ANDROID.md` in this repo.
+- Windows: `D:\FocusLock PC\CODEMAP.md`. Server: `D:\FocusLock_Fulfillment\CODEMAP.md`.
+- Regenerate Windows and server with `node D:\Android_Apps\FocusLock\qa\codemap.js`.
+
 **Build and test commands**
 - Android: `D:\Android_Apps\FocusLock\qa\buildall.cmd` (tests + store + personal release, log in
   `Pinehold_Next\buildall.log`, last line `EXIT 0`). Needs `JAVA_HOME=C:\Program Files\Android\Android Studio\jbr`

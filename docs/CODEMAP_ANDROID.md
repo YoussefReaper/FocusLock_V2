@@ -1,0 +1,316 @@
+# Android code map (app/src/main/java/com/focuslock/mdm)
+
+Generated from the source: one line per file, then its types and main functions.
+
+- **Account.kt** (344 lines): The optional Pinehold account: one sign-in that carries Pro and Keeper Plus
+  - types: Account
+  - fns: signedIn, email, verified, entitlement, isActive, hasMobilePro, keeperPlusActive, keeperTier, keeperServerAvailable, keeperLimit, checksLeftToday, recordUsage, call, signIn, refresh, refreshAsync, redeem, signOut
+- **AccountActivity.kt** (569 lines): The optional Pinehold account: sign in (Google, GitHub or email), create one,
+  - types: AccountActivity
+  - fns: screenTitle, screenSubtitle, onNewIntent, buildContent
+- **AccountMessages.kt** (35 lines): Every [AccountProblem] → the line the account screens show. Kept apart from
+  - types: AccountMessages
+  - fns: res
+- **AdbCommandReceiver.kt** (155 lines): The computer-side control surface.
+  - types: AdbCommandReceiver
+  - fns: onReceive
+- **AdminReceiver.kt** (29 lines): Called when someone tries to disable this admin from Settings.
+  - types: AdminReceiver
+  - fns: onEnabled, onDisableRequested, onDisabled
+- **AdvancedHelpActivity.kt** (175 lines): What the modes actually do, and how to disagree with them.
+  - types: AdvancedHelpActivity
+  - fns: screenTitle, screenSubtitle, buildContent
+- **AllowlistStore.kt** (161 lines): The web allowlist.
+  - types: AllowlistStore
+  - fns: getWebAllowlistUrls, setWebAllowlistUrls, addWebUrl, removeWebUrl, normalizeUrl, isValidUrl, isWebTextOnlyEnabled, setWebTextOnlyEnabled, getWebLinks, getWebCategories, getWebAllowlistDomains, isListedUrl, firstUrlIn, isBlockedHost
+- **AlwaysAllowedActivity.kt** (217 lines): The list nothing can override.
+  - types: AlwaysAllowedActivity
+  - fns: screenTitle, screenSubtitle, buildContent
+- **AnalyticsActivity.kt** (303 lines): Where the time went.
+  - types: AnalyticsActivity
+  - fns: screenTitle, screenSubtitle, buildContent
+- **AppBlockerService.kt** (1439 lines): The enforcement loop.
+  - types: AppBlockerService
+  - fns: onStartCommand
+- **AppCatalog.kt** (346 lines): Knows what is on the phone and roughly what kind of thing each app is.
+  - types: InstalledApp, AppCatalog
+  - fns: invalidate, all, launchable, allPackageNames, find, label, icon, isInstalled, categoryOf, setCategoryOverride, clearCategoryOverride, packagesInCategory, detectEssentials
+- **AppLimits.kt** (235 lines): Daily budgets: minutes of use, and number of opens.
+  - types: AppLimits
+  - fns: minuteLimit, setMinuteLimit, allMinuteLimits, openLimit, setOpenLimit, allOpenLimits, hasAnyLimit, hasEnforceableBudgets, usedMinutesToday, opensToday, minutesRemaining, opensRemaining, exhaustedReason, invalidate, exportJson, importJson
+- **AppLimitsActivity.kt** (240 lines): Daily budgets.
+  - types: AppLimitsActivity
+  - fns: screenTitle, screenSubtitle, buildContent
+- **AppRules.kt** (408 lines): What FocusLock is allowed to do about one app.
+  - types: AppPolicy, AppRules
+  - fns: label, blurb, shortLabel, explicitPolicy, effectivePolicy, resolvePolicy, effectivePolicies, alwaysAllowedSet, setPolicy, clearPolicy, setPolicies, allPolicies, packagesWithPolicy, blockedPackages, hiddenPackages, categoryPolicy, categoryPolicies, setCategoryPolicy
+- **AppRulesActivity.kt** (536 lines): Per-app rules.
+  - types: AppRulesActivity
+  - fns: screenTitle, screenSubtitle, buildContent
+- **AuthCallbackActivity.kt** (49 lines): Where the browser sign-in lands: `pinehold://auth?token=…` or `?error=<code>`.
+  - types: AuthCallbackActivity
+  - fns: onNewIntent
+- **Bedtime.kt** (188 lines): The night shift.
+  - types: Bedtime
+  - fns: isEnabled, startMinutes, endMinutes, setWindow, blockedCategories, setBlockedCategories, dimPercent, setDimPercent, forcesDarkTheme, setForcesDarkTheme, showsGrayscaleHint, setShowsGrayscaleHint, isActive, blocks, blocksEverything, setBlocksEverything, isOverlay, setOverlay
+- **BedtimeActivity.kt** (279 lines): Bedtime.
+  - types: BedtimeActivity
+  - fns: screenTitle, screenSubtitle, buildContent
+- **BootReceiver.kt** (28 lines): Brings enforcement back after a reboot or an app update.
+  - types: BootReceiver
+  - fns: onReceive
+- **Capabilities.kt** (707 lines): Stable ids for the detail screens a capability can open.
+  - types: Screens, CapabilityGroup, CapabilityPolarity, CapabilitySpec, Capabilities, CapabilityRegistry
+  - fns: label, blurb, weakenNote, spec, coreSpecs, grouped, isEnabled, isUserSet, isFrozen, directionFor, setEnabled, canToggle, writeEnabled, applyPreset, applySet, hasBeenSeeded, markSeeded, resetToDefaults
+- **CapabilitiesActivity.kt** (348 lines): The switchboard - shows the 10 switches most people use by default,
+  - types: CapabilitiesActivity
+  - fns: screenTitle, screenSubtitle, buildContent
+- **Constants.kt** (407 lines): Identifiers, storage keys and seed data.
+  - types: Constants
+- **ContentGuardService.kt** (613 lines): The content guard.
+  - types: ContentGuardService
+  - fns: onServiceConnected, onInterrupt, onAccessibilityEvent
+- **Copy.kt** (385 lines): Every word the user reads at a hard moment.
+  - types: Copy
+  - fns: blockHeadline, blockDetail, pauseHeadline, pauseDetail, softDetail, kioskDetail, kioskHomeHeadline, kioskHomeDetail, overlayGuardHeadline, overlayGuardDetail, scheduleHeadline, scheduleDetail, scheduleOverlayHeadline, scheduleOverlayDetail, bedtimeHeadline, bedtimeDetail, placeHeadline, placeDetail
+- **DemoMode.kt** (213 lines): Commercial Free vs. Pro tier manager.
+  - types: DemoMode
+  - fns: isPro, activeLicenceCode, redeemLicenceCode, verifyLicenceCode, normalizeAndFormat, isModeLocked, sessionsUsed, hasSessionLeft, recordSessionStarted, canShowBlockScreen, requirePro, showUpgradeDialog, openCheckout, showEnterCodeDialog
+- **DeviceOwnerHelpActivity.kt** (183 lines): How to make FocusLock Device Owner, and an honest account of what that buys.
+  - types: DeviceOwnerHelpActivity
+  - fns: screenTitle, screenSubtitle, buildContent
+- **Diagnostics.kt** (176 lines): Crash records and the problem report.
+  - types: Diagnostics
+  - fns: install, lastCrashAt, unacknowledgedCrashAt, acknowledgeCrashes, clearCrashes, buildReport, share
+- **EarnMode.kt** (683 lines): Earn Mode: finish real work, unlock the rest of the phone.
+  - types: EarnMode, EarnSession, EarnPool
+  - fns: isEnabled, photoProofEnabled, intersectsWithAllowlist, showsBudgetWhileActive, showsCredibility, decaysUnspent, ratePercent, setRatePercent, dailyCapMinutes, setDailyCapMinutes, hasHardEnforcement, rewardFor, rewardForDeal, rewardForTrackedMinutes, describeDeal, deal, activeTaskId, activeTask
+- **EarnSessionActivity.kt** (461 lines): The screen you sit on while a task is running.
+  - types: EarnSessionActivity
+  - fns: screenTitle, screenSubtitle, buildContent
+- **FocusDashboardTab.kt** (1463 lines): The Focus tab: what is happening right now, and the one decision worth making.
+  - types: FocusDashboardTab
+  - fns: build, onShow, onTick
+- **FocusDialog.kt** (804 lines): Themed dialogs.
+  - types: FocusDialog
+  - fns: alert, info, confirmWithCountdown, multiChoice, singleChoice, textInput, timePicker, dateTimePicker, custom, weakenNotice, toast, banner
+- **FocusEditorActivity.kt** (187 lines): The base for a full-screen "edit in place" editor - schedules, tasks, and
+  - types: FocusEditorActivity
+- **FocusLedger.kt** (126 lines): Where a task's time actually went.
+  - types: FocusLedger
+  - fns: trackedMs, claimedMs, unclaimedMs, unclaimedMinutes, trackedApps, hasAmbientTasks, isScreenOn, credit, markClaimed, forget
+- **FocusLockApp.kt** (86 lines): The application object, which exists for exactly one reason: to put the
+  - types: FocusLockApp
+- **FocusNotificationService.kt** (83 lines): The notification shield.
+  - types: FocusNotificationService
+  - fns: onListenerConnected, onListenerDisconnected, onNotificationPosted, onNotificationRemoved
+- **FocusRules.kt** (682 lines): One user-written rule: a target, a condition, an outcome.
+  - types: RuleTargetType, RuleConditionType, RuleAction, Rule, RuleStore, GuardOutcome, GuardDecision, RuleEngine
+  - fns: label, blurb, all, save, add, update, remove, move, newRule, exportJson, importJson, decide, isAllowed
+- **FocusScreenActivity.kt** (169 lines): The base every settings screen sits on.
+  - types: FocusScreenActivity
+- **FocusSession.kt** (553 lines): The four strengths of lock, weakest first.
+  - types: FocusMode, SessionManager
+  - fns: label, oneLiner, exitLine, preset, presetSummary, isActive, isEnforcing, isGuardActive, hasAlwaysOnRules, mode, lastMode, startedAt, durationMs, remainingMs, elapsedMs, progressPercent, endsAt, releasesOwnerOnEnd
+- **FocusStore.kt** (150 lines): The single persistence surface for every piece of user-owned configuration.
+  - types: FocusStore
+  - fns: prefs, getBool, setBool, getInt, setInt, getLong, setLong, getString, setString, has, remove, getSet, getSetOrNull, setSet, getJsonObject, setJsonObject, getJsonArray, setJsonArray
+- **FocusTasks.kt** (466 lines): How a task proves it was actually done.
+  - types: Verification, Priority, Recurrence, AttachmentKind, Attachment, Subtask, FocusTask, FocusTaskStore
+  - fns: label, blurb, all, save, find, loosensPayout, add, update, remove, newTask, newSubtask, open, dueToday, overdue, completedToday, credibility, complete, markMissed
+- **FocusUi.kt** (1743 lines): The component library.
+  - types: FocusUi
+  - fns: dp, dpf, applySystemBars, isLightColor, roundedShape, pillShape, cornersShape, gradientShape, withRipple, screenRoot, dimOverlay, column, row, scroll, boundedScroll, dialogScrollMaxHeight, horizontalScroll, rebuildPreservingScroll
+- **GuardState.kt** (53 lines): What the content guard saw a moment ago.
+  - types: GuardHit, GuardState
+  - fns: record, clear, active, activeFor
+- **Insights.kt** (246 lines): A count of the days you showed up.
+  - types: Streaks, UsageSlice, UsageReport, UsageAnalytics
+  - fns: isEnabled, current, best, totalDays, recordBlockStopped, blocksStoppedToday, recordActivity, isPaused, summary, report, today, last7Days, formatDuration, suggestedDistractions, pickSuggestions
+- **InterceptActivity.kt** (610 lines): The screen a person actually meets when something is blocked.
+  - types: InterceptActivity
+- **KeeperActivity.kt** (232 lines): Asks the Keeper about one page.
+  - types: KeeperActivity
+- **KeeperCore.kt** (444 lines): The Keeper: a gate instead of a wall.
+  - types: Keeper, KeeperKey, KeeperBudget, KeeperVerdict, KeeperCache, KeeperPrompts, KeeperResult, KeeperClient, KeeperParse
+  - fns: isReady, has, save, read, clear, masked, used, usedTotal, canSpend, allowedToSpend, spend, waitMs, toJson, pageKey, siteKey, lookupPage, isApprovedPage, rememberPage
+- **KeeperFocus.kt** (105 lines): The Keeper's block list: the exact things it looks for, and nothing else.
+  - types: KeeperFocus
+  - fns: isOn, setOn, custom, addCustom, removeCustom, activeIds, promptBlock, overrules
+- **KeeperPlusLogic.kt** (256 lines): The pure rules behind the account and Keeper Plus: no Android types, so each
+  - types: Entitlement, EntitlementRules, KeeperRoute, KeeperRouting, AccountProblem, AccountFailure, AccountRules, AuthLink, ResendRules
+  - fns: isActive, serverTier, parseIso, parseProducts, choose, imageFits, mapProxy, subscriptionId, problem, failure, oauthProblem, checksLeft, availableAt, secondsLeft
+- **KeeperSettingsActivity.kt** (267 lines): The Keeper's settings: the OpenRouter key (stored encrypted, only ever shown
+  - types: KeeperSettingsActivity
+  - fns: screenTitle, screenSubtitle, buildContent, onActivityResult
+- **KeywordGuardActivity.kt** (413 lines): The keyword guard editor.
+  - types: KeywordGuardActivity
+  - fns: screenTitle, screenSubtitle, buildContent
+- **KeywordRules.kt** (333 lines): What the content guard does when it recognises a screen. */
+  - types: GuardAction, KeywordRule, KeywordRules
+  - fns: label, blurb, all, userRules, rulesInGroup, activeRules, coveredByException, exceptions, setExceptions, save, add, update, remove, setGroupEnabled, newRule, addMissingWhatsAppSeeds, seedIfEmpty, exportJson
+- **KioskPolicy.kt** (1066 lines): Everything FocusLock asks the Device-Owner API to do.
+  - types: KioskPolicy
+  - fns: forgetAppliedState, requestStraySweep, buildLockTaskPackages, applyDeviceOwnerKioskPolicies, enterPermissionEmergency, exitPermissionEmergency, applyRestrictions, syncSuspendedApps, unsuspendable, isUnsuspendable, planHiddenReconciliation, syncHiddenApps, syncBrowserSandbox, clearBrowserSandbox, clearDeviceOwnerKioskPolicies, releaseAllManagedApps, syncLockTaskState, isPackageInstalled
+- **LibraryTab.kt** (344 lines): The Library tab: the replacement ecosystem.
+  - types: LibraryTab
+  - fns: build, onShow
+- **LicenceVerifier.kt** (107 lines): Offline check of a FocusLock Pro licence code.
+  - types: LicenceVerifier
+  - fns: decodeKey, normalize, format, verify
+- **LinkAdapter.kt** (74 lines): A row in the safe browser's link list.
+  - types: LinkAdapter
+  - fns: onCreateViewHolder, onBindViewHolder, refreshTokens, getItemCount
+- **LockManager.kt** (126 lines): Initialize baseline prefs safely. */
+  - types: LockManager
+  - fns: initLock, startKiosk, stopKiosk, isKioskActive, getKioskDurationMs, getKioskRemainingMs, hasKioskExpired, isSecurityBaselineReady, allowSettingsUntil, isSettingsAccessAllowed, getDaysRemaining
+- **Lockdown.kt** (74 lines): The hardest state the app has: FocusLock closed against itself.
+  - types: Lockdown
+  - fns: isActive, liftsAtMinutes, liftsAt, message
+- **MainActivity.kt** (542 lines): The shell.
+  - types: MainActivity, FocusTab
+  - fns: onNewIntent, selectTab, requestShellRebuild
+- **Migration.kt** (228 lines): The one-way door out of hardcoded behaviour.
+  - types: Migration
+  - fns: run, isFreshInstall, isFresh
+- **Motion.kt** (141 lines): Calm motion.
+  - types: Motion
+  - fns: fadeIn, stagger, tap, crossfade, animateProgress, breathe
+- **OnboardingActivity.kt** (565 lines): First-run setup: 3 questions, then go.
+  - types: OnboardingActivity
+- **PermissionGuard.kt** (223 lines): Watches the handful of permissions the whole enforcement model depends on,
+  - types: PermissionGuard
+  - fns: checkForRevocation, activeEmergency, isEmergency, declareEmergency, resetBaselines, clearEmergency, clearResolved
+- **PermissionIntents.kt** (135 lines): Where each permission is actually switched on.
+  - types: PermissionIntents
+  - fns: usageAccess, accessibility, openAccessibilityWithDisclosure, notificationAccess, overlay, notifications, appInfo, mayBeRestricted, launchFirst
+- **PermissionRecoveryActivity.kt** (340 lines): The screen that owns the phone when a permission the running session
+  - types: PermissionRecoveryActivity
+- **Personal.kt** (176 lines): The owner's own rules. Only in the personal build (flavor "personal"); the store build never
+  - types: Personal
+  - fns: isAiScreen, isAiHost, allowedInSalah, inSalah, salahWindow, times, startDay, rememberCurriculum, videoGate, gate
+- **PersonalizationActivity.kt** (370 lines): The full appearance controls.
+  - types: PersonalizationActivity
+  - fns: screenTitle, screenSubtitle, buildContent
+- **PhotoProof.kt** (255 lines): On-device photo proof.
+  - types: PhotoProof
+  - fns: describeChecks, cameraPackage, isCaptureAvailable, newProofFile, uriFor, captureIntent, verify, applyCredibility, discard, clearStoredHashes
+- **PlaceRules.kt** (345 lines): Whether a place rule fires when you are there, or when you are anywhere else. */
+  - types: PlaceTrigger, Place, PlaceRules
+  - fns: label, all, save, add, update, remove, newPlace, activePlaces, blocks, hasLocationPermission, lastKnownLocation, requestFreshLocation, currentWifiSsid, exportJson, importJson
+- **PlaceRulesActivity.kt** (367 lines): Places and networks.
+  - types: PlaceRulesActivity
+  - fns: screenTitle, screenSubtitle, buildContent, onRequestPermissionsResult
+- **PolicyCache.kt** (42 lines): A memo for the enforcement loop.
+  - types: PolicyCache
+- **PolicySync.kt** (218 lines): The bridge between "the user flipped a switch" and "the phone behaves differently".
+  - types: PolicySync
+  - fns: addListener, removeListener, revision, lastReason, request, reapply, releaseManagedAppsNow, applyNow
+- **ProfileIo.kt** (269 lines): A whole setup, saved and restorable.
+  - types: ProfileIo
+  - fns: snapshot, restore, saved, save, delete, writeTo, readFrom, suggestedFileName, describe
+- **ProfilesActivity.kt** (228 lines): Profiles: save a setup, switch between setups, move one to another phone.
+  - types: ProfilesActivity
+  - fns: screenTitle, screenSubtitle, buildContent
+- **Promise.kt** (153 lines): A promise is what a session is to the person making it: what they are protecting, how firm
+  - types: Promise
+  - fns: endsEarly, words, setWords, strength, setStrength, protects, setProtects, clean, mediaType, hasMedia, clearMedia, importMedia, acceptsType, mediaView
+- **PromisePickActivity.kt** (24 lines): Opens the system picker for a picture, GIF or short clip, copies the choice in, and closes. */
+  - types: PromisePickActivity
+- **RuleEditorActivity.kt** (505 lines): Custom rules: target, condition, outcome.
+  - types: RuleEditorActivity
+  - fns: screenTitle, screenSubtitle, buildContent
+- **RulesTab.kt** (294 lines): The Rules tab: everything the user owns, as a grid you read in one glance.
+  - types: RulesTab
+  - fns: build, onShow
+- **SafeTubeBrowserActivity.kt** (204 lines): SafeTube: YouTube with the hooks taken out.
+  - types: SafeTubeBrowserActivity
+- **SafeTubeDownloader.kt** (207 lines): Where a video's streams can be fetched from. Only the personal build can answer. */
+  - types: VideoStreams, SafeTubeDownloader
+  - fns: enqueue, effectiveCuts, shiftFor
+- **SafeTubeDownloads.kt** (18 lines): Saving checked videos, with the Keeper's cuts removed, to the folder picked in
+  - types: SafeTubeDownloads
+  - fns: start
+- **SafeTubePlayerActivity.kt** (120 lines): Plays one checked video through YouTube's official embedded player, skipping
+  - types: SafeTubePlayerActivity
+- **SafeTubeStore.kt** (85 lines): Persistent storage for FocusLock Approved YouTube Channels.
+  - types: SafeChannel, SafeTubeStore
+  - fns: getChannels, addChannel, removeChannel
+- **SafeYouTubeActivity.kt** (156 lines): Approved YouTube Channels.
+  - types: SafeYouTubeActivity
+  - fns: screenTitle, screenSubtitle, buildContent
+- **ScheduleActivity.kt** (174 lines): Schedule windows.
+  - types: ScheduleActivity
+  - fns: screenTitle, screenSubtitle, buildContent
+- **ScheduleEditorActivity.kt** (512 lines): A schedule window, edited in place on one screen instead of a
+  - types: ScheduleEditorActivity
+  - fns: editorTitle, canSave, onSave, buildContent
+- **ScheduleManager.kt** (292 lines): A hard, Device-Owner lock-task lock for the duration of the window,
+  - types: RepeatType, ScheduleWindow, ScheduleManager
+  - fns: getSchedules, saveSchedules, exportJson, importJson, addSchedule, removeSchedule, updateSchedule, getAlwaysAllowedApps, setAlwaysAllowedApps, getAllScheduleAllowedApps, newSchedule, requiresLockTask, getActiveWindow, activeWindowIfEnabled, nextWindow, formatTime
+- **ScreenBrightness.kt** (119 lines): Screen brightness, from inside FocusLock.
+  - types: ScreenBrightness
+  - fns: canControl, percent, isAutomatic, setAutomatic, setPercent, permissionIntent
+- **Seed.kt** (320 lines): Broad buckets used for per-category rules and for the analytics breakdown.
+  - types: AppCategory, Seed
+  - fns: label, blurb
+- **SessionLock.kt** (130 lines): Which way an edit moves the lock.
+  - types: EditDirection, SessionLock
+  - fns: isFrozen, allows, refusalMessage, allow, forRestrictionSet, forExemptionSet, forBudget
+- **SetupChecks.kt** (228 lines): What Android has actually granted.
+  - types: SetupChecks
+  - fns: hasUsageAccess, isNotificationAccessGranted, canDrawOverlays, canPostNotifications, isIgnoringBatteryOptimizations, isDeviceAdminActive, isDeviceOwner, isContentGuardEnabled, accessibilityListContains, hasLocationAccess, missingForCurrentCapabilities, needsContentGuard
+- **SetupPermissionsActivity.kt** (274 lines): The permission checklist.
+  - types: SetupPermissionsActivity
+  - fns: screenTitle, screenSubtitle, buildContent, onRequestPermissionsResult
+- **SlabDrawable.kt** (63 lines): The pine slab the promise sits on: a deep green gradient with growth rings in one corner,
+  - types: SlabDrawable
+  - fns: onBoundsChange, draw, setAlpha, setColorFilter, getOpacity
+- **Standalone.kt** (27 lines): Which rules may act when no session is running.
+  - types: Standalone
+  - fns: mayAct, outsideAllowed, mayActNow
+- **SystemSurfaces.kt** (155 lines): Android's own plumbing.
+  - types: SystemSurfaces
+  - fns: isCritical, isLauncher, isSettings, isSystemSurface, isOverlayPermissionScreen, isUsbSettingsScreen
+- **TakeABreak.kt** (177 lines): A short, deliberate, counted exception.
+  - types: TakeABreak
+  - fns: isAvailable, breakMinutes, setBreakMinutes, dailyMax, setDailyMax, remainingMs, sweepExpired, hasActivePass, activePasses, usedToday, remainingToday, canStart, start, grantFrictionPass, grantTempPass, endEarly, clearAll
+- **TaskEditorActivity.kt** (683 lines): The task panel.
+  - types: TaskEditorActivity
+  - fns: editorTitle, canSave, onSave, buildContent
+- **TasksTab.kt** (844 lines): The Tasks tab.
+  - types: TasksTab
+  - fns: build, onShow, onTick
+- **TelegramGuard.kt** (221 lines): Keeps Telegram usable for the two people you actually need, and closed for
+  - types: TelegramGuard
+  - fns: isTelegram, isEnabled, allowed, allowedRaw, setAllowed, addAllowed, removeAllowed, lastSeenTitle, rememberTitle, readChatTitle, titleFromHeaderDescription, blocks
+- **TestMode.kt** (73 lines): "Test the block" - a bounded, always-endable window that shows the real
+  - types: TestMode
+  - fns: isActive, remainingMs, canStart, start, end, overrideFor, formatRemaining
+- **TextSearchActivity.kt** (315 lines): Search without the scroll.
+  - types: TextSearchActivity
+- **TimeText.kt** (77 lines): Every clock time the app shows, in one place.
+  - types: TimeText
+  - fns: uses24Hour, ofDay, dateTime
+- **TimeWindow.kt** (38 lines): Daily time windows given as minutes since midnight, including ones that run
+  - types: TimeWindow
+  - fns: owningDay, contains
+- **UiPrefs.kt** (692 lines): The design tokens, and the user's choices about them.
+  - types: UiPrefs
+  - fns: getTheme, setThemeId, getFont, setFontId, getAppLanguageTag, setAppLanguage, getDensity, setDensityId, getClockFormat, setClockFormat, getWallpaper, setWallpaperId, getAccent, setAccentId, getBackground, setBackgroundId, getCardRadiusDp, setCardRadiusDp
+- **UpdateCheck.kt** (124 lines): "Is there a newer FocusLock?", answered only when someone asks.
+  - types: UpdateCheck
+  - fns: isAutoEnabled, setAutoEnabled, knownNewer, maybeCheckInBackground, checkNow, isNewer, parse
+- **VideoCheck.kt** (267 lines): Checks one YouTube video before it can be watched, in the cheapest order:
+  - types: VideoCheck
+  - fns: run, quickVerdict, localTriggerVerdict, padCuts, fetchMeta, parsePlayerResponse, fetchTranscript, parseJson3, parseStoryboard, sampleFrames, sheetUrl, buildGrid, secondsLabel, videoIdFrom
+- **VideoCheckActivity.kt** (138 lines): The checkpoint between tapping a video and watching it. Shows what the Keeper is
+  - types: VideoCheckActivity
+- **WebAllowlistEditorActivity.kt** (228 lines): The site allowlist.
+  - types: WebAllowlistEditorActivity
+  - fns: screenTitle, screenSubtitle, buildContent
+- **WebViewActivity.kt** (473 lines): The safe browser.
+  - types: WebViewActivity
+- **YouTab.kt** (771 lines): The You tab: the app itself, and the way out.
+  - types: YouTab
+  - fns: build, onShow
