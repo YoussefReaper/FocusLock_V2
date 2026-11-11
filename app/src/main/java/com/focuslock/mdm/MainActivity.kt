@@ -114,6 +114,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         if (handingOffToOnboarding || isFinishing) return
         applyPolicyOnResume()
+        PromiseSync.pullAsync(this) { recreate() }
         rebuildIfThemeChanged()
         tabs[currentTab]?.onShow()
         handler.post(ticker)

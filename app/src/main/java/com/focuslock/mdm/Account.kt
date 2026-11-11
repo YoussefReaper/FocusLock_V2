@@ -97,6 +97,9 @@ object Account {
 
     fun signedIn(c: Context): Boolean = prefs(c).contains(K_CIPHER)
 
+    /** The session token, for the account-backed features outside this file (promise sync). */
+    fun sessionToken(c: Context): String? = token(c)
+
     fun email(c: Context): String = prefs(c).getString(K_EMAIL, "").orEmpty()
 
     /**

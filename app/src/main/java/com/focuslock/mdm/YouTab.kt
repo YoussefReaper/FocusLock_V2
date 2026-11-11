@@ -366,6 +366,17 @@ class YouTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activity
                 trailing = FocusUi.chevron(activity, tokens)
             ) { activity.startActivity(Intent(activity, AccountActivity::class.java)) }
         )
+        if (Account.signedIn(activity)) {
+            card.addView(FocusUi.divider(activity, tokens))
+            card.addView(
+                FocusUi.listRow(
+                    activity, tokens,
+                    activity.getString(R.string.link_laptop_title),
+                    activity.getString(R.string.link_laptop_subtitle),
+                    trailing = FocusUi.chevron(activity, tokens)
+                ) { askLinkCode() }
+            )
+        }
         card.addView(FocusUi.divider(activity, tokens))
         // The Keeper's key lives here too, not only behind the Focus tab's tools tile.
         card.addView(
@@ -724,6 +735,24 @@ class YouTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activity
             seconds = 8
         ) {
             performFactoryReset()
+        }
+    }
+
+    /** The laptop shows a code; typing it here links the laptop to this account. */
+    private fun askLinkCode() {
+        FocusDialog.textInput(
+            activity,
+            activity.getString(R.string.link_laptop_title),
+            activity.getString(R.string.link_laptop_help),
+            "ABCD-1234",
+            confirmLabel = activity.getString(R.string.link_laptop_confirm)
+        ) { code ->
+            Thread {
+                val ok = PromiseSync.approveLink(activity, code)
+                activity.runOnUiThread {
+                    FocusDialog.toast(activity, activity.getString(if (ok) R.string.link_laptop_done else R.string.link_laptop_failed))
+                }
+            }.start()
         }
     }
 

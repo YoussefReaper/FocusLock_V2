@@ -29,4 +29,10 @@
     <string name="removal_guard_detail">تُفتح إعدادات Pinehold مجددًا حين ينتهي.</string>
     <string name="sealed_admin_explanation">الوعد المُحكم لا مخرج منه حتى ينتهي. هذا يمنع حذف Pinehold أو إيقافه أثناءه.</string>
     <string name="admin_disable_warning">إيقاف هذا يسمح بحذف Pinehold.</string>
+    <string name="link_laptop_title">ربط حاسوب</string>
+    <string name="link_laptop_subtitle">وعد واحد يسري على الاثنين</string>
+    <string name="link_laptop_help">في Pinehold على ويندوز افتح «أنت» واختر «الربط بهاتفي». اكتب الرمز الظاهر.</string>
+    <string name="link_laptop_confirm">ربط</string>
+    <string name="link_laptop_done">تم ربط الحاسوب. الوعود تسري الآن على الاثنين.</string>
+    <string name="link_laptop_failed">لم ينجح هذا الرمز. تحقق منه أو اطلب رمزًا جديدًا من الحاسوب.</string>
 </resources>

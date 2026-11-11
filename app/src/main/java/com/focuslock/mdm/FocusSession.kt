@@ -344,7 +344,7 @@ object SessionManager {
      * greyed-out tile is a hint; this is the rule, and it holds even if a
      * future screen forgets to ask.
      */
-    fun start(context: Context, mode: FocusMode, durationMs: Long, noExit: Boolean? = null): Boolean {
+    fun start(context: Context, mode: FocusMode, durationMs: Long, noExit: Boolean? = null, fromSync: Boolean = false): Boolean {
         if (DemoMode.isModeLocked(mode)) return false
         if (!DemoMode.hasSessionLeft(context)) return false
 
@@ -352,10 +352,10 @@ object SessionManager {
         // A promise states its own early exit: Sealed has none, Soft and Firm have one.
         if (noExit != null) CapabilityRegistry.setEnabled(context, Capabilities.CAN_END_EARLY, !noExit)
         FocusStore.setString(context, KEY_MODE, mode.id)
-        LockManager.startKiosk(
-            context,
-            capFirstNoExitSession(durationMs, canEndEarly(context), totalSessions(context))
-        )
+        val heldMs = capFirstNoExitSession(durationMs, canEndEarly(context), totalSessions(context))
+        LockManager.startKiosk(context, heldMs)
+        // The same promise on the person's other devices. Not echoed back when it came from them.
+        if (!fromSync) PromiseSync.pushAsync(context, mode, heldMs, !canEndEarly(context))
         // What counts as "revoked" is measured from the moment this session
         // starts. Without this, a baseline left behind by an earlier session
         // makes a permission that was already missing when this one began read
@@ -418,6 +418,8 @@ object SessionManager {
         // over; holding the lock past that point would be punishing someone
         // for something that would have ended on its own regardless.
         PermissionGuard.clearEmergency(context)
+        // Ending early here ends it everywhere; the server refuses for a Sealed promise.
+        if (LockManager.getKioskRemainingMs(context) > 60_000L) PromiseSync.endAsync(context)
         LockManager.stopKiosk(context)
         TakeABreak.clearAll(context)
 

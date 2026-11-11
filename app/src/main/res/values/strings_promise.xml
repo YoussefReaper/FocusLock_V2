@@ -29,4 +29,10 @@
     <string name="removal_guard_detail">Pinehold’s settings open again when it ends.</string>
     <string name="sealed_admin_explanation">A Sealed promise has no way out until it ends. This stops Pinehold being uninstalled or stopped while it runs.</string>
     <string name="admin_disable_warning">Turning this off lets Pinehold be uninstalled.</string>
+    <string name="link_laptop_title">Link a laptop</string>
+    <string name="link_laptop_subtitle">One promise holds both</string>
+    <string name="link_laptop_help">On Pinehold for Windows, open You and choose Link with my phone. Type the code it shows.</string>
+    <string name="link_laptop_confirm">Link</string>
+    <string name="link_laptop_done">Laptop linked. Promises now hold on both.</string>
+    <string name="link_laptop_failed">That code did not work. Check it, or get a new one on the laptop.</string>
 </resources>
