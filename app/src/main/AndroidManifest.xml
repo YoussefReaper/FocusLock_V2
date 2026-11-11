@@ -38,8 +38,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:excludeFromRecents="false"
-            android:lockTaskMode="if_whitelisted">
+            android:excludeFromRecents="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -61,8 +60,7 @@
         <activity
             android:name=".OnboardingActivity"
             android:exported="false"
-            android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted" />
+            android:launchMode="singleTop" />
 
         <!-- The block screen. Excluded from recents so it never becomes a route
              back into a blocked app through the task switcher. -->
@@ -72,8 +70,7 @@
             android:launchMode="singleTop"
             android:excludeFromRecents="true"
             android:noHistory="true"
-            android:taskAffinity=""
-            android:lockTaskMode="if_whitelisted" />
+            android:taskAffinity="" />
 
         <!-- The permission-emergency lock screen. singleInstance so exactly one
              copy ever exists regardless of how many times the watchdog relaunches
@@ -83,42 +80,36 @@
             android:exported="false"
             android:launchMode="singleInstance"
             android:excludeFromRecents="true"
-            android:taskAffinity=""
-            android:lockTaskMode="if_whitelisted" />
+            android:taskAffinity="" />
 
         <activity
             android:name=".WebViewActivity"
             android:exported="false"
             android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".SafeYouTubeActivity"
             android:exported="false"
             android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".TextSearchActivity"
             android:exported="false"
             android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".AppRulesActivity"
             android:exported="false"
             android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".AlwaysAllowedActivity"
             android:exported="false"
-            android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted" />
+            android:launchMode="singleTop" />
 
         <!-- The Keeper: "Share → Pinehold" and "Open with Pinehold" for any link. -->
         <activity
@@ -126,7 +117,6 @@
             android:exported="true"
             android:label="@string/keeper_share_label"
             android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted"
             android:excludeFromRecents="true">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
@@ -146,20 +136,17 @@
             android:name=".KeeperSettingsActivity"
             android:exported="false"
             android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".PromisePickActivity"
             android:exported="false"
-            android:lockTaskMode="if_whitelisted"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <activity
             android:name=".AccountActivity"
             android:exported="false"
             android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted"
             android:windowSoftInputMode="adjustResize" />
 
         <!-- The browser sign-in comes back here: pinehold://auth?token=… or ?error=…
@@ -170,7 +157,6 @@
             android:launchMode="singleTask"
             android:excludeFromRecents="true"
             android:noHistory="true"
-            android:lockTaskMode="if_whitelisted"
             android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -184,128 +170,108 @@
             android:name=".SafeTubeBrowserActivity"
             android:exported="false"
             android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted"
             android:configChanges="orientation|screenSize|keyboardHidden" />
 
         <activity
             android:name=".VideoCheckActivity"
             android:exported="false"
-            android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted" />
+            android:launchMode="singleTop" />
 
         <activity
             android:name=".SafeTubePlayerActivity"
             android:exported="false"
             android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted"
             android:configChanges="orientation|screenSize|keyboardHidden" />
 
         <activity
             android:name=".WebAllowlistEditorActivity"
             android:exported="false"
             android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".KeywordGuardActivity"
             android:exported="false"
             android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".AppLimitsActivity"
             android:exported="false"
-            android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted" />
+            android:launchMode="singleTop" />
 
         <activity
             android:name=".BedtimeActivity"
             android:exported="false"
-            android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted" />
+            android:launchMode="singleTop" />
 
         <activity
             android:name=".PlaceRulesActivity"
             android:exported="false"
-            android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted" />
+            android:launchMode="singleTop" />
 
         <activity
             android:name=".RuleEditorActivity"
             android:exported="false"
-            android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted" />
+            android:launchMode="singleTop" />
 
         <activity
             android:name=".ProfilesActivity"
             android:exported="false"
-            android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted" />
+            android:launchMode="singleTop" />
 
         <activity
             android:name=".TaskEditorActivity"
             android:exported="false"
             android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".ScheduleEditorActivity"
             android:exported="false"
             android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".CapabilitiesActivity"
             android:exported="false"
-            android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted" />
+            android:launchMode="singleTop" />
 
         <activity
             android:name=".EarnSessionActivity"
             android:exported="false"
-            android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted" />
+            android:launchMode="singleTop" />
 
         <activity
             android:name=".AnalyticsActivity"
             android:exported="false"
-            android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted" />
+            android:launchMode="singleTop" />
 
         <activity
             android:name=".ScheduleActivity"
             android:exported="false"
             android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".PersonalizationActivity"
             android:exported="false"
-            android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted" />
+            android:launchMode="singleTop" />
 
         <activity
             android:name=".SetupPermissionsActivity"
             android:exported="false"
-            android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted" />
+            android:launchMode="singleTop" />
 
         <activity
             android:name=".DeviceOwnerHelpActivity"
             android:exported="false"
-            android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted" />
+            android:launchMode="singleTop" />
 
         <activity
             android:name=".AdvancedHelpActivity"
             android:exported="false"
-            android:launchMode="singleTop"
-            android:lockTaskMode="if_whitelisted" />
+            android:launchMode="singleTop" />
 
         <receiver
             android:name=".SealedAdminReceiver"
