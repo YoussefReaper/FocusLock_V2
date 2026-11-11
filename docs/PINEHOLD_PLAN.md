@@ -9,6 +9,15 @@ Owner: Youssef (solo developer, student, Egypt, Africa/Cairo time). He reads sho
 
 ## Progress log (newest first)
 
+**2026-11-11, pass 1b**
+- Sealed removal guard **verified on the emulator** with a minted Pro code: Pinehold's app info,
+  the uninstall dialog and Device admin settings all bounce back to Pinehold; Wi-Fi settings stay open.
+- The full admin's request page listed "erase the phone" and screen-lock powers, so Sealed now asks
+  for `SealedAdminReceiver`, which declares no policies. With it active, even `adb pm uninstall`
+  fails (DELETE_FAILED_DEVICE_POLICY_MANAGER).
+- Settings window after the admin request shortened to 45 s (in the repo; not yet in a build).
+- Emulator note: it now has Pro and the Sealed admin active, so wipe it before the next fresh-install test.
+
 **2026-11-11, pass 1 (Opus 5.5)**
 - Done: code maps for all three repos. A1 removal test: during a Firm promise, Settings > Apps >
   Pinehold > Uninstall worked in three taps. A2: a Sealed promise now holds Pinehold's app info,
