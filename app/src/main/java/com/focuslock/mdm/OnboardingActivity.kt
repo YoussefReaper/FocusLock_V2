@@ -22,12 +22,6 @@ import androidx.core.widget.NestedScrollView
  * before opening Android's permission page, and starts the first block immediately.
  */
 class OnboardingActivity : AppCompatActivity() {
-    private companion object {
-        // Static, not fields: Android may rebuild this screen while Settings is in front, and a
-        // lost flag left the person back on step 3 with nothing started.
-        var awaitingUsagePermission = false
-        var awaitingOverlayPermission = false
-    }
 
 
     private lateinit var tokens: UiPrefs.Tokens
@@ -560,6 +554,11 @@ class OnboardingActivity : AppCompatActivity() {
     }
 
     companion object {
+        // Static, not fields: Android may rebuild this screen while Settings is in front, and a
+        // lost flag left the person back on step 3 with nothing started.
+        private var awaitingUsagePermission = false
+        private var awaitingOverlayPermission = false
+
         const val EXTRA_RERUN = "onboarding_rerun"
         private const val TOTAL_STEPS = 3
     }
