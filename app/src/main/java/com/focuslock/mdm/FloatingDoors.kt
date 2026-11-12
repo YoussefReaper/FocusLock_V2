@@ -26,7 +26,7 @@ object FloatingDoors {
 
     private const val SWEEP_MS = 1500L
     @Volatile private var lastSweep = 0L
-    private val main = Handler(Looper.getMainLooper())
+    private val main by lazy { Handler(Looper.getMainLooper()) }
 
     private val GIF_LABELS = setOf("gif", "gifs", "stickers", "sticker", "صور gif", "ملصقات")
 
