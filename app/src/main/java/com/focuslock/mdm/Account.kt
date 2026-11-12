@@ -23,8 +23,7 @@ import kotlin.concurrent.thread
  * across phone and PC. Everything here is blocking unless it says otherwise;
  * call it off the main thread.
  *
- * The session token is encrypted with a keystore key the same way the
- * OpenRouter key is ([KeeperKey]), and is never logged or shown. What the
+ * The session token is encrypted with a keystore key and is never logged or shown. What the
  * server last said about the account is cached so the app works offline, for
  * up to [EntitlementRules.OFFLINE_GRACE_MS].
  */

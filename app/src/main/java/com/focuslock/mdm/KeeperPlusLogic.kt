@@ -73,7 +73,7 @@ object EntitlementRules {
 }
 
 /** Where one Keeper check goes. */
-enum class KeeperRoute { PLUS, OWN_KEY, NONE }
+enum class KeeperRoute { PLUS, NONE }
 
 object KeeperRouting {
     /** The proxy's own limit (accounts.js MAX_IMAGE_BYTES), counted on the decoded JPEG. */
@@ -82,14 +82,11 @@ object KeeperRouting {
     const val DEFAULT_DAILY_LIMIT = 200
 
     /**
-     * The server (Keeper Plus or the free tier) wins whenever one is available; the person's
-     * own key is used only without it. [plusActive] means "a server tier is available".
+     * The Keeper runs only on the server (Keeper Plus or the free tier): there is no
+     * own-key route. [plusActive] means "a server tier is available".
      */
-    fun choose(signedIn: Boolean, plusActive: Boolean, hasOwnKey: Boolean): KeeperRoute = when {
-        signedIn && plusActive -> KeeperRoute.PLUS
-        hasOwnKey -> KeeperRoute.OWN_KEY
-        else -> KeeperRoute.NONE
-    }
+    fun choose(signedIn: Boolean, plusActive: Boolean): KeeperRoute =
+        if (signedIn && plusActive) KeeperRoute.PLUS else KeeperRoute.NONE
 
     /** The proxy takes only a JPEG data URL whose decoded size is within its limit. */
     fun imageFits(dataUrl: String?): Boolean {
@@ -102,7 +99,7 @@ object KeeperRouting {
     sealed class Proxy {
         data class Reply(val text: String, val usedToday: Int, val limit: Int) : Proxy()
         data class Fail(val why: KeeperResult.Why, val limit: Int = DEFAULT_DAILY_LIMIT) : Proxy()
-        /** Not the person's fault and not final: use their own key if they have one. */
+        /** Not the person's fault and not final: the server could not be reached or is not set up. */
         object Fallback : Proxy()
     }
 
@@ -123,7 +120,7 @@ object KeeperRouting {
             code == 503 && (o?.optString("error") == "upstream_busy" || o?.optString("reason") == "upstream_busy") ->
                 Proxy.Fail(KeeperResult.Why.BUSY)
             // 503: accounts or the proxy not set up yet. 401/403: the session or the
-            // subscription is gone. None of these is final for someone with a key.
+            // subscription is gone. None of these is the person's fault.
             code == 503 || code == 401 || code == 403 || code < 0 -> Proxy.Fallback
             else -> Proxy.Fail(KeeperResult.Why.NETWORK)
         }

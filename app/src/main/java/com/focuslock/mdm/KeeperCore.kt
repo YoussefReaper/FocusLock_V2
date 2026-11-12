@@ -3,22 +3,11 @@ package com.focuslock.mdm
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
-import android.security.keystore.KeyGenParameterSpec
-import android.security.keystore.KeyProperties
 import android.util.Base64
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
-import java.net.HttpURLConnection
 import java.net.URL
-import java.security.KeyStore
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
-import javax.crypto.Cipher
-import javax.crypto.KeyGenerator
-import javax.crypto.SecretKey
-import javax.crypto.spec.GCMParameterSpec
 
 /**
  * The Keeper: a gate instead of a wall.
@@ -32,123 +21,27 @@ import javax.crypto.spec.GCMParameterSpec
  * immodest imagery. Horror, violence, games, music and the rest are not its job and
  * it must not block for them.
  *
- * Requests are rationed ([KeeperBudget]) and every verdict is remembered
+ * Checks run on Pinehold's server under Keeper Plus, and every verdict is remembered
  * ([KeeperCache]), so the same page or video is never paid for twice.
  */
 object Keeper {
-    const val MODEL = "nvidia/nemotron-3.5-super-vl:free"
-    const val ENDPOINT = "https://openrouter.ai/api/v1/chat/completions"
     /** A verdict needs at least this confidence to count as "allow". */
     const val MIN_ALLOW_CONFIDENCE = 0.7
 
     enum class Purpose { UNLOCK, VIDEO }
 
-    /** Ready with the person's own key, or with Keeper Plus on their account. */
-    fun isReady(context: Context): Boolean = KeeperKey.has(context) || Account.keeperServerAvailable(context)
+    /** Ready only with Keeper Plus (or the server's free tier) on the person's account. */
+    fun isReady(context: Context): Boolean = Account.keeperServerAvailable(context)
 }
 
-// ───────────────────────────────────────────────────────────── the key
+// ───────────────────────────────────────────────────────────── the old key
 
-/** The OpenRouter key, encrypted with a key that never leaves the phone's keystore. */
-object KeeperKey {
+/** Builds before Keeper Plus took over kept a person's own OpenRouter key here. It is wiped on sight. */
+object KeeperLegacyKey {
     private const val PREFS = "keeper_secure"
-    private const val ALIAS = "pinehold_keeper_v1"
-    private const val K_CIPHER = "key_cipher"
-    private const val K_IV = "key_iv"
-
-    private fun prefs(c: Context) = c.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
-
-    private fun secretKey(): SecretKey {
-        val ks = KeyStore.getInstance("AndroidKeyStore").apply { load(null) }
-        (ks.getEntry(ALIAS, null) as? KeyStore.SecretKeyEntry)?.let { return it.secretKey }
-        val gen = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore")
-        gen.init(
-            KeyGenParameterSpec.Builder(ALIAS, KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT)
-                .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
-                .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
-                .build()
-        )
-        return gen.generateKey()
-    }
-
-    fun has(c: Context): Boolean = prefs(c).contains(K_CIPHER)
-
-    fun save(c: Context, key: String) {
-        val cipher = Cipher.getInstance("AES/GCM/NoPadding")
-        cipher.init(Cipher.ENCRYPT_MODE, secretKey())
-        val enc = cipher.doFinal(key.trim().toByteArray(Charsets.UTF_8))
-        prefs(c).edit()
-            .putString(K_CIPHER, Base64.encodeToString(enc, Base64.NO_WRAP))
-            .putString(K_IV, Base64.encodeToString(cipher.iv, Base64.NO_WRAP))
-            .apply()
-    }
-
-    fun read(c: Context): String? = try {
-        val p = prefs(c)
-        val enc = Base64.decode(p.getString(K_CIPHER, null) ?: return null, Base64.NO_WRAP)
-        val iv = Base64.decode(p.getString(K_IV, null) ?: return null, Base64.NO_WRAP)
-        val cipher = Cipher.getInstance("AES/GCM/NoPadding")
-        cipher.init(Cipher.DECRYPT_MODE, secretKey(), GCMParameterSpec(128, iv))
-        String(cipher.doFinal(enc), Charsets.UTF_8)
-    } catch (_: Exception) {
-        null
-    }
-
-    fun clear(c: Context) { prefs(c).edit().clear().apply() }
-
-    /** For display only: never the key itself. */
-    fun masked(c: Context): String = read(c)?.let { k -> if (k.length > 8) k.take(5) + "…" + k.takeLast(4) else "…" } ?: ""
-}
-
-// ───────────────────────────────────────────────────────────── the budget
-
-/**
- * 1,000 requests a day on the free tier, 20 a minute. Videos may use at most
- * [VIDEO_CAP]; the rest is held back so an evening of SafeTube can never use up
- * the checks an exam link might need.
- */
-object KeeperBudget {
-    const val DAILY_LIMIT = 1000
-    const val VIDEO_CAP = 850
-    const val MIN_GAP_MS = 3_100L   // 20 per minute
-    private const val PREFS = "keeper_budget"
-
-    private fun prefs(c: Context) = c.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
-    private fun today(): String = SimpleDateFormat("yyyyMMdd", Locale.US).format(Date())
-
-    private fun rollover(c: Context) {
-        val p = prefs(c)
-        if (p.getString("day", "") != today()) {
-            p.edit().putString("day", today()).putInt("unlock", 0).putInt("video", 0).apply()
-        }
-    }
-
-    fun used(c: Context, purpose: Keeper.Purpose): Int {
-        rollover(c)
-        return prefs(c).getInt(if (purpose == Keeper.Purpose.VIDEO) "video" else "unlock", 0)
-    }
-
-    fun usedTotal(c: Context): Int = used(c, Keeper.Purpose.UNLOCK) + used(c, Keeper.Purpose.VIDEO)
-
-    fun canSpend(c: Context, purpose: Keeper.Purpose): Boolean =
-        allowedToSpend(usedTotal(c), used(c, Keeper.Purpose.VIDEO), purpose)
-
-    /** Pure rule, tested on its own. */
-    fun allowedToSpend(usedTotal: Int, usedVideo: Int, purpose: Keeper.Purpose): Boolean =
-        usedTotal < DAILY_LIMIT && (purpose == Keeper.Purpose.UNLOCK || usedVideo < VIDEO_CAP)
-
-    @Synchronized
-    fun spend(c: Context, purpose: Keeper.Purpose) {
-        rollover(c)
-        val key = if (purpose == Keeper.Purpose.VIDEO) "video" else "unlock"
-        val p = prefs(c)
-        p.edit().putInt(key, p.getInt(key, 0) + 1).putLong("last", System.currentTimeMillis()).apply()
-    }
-
-    /** Milliseconds to wait before the next request is allowed by the per-minute limit. */
-    fun waitMs(c: Context): Long {
-        val since = System.currentTimeMillis() - prefs(c).getLong("last", 0L)
-        return (MIN_GAP_MS - since).coerceAtLeast(0L)
+    fun forget(c: Context) {
+        val p = c.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+        if (p.all.isNotEmpty()) p.edit().clear().apply()
     }
 }
 
@@ -293,61 +186,24 @@ object KeeperClient {
     }
 
     /**
-     * Blocking; call off the main thread. With Keeper Plus active the check goes
-     * to the account's proxy; otherwise to OpenRouter with the person's own key,
-     * spending one request from [purpose]'s budget when it goes out.
+     * Blocking; call off the main thread. Every check goes to the account's proxy
+     * (Keeper Plus); without it the Keeper cannot say yes and things stay closed.
      */
     fun ask(context: Context, purpose: Keeper.Purpose, system: String, user: String, imageDataUrl: String?): KeeperResult {
-        val ownKey = KeeperKey.read(context)
-        val route = KeeperRouting.choose(Account.signedIn(context), Account.keeperServerAvailable(context), ownKey != null)
-        if (route == KeeperRoute.PLUS) {
-            when (val p = askPlus(context, system, user, imageDataUrl)) {
-                is KeeperRouting.Proxy.Reply -> {
-                    Account.recordUsage(context, p.usedToday, p.limit)
-                    val json = KeeperParse.firstJsonObject(p.text) ?: return KeeperResult.Failed(KeeperResult.Why.UNREADABLE)
-                    return KeeperResult.Answered(json)
-                }
-                is KeeperRouting.Proxy.Fail -> {
-                    if (p.why == KeeperResult.Why.DAILY_LIMIT) Account.recordUsage(context, p.limit, p.limit)
-                    return KeeperResult.Failed(p.why)
-                }
-                KeeperRouting.Proxy.Fallback -> if (ownKey == null) return KeeperResult.Failed(KeeperResult.Why.NETWORK, "plus unavailable")
+        KeeperLegacyKey.forget(context)
+        if (KeeperRouting.choose(Account.signedIn(context), Account.keeperServerAvailable(context)) != KeeperRoute.PLUS)
+            return KeeperResult.Failed(KeeperResult.Why.NO_KEY)
+        return when (val p = askPlus(context, system, user, imageDataUrl)) {
+            is KeeperRouting.Proxy.Reply -> {
+                Account.recordUsage(context, p.usedToday, p.limit)
+                val json = KeeperParse.firstJsonObject(p.text) ?: return KeeperResult.Failed(KeeperResult.Why.UNREADABLE)
+                KeeperResult.Answered(json)
             }
-        }
-        val key = ownKey ?: return KeeperResult.Failed(KeeperResult.Why.NO_KEY)
-        if (!KeeperBudget.canSpend(context, purpose)) return KeeperResult.Failed(KeeperResult.Why.BUDGET)
-        val wait = KeeperBudget.waitMs(context)
-        if (wait > 0) Thread.sleep(wait)
-
-        val content = JSONArray().put(JSONObject().put("type", "text").put("text", user))
-        if (imageDataUrl != null) content.put(JSONObject().put("type", "image_url").put("image_url", JSONObject().put("url", imageDataUrl)))
-        val body = JSONObject()
-            .put("model", Keeper.MODEL)
-            .put("temperature", 0)
-            .put("max_tokens", 600)
-            .put("messages", JSONArray()
-                .put(JSONObject().put("role", "system").put("content", system))
-                .put(JSONObject().put("role", "user").put("content", content)))
-
-        KeeperBudget.spend(context, purpose)
-        return try {
-            val conn = (URL(Keeper.ENDPOINT).openConnection() as HttpURLConnection).apply {
-                requestMethod = "POST"; doOutput = true; connectTimeout = 20_000; readTimeout = 90_000
-                setRequestProperty("Authorization", "Bearer $key")
-                setRequestProperty("Content-Type", "application/json")
-                setRequestProperty("HTTP-Referer", "https://pinehold.app")
-                setRequestProperty("X-Title", "Pinehold Keeper")
+            is KeeperRouting.Proxy.Fail -> {
+                if (p.why == KeeperResult.Why.DAILY_LIMIT) Account.recordUsage(context, p.limit, p.limit)
+                KeeperResult.Failed(p.why)
             }
-            conn.outputStream.use { it.write(body.toString().toByteArray(Charsets.UTF_8)) }
-            val code = conn.responseCode
-            val text = (if (code in 200..299) conn.inputStream else conn.errorStream)?.bufferedReader()?.use { it.readText() }.orEmpty()
-            if (code == 429 || code == 402) return KeeperResult.Failed(KeeperResult.Why.QUOTA, "HTTP $code")
-            if (code !in 200..299) return KeeperResult.Failed(KeeperResult.Why.NETWORK, "HTTP $code")
-            val reply = JSONObject(text).optJSONArray("choices")?.optJSONObject(0)?.optJSONObject("message")?.optString("content").orEmpty()
-            val json = KeeperParse.firstJsonObject(reply) ?: return KeeperResult.Failed(KeeperResult.Why.UNREADABLE)
-            KeeperResult.Answered(json)
-        } catch (e: Exception) {
-            KeeperResult.Failed(KeeperResult.Why.NETWORK, e.javaClass.simpleName)
+            KeeperRouting.Proxy.Fallback -> KeeperResult.Failed(KeeperResult.Why.NETWORK, "plus unavailable")
         }
     }
 

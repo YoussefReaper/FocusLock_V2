@@ -32,7 +32,7 @@
     <string name="account_err_network">Could not reach the server. Check your connection and try again.</string>
 
     <string name="keeper_plus_title">Keeper Plus</string>
-    <string name="keeper_plus_body">$4/month · 200 checks a day, shared across phone and PC · no key needed</string>
+    <string name="keeper_plus_body">$4/month · 200 checks a day, shared across phone and PC</string>
     <string name="keeper_plus_active">Active</string>
     <string name="keeper_plus_active_until">Active until %1$s</string>
     <plurals name="keeper_plus_checks_left">

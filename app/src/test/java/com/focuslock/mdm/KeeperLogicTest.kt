@@ -68,16 +68,6 @@ class KeeperLogicTest {
         assertEquals(listOf(0 to 11, 49 to 60), v.cuts)
     }
 
-    // ── the budget ──
-
-    @Test fun videosStopAtTheirCapButLinksDoNot() {
-        assertFalse(KeeperBudget.allowedToSpend(850, 850, Keeper.Purpose.VIDEO))
-        assertTrue(KeeperBudget.allowedToSpend(850, 850, Keeper.Purpose.UNLOCK))
-    }
-
-    @Test fun nothingPastTheDailyLimit() =
-        assertFalse(KeeperBudget.allowedToSpend(1000, 10, Keeper.Purpose.UNLOCK))
-
     // ── verdicts survive storage ──
 
     @Test fun verdictRoundTrips() {

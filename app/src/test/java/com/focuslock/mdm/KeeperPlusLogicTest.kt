@@ -67,16 +67,16 @@ class KeeperPlusLogicTest {
 
     // ── route choice ──
 
-    @Test fun plusWinsOverOwnKey() = assertEquals(KeeperRoute.PLUS, KeeperRouting.choose(signedIn = true, plusActive = true, hasOwnKey = true))
-    @Test fun ownKeyWithoutPlus() = assertEquals(KeeperRoute.OWN_KEY, KeeperRouting.choose(signedIn = true, plusActive = false, hasOwnKey = true))
-    @Test fun signedOutPlusIgnored() = assertEquals(KeeperRoute.OWN_KEY, KeeperRouting.choose(signedIn = false, plusActive = true, hasOwnKey = true))
-    @Test fun nothingMeansNone() = assertEquals(KeeperRoute.NONE, KeeperRouting.choose(signedIn = false, plusActive = false, hasOwnKey = false))
+    @Test fun plusWhenSignedInWithATier() = assertEquals(KeeperRoute.PLUS, KeeperRouting.choose(signedIn = true, plusActive = true))
+    @Test fun noOwnKeyRouteWithoutPlus() = assertEquals(KeeperRoute.NONE, KeeperRouting.choose(signedIn = true, plusActive = false))
+    @Test fun signedOutPlusIgnored() = assertEquals(KeeperRoute.NONE, KeeperRouting.choose(signedIn = false, plusActive = true))
+    @Test fun nothingMeansNone() = assertEquals(KeeperRoute.NONE, KeeperRouting.choose(signedIn = false, plusActive = false))
 
     @Test fun freeTierRoutesToServer() {
         val free = Entitlement(true, null)
         val tier = EntitlementRules.serverTier("free", null, free, fetchedAtMs = 1_000L, nowMs = 2_000L)
         assertEquals("free", tier)
-        assertEquals(KeeperRoute.PLUS, KeeperRouting.choose(signedIn = true, plusActive = tier != null, hasOwnKey = true))
+        assertEquals(KeeperRoute.PLUS, KeeperRouting.choose(signedIn = true, plusActive = tier != null))
     }
     @Test fun noServerTierUsesOwnKey() {
         assertEquals(null, EntitlementRules.serverTier(null, Entitlement(true, null), Entitlement(true, null), 1_000L, 2_000L))

@@ -6,16 +6,15 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.LinearLayout
-import java.net.HttpURLConnection
 import java.net.URL
 import kotlin.concurrent.thread
 
 /**
- * The Keeper's settings: the OpenRouter key (stored encrypted, only ever shown
- * masked), today's request count, and where SafeTube saves videos.
+ * The Keeper's settings: Keeper Plus, what it searches and watches for, and where
+ * SafeTube saves videos.
  *
- * Removing the key never opens anything: without it the Keeper simply cannot say
- * yes, so blocked things stay blocked. That is why none of this is session-locked.
+ * Without Keeper Plus the Keeper simply cannot say yes, so blocked things stay
+ * blocked. That is why none of this is session-locked.
  */
 class KeeperSettingsActivity : FocusScreenActivity() {
 
@@ -36,28 +35,13 @@ class KeeperSettingsActivity : FocusScreenActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        KeeperLegacyKey.forget(this)
         Account.refreshAsync(this) { runOnUiThread { if (!isFinishing && !isDestroyed && !redeeming) refresh() } }
     }
 
     override fun buildContent(column: LinearLayout) {
         column.addView(card { c -> keeperPlusCard(c) })
         column.addView(FocusUi.spacer(this, 12))
-
-        column.addView(card { c ->
-            val ready = Keeper.isReady(this)
-            c.addView(FocusUi.heading(this, tokens, getString(R.string.keeper_key_heading)))
-            c.addView(FocusUi.spacer(this, 6))
-            c.addView(FocusUi.secondary(this, tokens,
-                if (ready) getString(R.string.keeper_key_set, KeeperKey.masked(this)) else getString(R.string.keeper_key_missing)))
-            c.addView(FocusUi.spacer(this, 14))
-            c.addView(FocusUi.primaryButton(this, tokens, getString(if (ready) R.string.keeper_key_replace else R.string.keeper_key_add)) { promptKey() })
-            if (ready) {
-                c.addView(FocusUi.spacer(this, 8))
-                c.addView(FocusUi.secondaryButton(this, tokens, getString(R.string.keeper_key_check)) { checkKey() })
-                c.addView(FocusUi.spacer(this, 8))
-                c.addView(FocusUi.ghostButton(this, tokens, getString(R.string.keeper_key_remove)) { KeeperKey.clear(this); refresh() })
-            }
-        })
 
         column.addView(sectionLabel(getString(R.string.keeper_search_heading)))
         column.addView(card { c ->
@@ -142,15 +126,6 @@ class KeeperSettingsActivity : FocusScreenActivity() {
             })
             c.addView(FocusUi.spacer(this, 12))
             c.addView(FocusUi.caption(this, tokens, getString(R.string.keeper_focus_never)))
-        })
-
-        column.addView(sectionLabel(getString(R.string.keeper_usage_heading)))
-        column.addView(card { c ->
-            val unlock = KeeperBudget.used(this, Keeper.Purpose.UNLOCK)
-            val video = KeeperBudget.used(this, Keeper.Purpose.VIDEO)
-            c.addView(FocusUi.body(this, tokens, getString(R.string.keeper_usage_line, unlock + video, KeeperBudget.DAILY_LIMIT)))
-            c.addView(FocusUi.spacer(this, 4))
-            c.addView(FocusUi.caption(this, tokens, getString(R.string.keeper_usage_detail, unlock, video, KeeperBudget.DAILY_LIMIT - KeeperBudget.VIDEO_CAP)))
         })
 
         column.addView(sectionLabel(getString(R.string.safetube_browser_title)))
@@ -258,40 +233,6 @@ class KeeperSettingsActivity : FocusScreenActivity() {
                 }
                 refresh()
             }
-        }
-    }
-
-    private fun promptKey() {
-        FocusDialog.textInput(
-            this,
-            title = getString(R.string.keeper_key_heading),
-            subtitle = getString(R.string.keeper_key_prompt),
-            hint = "sk-or-…",
-            confirmLabel = getString(R.string.common_save)
-        ) { input ->
-            val key = input.trim()
-            if (key.startsWith("sk-or-") && key.length > 20) {
-                KeeperKey.save(this, key)
-                FocusDialog.toast(this, getString(R.string.keeper_key_saved))
-            } else {
-                FocusDialog.toast(this, getString(R.string.keeper_key_invalid))
-            }
-            refresh()
-        }
-    }
-
-    /** GET /api/v1/key: says whether the key works without spending a model request. */
-    private fun checkKey() {
-        val key = KeeperKey.read(this) ?: return
-        thread(name = "keeper-keycheck") {
-            val ok = try {
-                val conn = (URL("https://openrouter.ai/api/v1/key").openConnection() as HttpURLConnection).apply {
-                    connectTimeout = 15_000; readTimeout = 15_000
-                    setRequestProperty("Authorization", "Bearer $key")
-                }
-                conn.responseCode in 200..299
-            } catch (_: Exception) { false }
-            runOnUiThread { FocusDialog.toast(this, getString(if (ok) R.string.keeper_key_works else R.string.keeper_key_rejected)) }
         }
     }
 

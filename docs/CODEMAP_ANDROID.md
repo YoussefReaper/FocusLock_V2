@@ -140,7 +140,7 @@ Generated from the source: one line per file, then its types and main functions.
 - **KeeperPlusLogic.kt** (256 lines): The pure rules behind the account and Keeper Plus: no Android types, so each
   - types: Entitlement, EntitlementRules, KeeperRoute, KeeperRouting, AccountProblem, AccountFailure, AccountRules, AuthLink, ResendRules
   - fns: isActive, serverTier, parseIso, parseProducts, choose, imageFits, mapProxy, subscriptionId, problem, failure, oauthProblem, checksLeft, availableAt, secondsLeft
-- **KeeperSettingsActivity.kt** (267 lines): The Keeper's settings: the OpenRouter key (stored encrypted, only ever shown
+- **KeeperSettingsActivity.kt**: The Keeper's settings: Keeper Plus, search and watch lists, SafeTube folder (no own-key option; the Keeper runs only on Keeper Plus)
   - types: KeeperSettingsActivity
   - fns: screenTitle, screenSubtitle, buildContent, onActivityResult
 - **KeywordGuardActivity.kt** (413 lines): The keyword guard editor.
