@@ -252,4 +252,12 @@
     <string name="telegram_autodl_steps">1. Open Telegram, then Settings, then Data and Storage.\n2. Under Automatic media download, turn off When using mobile data, When connected on Wi-Fi and When roaming.\n3. Turn off Autoplay media (GIFs and videos).\nPictures then wait for a tap instead of arriving on their own.</string>
     <string name="telegram_open">Open Telegram</string>
     <string name="telegram_not_installed">Telegram isn\'t installed.</string>
+    <string name="whatsapp_autodl_title">Turn off WhatsApp\'s picture auto-download</string>
+    <string name="whatsapp_autodl_steps">1. Open WhatsApp, then Settings, then Storage and data.\n2. Under Media auto-download, set Photos, Audio, Videos and Documents to No media for mobile data, Wi-Fi and roaming.\n3. In Settings, Chats, turn off Media visibility so nothing lands in your gallery.</string>
+    <string name="whatsapp_open">Open WhatsApp</string>
+    <string name="whatsapp_not_installed">WhatsApp isn\'t installed.</string>
+    <string name="keeper_gate_thumbs">Show the %1$d covered pictures (one Keeper check)</string>
+    <string name="keeper_gate_thumbs_checking">The Keeper is looking at the pictures…</string>
+    <string name="telegram_cover_title">Cover pictures in allowed chats (experiment)</string>
+    <string name="telegram_cover_subtitle">While a layer holds the phone, photos, videos, GIFs and stickers in Telegram are covered with dark cards. If a Telegram update changes how it labels them, covering quietly stops.</string>
 </resources>

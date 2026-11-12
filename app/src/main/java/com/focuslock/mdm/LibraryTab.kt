@@ -148,6 +148,8 @@ class LibraryTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(acti
         return column
     }
 
+    private var checkingThumbs = false
+
     private fun runSearch(text: String) {
         query = text.trim()
         if (query.isEmpty()) return
@@ -187,6 +189,27 @@ class LibraryTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(acti
         }
         box.addView(chips)
         box.addView(FocusUi.spacer(activity, 6))
+        // One Keeper check looks at up to 16 dark thumbnails as a grid and uncovers the ones it clears.
+        // It only uncovers the picture; opening the video still goes through the Keeper.
+        val cleared = MediaBlur.cleared(activity)
+        val darkThumbs = results.filter { it.kind == KeeperSearch.Kind.VIDEO && KeeperSearch.state(activity, it) == KeeperSearch.State.DARK }
+            .mapNotNull { it.thumb }.filter { MediaBlur.key(it) !in cleared }.take(MediaBlur.GRID)
+        if (darkThumbs.isNotEmpty() && Keeper.isReady(activity)) {
+            box.addView(FocusUi.smallButton(activity, tokens, if (checkingThumbs) activity.getString(R.string.keeper_gate_thumbs_checking)
+                else activity.getString(R.string.keeper_gate_thumbs, darkThumbs.size)) {
+                if (checkingThumbs) return@smallButton
+                checkingThumbs = true; fillResults()
+                Thread {
+                    val ok = MediaBlur.check(activity.applicationContext, darkThumbs)
+                    activity.runOnUiThread {
+                        checkingThumbs = false
+                        if (ok == null) FocusDialog.toast(activity, activity.getString(R.string.media_keeper_unavailable))
+                        fillResults()
+                    }
+                }.start()
+            })
+            box.addView(FocusUi.spacer(activity, 6))
+        }
         results.filter { filter == 0 || (filter == 1) == (it.kind == KeeperSearch.Kind.VIDEO) }
             .forEach { box.addView(buildResultRow(it)) }
         val legend = FocusUi.caption(activity, tokens, activity.getString(R.string.keeper_gate_legend))
@@ -209,7 +232,7 @@ class LibraryTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(acti
         thumb.layoutParams = LinearLayout.LayoutParams(FocusUi.dp(activity, 112), FocusUi.dp(activity, 63)).apply { rightMargin = FocusUi.dp(activity, 12) }
         row.addView(thumb)
         r.thumb?.let { url ->
-            val sharp = state == KeeperSearch.State.LIT
+            val sharp = state == KeeperSearch.State.LIT || MediaBlur.key(url) in MediaBlur.cleared(activity)
             Thread {
                 KeeperSearch.thumb(url)?.let { raw ->
                     val shown = if (sharp) raw else KeeperSearch.smeared(raw)

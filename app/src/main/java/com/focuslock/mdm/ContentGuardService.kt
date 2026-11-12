@@ -291,6 +291,7 @@ class ContentGuardService : AccessibilityService() {
             // the time a burst settles the person may have moved on.
             val packageName = root.packageName?.toString() ?: eventPackage
             if (packageName == applicationContext.packageName || SystemSurfaces.isCritical(packageName)) return
+            TelegramCover.update(this, root)
 
             // Telegram is handled by allowlist rather than by phrase: naming
             // every channel you do not want is endless, naming the few you do

@@ -250,4 +250,12 @@
     <string name="telegram_autodl_steps">١. افتح تيليجرام ثم الإعدادات ثم البيانات والتخزين.\n٢. تحت التنزيل التلقائي للوسائط أوقف: عند استخدام بيانات الجوال، وعند الاتصال بالواي فاي، وعند التجوال.\n٣. أوقف التشغيل التلقائي للوسائط (GIF والفيديو).\nبعدها تنتظر الصور ضغطة بدلًا من أن تصل وحدها.</string>
     <string name="telegram_open">افتح تيليجرام</string>
     <string name="telegram_not_installed">تيليجرام غير مثبت.</string>
+    <string name="whatsapp_autodl_title">أوقف التنزيل التلقائي للصور في واتساب</string>
+    <string name="whatsapp_autodl_steps">١. افتح واتساب ثم الإعدادات ثم التخزين والبيانات.\n٢. تحت التنزيل التلقائي للوسائط اجعل الصور والصوت والفيديو والمستندات «لا وسائط» لبيانات الجوال والواي فاي والتجوال.\n٣. في الإعدادات ثم الدردشات أوقف ظهور الوسائط حتى لا يصل شيء إلى المعرض.</string>
+    <string name="whatsapp_open">افتح واتساب</string>
+    <string name="whatsapp_not_installed">واتساب غير مثبت.</string>
+    <string name="keeper_gate_thumbs">اكشف %1$d صور مغطاة (فحص واحد من الحارس)</string>
+    <string name="keeper_gate_thumbs_checking">الحارس ينظر إلى الصور…</string>
+    <string name="telegram_cover_title">غطِّ الصور في المحادثات المسموحة (تجربة)</string>
+    <string name="telegram_cover_subtitle">ما دامت طبقة تمسك الهاتف تُغطّى الصور والفيديو وGIF والملصقات في تيليجرام ببطاقات داكنة. إن غيّر تحديث لتيليجرام تسمياتها يتوقف التغطية بهدوء.</string>
 </resources>

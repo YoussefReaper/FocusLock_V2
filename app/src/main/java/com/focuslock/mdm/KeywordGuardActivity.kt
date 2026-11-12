@@ -383,6 +383,24 @@ class KeywordGuardActivity : FocusScreenActivity() {
             packageManager.getLaunchIntentForPackage(TelegramGuard.PACKAGE)?.let { startActivity(it) }
                 ?: FocusDialog.toast(this, getString(R.string.telegram_not_installed))
         })
+
+        card.addView(FocusUi.spacer(this, 10))
+        card.addView(FocusUi.toggleRow(this, tokens, getString(R.string.telegram_cover_title), getString(R.string.telegram_cover_subtitle),
+            TelegramCover.isOn(this)) { v ->
+            if (!v && !SessionLock.allows(this, EditDirection.LOOSEN)) FocusDialog.toast(this, SessionLock.refusalMessage(this))
+            else TelegramCover.setOn(this, v)
+            refresh()
+        })
+
+        // WhatsApp saves pictures to the phone on its own, the same door from the other side.
+        card.addView(FocusUi.spacer(this, 12))
+        card.addView(FocusUi.body(this, tokens, getString(R.string.whatsapp_autodl_title)))
+        card.addView(FocusUi.caption(this, tokens, getString(R.string.whatsapp_autodl_steps)))
+        card.addView(FocusUi.spacer(this, 8))
+        card.addView(FocusUi.secondaryButton(this, tokens, getString(R.string.whatsapp_open)) {
+            (packageManager.getLaunchIntentForPackage("com.whatsapp") ?: packageManager.getLaunchIntentForPackage("com.whatsapp.w4b"))
+                ?.let { startActivity(it) } ?: FocusDialog.toast(this, getString(R.string.whatsapp_not_installed))
+        })
     }
 
     private fun buildExceptions(): View = card { card ->
