@@ -23,10 +23,10 @@ import androidx.core.content.ContextCompat
  */
 object MoonArt {
 
-    /** The pine's seven stages over a promise. Stages 2, 3, 5, 6 fall back to their neighbours until painted. */
+    /** The pine's seven stages over a promise, seedling to embers. */
     private val STAGES = intArrayOf(
-        R.drawable.art_stage1, R.drawable.art_stage1, R.drawable.art_stage4, R.drawable.art_stage4,
-        R.drawable.art_stage4, R.drawable.art_moonpine, R.drawable.art_stage7
+        R.drawable.art_stage1, R.drawable.art_stage2, R.drawable.art_stage3, R.drawable.art_stage4,
+        R.drawable.art_stage5, R.drawable.art_stage6, R.drawable.art_stage7
     )
 
     /** 0..6 for how far through a promise is. The last stage is only reached at the very end. */
