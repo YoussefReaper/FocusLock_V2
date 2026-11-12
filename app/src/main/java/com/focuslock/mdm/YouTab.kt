@@ -209,26 +209,7 @@ class YouTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activity
     private fun buildAppearanceCard(): View {
         val card = FocusUi.card(activity, tokens)
 
-        card.addView(FocusUi.caption(activity, tokens, activity.getString(R.string.appearance_theme)))
-        card.addView(
-            FocusUi.chipStrip(
-                activity,
-                tokens,
-                UiPrefs.themes.map { it.label(activity) },
-                UiPrefs.themes.indexOfFirst { it.id == UiPrefs.getTheme(activity).id }
-            ) { index ->
-                UiPrefs.setThemeId(activity, UiPrefs.themes[index].id)
-                activity.requestShellRebuild()
-            }
-        )
-
-        card.addView(FocusUi.spacer(activity, 10))
-        card.addView(FocusUi.caption(activity, tokens, activity.getString(R.string.appearance_accent)))
-        card.addView(buildAccentRow())
-
-        card.addView(FocusUi.spacer(activity, 12))
-        card.addView(FocusUi.divider(activity, tokens))
-
+        // Moon is the only look, so there is no theme or accent to pick here any more.
         card.addView(
             FocusUi.listRow(
                 activity,
@@ -319,41 +300,6 @@ class YouTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activity
             UiPrefs.setAppLanguage(selected)
         }
     }
-
-    private fun buildAccentRow(): View {
-        val strip = FocusUi.row(activity)
-        strip.layoutParams = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-        val currentId = UiPrefs.getAccent(activity).id
-
-        UiPrefs.accents.forEach { accent ->
-            val swatch = View(activity)
-            val size = FocusUi.dp(activity, 34)
-            swatch.background = FocusUi.roundedShape(
-                activity,
-                accent.color,
-                17,
-                if (accent.id == currentId) tokens.textPrimary else null,
-                2
-            )
-            swatch.isClickable = true
-            swatch.isFocusable = true
-            swatch.contentDescription = accent.label(activity)
-            swatch.layoutParams = LinearLayout.LayoutParams(size, size).apply {
-                marginEnd = FocusUi.dp(activity, 10)
-            }
-            swatch.setOnClickListener {
-                UiPrefs.setAccentId(activity, accent.id)
-                activity.requestShellRebuild()
-            }
-            strip.addView(swatch)
-        }
-        return FocusUi.horizontalScroll(activity, strip)
-    }
-
-    // ── Help ──────────────────────────────────────────────────────
 
     private fun buildHelpCard(): View {
         val card = FocusUi.card(activity, tokens)

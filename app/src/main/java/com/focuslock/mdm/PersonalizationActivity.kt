@@ -25,12 +25,7 @@ class PersonalizationActivity : FocusScreenActivity() {
     override fun buildContent(column: LinearLayout) {
         column.addView(buildPreview())
 
-        column.addView(sectionLabel(getString(R.string.appearance_section_theme)))
-        column.addView(buildThemeCard())
-
-        column.addView(sectionLabel(getString(R.string.appearance_section_background)))
-        column.addView(buildBackgroundCard())
-
+        // Moon is the only look: no theme list and no wallpapers (the paintings are the background).
         column.addView(sectionLabel(getString(R.string.personalization_type_and_spacing)))
         column.addView(buildTypeCard())
 

@@ -408,10 +408,8 @@ object UiPrefs {
 
     // ── Getters and setters ───────────────────────────────────────
 
-    fun getTheme(context: Context): UiTheme {
-        val id = prefs(context).getString(Constants.KEY_UI_THEME, DEFAULT_THEME_ID) ?: DEFAULT_THEME_ID
-        return themes.firstOrNull { it.id == id } ?: themes.first()
-    }
+    /** Moon is the only look; an older saved theme opens as Moon too. */
+    fun getTheme(context: Context): UiTheme = themes.first { it.id == MOON_THEME_ID }
 
     fun setThemeId(context: Context, id: String) {
         prefs(context).edit().putString(Constants.KEY_UI_THEME, id).apply()
