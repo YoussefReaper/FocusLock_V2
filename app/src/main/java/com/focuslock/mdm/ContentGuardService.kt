@@ -218,6 +218,7 @@ class ContentGuardService : AccessibilityService() {
         // revision. It is what notices a session that ended on its own clock,
         // or began without a write, and narrows or widens the scope.
         applyEventScope()
+        FloatingDoors.sweep(this)
         if (fullScope != true) return
         // Battery: when the personal rule is the only reason to be awake, every screen that
         // is not a browser is dropped here, before any work is queued.
