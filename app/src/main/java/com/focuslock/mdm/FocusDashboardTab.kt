@@ -85,6 +85,10 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
         if (SessionManager.isActive(activity)) {
             add(buildActiveSession())
         } else {
+            if (UiPrefs.isMoon(activity)) {
+                add(MoonArt.painting(activity, R.drawable.art_moonpine, 300, activity.getString(R.string.moon_art_home)))
+                add(buildWeekMoons())
+            }
             add(buildStarter())
         }
 
@@ -274,6 +278,7 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
     private fun buildActiveSession(): View {
         val mode = SessionManager.mode(activity)
         if (mode == FocusMode.KIOSK) return buildKioskSession()
+        if (UiPrefs.isMoon(activity)) return buildMoonSession(mode)
 
         // Quiet Pine running view: no card around it. A status pill, a big
         // countdown ring, one calm line, three numbers, and the way out.
@@ -408,6 +413,128 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
             val note = FocusUi.caption(
                 activity,
                 pt,
+                if (mode.isHard) activity.getString(R.string.dashboard_hard_mode_body)
+                else activity.getString(R.string.dashboard_early_exit_off_body)
+            )
+            note.gravity = Gravity.CENTER
+            column.addView(note)
+        }
+        return column
+    }
+
+    // ── Moon ──────────────────────────────────────────────────────
+
+    /** The week as seven painted moons, Saturday first, each filled by that day's held time. */
+    private fun buildWeekMoons(): View {
+        val column = FocusUi.column(activity)
+        column.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+        ).apply { topMargin = FocusUi.dp(activity, 6); bottomMargin = FocusUi.dp(activity, 18) }
+        val days = HeldDays.thisWeek()
+        val today = HeldDays.startOfDay(System.currentTimeMillis())
+        val heldWeek = days.sumOf { HeldDays.heldMs(activity, it) }
+        val top = FocusUi.row(activity)
+        top.addView(FocusUi.caption(activity, pt, activity.getString(R.string.moon_this_week)).apply {
+            layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+        })
+        top.addView(FocusUi.caption(activity, pt, activity.getString(R.string.moon_held_week, SessionManager.formatDuration(heldWeek))).apply {
+            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        })
+        column.addView(top)
+        val grid = FocusUi.row(activity)
+        grid.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+        ).apply { topMargin = FocusUi.dp(activity, 10) }
+        val letter = java.text.SimpleDateFormat("EEEEE", java.util.Locale.getDefault())
+        days.forEach { day ->
+            val cell = FocusUi.column(activity)
+            cell.gravity = Gravity.CENTER_HORIZONTAL
+            cell.layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+            val future = day > today
+            val isToday = day == today
+            val moon = MoonArt.round(
+                activity, MoonArt.moon(if (future) 0f else HeldDays.fraction(activity, day)), 30,
+                ring = if (isToday) pt.textPrimary else null, dim = future
+            )
+            cell.addView(moon)
+            val l = FocusUi.caption(activity, pt, letter.format(java.util.Date(day)))
+            l.gravity = Gravity.CENTER_HORIZONTAL
+            if (isToday) l.setTextColor(pt.textPrimary)
+            cell.addView(l)
+            cell.contentDescription = java.text.DateFormat.getDateInstance().format(java.util.Date(day)) + ", " +
+                SessionManager.formatDuration(HeldDays.heldMs(activity, day))
+            grid.addView(cell)
+        }
+        column.addView(grid)
+        return column
+    }
+
+    /** A running promise in the Moon look: the pine at its stage, the time, their words, the week. */
+    private fun buildMoonSession(mode: FocusMode): View {
+        val column = FocusUi.column(activity)
+        column.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+        ).apply { bottomMargin = FocusUi.dp(activity, pt.density.gapDp) }
+        val fraction = SessionManager.progressPercent(activity) / 100f
+        column.addView(MoonArt.painting(activity, MoonArt.stage(fraction), 300, activity.getString(R.string.moon_art_stage, MoonArt.stageIndex(fraction) + 1)))
+
+        val durationMs = SessionManager.durationMs(activity)
+        val long = durationMs >= 24 * 3_600_000L
+        val over = FocusUi.caption(activity, pt, activity.getString(R.string.redesign_mode_on, mode.label(activity)).uppercase())
+        over.letterSpacing = 0.3f
+        over.gravity = Gravity.CENTER_HORIZONTAL
+        column.addView(over)
+
+        val big: android.widget.TextView
+        val under: String
+        if (long) {
+            val day = ((System.currentTimeMillis() - SessionManager.startedAt(activity)) / 86_400_000L + 1).toInt()
+            val total = (durationMs / 86_400_000L).toInt()
+            val left = ((SessionManager.endsAt(activity) - System.currentTimeMillis()) / 86_400_000L).toInt().coerceAtLeast(0)
+            big = FocusUi.display(activity, pt, activity.getString(R.string.moon_day_n, day))
+            under = activity.getString(R.string.moon_days_left, left, total, java.text.DateFormat.getDateInstance(java.text.DateFormat.LONG).format(java.util.Date(SessionManager.endsAt(activity))))
+            countdownView = null
+        } else {
+            big = FocusUi.display(activity, pt, SessionManager.formatCountdown(activity, SessionManager.remainingMs(activity)))
+            under = activity.getString(R.string.dashboard_ends_at, TimeText.dateTime(activity, SessionManager.endsAt(activity)))
+            countdownView = big
+        }
+        progressView = null
+        ring = null
+        big.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, pt.scaled(76f))
+        big.gravity = Gravity.CENTER_HORIZONTAL
+        column.addView(big)
+        val underView = FocusUi.secondary(activity, pt, under)
+        underView.typeface = android.graphics.Typeface.create(pt.displayTypeface, android.graphics.Typeface.ITALIC)
+        underView.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, pt.scaled(18f))
+        underView.gravity = Gravity.CENTER_HORIZONTAL
+        column.addView(underView)
+
+        buildPromiseReminder()?.let { column.addView(FocusUi.spacer(activity, 12)); column.addView(it) }
+
+        val holdsShut = CapabilityRegistry.isEnabled(activity, Capabilities.HARD_BLOCK)
+        column.addView(FocusUi.spacer(activity, 18))
+        column.addView(
+            FocusUi.tileRow(
+                activity,
+                listOf(
+                    FocusUi.statTile(activity, pt, SessionManager.formatDuration(SessionManager.elapsedMs(activity)), activity.getString(R.string.redesign_focused_so_far)),
+                    FocusUi.statTile(activity, pt, AppRules.alwaysAllowed(activity).count { AppCatalog.isInstalled(activity, it) }.toString(), activity.getString(R.string.redesign_apps_open)),
+                    FocusUi.statTile(activity, pt, Streaks.blocksStoppedToday(activity).toString(), activity.getString(if (holdsShut) R.string.redesign_opens_stopped else R.string.redesign_nudges_given))
+                ),
+                gapDp = 10
+            )
+        )
+        column.addView(FocusUi.spacer(activity, 18))
+        column.addView(buildWeekMoons())
+
+        if (SessionManager.canEndEarly(activity)) {
+            val end = FocusUi.secondaryButton(activity, pt, activity.getString(R.string.dashboard_end_session)) { confirmEndSession() }
+            end.setTextColor(pt.textSecondary)
+            column.addView(end)
+        } else {
+            val note = FocusUi.caption(
+                activity, pt,
                 if (mode.isHard) activity.getString(R.string.dashboard_hard_mode_body)
                 else activity.getString(R.string.dashboard_early_exit_off_body)
             )

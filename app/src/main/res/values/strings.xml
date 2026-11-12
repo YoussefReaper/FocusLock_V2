@@ -106,4 +106,10 @@
     <string name="library_safetube_heading">SafeTube</string>
     <string name="library_safetube_body">YouTube with every thumbnail blurred and no Shorts. Each video is checked before it plays.</string>
     <string name="library_safetube_open_button">Open SafeTube</string>
+    <string name="moon_this_week">This week</string>
+    <string name="moon_held_week">%1$s held</string>
+    <string name="moon_day_n">Day %1$d</string>
+    <string name="moon_days_left">%1$d of %2$d days left · ends %3$s</string>
+    <string name="moon_art_home">A lone pine against a painted dusk moon</string>
+    <string name="moon_art_stage">The pine, at stage %1$d of 7</string>
 </resources>

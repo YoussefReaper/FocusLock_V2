@@ -18,6 +18,9 @@ import androidx.core.os.LocaleListCompat
  */
 object UiPrefs {
 
+    const val MOON_THEME_ID = "moon"
+    const val MOON_ACCENT = "#F0A36A"
+
     data class UiTheme(
         val id: String,
         @StringRes val labelRes: Int,
@@ -259,8 +262,6 @@ object UiPrefs {
     )
 
     const val BLOSSOM_THEME_ID = "blossom"
-    const val MOON_THEME_ID = "moon"
-    const val MOON_ACCENT = "#F0A36A"
 
     /** The painted Moon look: paintings, serif titles, moons instead of dots. Off while bedtime forces Nocturne. */
     fun isMoon(context: Context): Boolean = getTheme(context).id == MOON_THEME_ID &&

@@ -104,4 +104,10 @@
     <string name="library_safetube_heading">SafeTube</string>
     <string name="library_safetube_body">يوتيوب بكل الصور المصغّرة مموّهة وبلا Shorts. يُفحص كل فيديو قبل تشغيله.</string>
     <string name="library_safetube_open_button">افتح SafeTube</string>
+    <string name="moon_this_week">هذا الأسبوع</string>
+    <string name="moon_held_week">%1$s من الالتزام</string>
+    <string name="moon_day_n">اليوم %1$d</string>
+    <string name="moon_days_left">باقٍ %1$d من %2$d يومًا · ينتهي %3$s</string>
+    <string name="moon_art_home">صنوبرة وحيدة أمام قمر مرسوم عند الغروب</string>
+    <string name="moon_art_stage">الصنوبرة في المرحلة %1$d من 7</string>
 </resources>

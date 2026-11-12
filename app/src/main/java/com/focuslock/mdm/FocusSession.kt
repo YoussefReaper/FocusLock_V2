@@ -408,6 +408,7 @@ object SessionManager {
 
     fun end(context: Context) {
         val elapsed = elapsedMs(context)
+        HeldDays.record(context, startedAt(context), startedAt(context) + elapsed)
         FocusStore.setLong(context, KEY_LAST_ENDED_AT, System.currentTimeMillis())
         FocusStore.setInt(context, KEY_TOTAL_SESSIONS, totalSessions(context) + 1)
         FocusStore.setLong(context, KEY_TOTAL_FOCUS_MS, totalFocusMs(context) + elapsed)
