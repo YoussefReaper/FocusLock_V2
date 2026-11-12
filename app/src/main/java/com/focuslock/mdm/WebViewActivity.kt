@@ -88,6 +88,13 @@ class WebViewActivity : AppCompatActivity() {
         }
 
         btnBack.setOnClickListener { closeWebView() }
+        if (MediaBlur.active(this)) {
+            bottomBar.addView(TextView(this).apply {
+                text = getString(R.string.media_clear_page)
+                setPadding(FocusUi.dp(context, 10), FocusUi.dp(context, 8), FocusUi.dp(context, 10), FocusUi.dp(context, 8))
+                setOnClickListener { clearPage() }
+            }, 1)
+        }
 
         setupWebView()
         applyTheme()
@@ -179,8 +186,14 @@ class WebViewActivity : AppCompatActivity() {
             mediaPlaybackRequiresUserGesture = true
         }
         applyWebViewSafetyMode()
+        webView.addJavascriptInterface(MediaBridge(), "PineholdMedia")
 
         webView.webViewClient = object : WebViewClient() {
+            override fun onPageStarted(view: WebView?, url: String?, favicon: android.graphics.Bitmap?) {
+                super.onPageStarted(view, url, favicon)
+                blurMedia()
+            }
+
             override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
                 val url = request?.url?.toString() ?: return true
                 if (request.isForMainFrame == false) {
@@ -238,6 +251,7 @@ class WebViewActivity : AppCompatActivity() {
 
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
+                blurMedia()
                 if (view != null && !url.isNullOrBlank()) {
                     hideGoogleMediaTabs(view, url)
                     currentUrl = url
@@ -355,6 +369,84 @@ class WebViewActivity : AppCompatActivity() {
         bottomBar.visibility = View.GONE
         pickerLayout.visibility = View.VISIBLE
         buildLinkList()
+    }
+
+    // ── Media blur (see [MediaBlur]) ──────────────────────────────
+
+    private fun blurMedia() {
+        if (MediaBlur.active(this)) webView.evaluateJavascript(MediaBlur.script(MediaBlur.clearedJson(this)), null)
+    }
+
+    private fun show(srcs: List<String>) {
+        srcs.forEach { webView.evaluateJavascript("window.__phShow && window.__phShow(" + org.json.JSONObject.quote(it) + ")", null) }
+    }
+
+    private fun askOne(src: String) {
+        FocusDialog.toast(this, getString(R.string.media_keeper_looking))
+        Thread {
+            val cleared = MediaBlur.check(applicationContext, listOf(src))
+            runOnUiThread {
+                when {
+                    cleared == null -> FocusDialog.toast(this, getString(R.string.media_keeper_unavailable))
+                    cleared.isEmpty() -> FocusDialog.toast(this, getString(R.string.media_keeper_no))
+                    else -> show(cleared)
+                }
+            }
+        }.start()
+    }
+
+    private fun clearPage() {
+        webView.evaluateJavascript("window.__phList ? window.__phList() : '[]'") { raw ->
+            val list = runCatching {
+                val json = org.json.JSONArray(org.json.JSONTokener(raw).nextValue() as String)
+                (0 until json.length()).map { json.getString(it) }
+            }.getOrDefault(emptyList())
+            if (list.isEmpty()) { FocusDialog.toast(this, getString(R.string.media_nothing)); return@evaluateJavascript }
+            FocusDialog.toast(this, getString(R.string.media_keeper_looking))
+            Thread {
+                val cleared = MediaBlur.check(applicationContext, list)
+                runOnUiThread {
+                    if (cleared == null) FocusDialog.toast(this, getString(R.string.media_keeper_unavailable))
+                    else { show(cleared); FocusDialog.toast(this, getString(R.string.media_cleared_n, cleared.size, list.size)) }
+                }
+            }.start()
+        }
+    }
+
+    private fun showOnce(src: String) {
+        when (MediaBlur.showOnce(this)) {
+            MediaBlur.ShowOnce.NEVER -> FocusDialog.toast(this, getString(R.string.media_show_never))
+            MediaBlur.ShowOnce.WAIT -> FocusDialog.confirmWithCountdown(this, getString(R.string.media_show_once),
+                getString(R.string.media_show_wait), getString(R.string.media_show_once), MediaBlur.SOFT_WAIT_S) { show(listOf(src)) }
+            MediaBlur.ShowOnce.PASSWORD -> {
+                if (MediaBlur.firmShowsLeft(this) <= 0 || !SessionPassword.isSet(this)) {
+                    FocusDialog.toast(this, getString(R.string.media_show_none_left)); return
+                }
+                FocusDialog.textInput(this, getString(R.string.media_show_once),
+                    getString(R.string.media_show_password, MediaBlur.firmShowsLeft(this)), getString(R.string.media_password_hint),
+                    password = true, confirmLabel = getString(R.string.media_show_once)) { typed ->
+                    if (SessionPassword.verify(this, typed)) { MediaBlur.spendFirmShow(this); show(listOf(src)) }
+                    else FocusDialog.toast(this, getString(R.string.media_wrong_password))
+                }
+            }
+        }
+    }
+
+    private inner class MediaBridge {
+        @android.webkit.JavascriptInterface
+        fun ask(src: String) {
+            if (!src.startsWith("http")) return
+            runOnUiThread {
+                FocusDialog.singleChoice(this@WebViewActivity, getString(R.string.media_hidden_title), getString(R.string.media_hidden_body),
+                    listOf(
+                        FocusDialog.Choice("ask", getString(R.string.media_ask_keeper)),
+                        FocusDialog.Choice("page", getString(R.string.media_clear_page)),
+                        FocusDialog.Choice("once", getString(R.string.media_show_once))
+                    ), null) { key ->
+                    when (key) { "ask" -> askOne(src); "page" -> clearPage(); "once" -> showOnce(src) }
+                }
+            }
+        }
     }
 
     // ── Media stripping ───────────────────────────────────────────

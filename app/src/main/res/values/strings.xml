@@ -217,4 +217,20 @@
     <string name="alarm_p_gentle_line">Stop or snooze</string>
     <string name="alarm_p_nudge_line">A quiet reminder you can stop</string>
     <string-array name="alarm_day_letters"><item>Sa</item><item>Su</item><item>Mo</item><item>Tu</item><item>We</item><item>Th</item><item>Fr</item></string-array>
+    <string name="media_clear_page">Clear this page</string>
+    <string name="media_keeper_looking">The Keeper is looking…</string>
+    <string name="media_keeper_unavailable">The Keeper can\'t look right now. The pictures stay hidden.</string>
+    <string name="media_keeper_no">The Keeper kept that one hidden.</string>
+    <string name="media_nothing">Nothing hidden on this page.</string>
+    <string name="media_cleared_n">%1$d of %2$d pictures cleared.</string>
+    <string name="media_show_once">Show this once</string>
+    <string name="media_show_never">A sealed promise doesn\'t show hidden pictures.</string>
+    <string name="media_show_wait">Take a breath. It shows after the wait, just this once.</string>
+    <string name="media_show_none_left">No more "show once" today.</string>
+    <string name="media_show_password">Enter the session password. %1$d left today.</string>
+    <string name="media_password_hint">Session password</string>
+    <string name="media_wrong_password">That isn\'t the password.</string>
+    <string name="media_hidden_title">This picture is hidden</string>
+    <string name="media_hidden_body">Pictures stay hidden while a layer holds the phone, until the Keeper clears them.</string>
+    <string name="media_ask_keeper">Ask the Keeper about this one</string>
 </resources>
