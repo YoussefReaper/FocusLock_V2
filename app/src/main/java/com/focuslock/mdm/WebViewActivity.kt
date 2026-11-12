@@ -235,6 +235,10 @@ class WebViewActivity : AppCompatActivity() {
                     return false
                 }
 
+                if (Places.verdict(this@WebViewActivity, url) == Places.Verdict.CLOSED) {
+                    FocusDialog.toast(this@WebViewActivity, getString(R.string.places_closed))
+                    return true
+                }
                 askKeeper(url)
                 return true
             }
@@ -285,6 +289,13 @@ class WebViewActivity : AppCompatActivity() {
      * wins, even over an explicitly listed host.
      */
     private fun isUrlAllowed(target: String): Boolean =
+        when (Places.verdict(this, target)) {
+            Places.Verdict.OPEN -> true
+            Places.Verdict.CLOSED -> false
+            Places.Verdict.ASK -> isListedOrKept(target)
+        }
+
+    private fun isListedOrKept(target: String): Boolean =
         AllowlistStore.isListedUrl(this, target) ||
             (!isAdultHost(target) && KeeperCache.isApprovedPage(this, target))
 
@@ -374,6 +385,8 @@ class WebViewActivity : AppCompatActivity() {
     // ── Media blur (see [MediaBlur]) ──────────────────────────────
 
     private fun blurMedia() {
+        val host = currentUrl?.let { runCatching { Uri.parse(it).host }.getOrNull() }?.removePrefix("www.").orEmpty()
+        if (Places.isReddit(host)) webView.evaluateJavascript(Places.REDDIT_SCRIPT, null)
         if (MediaBlur.active(this)) webView.evaluateJavascript(MediaBlur.script(MediaBlur.clearedJson(this)), null)
     }
 

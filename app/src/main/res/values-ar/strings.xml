@@ -231,4 +231,14 @@
     <string name="media_hidden_title">هذه الصورة مخفية</string>
     <string name="media_hidden_body">تبقى الصور مخفية ما دامت طبقة تمسك الهاتف، حتى يفتحها الحارس.</string>
     <string name="media_ask_keeper">اسأل الحارس عن هذه</string>
+    <string name="places_closed">هذا الجزء مغلق. تُفتح هنا الأماكن التي وافقت عليها فقط.</string>
+    <string name="places_heading">ريديت وديسكورد</string>
+    <string name="places_intro">افتحهما في المتصفح الآمن بالأماكن التي اخترتها فقط.</string>
+    <string name="places_subreddits">المنتديات الفرعية</string>
+    <string name="places_add_subreddit">إضافة منتدى</string>
+    <string name="places_subreddit_hint">r/physics أو رابط</string>
+    <string name="places_servers">خوادم ديسكورد</string>
+    <string name="places_add_server">إضافة خادم</string>
+    <string name="places_server_hint">رابط discord.com/channels/… أو رقم الخادم</string>
+    <string name="places_note">الصفحة الرئيسية وPopular وAll في ريديت مغلقة والتعليقات مطوية. رسائل ديسكورد الخاصة مفتوحة؛ الاستكشاف والدعوات مغلقة.</string>
 </resources>

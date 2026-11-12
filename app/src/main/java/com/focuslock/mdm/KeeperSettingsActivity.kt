@@ -88,6 +88,31 @@ class KeeperSettingsActivity : FocusScreenActivity() {
             c.addView(FocusUi.caption(this, tokens, getString(R.string.keeper_search_hint)))
         })
 
+        column.addView(sectionLabel(getString(R.string.places_heading)))
+        column.addView(card { c ->
+            c.addView(FocusUi.caption(this, tokens, getString(R.string.places_intro)))
+            c.addView(FocusUi.spacer(this, 8))
+            fun place(title: Int, entries: Set<String>, label: (String) -> String, remove: (String) -> Unit, addTitle: Int, addHint: Int, add: (String) -> Unit) {
+                c.addView(FocusUi.body(this, tokens, getString(title)))
+                if (entries.isEmpty()) c.addView(FocusUi.caption(this, tokens, getString(R.string.keeper_search_list_empty)))
+                entries.sorted().forEach { e ->
+                    c.addView(FocusUi.listRow(this, tokens, label(e), null,
+                        trailing = FocusUi.smallButton(this, tokens, getString(R.string.keeper_search_remove)) { remove(e); refresh() }))
+                }
+                c.addView(FocusUi.secondaryButton(this, tokens, getString(addTitle)) {
+                    if (!SessionLock.allows(this, EditDirection.LOOSEN)) { FocusDialog.toast(this, SessionLock.refusalMessage(this)); return@secondaryButton }
+                    FocusDialog.textInput(this, title = getString(addTitle), subtitle = null, hint = getString(addHint),
+                        confirmLabel = getString(R.string.common_save)) { add(it); refresh() }
+                })
+                c.addView(FocusUi.spacer(this, 10))
+            }
+            place(R.string.places_subreddits, Places.subreddits(this), { "r/$it" }, { Places.removeSubreddit(this, it) },
+                R.string.places_add_subreddit, R.string.places_subreddit_hint) { Places.addSubreddit(this, it) }
+            place(R.string.places_servers, Places.servers(this), { it }, { Places.removeServer(this, it) },
+                R.string.places_add_server, R.string.places_server_hint) { Places.addServer(this, it) }
+            c.addView(FocusUi.caption(this, tokens, getString(R.string.places_note)))
+        })
+
         column.addView(sectionLabel(getString(R.string.keeper_focus_heading)))
         column.addView(card { c ->
             c.addView(FocusUi.secondary(this, tokens, getString(R.string.keeper_focus_intro)))

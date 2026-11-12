@@ -233,4 +233,14 @@
     <string name="media_hidden_title">This picture is hidden</string>
     <string name="media_hidden_body">Pictures stay hidden while a layer holds the phone, until the Keeper clears them.</string>
     <string name="media_ask_keeper">Ask the Keeper about this one</string>
+    <string name="places_closed">That part stays closed. Only the places you approved open here.</string>
+    <string name="places_heading">Reddit and Discord</string>
+    <string name="places_intro">Open them in the Safe Browser with only the places you chose.</string>
+    <string name="places_subreddits">Subreddits</string>
+    <string name="places_add_subreddit">Add a subreddit</string>
+    <string name="places_subreddit_hint">r/physics or a link</string>
+    <string name="places_servers">Discord servers</string>
+    <string name="places_add_server">Add a server</string>
+    <string name="places_server_hint">A discord.com/channels/… link or the server id</string>
+    <string name="places_note">Reddit\'s Home, Popular and All stay closed and comments start folded. Discord DMs stay open; Discovery and invites stay closed.</string>
 </resources>
