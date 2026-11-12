@@ -108,7 +108,7 @@
     <!-- التبويبات الخمسة، يستخدمها الشريط السفلي واختصارات تبويب «التركيز». -->
     <string name="tab_focus">التركيز</string>
     <string name="tab_tasks">المهام</string>
-    <string name="tab_library">المكتبة</string>
+    <string name="tab_library">الحارس</string>
     <string name="tab_rules">القواعد</string>
     <string name="tab_you">أنت</string>
 </resources>

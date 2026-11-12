@@ -110,4 +110,17 @@
     <string name="moon_days_left">باقٍ %1$d من %2$d يومًا · ينتهي %3$s</string>
     <string name="moon_art_home">صنوبرة وحيدة أمام قمر مرسوم عند الغروب</string>
     <string name="moon_art_stage">الصنوبرة في المرحلة %1$d من 7</string>
+    <string name="keeper_gate_title">الحارس</string>
+    <string name="keeper_gate_subtitle">ابحث عن أي شيء، ويفتح لك ما هو آمن.</string>
+    <string name="keeper_gate_hint">ابحث في الويب ويوتيوب</string>
+    <string name="keeper_gate_or_share">أو شارك أي رابط مع Pinehold</string>
+    <string name="keeper_gate_searching">جارٍ البحث…</string>
+    <string name="keeper_gate_nothing">لم يرجع شيء. تحقق من الاتصال أو جرّب كلمات أخرى.</string>
+    <string name="keeper_gate_all">الكل</string>
+    <string name="keeper_gate_videos">فيديو</string>
+    <string name="keeper_gate_pages">صفحات</string>
+    <string name="keeper_gate_closed">يبقى مغلقًا · رفضه الحارس</string>
+    <string name="keeper_gate_state_lit">يفتح فورًا</string>
+    <string name="keeper_gate_state_dark">ينظر فيه الحارس عند فتحه</string>
+    <string name="keeper_gate_legend">النقطة المضيئة تفتح فورًا: موجودة في قائمتك أو سمح بها الحارس سابقًا. والنقطة الفارغة ينظر فيها الحارس عند فتحها. البحث الآمن مفعّل دائمًا، ولا تظهر المقاطع القصيرة.</string>
 </resources>

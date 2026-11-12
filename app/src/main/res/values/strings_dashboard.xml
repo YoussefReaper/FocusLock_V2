@@ -105,7 +105,7 @@
     <!-- The five tabs, used by the bottom bar and by the Focus tab's shortcuts. -->
     <string name="tab_focus">Focus</string>
     <string name="tab_tasks">Tasks</string>
-    <string name="tab_library">Library</string>
+    <string name="tab_library">Keeper</string>
     <string name="tab_rules">Rules</string>
     <string name="tab_you">You</string>
 </resources>

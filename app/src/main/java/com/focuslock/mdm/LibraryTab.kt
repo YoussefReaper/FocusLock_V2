@@ -1,6 +1,7 @@
 package com.focuslock.mdm
 
 import android.content.Intent
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -55,19 +56,19 @@ class LibraryTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(acti
             FocusUi.pageHeader(
                 activity,
                 tokens,
-                activity.getString(R.string.library_title),
-                activity.getString(R.string.library_subtitle),
-                art = R.drawable.art_study
+                activity.getString(R.string.keeper_gate_title),
+                activity.getString(R.string.keeper_gate_subtitle),
+                art = R.drawable.art_keeper
             )
         )
 
         var anything = false
 
-        if (CapabilityRegistry.isEnabled(activity, Capabilities.SAFE_BROWSER) &&
-            UiPrefs.showWebButton(activity)
-        ) {
+        // The Keeper is the way in: one search for the web and YouTube. What is
+        // already known to be safe opens at once; anything else is looked at first.
+        if (CapabilityRegistry.isEnabled(activity, Capabilities.SAFE_BROWSER)) {
             anything = true
-            add(buildBrowserCard())
+            add(buildKeeperGateway())
         }
 
         if (CapabilityRegistry.isEnabled(activity, Capabilities.SAFE_YOUTUBE)) {
@@ -93,6 +94,164 @@ class LibraryTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(acti
         }
 
         Motion.stagger(added, tokens)
+    }
+
+    // ── Keeper gateway ────────────────────────────────────────────
+
+    private var query = ""
+    private var results: List<KeeperSearch.Result> = emptyList()
+    private var filter = 0
+    private var searching = false
+    private var failed = false
+    private var searchSeq = 0
+    private var resultsBox: LinearLayout? = null
+
+    private fun buildKeeperGateway(): View {
+        val column = FocusUi.column(activity)
+        column.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+        ).apply { bottomMargin = FocusUi.dp(activity, 20) }
+
+        val field = FocusUi.input(activity, tokens, activity.getString(R.string.keeper_gate_hint), query)
+        field.imeOptions = android.view.inputmethod.EditorInfo.IME_ACTION_SEARCH
+        field.isSingleLine = true
+        field.background = FocusUi.roundedShape(activity, tokens.surface, 999, tokens.divider, 1)
+        field.setPadding(FocusUi.dp(activity, 22), 0, FocusUi.dp(activity, 22), 0)
+        field.minimumHeight = FocusUi.dp(activity, 56)
+        field.setOnEditorActionListener { v, _, _ ->
+            runSearch(v.text.toString())
+            (activity.getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as android.view.inputmethod.InputMethodManager)
+                .hideSoftInputFromWindow(v.windowToken, 0)
+            true
+        }
+        column.addView(field)
+        val or = FocusUi.caption(activity, tokens, activity.getString(R.string.keeper_gate_or_share))
+        or.gravity = Gravity.CENTER_HORIZONTAL
+        or.setPadding(0, FocusUi.dp(activity, 8), 0, FocusUi.dp(activity, 6))
+        column.addView(or)
+
+        val settings = FocusUi.smallButton(activity, tokens, activity.getString(R.string.keeper_settings_title)) {
+            activity.startActivity(Intent(activity, KeeperSettingsActivity::class.java))
+        }
+        settings.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT
+        ).apply { gravity = Gravity.CENTER_HORIZONTAL }
+        column.addView(settings)
+
+        val box = FocusUi.column(activity)
+        box.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+        ).apply { topMargin = FocusUi.dp(activity, 14) }
+        resultsBox = box
+        fillResults()
+        column.addView(box)
+        return column
+    }
+
+    private fun runSearch(text: String) {
+        query = text.trim()
+        if (query.isEmpty()) return
+        val seq = ++searchSeq
+        searching = true
+        failed = false
+        fillResults()
+        Thread {
+            val found = KeeperSearch.search(query)
+            activity.runOnUiThread {
+                if (seq != searchSeq) return@runOnUiThread
+                searching = false
+                results = found
+                failed = found.isEmpty()
+                fillResults()
+            }
+        }.start()
+    }
+
+    private fun fillResults() {
+        val box = resultsBox ?: return
+        box.removeAllViews()
+        if (searching) {
+            box.addView(FocusUi.secondary(activity, tokens, activity.getString(R.string.keeper_gate_searching)).apply { gravity = Gravity.CENTER_HORIZONTAL })
+            return
+        }
+        if (query.isEmpty()) return
+        if (failed) {
+            box.addView(FocusUi.emptyState(activity, tokens, activity.getString(R.string.keeper_gate_nothing)))
+            return
+        }
+        val chips = FocusUi.row(activity)
+        listOf(R.string.keeper_gate_all, R.string.keeper_gate_videos, R.string.keeper_gate_pages).forEachIndexed { i, res ->
+            chips.addView(FocusUi.chip(activity, tokens, activity.getString(res), filter == i) { filter = i; fillResults() }.apply {
+                (layoutParams as? LinearLayout.LayoutParams)?.rightMargin = FocusUi.dp(activity, 8)
+            })
+        }
+        box.addView(chips)
+        box.addView(FocusUi.spacer(activity, 6))
+        results.filter { filter == 0 || (filter == 1) == (it.kind == KeeperSearch.Kind.VIDEO) }
+            .forEach { box.addView(buildResultRow(it)) }
+        val legend = FocusUi.caption(activity, tokens, activity.getString(R.string.keeper_gate_legend))
+        legend.setPadding(0, FocusUi.dp(activity, 12), 0, 0)
+        box.addView(legend)
+    }
+
+    private fun buildResultRow(r: KeeperSearch.Result): View {
+        val state = KeeperSearch.state(activity, r)
+        val row = FocusUi.row(activity)
+        row.gravity = Gravity.CENTER_VERTICAL
+        row.setPadding(0, FocusUi.dp(activity, 10), 0, FocusUi.dp(activity, 10))
+        row.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        if (state == KeeperSearch.State.CLOSED) row.alpha = 0.45f
+
+        val thumb = android.widget.ImageView(activity)
+        thumb.scaleType = android.widget.ImageView.ScaleType.CENTER_CROP
+        thumb.background = FocusUi.roundedShape(activity, tokens.surfaceAlt, 12)
+        thumb.clipToOutline = true
+        thumb.layoutParams = LinearLayout.LayoutParams(FocusUi.dp(activity, 112), FocusUi.dp(activity, 63)).apply { rightMargin = FocusUi.dp(activity, 12) }
+        row.addView(thumb)
+        r.thumb?.let { url ->
+            Thread { KeeperSearch.thumb(url)?.let { b -> activity.runOnUiThread { thumb.setImageBitmap(b) } } }.start()
+        }
+
+        val text = FocusUi.column(activity)
+        text.layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+        text.addView(FocusUi.body(activity, tokens, r.title).apply { maxLines = 2; ellipsize = android.text.TextUtils.TruncateAt.END })
+        val meta = listOfNotNull(r.source, r.duration).joinToString(" · ")
+        text.addView(FocusUi.caption(activity, tokens,
+            if (state == KeeperSearch.State.CLOSED) activity.getString(R.string.keeper_gate_closed) else meta))
+        row.addView(text)
+
+        val dot = View(activity)
+        val size = FocusUi.dp(activity, 10)
+        dot.layoutParams = LinearLayout.LayoutParams(size, size).apply { leftMargin = FocusUi.dp(activity, 10) }
+        dot.background = android.graphics.drawable.GradientDrawable().apply {
+            shape = android.graphics.drawable.GradientDrawable.OVAL
+            if (state == KeeperSearch.State.LIT) setColor(tokens.accent) else setStroke(FocusUi.dp(activity, 1).coerceAtLeast(2), tokens.textMuted)
+        }
+        if (state != KeeperSearch.State.CLOSED) row.addView(dot)
+
+        row.contentDescription = r.title + ", " + activity.getString(when (state) {
+            KeeperSearch.State.LIT -> R.string.keeper_gate_state_lit
+            KeeperSearch.State.DARK -> R.string.keeper_gate_state_dark
+            KeeperSearch.State.CLOSED -> R.string.keeper_gate_closed
+        })
+        if (state != KeeperSearch.State.CLOSED) {
+            row.isClickable = true
+            row.isFocusable = true
+            row.background = FocusUi.withRipple(activity, android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT), tokens)
+            row.setOnClickListener { openResult(r, state) }
+        }
+        return row
+    }
+
+    private fun openResult(r: KeeperSearch.Result, state: KeeperSearch.State) {
+        val intent = when {
+            r.kind == KeeperSearch.Kind.VIDEO && r.videoId != null ->
+                Intent(activity, VideoCheckActivity::class.java).putExtra(VideoCheckActivity.EXTRA_VIDEO_ID, r.videoId)
+            state == KeeperSearch.State.LIT ->
+                Intent(activity, WebViewActivity::class.java).putExtra(WebViewActivity.EXTRA_INITIAL_URL, r.url)
+            else -> Intent(activity, KeeperActivity::class.java).putExtra(KeeperActivity.EXTRA_URL, r.url)
+        }
+        activity.startActivity(intent)
     }
 
     // ── Cards ─────────────────────────────────────────────────────

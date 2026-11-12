@@ -112,4 +112,17 @@
     <string name="moon_days_left">%1$d of %2$d days left · ends %3$s</string>
     <string name="moon_art_home">A lone pine against a painted dusk moon</string>
     <string name="moon_art_stage">The pine, at stage %1$d of 7</string>
+    <string name="keeper_gate_title">Keeper</string>
+    <string name="keeper_gate_subtitle">Search anything. It opens what\'s safe.</string>
+    <string name="keeper_gate_hint">Search the web and YouTube</string>
+    <string name="keeper_gate_or_share">or share any link to Pinehold</string>
+    <string name="keeper_gate_searching">Looking…</string>
+    <string name="keeper_gate_nothing">Nothing came back. Check the connection, or try other words.</string>
+    <string name="keeper_gate_all">All</string>
+    <string name="keeper_gate_videos">Videos</string>
+    <string name="keeper_gate_pages">Pages</string>
+    <string name="keeper_gate_closed">Stays closed · the Keeper said no</string>
+    <string name="keeper_gate_state_lit">opens at once</string>
+    <string name="keeper_gate_state_dark">the Keeper looks when you open it</string>
+    <string name="keeper_gate_legend">A lit dot opens at once: it is on your list or was kept before. An empty one is looked at by the Keeper when you open it. SafeSearch is always on, and Shorts never appear.</string>
 </resources>
