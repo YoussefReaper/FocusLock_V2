@@ -31,8 +31,8 @@ android {
         // Bump both on every build that reaches a real phone. People are running
         // 1.0 already; without this, two different APKs both report "1.0" and the
         // only way to tell them apart is a checksum.
-        versionCode = 18
-        versionName = "2.0"
+        versionCode = 19
+        versionName = "2.1"
 
         buildConfigField("boolean", "ENFORCEMENT", "true")
         buildConfigField("boolean", "DEMO", "false")
