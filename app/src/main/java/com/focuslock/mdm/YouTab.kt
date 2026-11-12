@@ -52,21 +52,36 @@ class YouTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activity
             add(circle)
         }
 
-        add(buildProgressCard())
+        // Moon, as on the canvas: what you act on first (honesty, the Keeper, help), then how it
+        // looks, then the numbers - so the page opens on choices, not on a wall of stats.
+        if (tokens.moon) {
+            add(FocusUi.sectionLabel(activity, tokens, activity.getString(R.string.youtab_setup_and_help)))
+            add(buildHelpCard())
+            add(FocusUi.sectionLabel(activity, tokens, activity.getString(R.string.youtab_make_it_yours)))
+            add(buildAppearanceCard())
+            add(buildProCard())
+            add(buildProgressCard())
+            if (UiPrefs.showStats(activity) && UsageAnalytics.isEnabled(activity)) {
+                add(FocusUi.sectionLabel(activity, tokens, activity.getString(R.string.youtab_section_today)))
+                add(buildTodayStats())
+            }
+        } else {
+            add(buildProgressCard())
 
-        add(FocusUi.spacer(activity, 12))
-        add(buildProCard())
+            add(FocusUi.spacer(activity, 12))
+            add(buildProCard())
 
-        if (UiPrefs.showStats(activity) && UsageAnalytics.isEnabled(activity)) {
-            add(FocusUi.sectionLabel(activity, tokens, activity.getString(R.string.youtab_section_today)))
-            add(buildTodayStats())
+            if (UiPrefs.showStats(activity) && UsageAnalytics.isEnabled(activity)) {
+                add(FocusUi.sectionLabel(activity, tokens, activity.getString(R.string.youtab_section_today)))
+                add(buildTodayStats())
+            }
+
+            add(FocusUi.sectionLabel(activity, tokens, activity.getString(R.string.youtab_make_it_yours)))
+            add(buildAppearanceCard())
+
+            add(FocusUi.sectionLabel(activity, tokens, activity.getString(R.string.youtab_setup_and_help)))
+            add(buildHelpCard())
         }
-
-        add(FocusUi.sectionLabel(activity, tokens, activity.getString(R.string.youtab_make_it_yours)))
-        add(buildAppearanceCard())
-
-        add(FocusUi.sectionLabel(activity, tokens, activity.getString(R.string.youtab_setup_and_help)))
-        add(buildHelpCard())
 
         add(FocusUi.sectionLabel(activity, tokens, activity.getString(R.string.youtab_section_release)))
         add(buildReleaseCard())
