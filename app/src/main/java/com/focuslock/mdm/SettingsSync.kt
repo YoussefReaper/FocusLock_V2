@@ -61,6 +61,9 @@ object SettingsSync {
         }
         o.put("partner", SessionPassword.partner(c).lowercase())
         o.put("settingsLock", SessionPassword.settingsLock(c))
+        o.put("salah", JSONObject().put("on", Salah.isOn(c)).put("lat", Salah.lat(c)).put("lng", Salah.lng(c))
+            .put("place", Salah.placeName(c)).put("method", Salah.method(c).name.lowercase().replace("_", ""))
+            .put("hanafi", Salah.hanafi(c)).put("window", Salah.windowMinutes(c)))
         return o
     }
 
@@ -88,6 +91,19 @@ object SettingsSync {
             r.optJSONObject("bedtime")?.let { b ->
                 Bedtime.setWindow(c, b.optInt("start", Bedtime.startMinutes(c)), b.optInt("end", Bedtime.endMinutes(c)))
                 if (Bedtime.isEnabled(c) != b.optBoolean("on")) CapabilityRegistry.setEnabled(c, Capabilities.BEDTIME_MODE, b.optBoolean("on"))
+            }
+
+            r.optJSONObject("salah")?.let { x ->
+                Salah.setOn(c, x.optBoolean("on", Salah.isOn(c)))
+                val lat = x.optDouble("lat", Double.NaN); val lng = x.optDouble("lng", Double.NaN)
+                if (!lat.isNaN() && !lng.isNaN() && (lat != Salah.lat(c) || lng != Salah.lng(c))) {
+                    val tz = if (Math.abs(lat - Salah.CAIRO_LAT) < 0.01 && Math.abs(lng - Salah.CAIRO_LNG) < 0.01)
+                        java.util.TimeZone.getTimeZone("Africa/Cairo") else java.util.TimeZone.getDefault()
+                    Salah.setPlace(c, lat, lng, x.optString("place", "Here"), tz)
+                }
+                Salah.Method.values().firstOrNull { it.name.lowercase().replace("_", "") == x.optString("method") }?.let { Salah.setMethod(c, it) }
+                Salah.setHanafi(c, x.optBoolean("hanafi", Salah.hanafi(c)))
+                Salah.setWindowMinutes(c, x.optInt("window", Salah.windowMinutes(c)))
             }
 
             r.optJSONArray("windows")?.let { arr ->
