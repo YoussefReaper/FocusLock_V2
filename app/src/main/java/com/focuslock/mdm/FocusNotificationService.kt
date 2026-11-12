@@ -67,7 +67,7 @@ class FocusNotificationService : NotificationListenerService() {
             val open = packageManager.getLaunchIntentForPackage(sbn.packageName)
             val pi = open?.let { android.app.PendingIntent.getActivity(this, sbn.key.hashCode(), it, android.app.PendingIntent.FLAG_IMMUTABLE or android.app.PendingIntent.FLAG_UPDATE_CURRENT) }
             val n = androidx.core.app.NotificationCompat.Builder(this, "folded_pictures")
-                .setSmallIcon(android.R.drawable.ic_lock_idle_lock)
+                .setSmallIcon(R.drawable.ic_stat_pinehold)
                 .setContentTitle(getString(R.string.folded_picture_title, who))
                 .setContentText(getString(R.string.folded_picture_body))
                 .setAutoCancel(true)

@@ -1355,7 +1355,7 @@ class AppBlockerService : Service() {
         return NotificationCompat.Builder(this, channelId)
             .setContentTitle("FocusLock")
             .setContentText(text)
-            .setSmallIcon(android.R.drawable.ic_lock_idle_lock)
+            .setSmallIcon(R.drawable.ic_stat_pinehold)
             .setContentIntent(open)
             .setOngoing(true)
             .setShowWhen(false)

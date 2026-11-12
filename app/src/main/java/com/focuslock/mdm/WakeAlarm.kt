@@ -260,7 +260,7 @@ object WakeAlarm {
             Intent(c, WakeReceiver::class.java).setAction(ACTION_AWAKE),
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
         nm.notify(NOTE_CHECK, NotificationCompat.Builder(c, "wake_check")
-            .setSmallIcon(android.R.drawable.ic_lock_idle_alarm)
+            .setSmallIcon(R.drawable.ic_stat_pinehold)
             .setContentTitle(c.getString(R.string.alarm_check_title))
             .setContentText(c.getString(R.string.alarm_check_body, ANSWER_MIN))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
