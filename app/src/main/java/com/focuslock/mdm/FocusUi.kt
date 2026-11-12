@@ -390,12 +390,13 @@ object FocusUi {
             mono && large -> tokens.displayTypeface
             else -> tokens.typeface
         }
-        view.typeface = Typeface.create(base, weight, false)
+        view.typeface = if (tokens.serifDisplay && base === tokens.displayTypeface) base else Typeface.create(base, weight, false)
     }
 
     /** Titles and big numbers: the Bricolage display face. */
     fun applyDisplayFont(view: TextView, tokens: UiPrefs.Tokens, weight: Int = 650) {
-        view.typeface = Typeface.create(tokens.displayTypeface, weight, false)
+        view.typeface = if (tokens.serifDisplay) tokens.displayTypeface else Typeface.create(tokens.displayTypeface, weight, false)
+        if (tokens.serifDisplay) view.letterSpacing = 0f
     }
 
     private fun text(
@@ -1642,9 +1643,11 @@ object FocusUi {
         tokens: UiPrefs.Tokens,
         titleText: String,
         subtitle: String? = null,
+        @androidx.annotation.DrawableRes art: Int? = null,
         onBack: (() -> Unit)? = null
     ): LinearLayout {
         val container = column(context)
+        val moon = UiPrefs.isMoon(context)
         container.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
@@ -1664,9 +1667,22 @@ object FocusUi {
             container.addView(back)
         }
 
-        container.addView(title(context, tokens, titleText))
+        if (moon && art != null) {
+            container.addView(MoonArt.painting(context, art, 240))
+        }
+        val titleView = title(context, tokens, titleText)
+        if (moon && art != null) {
+            titleView.gravity = Gravity.CENTER_HORIZONTAL
+            titleView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        }
+        container.addView(titleView)
         if (!subtitle.isNullOrBlank()) {
             val subtitleView = secondary(context, tokens, subtitle)
+            if (moon) {
+                subtitleView.typeface = android.graphics.Typeface.create(tokens.displayTypeface, android.graphics.Typeface.ITALIC)
+                subtitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, tokens.scaled(18f))
+                if (art != null) subtitleView.gravity = Gravity.CENTER_HORIZONTAL
+            }
             subtitleView.layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT

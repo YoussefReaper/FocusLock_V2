@@ -16,6 +16,8 @@ import android.widget.LinearLayout
  */
 class KeywordGuardActivity : FocusScreenActivity() {
 
+    override fun screenArt(): Int = R.drawable.art_stone2
+
     override fun screenTitle(): String = getString(R.string.keyword_guard_title)
 
     override fun screenSubtitle(): String = getString(R.string.keyword_guard_subtitle)

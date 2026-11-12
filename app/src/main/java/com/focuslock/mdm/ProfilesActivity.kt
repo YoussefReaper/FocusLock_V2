@@ -44,6 +44,8 @@ class ProfilesActivity : FocusScreenActivity() {
         confirmRestore(getString(R.string.profiles_this_file), payload)
     }
 
+    override fun screenArt(): Int = R.drawable.art_you
+
     override fun screenTitle(): String = getString(R.string.rules_profiles_title)
 
     override fun screenSubtitle(): String =

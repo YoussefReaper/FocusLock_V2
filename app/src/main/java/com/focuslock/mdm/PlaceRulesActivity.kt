@@ -15,6 +15,8 @@ import android.widget.LinearLayout
  */
 class PlaceRulesActivity : FocusScreenActivity() {
 
+    override fun screenArt(): Int = R.drawable.art_rules
+
     override fun screenTitle(): String = getString(R.string.place_rules_title)
 
     override fun screenSubtitle(): String = getString(R.string.place_rules_subtitle)

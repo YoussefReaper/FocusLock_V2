@@ -41,5 +41,6 @@
     <string name="appearance_bg_sand">Sand</string>
     <string name="appearance_bg_pure_black">True black</string>
     <string name="appearance_theme_blossom">Blossom</string>
+    <string name="appearance_theme_moon">Moon</string>
     <string name="blossom_little_steps">Little steps still count.</string>
 </resources>

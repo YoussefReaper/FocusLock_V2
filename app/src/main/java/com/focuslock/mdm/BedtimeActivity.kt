@@ -13,6 +13,8 @@ import android.widget.LinearLayout
  */
 class BedtimeActivity : FocusScreenActivity() {
 
+    override fun screenArt(): Int = R.drawable.art_bedtime
+
     override fun screenTitle(): String = getString(R.string.bedtime_title)
 
     override fun screenSubtitle(): String = getString(R.string.bedtime_subtitle)

@@ -15,6 +15,8 @@ class CapabilitiesActivity : FocusScreenActivity() {
     private val collapsed = HashMap<String, Boolean>()
     private var showAll = false
 
+    override fun screenArt(): Int = R.drawable.art_key
+
     override fun screenTitle(): String = getString(R.string.capabilities_title)
 
     override fun screenSubtitle(): String = getString(R.string.rules_capability_intro)

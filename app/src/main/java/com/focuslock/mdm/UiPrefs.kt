@@ -122,7 +122,9 @@ object UiPrefs {
         val density: UiDensity,
         val reducedMotion: Boolean,
         @DrawableRes val wallpaperRes: Int,
-        val dimPercent: Int
+        val dimPercent: Int,
+        /** Moon: the display face is Instrument Serif, which has one weight and must never be faux-bolded. */
+        val serifDisplay: Boolean = false
     ) {
         fun scaled(sp: Float): Float = sp * textScale
 
@@ -143,7 +145,7 @@ object UiPrefs {
     private fun prefs(context: Context) =
         context.applicationContext.getSharedPreferences(Constants.PREFS_MAIN, Context.MODE_PRIVATE)
 
-    private const val DEFAULT_THEME_ID = "paper"
+    private const val DEFAULT_THEME_ID = MOON_THEME_ID
     private const val DEFAULT_FONT_ID = "figtree"
     private const val DEFAULT_DENSITY_ID = "comfortable"
     private const val DEFAULT_WALLPAPER_ID = "none"
@@ -176,6 +178,23 @@ object UiPrefs {
     // so nobody's saved choice breaks; only the colours changed. Every pair
     // was checked at 4.5:1 or better for body text.
     val themes: List<UiTheme> = listOf(
+        // Moon (2026-11): the painted-night look. Deep violet-black, one warm
+        // apricot accent, serif display type. The paintings carry the colour.
+        UiTheme(
+            id = MOON_THEME_ID,
+            labelRes = R.string.appearance_theme_moon,
+            isLight = false,
+            background = Color.parseColor("#0A0915"),
+            card = Color.parseColor("#12101F"),
+            cardAlt = Color.parseColor("#1C1930"),
+            textPrimary = Color.parseColor("#F6EFE6"),
+            textSecondary = Color.parseColor("#B8B0C8"),
+            accent = Color.parseColor(MOON_ACCENT),
+            track = Color.parseColor("#1C1930"),
+            divider = Color.parseColor("#1C1930"),
+            input = Color.parseColor("#151225"),
+            muted = Color.parseColor("#9A93AD")
+        ),
         UiTheme(
             id = "obsidian",
             labelRes = R.string.appearance_theme_obsidian,
@@ -240,6 +259,12 @@ object UiPrefs {
     )
 
     const val BLOSSOM_THEME_ID = "blossom"
+    const val MOON_THEME_ID = "moon"
+    const val MOON_ACCENT = "#F0A36A"
+
+    /** The painted Moon look: paintings, serif titles, moons instead of dots. Off while bedtime forces Nocturne. */
+    fun isMoon(context: Context): Boolean = getTheme(context).id == MOON_THEME_ID &&
+        !(Standalone.mayActNow(context) && Bedtime.isActive(context) && Bedtime.forcesDarkTheme(context))
 
     /** Blossom changes layouts too (dock, greeting), not only colours. Nocturne at bedtime wins. */
     fun isBlossom(context: Context): Boolean = getTheme(context).id == BLOSSOM_THEME_ID &&
@@ -603,6 +628,7 @@ object UiPrefs {
         val background = if (backgroundChoice == Color.TRANSPARENT) base.background else backgroundChoice
         val highContrast = highContrast(context)
         val accent = if (base.id == BLOSSOM_THEME_ID) Color.parseColor(BLOSSOM_ACCENT)
+            else if (base.id == MOON_THEME_ID) Color.parseColor(MOON_ACCENT)
             else if (base.isLight) accentChoice.color else (accentChoice.darkColor ?: accentChoice.color)
 
         val textPrimary = if (highContrast) {
@@ -643,14 +669,17 @@ object UiPrefs {
             dangerSoft = blend(danger, background, if (base.isLight) 0.86f else 0.8f),
             typeface = resolveTypeface(context, getFont(context).id),
             monoTypeface = resolveMonoTypeface(context),
-            displayTypeface = resolveDisplayTypeface(context),
+            displayTypeface = if (base.id == MOON_THEME_ID && !isArabicLocale(context))
+                androidx.core.content.res.ResourcesCompat.getFont(context, R.font.instrument_serif_family) ?: resolveDisplayTypeface(context)
+                else resolveDisplayTypeface(context),
             // Blossom is rounder all over: soft corners are part of the look, not just pink.
             radiusDp = if (base.id == BLOSSOM_THEME_ID) maxOf(getCardRadiusDp(context), 26).coerceAtMost(32) else getCardRadiusDp(context).coerceIn(0, 32),
             textScale = getTextScale(context).coerceIn(0.8f, 1.4f),
             density = getDensity(context),
             reducedMotion = reducedMotion(context),
             wallpaperRes = getWallpaper(context).drawableRes,
-            dimPercent = if (Standalone.mayActNow(context) && Bedtime.isActive(context)) Bedtime.dimPercent(context) else 0
+            dimPercent = if (Standalone.mayActNow(context) && Bedtime.isActive(context)) Bedtime.dimPercent(context) else 0,
+            serifDisplay = base.id == MOON_THEME_ID && !isArabicLocale(context)
         )
     }
 

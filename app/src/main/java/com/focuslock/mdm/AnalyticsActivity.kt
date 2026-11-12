@@ -21,6 +21,8 @@ class AnalyticsActivity : FocusScreenActivity() {
             getString(R.string.analytics_window_30)
         )
 
+    override fun screenArt(): Int = R.drawable.art_insights
+
     override fun screenTitle(): String = getString(R.string.analytics_title)
 
     override fun screenSubtitle(): String = Copy.analyticsIntro(this)

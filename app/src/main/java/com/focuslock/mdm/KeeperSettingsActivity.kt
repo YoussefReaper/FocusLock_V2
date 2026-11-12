@@ -29,6 +29,8 @@ class KeeperSettingsActivity : FocusScreenActivity() {
     private var redeeming = false
     private var redeemError: String? = null
 
+    override fun screenArt(): Int = R.drawable.art_keeper
+
     override fun screenTitle(): String = getString(R.string.keeper_settings_title)
     override fun screenSubtitle(): String = getString(R.string.keeper_settings_subtitle)
 

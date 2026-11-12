@@ -13,6 +13,8 @@ import android.widget.LinearLayout
  */
 class AppLimitsActivity : FocusScreenActivity() {
 
+    override fun screenArt(): Int = R.drawable.art_stage4
+
     override fun screenTitle(): String = getString(R.string.app_limits_title)
 
     override fun screenSubtitle(): String = getString(R.string.app_limits_subtitle)

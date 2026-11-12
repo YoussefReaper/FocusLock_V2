@@ -22,6 +22,8 @@ class WebAllowlistEditorActivity : FocusScreenActivity() {
     private var query = ""
     private var category = 0
 
+    override fun screenArt(): Int = R.drawable.art_stone1
+
     override fun screenTitle(): String = getString(R.string.web_allowlist_title)
 
     override fun screenSubtitle(): String = getString(R.string.web_allowlist_subtitle)

@@ -14,7 +14,7 @@ import android.content.Context
 object Migration {
 
     private const val KEY_VERSION = "store_migration_version"
-    private const val CURRENT_VERSION = 9
+    private const val CURRENT_VERSION = 10
 
     fun run(context: Context) {
         val version = FocusStore.getInt(context, KEY_VERSION, 0)
@@ -57,6 +57,11 @@ object Migration {
         }
         if (version in 1..8) {
             outsideSessionOffForUpgraders(context)
+        }
+
+        if (version < 10) {
+            // The Moon redesign (2026-11) becomes everyone's look once; the old themes stay pickable.
+            FocusStore.setString(context, Constants.KEY_UI_THEME, UiPrefs.MOON_THEME_ID)
         }
 
         FocusStore.setInt(context, KEY_VERSION, CURRENT_VERSION)

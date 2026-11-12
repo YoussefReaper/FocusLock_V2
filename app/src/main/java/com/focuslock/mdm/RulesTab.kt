@@ -40,7 +40,8 @@ class RulesTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activi
                 activity,
                 tokens,
                 activity.getString(R.string.rules_title),
-                activity.getString(R.string.rules_subtitle)
+                activity.getString(R.string.rules_subtitle),
+                art = R.drawable.art_rules
             )
         )
 

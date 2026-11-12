@@ -13,6 +13,8 @@ import android.widget.LinearLayout
  */
 class AlwaysAllowedActivity : FocusScreenActivity() {
 
+    override fun screenArt(): Int = R.drawable.art_moonpine
+
     override fun screenTitle(): String = getString(R.string.always_allowed_title)
 
     override fun screenSubtitle(): String = getString(R.string.always_allowed_subtitle)

@@ -39,7 +39,7 @@ class YouTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activity
             added.add(view)
         }
 
-        add(FocusUi.pageHeader(activity, tokens, activity.getString(R.string.tab_you), activity.getString(R.string.youtab_subtitle)))
+        add(FocusUi.pageHeader(activity, tokens, activity.getString(R.string.tab_you), activity.getString(R.string.youtab_subtitle), art = R.drawable.art_you))
 
         add(buildProgressCard())
 

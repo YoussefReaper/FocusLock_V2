@@ -70,6 +70,8 @@ class AppRulesActivity : FocusScreenActivity() {
         )
     }
 
+    override fun screenArt(): Int = R.drawable.art_stone0
+
     override fun screenTitle(): String = getString(R.string.app_rules_title)
 
     override fun screenSubtitle(): String = getString(R.string.app_rules_subtitle)

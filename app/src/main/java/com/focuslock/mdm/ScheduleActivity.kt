@@ -14,6 +14,8 @@ import java.util.Calendar
  */
 class ScheduleActivity : FocusScreenActivity() {
 
+    override fun screenArt(): Int = R.drawable.art_rules
+
     override fun screenTitle(): String = getString(R.string.schedule_title)
 
     override fun screenSubtitle(): String = getString(R.string.schedule_subtitle)

@@ -15,6 +15,8 @@ import android.widget.LinearLayout
  */
 class PersonalizationActivity : FocusScreenActivity() {
 
+    override fun screenArt(): Int = R.drawable.art_moonpine
+
     override fun screenTitle(): String = getString(R.string.appearance_title)
 
     override fun screenSubtitle(): String =

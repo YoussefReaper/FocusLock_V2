@@ -56,7 +56,8 @@ class LibraryTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(acti
                 activity,
                 tokens,
                 activity.getString(R.string.library_title),
-                activity.getString(R.string.library_subtitle)
+                activity.getString(R.string.library_subtitle),
+                art = R.drawable.art_study
             )
         )
 

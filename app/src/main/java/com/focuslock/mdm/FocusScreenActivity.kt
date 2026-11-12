@@ -27,6 +27,10 @@ abstract class FocusScreenActivity : AppCompatActivity() {
 
     protected open fun screenSubtitle(): String? = null
 
+    /** The Moon look's painting for this screen, shown above the title. */
+    @androidx.annotation.DrawableRes
+    protected open fun screenArt(): Int? = null
+
     /** Fill the scrolling column. Called on create and on every resume. */
     protected abstract fun buildContent(column: LinearLayout)
 
@@ -88,7 +92,7 @@ abstract class FocusScreenActivity : AppCompatActivity() {
 
     private fun fillContent() {
         content.addView(
-            FocusUi.pageHeader(this, tokens, screenTitle(), screenSubtitle()) { finish() }
+            FocusUi.pageHeader(this, tokens, screenTitle(), screenSubtitle(), screenArt()) { finish() }
         )
         val whyLink = FocusUi.smallButton(this, tokens, getString(R.string.common_why_needed_button)) {
             val explanation = screenHelpText()

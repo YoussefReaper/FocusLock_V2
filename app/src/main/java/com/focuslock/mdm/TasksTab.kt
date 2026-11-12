@@ -95,7 +95,8 @@ class TasksTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activi
                 activity.getString(R.string.tasks_page_title),
                 // The deal itself is the last row of the pool card below;
                 // repeating it here put the same sentence on screen twice.
-                activity.getString(R.string.tasks_page_subtitle)
+                activity.getString(R.string.tasks_page_subtitle),
+                art = R.drawable.art_free
             )
         )
 
