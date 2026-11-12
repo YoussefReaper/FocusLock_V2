@@ -101,6 +101,17 @@ object TelegramGuard {
     fun lastSeenTitle(context: Context): String? =
         FocusStore.getString(context, KEY_LAST_TITLE, "").takeIf { it.isNotBlank() }
 
+    private const val KEY_BACKED_OUT = "telegram_backed_out"
+
+    /** The last chats the guard backed out of, newest first, so one can be allowed by its exact title. */
+    fun backedOut(context: Context): List<String> =
+        FocusStore.getString(context, KEY_BACKED_OUT, "").split('\n').filter { it.isNotBlank() }
+
+    fun recordBackedOut(context: Context, title: String) {
+        val list = (listOf(title) + backedOut(context).filterNot { it == title }).take(10)
+        FocusStore.setString(context, KEY_BACKED_OUT, list.joinToString("\n"))
+    }
+
     fun rememberTitle(context: Context, title: String) {
         FocusStore.setString(context, KEY_LAST_TITLE, title)
     }

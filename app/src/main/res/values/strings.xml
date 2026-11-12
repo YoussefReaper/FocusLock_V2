@@ -246,4 +246,10 @@
     <string name="alarm_prayer_label">Time to pray</string>
     <string name="alarm_prayers_title">Wake me for the other prayers if I\'m asleep</string>
     <string name="alarm_prayers_subtitle">At Dhuhr, Asr, Maghrib and Isha it rings only if the phone has been dark for %1$d minutes and your laptop isn\'t in use.</string>
+    <string name="telegram_backed_out">Backed out of lately (the exact titles the guard read)</string>
+    <string name="telegram_allow">Allow</string>
+    <string name="telegram_autodl_title">Turn off Telegram\'s picture auto-download</string>
+    <string name="telegram_autodl_steps">1. Open Telegram, then Settings, then Data and Storage.\n2. Under Automatic media download, turn off When using mobile data, When connected on Wi-Fi and When roaming.\n3. Turn off Autoplay media (GIFs and videos).\nPictures then wait for a tap instead of arriving on their own.</string>
+    <string name="telegram_open">Open Telegram</string>
+    <string name="telegram_not_installed">Telegram isn\'t installed.</string>
 </resources>

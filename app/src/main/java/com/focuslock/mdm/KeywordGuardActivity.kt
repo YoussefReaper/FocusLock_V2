@@ -360,6 +360,29 @@ class KeywordGuardActivity : FocusScreenActivity() {
             card.addView(FocusUi.spacer(this, 8))
             card.addView(FocusUi.caption(this, tokens, getString(R.string.keyword_guard_telegram_not_read)))
         }
+
+        val backed = TelegramGuard.backedOut(this).filter { b -> allowed.none { it.equals(b, ignoreCase = true) } }
+        if (backed.isNotEmpty()) {
+            card.addView(FocusUi.spacer(this, 12))
+            card.addView(FocusUi.body(this, tokens, getString(R.string.telegram_backed_out)))
+            backed.forEach { title ->
+                card.addView(FocusUi.listRow(this, tokens, title, null,
+                    trailing = FocusUi.smallButton(this, tokens, getString(R.string.telegram_allow)) {
+                        if (!TelegramGuard.addAllowed(this, title)) FocusDialog.toast(this, SessionLock.refusalMessage(this))
+                        refresh()
+                    }))
+            }
+        }
+
+        // Pictures arrive before any chat is opened unless Telegram's own auto-download is off.
+        card.addView(FocusUi.spacer(this, 12))
+        card.addView(FocusUi.body(this, tokens, getString(R.string.telegram_autodl_title)))
+        card.addView(FocusUi.caption(this, tokens, getString(R.string.telegram_autodl_steps)))
+        card.addView(FocusUi.spacer(this, 8))
+        card.addView(FocusUi.secondaryButton(this, tokens, getString(R.string.telegram_open)) {
+            packageManager.getLaunchIntentForPackage(TelegramGuard.PACKAGE)?.let { startActivity(it) }
+                ?: FocusDialog.toast(this, getString(R.string.telegram_not_installed))
+        })
     }
 
     private fun buildExceptions(): View = card { card ->

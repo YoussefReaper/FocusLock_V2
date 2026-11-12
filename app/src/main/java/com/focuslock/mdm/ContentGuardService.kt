@@ -312,6 +312,7 @@ class ContentGuardService : AccessibilityService() {
                         TelegramGuard.rememberTitle(this, title)
                     }
                     if (TelegramGuard.blocks(this, title)) {
+                        TelegramGuard.recordBackedOut(this, title)
                         lastPackage = packageName
                         main.post { act(GuardAction.STEP_BACK, packageName, title) }
                         return
