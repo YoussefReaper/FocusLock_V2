@@ -157,11 +157,21 @@ class OnboardingActivity : AppCompatActivity() {
 
     // ── Step 1: Pick apps ───────────────────────
 
+    /** One question per screen; in the Moon look each gets its painting above it. */
+    private fun head(column: LinearLayout, title: Int, subtitle: Int, art: Int) {
+        if (UiPrefs.isMoon(this)) {
+            column.addView(FocusUi.pageHeader(this, tokens, getString(title), getString(subtitle), art))
+            column.addView(FocusUi.spacer(this, 12))
+            return
+        }
+        column.addView(FocusUi.title(this, tokens, getString(title)))
+        column.addView(FocusUi.spacer(this, 8))
+        column.addView(FocusUi.secondary(this, tokens, getString(subtitle)))
+        column.addView(FocusUi.spacer(this, 18))
+    }
+
     private fun buildStep1AppsAndPresets(column: LinearLayout) {
-        column.addView(FocusUi.title(this, tokens, getString(R.string.onboarding_q1_apps_title)))
-        column.addView(FocusUi.spacer(this, 6))
-        column.addView(FocusUi.secondary(this, tokens, getString(R.string.onboarding_q1_apps_subtitle)))
-        column.addView(FocusUi.spacer(this, 16))
+        head(column, R.string.onboarding_q1_apps_title, R.string.onboarding_q1_apps_subtitle, R.drawable.art_welcome)
 
         // Quiet Pine: one question per screen. The three preset cards that
         // used to sit above this list were a second decision on the first
@@ -251,10 +261,7 @@ class OnboardingActivity : AppCompatActivity() {
     // ── Step 2: How firm? ─────────────────────────────────────────
 
     private fun buildStep2Firmness(column: LinearLayout) {
-        column.addView(FocusUi.title(this, tokens, getString(R.string.onboarding_firm_title)))
-        column.addView(FocusUi.spacer(this, 8))
-        column.addView(FocusUi.secondary(this, tokens, getString(R.string.onboarding_firm_note)))
-        column.addView(FocusUi.spacer(this, 18))
+        head(column, R.string.onboarding_firm_title, R.string.onboarding_firm_note, R.drawable.art_key)
 
         val options = listOf(
             Triple(getString(R.string.onboarding_firm_gentle_label), getString(R.string.onboarding_firm_gentle_detail), 0),
@@ -289,10 +296,7 @@ class OnboardingActivity : AppCompatActivity() {
     // ── Step 3: When? ─────────────────────────────────────────────
 
     private fun buildStep3When(column: LinearLayout) {
-        column.addView(FocusUi.title(this, tokens, getString(R.string.onboarding_q3_when_title)))
-        column.addView(FocusUi.spacer(this, 8))
-        column.addView(FocusUi.secondary(this, tokens, getString(R.string.onboarding_q3_when_subtitle)))
-        column.addView(FocusUi.spacer(this, 18))
+        head(column, R.string.onboarding_q3_when_title, R.string.onboarding_q3_when_subtitle, R.drawable.art_moonpine)
 
         val options = listOf(
             "now" to getString(R.string.onboarding_when_now_label),

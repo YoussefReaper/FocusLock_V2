@@ -174,7 +174,13 @@ class KeeperActivity : AppCompatActivity() {
 
     // ── What the person sees ─────────────────────────────────────
 
-    private fun reset() { overlay.removeAllViews() }
+    private fun reset(art: Int = R.drawable.art_keeper) {
+        overlay.removeAllViews()
+        if (UiPrefs.isMoon(this)) {
+            overlay.addView(MoonArt.painting(this, art, 200))
+            overlay.addView(FocusUi.spacer(this, 8))
+        }
+    }
 
     private fun showChecking(url: String) {
         reset()
@@ -187,7 +193,7 @@ class KeeperActivity : AppCompatActivity() {
 
     private fun showDenied(reason: String, remembered: Boolean) {
         probe?.stopLoading(); probe?.visibility = View.GONE
-        reset()
+        reset(R.drawable.art_door)
         overlay.addView(FocusUi.title(this, tokens, getString(R.string.keeper_denied_title)).apply { gravity = Gravity.CENTER })
         overlay.addView(FocusUi.spacer(this, 12))
         if (reason.isNotBlank()) overlay.addView(FocusUi.body(this, tokens, reason).apply { gravity = Gravity.CENTER })
@@ -211,7 +217,7 @@ class KeeperActivity : AppCompatActivity() {
     }
 
     private fun showNeedsKey() {
-        reset()
+        reset(R.drawable.art_key)
         overlay.addView(FocusUi.title(this, tokens, getString(R.string.keeper_needs_key_title)).apply { gravity = Gravity.CENTER })
         overlay.addView(FocusUi.spacer(this, 12))
         overlay.addView(FocusUi.body(this, tokens, getString(R.string.keeper_needs_key_body)).apply { gravity = Gravity.CENTER })

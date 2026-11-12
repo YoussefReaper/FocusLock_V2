@@ -31,6 +31,8 @@ import kotlin.concurrent.thread
  */
 class AccountActivity : FocusScreenActivity() {
 
+    override fun screenArt(): Int = R.drawable.art_you
+
     companion object {
         /** Set by [AuthCallbackActivity]: a browser sign-in handed back a session. */
         const val EXTRA_OAUTH_DONE = "oauth_done"

@@ -14,6 +14,8 @@ import java.util.Calendar
  */
 class RuleEditorActivity : FocusScreenActivity() {
 
+    override fun screenArt(): Int = R.drawable.art_rules
+
     override fun screenTitle(): String = getString(R.string.rule_editor_title)
 
     override fun screenSubtitle(): String = getString(R.string.rule_editor_subtitle)

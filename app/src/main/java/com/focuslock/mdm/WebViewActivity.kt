@@ -91,6 +91,8 @@ class WebViewActivity : AppCompatActivity() {
         if (MediaBlur.active(this)) {
             bottomBar.addView(TextView(this).apply {
                 text = getString(R.string.media_clear_page)
+                setTextColor(UiPrefs.resolve(this@WebViewActivity).accent)
+                textSize = 13f
                 setPadding(FocusUi.dp(context, 10), FocusUi.dp(context, 8), FocusUi.dp(context, 10), FocusUi.dp(context, 8))
                 setOnClickListener { clearPage() }
             }, 1)
@@ -162,6 +164,14 @@ class WebViewActivity : AppCompatActivity() {
         styleText(tvCurrentSite, 12f, tokens.textMuted)
 
         webView.setBackgroundColor(tokens.background)
+
+        if (UiPrefs.isMoon(this)) {
+            FocusUi.applyDisplayFont(findViewById(R.id.tvWebTitle), tokens)
+            findViewById<TextView>(R.id.tvWebTitle).textSize = 30f
+            if (pickerLayout.findViewWithTag<View>("moon-art") == null) {
+                pickerLayout.addView(MoonArt.painting(this, R.drawable.art_keeper, 170).apply { tag = "moon-art" }, 0)
+            }
+        }
     }
 
     private fun styleText(view: TextView, sizeSp: Float, color: Int, bold: Boolean = false) {

@@ -17,6 +17,8 @@ import android.widget.LinearLayout
  */
 class AdvancedHelpActivity : FocusScreenActivity() {
 
+    override fun screenArt(): Int = R.drawable.art_rules
+
     // Lazy, not a plain field initializer: this runs in the constructor, before
     // Activity.attachBaseContext() gives getString() a Context to resolve
     // against, and would throw at construction time otherwise.

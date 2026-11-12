@@ -124,8 +124,16 @@ abstract class FocusEditorActivity : AppCompatActivity() {
         )
     }
 
+    /** A small painting at the top of the editor in the Moon look; null for none. */
+    protected open fun editorArt(): Int? = null
+
     private fun fillBody() {
         val host = body ?: return
+        val art = editorArt()
+        if (art != null && UiPrefs.isMoon(this)) {
+            host.addView(MoonArt.painting(this, art, 150))
+            host.addView(FocusUi.spacer(this, 6))
+        }
         buildContent(host)
         host.addView(FocusUi.spacer(this, 28))
     }

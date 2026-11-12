@@ -23,6 +23,8 @@ import java.util.Calendar
  */
 class ScheduleEditorActivity : FocusEditorActivity() {
 
+    override fun editorArt(): Int = R.drawable.art_study
+
     private var existingId: String? = null
     private var start = 9 * 60
     private var end = 11 * 60

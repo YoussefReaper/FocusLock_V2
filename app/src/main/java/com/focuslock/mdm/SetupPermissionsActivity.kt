@@ -17,6 +17,8 @@ import android.widget.LinearLayout
  */
 class SetupPermissionsActivity : FocusScreenActivity() {
 
+    override fun screenArt(): Int = R.drawable.art_key
+
     private data class Requirement(
         val title: String,
         val why: String,

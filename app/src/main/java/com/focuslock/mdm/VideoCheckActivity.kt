@@ -49,8 +49,15 @@ class VideoCheckActivity : AppCompatActivity() {
 
     override fun onDestroy() { main.removeCallbacksAndMessages(null); super.onDestroy() }
 
+    private fun moonTop(art: Int = R.drawable.art_keeper) {
+        if (!UiPrefs.isMoon(this)) return
+        column.addView(MoonArt.painting(this, art, 200))
+        column.addView(FocusUi.spacer(this, 8))
+    }
+
     private fun showStep(step: VideoCheck.Step) {
         column.removeAllViews()
+        moonTop()
         column.addView(FocusUi.title(this, tokens, getString(R.string.video_checking_title)).apply { gravity = Gravity.CENTER })
         column.addView(FocusUi.spacer(this, 12))
         column.addView(FocusUi.secondary(this, tokens, getString(when (step) {
@@ -63,6 +70,7 @@ class VideoCheckActivity : AppCompatActivity() {
     private fun show(id: String, outcome: VideoCheck.Outcome) {
         column.removeAllViews()
         val v = outcome.verdict
+        moonTop(if (v == null || !v.allow) R.drawable.art_door else R.drawable.art_keeper)
         val title = outcome.meta?.title.orEmpty()
         if (title.isNotBlank()) {
             column.addView(FocusUi.caption(this, tokens, title).apply { gravity = Gravity.CENTER })
@@ -127,6 +135,7 @@ class VideoCheckActivity : AppCompatActivity() {
 
     private fun showNeedsKey() {
         column.removeAllViews()
+        moonTop(R.drawable.art_key)
         column.addView(FocusUi.title(this, tokens, getString(R.string.keeper_needs_key_title)).apply { gravity = Gravity.CENTER })
         column.addView(FocusUi.spacer(this, 12))
         column.addView(FocusUi.body(this, tokens, getString(R.string.keeper_needs_key_body)).apply { gravity = Gravity.CENTER })

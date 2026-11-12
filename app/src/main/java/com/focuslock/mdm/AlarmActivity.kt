@@ -68,7 +68,7 @@ class AlarmActivity : AppCompatActivity() {
         val col = FocusUi.column(this, 24)
         col.gravity = Gravity.CENTER_HORIZONTAL
         col.addView(FocusUi.spacer(this, 24))
-        col.addView(MoonArt.painting(this, if (alarm?.id == WakeAlarm.FAJR_ID) R.drawable.art_salah else R.drawable.art_sleep, 220))
+        col.addView(MoonArt.painting(this, if (alarm?.id == WakeAlarm.FAJR_ID || alarm?.id == WakeAlarm.PRAYER_ID) R.drawable.art_salah else R.drawable.art_sleep, 220))
         val now = Calendar.getInstance()
         col.addView(FocusUi.display(this, tokens, TimeText.ofDay(this, now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE))).also { it.gravity = Gravity.CENTER })
         val label = alarm?.label?.takeIf { it.isNotBlank() } ?: getString(R.string.alarm_title)

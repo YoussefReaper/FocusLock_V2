@@ -25,6 +25,8 @@ import java.io.File
  */
 class EarnSessionActivity : FocusScreenActivity() {
 
+    override fun screenArt(): Int = R.drawable.art_study
+
     private var task: FocusTask? = null
     private var pendingProof: File? = null
 

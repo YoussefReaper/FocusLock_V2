@@ -14,6 +14,8 @@ import java.util.UUID
  */
 class SafeYouTubeActivity : FocusScreenActivity() {
 
+    override fun screenArt(): Int = R.drawable.art_keeper
+
     override fun screenTitle(): String = getString(R.string.safetube_title)
 
     override fun screenSubtitle(): String = getString(R.string.safetube_subtitle)

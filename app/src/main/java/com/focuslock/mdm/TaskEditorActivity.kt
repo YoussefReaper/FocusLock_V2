@@ -25,6 +25,8 @@ import java.util.Locale
  */
 class TaskEditorActivity : FocusEditorActivity() {
 
+    override fun editorArt(): Int = R.drawable.art_free
+
     private var task: FocusTask = FocusTaskStore.newTask("")
     private var isNew = true
 

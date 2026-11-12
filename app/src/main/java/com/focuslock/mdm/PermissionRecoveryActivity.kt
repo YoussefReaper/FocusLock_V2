@@ -112,6 +112,10 @@ class PermissionRecoveryActivity : AppCompatActivity() {
             return
         }
 
+        if (UiPrefs.isMoon(this)) {
+            column.addView(MoonArt.painting(this, R.drawable.art_key, 200))
+            column.addView(FocusUi.spacer(this, 8))
+        }
         column.addView(
             TextView(this).apply {
                 text = getString(R.string.permission_recovery_headline)
@@ -119,6 +123,7 @@ class PermissionRecoveryActivity : AppCompatActivity() {
                 setTextColor(tokens.textPrimary)
                 gravity = Gravity.CENTER
                 typeface = tokens.typeface
+                if (UiPrefs.isMoon(context)) FocusUi.applyDisplayFont(this, tokens)
             }
         )
         column.addView(
