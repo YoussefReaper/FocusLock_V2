@@ -59,6 +59,35 @@ class KeeperSettingsActivity : FocusScreenActivity() {
             }
         })
 
+        column.addView(sectionLabel(getString(R.string.keeper_search_heading)))
+        column.addView(card { c ->
+            fun counts(label: Int, current: Int, set: (Int) -> Unit) {
+                c.addView(FocusUi.body(this, tokens, getString(label)))
+                val row = FocusUi.row(this)
+                listOf(0, 5, 10, 20).forEach { n ->
+                    row.addView(FocusUi.chip(this, tokens, if (n == 0) getString(R.string.keeper_search_none) else n.toString(), current == n) { set(n); refresh() })
+                    row.addView(FocusUi.spacerH(this, 8))
+                }
+                c.addView(row)
+                c.addView(FocusUi.spacer(this, 10))
+            }
+            counts(R.string.keeper_search_videos, KeeperSearch.videoCount(this)) { KeeperSearch.setVideoCount(this, it) }
+            counts(R.string.keeper_search_pages, KeeperSearch.pageCount(this)) { KeeperSearch.setPageCount(this, it) }
+            fun list(title: Int, entries: List<Pair<String, String>>, remove: (String) -> Unit) {
+                c.addView(FocusUi.body(this, tokens, getString(title)))
+                if (entries.isEmpty()) c.addView(FocusUi.caption(this, tokens, getString(R.string.keeper_search_list_empty)))
+                entries.forEach { (key, name) ->
+                    c.addView(FocusUi.listRow(this, tokens, name, null,
+                        trailing = FocusUi.smallButton(this, tokens, getString(R.string.keeper_search_remove)) { remove(key); refresh() }))
+                }
+                c.addView(FocusUi.spacer(this, 10))
+            }
+            list(R.string.keeper_search_channels_allow, KeeperSearch.allowedChannels(this).sorted().map { it to it.substringAfter('|') }) { KeeperSearch.forgetChannel(this, it) }
+            list(R.string.keeper_search_channels_block, KeeperSearch.blockedChannels(this).sorted().map { it to it.substringAfter('|') }) { KeeperSearch.forgetChannel(this, it) }
+            list(R.string.keeper_search_sites_block, KeeperSearch.blockedSites(this).sorted().map { it to it }) { KeeperSearch.unblockSite(this, it) }
+            c.addView(FocusUi.caption(this, tokens, getString(R.string.keeper_search_hint)))
+        })
+
         column.addView(sectionLabel(getString(R.string.keeper_focus_heading)))
         column.addView(card { c ->
             c.addView(FocusUi.secondary(this, tokens, getString(R.string.keeper_focus_intro)))

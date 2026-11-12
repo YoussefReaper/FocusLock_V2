@@ -123,4 +123,18 @@
     <string name="keeper_gate_state_lit">يفتح فورًا</string>
     <string name="keeper_gate_state_dark">ينظر فيه الحارس عند فتحه</string>
     <string name="keeper_gate_legend">النقطة المضيئة تفتح فورًا: موجودة في قائمتك أو سمح بها الحارس سابقًا. والنقطة الفارغة ينظر فيها الحارس عند فتحها. البحث الآمن مفعّل دائمًا، ولا تظهر المقاطع القصيرة.</string>
+    <string name="keeper_gate_always_channel">افتح %1$s دائمًا</string>
+    <string name="keeper_gate_never_channel">لا تُظهر %1$s أبدًا</string>
+    <string name="keeper_gate_always_site">افتح %1$s دائمًا</string>
+    <string name="keeper_gate_never_site">لا تُظهر %1$s أبدًا</string>
+    <string name="keeper_search_heading">البحث</string>
+    <string name="keeper_search_videos">عدد الفيديوهات في كل بحث</string>
+    <string name="keeper_search_pages">عدد الصفحات في كل بحث</string>
+    <string name="keeper_search_none">لا شيء</string>
+    <string name="keeper_search_channels_allow">قنوات تُفتح دائمًا</string>
+    <string name="keeper_search_channels_block">قنوات لا تظهر أبدًا</string>
+    <string name="keeper_search_sites_block">مواقع لا تظهر أبدًا</string>
+    <string name="keeper_search_list_empty">لا شيء بعد.</string>
+    <string name="keeper_search_remove">إزالة</string>
+    <string name="keeper_search_hint">اضغط مطولًا على أي نتيجة في تبويب الحارس لتفتحها دائمًا أو لا تظهر أبدًا. المواقع التي تُفتح دائمًا موجودة في قائمة المتصفح الآمن.</string>
 </resources>

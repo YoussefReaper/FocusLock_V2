@@ -32,8 +32,60 @@ object KeeperSearch {
         val source: String,
         val videoId: String? = null,
         val duration: String? = null,
-        val thumb: String? = null
+        val thumb: String? = null,
+        /** YouTube channel id, for "always open" and "never show". */
+        val channelId: String? = null
     )
+
+    // ── Your choices ──────────────────────────────────────────────
+
+    private const val K_CH_ALLOW = "keeper_channels_allow"   // "id|name"
+    private const val K_CH_BLOCK = "keeper_channels_block"
+    private const val K_SITE_BLOCK = "keeper_sites_block"
+    private const val K_VIDEOS = "keeper_search_videos"
+    private const val K_PAGES = "keeper_search_pages"
+
+    fun videoCount(c: Context): Int = FocusStore.getInt(c, K_VIDEOS, 10)
+    fun pageCount(c: Context): Int = FocusStore.getInt(c, K_PAGES, 10)
+    fun setVideoCount(c: Context, n: Int) = FocusStore.setInt(c, K_VIDEOS, n)
+    fun setPageCount(c: Context, n: Int) = FocusStore.setInt(c, K_PAGES, n)
+
+    fun allowedChannels(c: Context): Set<String> = FocusStore.getSet(c, K_CH_ALLOW)
+    fun blockedChannels(c: Context): Set<String> = FocusStore.getSet(c, K_CH_BLOCK)
+    fun blockedSites(c: Context): Set<String> = FocusStore.getSet(c, K_SITE_BLOCK)
+
+    private fun ids(entries: Set<String>) = entries.map { it.substringBefore('|') }.toSet()
+
+    fun allowChannel(c: Context, id: String, name: String) {
+        FocusStore.setSet(c, K_CH_BLOCK, blockedChannels(c).filterNot { it.startsWith("$id|") })
+        FocusStore.setSet(c, K_CH_ALLOW, allowedChannels(c).filterNot { it.startsWith("$id|") } + "$id|$name")
+    }
+
+    fun blockChannel(c: Context, id: String, name: String) {
+        FocusStore.setSet(c, K_CH_ALLOW, allowedChannels(c).filterNot { it.startsWith("$id|") })
+        FocusStore.setSet(c, K_CH_BLOCK, blockedChannels(c).filterNot { it.startsWith("$id|") } + "$id|$name")
+    }
+
+    fun forgetChannel(c: Context, entry: String) {
+        FocusStore.setSet(c, K_CH_ALLOW, allowedChannels(c) - entry)
+        FocusStore.setSet(c, K_CH_BLOCK, blockedChannels(c) - entry)
+    }
+
+    fun blockSite(c: Context, host: String) = FocusStore.setSet(c, K_SITE_BLOCK, blockedSites(c) + host)
+    fun unblockSite(c: Context, host: String) = FocusStore.setSet(c, K_SITE_BLOCK, blockedSites(c) - host)
+
+    /** Drops what you said never to show, and trims each kind to your counts. */
+    fun shaped(c: Context, all: List<Result>): List<Result> {
+        val blockedCh = ids(blockedChannels(c))
+        val blockedHosts = blockedSites(c)
+        var v = 0; var p = 0
+        return all.filter { r ->
+            when (r.kind) {
+                Kind.VIDEO -> r.channelId !in blockedCh && v++ < videoCount(c)
+                Kind.PAGE -> blockedHosts.none { r.source == it || r.source.endsWith(".$it") } && p++ < pageCount(c)
+            }
+        }
+    }
 
     private const val UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36"
 
@@ -55,6 +107,7 @@ object KeeperSearch {
 
     fun state(context: Context, r: Result): State {
         if (r.kind == Kind.VIDEO) {
+            if (r.channelId != null && r.channelId in ids(allowedChannels(context))) return State.LIT
             val v = r.videoId?.let { KeeperCache.lookupVideo(context, it) } ?: return State.DARK
             return if (v.allow) State.LIT else State.CLOSED
         }
@@ -86,7 +139,7 @@ object KeeperSearch {
             val host = Uri.parse(href).host?.removePrefix("www.") ?: return@mapNotNull null
             if (host.endsWith("youtube.com") || host == "youtu.be") return@mapNotNull null
             Result(Kind.PAGE, clean(m.groupValues[2]), href, host)
-        }.distinctBy { it.url }.take(10).toList()
+        }.distinctBy { it.url }.take(20).toList()
     }
 
     private fun unwrap(raw: String): String? {
@@ -111,11 +164,11 @@ object KeeperSearch {
         ))
         val out = ArrayList<Result>()
         collect(json, out)
-        return out.take(10)
+        return out.take(20)
     }
 
     private fun collect(node: Any?, out: MutableList<Result>) {
-        if (out.size >= 12) return
+        if (out.size >= 22) return
         when (node) {
             is JSONObject -> {
                 node.optJSONObject("videoRenderer")?.let { v -> video(v)?.let { out.add(it) }; return }
@@ -131,8 +184,10 @@ object KeeperSearch {
         if (seconds(length) in 0..60) return null // a Short in disguise
         val title = runs(v.optJSONObject("title")) ?: return null
         val channel = runs(v.optJSONObject("ownerText")) ?: "YouTube"
+        val channelId = v.optJSONObject("ownerText")?.optJSONArray("runs")?.optJSONObject(0)
+            ?.optJSONObject("navigationEndpoint")?.optJSONObject("browseEndpoint")?.optString("browseId")?.takeIf { it.isNotBlank() }
         return Result(Kind.VIDEO, title, "https://www.youtube.com/watch?v=$id", channel, id, length,
-            "https://i.ytimg.com/vi/$id/mqdefault.jpg")
+            "https://i.ytimg.com/vi/$id/mqdefault.jpg", channelId)
     }
 
     private fun runs(o: JSONObject?): String? {
@@ -170,6 +225,16 @@ object KeeperSearch {
             .replace("&lt;", "<").replace("&gt;", ">").trim()
 
     private val thumbs = LruCache<String, Bitmap>(40)
+
+    /**
+     * A thumbnail is a picture nobody has checked, so it is shown as a soft smear
+     * of its colours until the result is lit. Background thread only.
+     */
+    fun smeared(b: Bitmap): Bitmap {
+        val tiny = Bitmap.createScaledBitmap(b, 8, maxOf(1, 8 * b.height / maxOf(1, b.width)), true)
+        val mid = Bitmap.createScaledBitmap(tiny, 32, maxOf(1, 32 * b.height / maxOf(1, b.width)), true)
+        return Bitmap.createScaledBitmap(mid, b.width, b.height, true)
+    }
 
     /** Background thread only. */
     fun thumb(url: String): Bitmap? {

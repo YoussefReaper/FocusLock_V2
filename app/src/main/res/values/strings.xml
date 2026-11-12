@@ -125,4 +125,18 @@
     <string name="keeper_gate_state_lit">opens at once</string>
     <string name="keeper_gate_state_dark">the Keeper looks when you open it</string>
     <string name="keeper_gate_legend">A lit dot opens at once: it is on your list or was kept before. An empty one is looked at by the Keeper when you open it. SafeSearch is always on, and Shorts never appear.</string>
+    <string name="keeper_gate_always_channel">Always open %1$s</string>
+    <string name="keeper_gate_never_channel">Never show %1$s</string>
+    <string name="keeper_gate_always_site">Always open %1$s</string>
+    <string name="keeper_gate_never_site">Never show %1$s</string>
+    <string name="keeper_search_heading">Search</string>
+    <string name="keeper_search_videos">Videos per search</string>
+    <string name="keeper_search_pages">Pages per search</string>
+    <string name="keeper_search_none">None</string>
+    <string name="keeper_search_channels_allow">Channels that always open</string>
+    <string name="keeper_search_channels_block">Channels never shown</string>
+    <string name="keeper_search_sites_block">Sites never shown</string>
+    <string name="keeper_search_list_empty">None yet.</string>
+    <string name="keeper_search_remove">Remove</string>
+    <string name="keeper_search_hint">Long-press any result in the Keeper tab to always open it or never show it. Sites that always open live in your Safe Browser list.</string>
 </resources>

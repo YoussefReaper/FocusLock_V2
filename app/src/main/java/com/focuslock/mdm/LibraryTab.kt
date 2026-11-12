@@ -156,7 +156,7 @@ class LibraryTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(acti
         failed = false
         fillResults()
         Thread {
-            val found = KeeperSearch.search(query)
+            val found = KeeperSearch.shaped(activity, KeeperSearch.search(query))
             activity.runOnUiThread {
                 if (seq != searchSeq) return@runOnUiThread
                 searching = false
@@ -209,7 +209,13 @@ class LibraryTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(acti
         thumb.layoutParams = LinearLayout.LayoutParams(FocusUi.dp(activity, 112), FocusUi.dp(activity, 63)).apply { rightMargin = FocusUi.dp(activity, 12) }
         row.addView(thumb)
         r.thumb?.let { url ->
-            Thread { KeeperSearch.thumb(url)?.let { b -> activity.runOnUiThread { thumb.setImageBitmap(b) } } }.start()
+            val sharp = state == KeeperSearch.State.LIT
+            Thread {
+                KeeperSearch.thumb(url)?.let { raw ->
+                    val shown = if (sharp) raw else KeeperSearch.smeared(raw)
+                    activity.runOnUiThread { thumb.setImageBitmap(shown) }
+                }
+            }.start()
         }
 
         val text = FocusUi.column(activity)
@@ -240,7 +246,33 @@ class LibraryTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(acti
             row.background = FocusUi.withRipple(activity, android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT), tokens)
             row.setOnClickListener { openResult(r, state) }
         }
+        row.setOnLongClickListener { resultChoices(r); true }
         return row
+    }
+
+    /** Long press: always open, or never show, this channel or site. */
+    private fun resultChoices(r: KeeperSearch.Result) {
+        val video = r.kind == KeeperSearch.Kind.VIDEO
+        if (video && r.channelId == null) return
+        val labels = if (video) arrayOf(
+            activity.getString(R.string.keeper_gate_always_channel, r.source),
+            activity.getString(R.string.keeper_gate_never_channel, r.source)
+        ) else arrayOf(
+            activity.getString(R.string.keeper_gate_always_site, r.source),
+            activity.getString(R.string.keeper_gate_never_site, r.source)
+        )
+        androidx.appcompat.app.AlertDialog.Builder(activity)
+            .setItems(labels) { _, which ->
+                when {
+                    video && which == 0 -> KeeperSearch.allowChannel(activity, r.channelId!!, r.source)
+                    video -> KeeperSearch.blockChannel(activity, r.channelId!!, r.source)
+                    which == 0 -> AllowlistStore.addWebUrl(activity, r.source)
+                    else -> KeeperSearch.blockSite(activity, r.source)
+                }
+                if (!video || which == 1) results = KeeperSearch.shaped(activity, results)
+                fillResults()
+            }
+            .show()
     }
 
     private fun openResult(r: KeeperSearch.Result, state: KeeperSearch.State) {
