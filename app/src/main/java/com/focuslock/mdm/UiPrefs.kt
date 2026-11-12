@@ -301,6 +301,13 @@ object UiPrefs {
             track = c("#FFE3EA"), bg = c("#FFF5F1"), button = c("#4A2333"), onButton = c("#FFFFFF"),
             ring = c("#4A2333"), isLight = true
         )
+        if (getTheme(context).id == MOON_THEME_ID) return SlabColors(
+            // Moon: the slab is a quiet violet card; only the paintings carry colour.
+            a = c("#17142A"), b = c("#0E0C1C"), ink = c("#F6EFE6"), inkSoft = c("#B8B0C8"), inkFaint = c("#9A93AD"),
+            surface = c("#1C1930"), surfaceAlt = c("#2C2840"), divider = c("#2C2840"), input = c("#151225"),
+            track = c("#2C2840"), bg = c("#0A0915"), button = c(MOON_ACCENT), onButton = c("#1A1020"),
+            ring = c(MOON_ACCENT), isLight = false
+        )
         val to = getAccent(context).color
         fun r(hex: String) = retint(c(hex), to)
         return SlabColors(

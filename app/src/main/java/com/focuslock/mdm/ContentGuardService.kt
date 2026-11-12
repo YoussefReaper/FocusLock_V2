@@ -52,7 +52,26 @@ import java.util.Locale
 class ContentGuardService : AccessibilityService() {
 
     /** A rule with its matching strings prepared once, not once per node. */
-    private class Prepared(val rule: KeywordRule, val phrase: String, val idPhrase: String?)
+    private class Prepared(
+        val rule: KeywordRule,
+        val phrase: String,
+        val idPhrase: String?,
+        /** Shorts and Reels: only the player's own view ids count, never the word on a tab or in a title. */
+        val playerIds: List<String> = emptyList()
+    ) {
+        val idOnly: Boolean get() = playerIds.isNotEmpty()
+    }
+
+    /**
+     * The view ids of the short-video players themselves. Matching these, and
+     * not the words "shorts" or "reels", is what keeps the rest of the app
+     * usable: the home feed, search and normal videos stay open, and only the
+     * vertical player is stepped back out of.
+     */
+    private val PLAYER_IDS: Map<String, List<String>> = mapOf(
+        KeywordRules.GROUP_SHORTS to listOf("reel_player_page_container", "reel_recycler", "reel_watch_player", "shorts_player_container"),
+        KeywordRules.GROUP_REELS to listOf("clips_viewer_view_pager", "clips_video_container", "clips_viewer_root", "reels_viewer_container", "spotlight_container")
+    )
 
     private val main = Handler(Looper.getMainLooper())
     private lateinit var worker: Handler
@@ -336,7 +355,13 @@ class ContentGuardService : AccessibilityService() {
     private fun rules(): List<Prepared> {
         val revision = PolicySync.revision()
         if (revision != cachedRevision) {
-            cachedRules = KeywordRules.activeRules(this).map { rule ->
+            val seenPlayers = HashSet<String>()
+            cachedRules = KeywordRules.activeRules(this).mapNotNull { rule ->
+                val players = PLAYER_IDS[rule.group]
+                if (players != null) {
+                    // One entry per guard, whatever phrases were seeded for it.
+                    return@mapNotNull if (seenPlayers.add(rule.group!!)) Prepared(rule, rule.group, null, players) else null
+                }
                 val phrase = rule.phrase.lowercase(Locale.US)
                 Prepared(
                     rule = rule,
@@ -363,6 +388,7 @@ class ContentGuardService : AccessibilityService() {
      */
     private fun findTextHit(root: AccessibilityNodeInfo, rules: List<Prepared>): KeywordRule? {
         for (prepared in rules) {
+            if (prepared.idOnly) continue
             val found = try {
                 root.findAccessibilityNodeInfosByText(prepared.phrase)
             } catch (_: Exception) {
@@ -451,6 +477,10 @@ class ContentGuardService : AccessibilityService() {
         if (isException(text) || isException(description)) return null
         val viewId = node.viewIdResourceName?.lowercase(Locale.US)
         for (prepared in rules) {
+            if (prepared.idOnly) {
+                if (viewId != null && prepared.playerIds.any { viewId.endsWith(":id/$it") }) return prepared.rule
+                continue
+            }
             if (matches(text, prepared.phrase) ||
                 matches(description, prepared.phrase) ||
                 matchesId(viewId, prepared.idPhrase)

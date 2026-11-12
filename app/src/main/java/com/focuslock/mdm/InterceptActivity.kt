@@ -151,10 +151,14 @@ class InterceptActivity : AppCompatActivity() {
 
         // The gate speaks in the person's own words: their picture and their reason come first.
         val promiseWords = Promise.words(this)
-        val promiseMedia = Promise.mediaView(this, 170)
+        val moon = UiPrefs.isMoon(this)
+        val promiseMedia = Promise.mediaView(this, if (moon) 240 else 170, round = moon)
         if (promiseMedia != null) {
             top.addView(promiseMedia)
             top.addView(FocusUi.spacer(this, 16))
+        } else if (moon) {
+            top.addView(MoonArt.painting(this, R.drawable.art_door, 260))
+            top.addView(FocusUi.spacer(this, 8))
         } else {
             top.addView(buildMark())
             top.addView(FocusUi.spacer(this, 22))
@@ -162,6 +166,10 @@ class InterceptActivity : AppCompatActivity() {
         if (promiseWords.isNotBlank()) {
             val said = FocusUi.title(this, tokens, "\u201C" + promiseWords + "\u201D")
             said.gravity = Gravity.CENTER
+            if (moon) {
+                said.typeface = android.graphics.Typeface.create(tokens.displayTypeface, android.graphics.Typeface.ITALIC)
+                said.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, tokens.scaled(24f))
+            }
             top.addView(said)
             val when_ = FocusUi.caption(this, tokens, getString(R.string.intercept_promise_caption))
             when_.gravity = Gravity.CENTER

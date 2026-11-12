@@ -109,19 +109,24 @@ object Promise {
     fun acceptsType(type: String): Boolean = type.startsWith("image/") || type.startsWith("video/")
 
     /** The saved picture or clip as a rounded view, or null when there is none or it cannot be shown. */
-    fun mediaView(c: Context, heightDp: Int = 180): View? {
+    fun mediaView(c: Context, heightDp: Int = 180, round: Boolean = false): View? {
         if (!hasMedia(c)) return null
         return try {
             val file = mediaFile(c)
             val radius = FocusUi.dpf(c, 20)
             val holder = FrameLayout(c)
-            holder.layoutParams = LinearLayout.LayoutParams(
+            holder.layoutParams = if (round) {
+                // Moon: their picture sits in the painting's round window.
+                LinearLayout.LayoutParams(FocusUi.dp(c, heightDp), FocusUi.dp(c, heightDp)).apply { gravity = android.view.Gravity.CENTER_HORIZONTAL }
+            } else LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, FocusUi.dp(c, heightDp)
             )
             holder.outlineProvider = object : ViewOutlineProvider() {
                 override fun getOutline(view: View, outline: Outline) =
-                    outline.setRoundRect(0, 0, view.width, view.height, radius)
+                    if (round) outline.setOval(0, 0, view.width, view.height)
+                    else outline.setRoundRect(0, 0, view.width, view.height, radius)
             }
+            if (round) holder.elevation = FocusUi.dpf(c, 12)
             holder.clipToOutline = true
             if (mediaType(c).startsWith("video/")) {
                 val video = VideoView(c)

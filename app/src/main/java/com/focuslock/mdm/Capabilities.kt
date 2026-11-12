@@ -284,7 +284,7 @@ object Capabilities {
             id = EARN_MODE,
             labelRes = R.string.cap_earn_mode_label,
             blurbRes = R.string.cap_earn_mode_blurb,
-            group = CapabilityGroup.MODES,
+            group = CapabilityGroup.ADVANCED,
             default = false,
             polarity = CapabilityPolarity.EXEMPTION,
             weakenNoteRes = R.string.cap_earn_mode_weaken_note,
@@ -487,7 +487,7 @@ object Capabilities {
             id = SHORTS_BLOCK,
             labelRes = R.string.cap_shorts_block_label,
             blurbRes = R.string.cap_shorts_block_blurb,
-            group = CapabilityGroup.EXPERIMENTAL,
+            group = CapabilityGroup.BLOCKING,
             default = false,
             needsAccessibility = true
         ),
@@ -495,7 +495,7 @@ object Capabilities {
             id = REELS_BLOCK,
             labelRes = R.string.cap_reels_block_label,
             blurbRes = R.string.cap_reels_block_blurb,
-            group = CapabilityGroup.EXPERIMENTAL,
+            group = CapabilityGroup.BLOCKING,
             default = false,
             needsAccessibility = true
         ),
@@ -515,11 +515,34 @@ object Capabilities {
 
     fun spec(id: String): CapabilitySpec? = byId[id]
 
-    fun coreSpecs(): List<CapabilitySpec> = coreIds.mapNotNull { byId[it] }
+    /**
+     * The 2026-11 cut. These stay in code (presets and the strengths still set
+     * some of them) but are no longer switches: each duplicated something else.
+     * Soft, Firm and Sealed decide ending early and the mode toggles; Suspend
+     * already hides; the shade lock only belongs to Kiosk; the Keeper's
+     * SafeTube and the Safe Browser replace approved channels and text search;
+     * the content guard is one switch for words and the adult list; Insights
+     * is simply always on.
+     */
+    val hiddenFromSettings: Set<String> = setOf(
+        CAN_END_EARLY, ADVISORY_MODE, SANCTUARY_MODE, LOCK_RULES_IN_SESSION,
+        HIDE_BLOCKED_APPS, STATUS_BAR_LOCK, SAFE_YOUTUBE, TEXT_SEARCH,
+        KEYWORD_BLOCK, ADULT_BLOCK, ANALYTICS, LAUNCH_FRICTION
+    )
+
+    /** Fixed values for cut switches whose behaviour no strength or preset needs. */
+    val forced: Map<String, Boolean> = mapOf(
+        STATUS_BAR_LOCK to false,
+        SAFE_YOUTUBE to false,
+        TEXT_SEARCH to false,
+        ANALYTICS to true
+    )
+
+    fun coreSpecs(): List<CapabilitySpec> = coreIds.mapNotNull { byId[it] }.filter { it.id !in hiddenFromSettings }
 
     fun grouped(): List<Pair<CapabilityGroup, List<CapabilitySpec>>> =
         CapabilityGroup.values()
-            .map { group -> group to all.filter { it.group == group } }
+            .map { group -> group to all.filter { it.group == group && it.id !in hiddenFromSettings } }
             .filter { it.second.isNotEmpty() }
 }
 
@@ -533,6 +556,11 @@ object CapabilityRegistry {
     private const val KEY_SEEDED = "cap_seeded_v1"
 
     fun isEnabled(context: Context, id: String): Boolean {
+        Capabilities.forced[id]?.let { return it }
+        if (id == Capabilities.KEYWORD_BLOCK || id == Capabilities.ADULT_BLOCK) {
+            // One content switch now: words and the adult list follow it.
+            return isEnabled(context, Capabilities.CONTENT_GUARD)
+        }
         if (id == Capabilities.OPEN_COUNT_LIMITS) {
             return isEnabled(context, Capabilities.PER_APP_LIMITS)
         }
