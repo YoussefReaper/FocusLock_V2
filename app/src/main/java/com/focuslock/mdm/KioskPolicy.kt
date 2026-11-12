@@ -478,6 +478,20 @@ object KioskPolicy {
             sessionActive && CapabilityRegistry.isEnabled(context, Capabilities.LOCK_RULES_IN_SESSION)
         )
 
+        // A second phone inside the phone: Private Space (Android 15), a work
+        // profile, a guest or another user. Apps there are out of Pinehold's
+        // sight, so none can be created while a promise runs.
+        setRestriction(dpm, admin, UserManager.DISALLOW_ADD_USER, sessionActive)
+        setRestriction(dpm, admin, UserManager.DISALLOW_ADD_MANAGED_PROFILE, sessionActive)
+        if (SideDoors.hasPrivateSpace) setRestriction(dpm, admin, SideDoors.DISALLOW_ADD_PRIVATE_PROFILE, sessionActive)
+        // Installing a new way out. Store installs are closed by keeping the
+        // stores themselves shut (SideDoors), so Pinehold's own updates still land;
+        // installing a downloaded APK is refused outright.
+        setRestriction(dpm, admin, UserManager.DISALLOW_INSTALL_UNKNOWN_SOURCES, sessionActive)
+        if (android.os.Build.VERSION.SDK_INT >= 29) {
+            setRestriction(dpm, admin, UserManager.DISALLOW_INSTALL_UNKNOWN_SOURCES_GLOBALLY, sessionActive)
+        }
+
         // ADB stays exactly where the user's own button left it. Provisioning
         // never fires this, and neither does starting a session.
         setRestriction(
@@ -979,6 +993,17 @@ object KioskPolicy {
             dpm.setLockTaskPackages(admin, emptyArray())
         } catch (e: Exception) {
             Log.w(TAG, "Failed to clear lock task packages", e)
+        }
+
+        // The side-door restrictions are session-only; lift them directly too.
+        listOfNotNull(
+            UserManager.DISALLOW_ADD_USER,
+            UserManager.DISALLOW_ADD_MANAGED_PROFILE,
+            UserManager.DISALLOW_INSTALL_UNKNOWN_SOURCES,
+            if (android.os.Build.VERSION.SDK_INT >= 29) UserManager.DISALLOW_INSTALL_UNKNOWN_SOURCES_GLOBALLY else null,
+            if (SideDoors.hasPrivateSpace) SideDoors.DISALLOW_ADD_PRIVATE_PROFILE else null
+        ).forEach { r ->
+            try { dpm.clearUserRestriction(admin, r) } catch (e: Exception) { Log.w(TAG, "Failed to clear $r", e) }
         }
 
         releaseAllManagedApps(context, dpm, admin)

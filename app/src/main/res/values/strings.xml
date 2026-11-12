@@ -139,4 +139,7 @@
     <string name="keeper_search_list_empty">None yet.</string>
     <string name="keeper_search_remove">Remove</string>
     <string name="keeper_search_hint">Long-press any result in the Keeper tab to always open it or never show it. Sites that always open live in your Safe Browser list.</string>
+    <string name="folded_picture_title">A picture from %1$s</string>
+    <string name="folded_picture_body">Pictures stay folded while your promise runs. Open the chat to see the message.</string>
+    <string name="folded_picture_channel">Folded pictures</string>
 </resources>

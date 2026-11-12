@@ -72,4 +72,6 @@
     <string name="partner_err_wrong">That\'s not the code.</string>
     <string name="partner_err_expired">That code has expired. Ask for a new one.</string>
     <string name="partner_err_network">Pinehold couldn\'t reach its server, so no code was sent.</string>
+    <string name="side_door_headline">Not while your promise runs</string>
+    <string name="side_door_detail">Other browsers, galleries, app stores and the Google app stay closed until it ends. Search through the Keeper instead.</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.focuslock.mdm
 
+import android.os.Build
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 
@@ -32,8 +33,49 @@ class FocusNotificationService : NotificationListenerService() {
 
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
         val notification = sbn ?: return
-        if (!shouldSuppress(notification)) return
-        dismiss(notification)
+        if (shouldSuppress(notification)) { dismiss(notification); return }
+        if (shouldFoldPicture(notification)) foldPicture(notification)
+    }
+
+    /**
+     * A picture in a notification from an app that is otherwise allowed (a chat
+     * app sending a photo) is a picture nobody checked. While a promise runs it is
+     * folded into one plain line from Pinehold: who it was from, no picture.
+     */
+    private fun shouldFoldPicture(sbn: StatusBarNotification): Boolean {
+        if (!BuildConfig.ENFORCEMENT) return false
+        val packageName = sbn.packageName ?: return false
+        if (packageName == applicationContext.packageName || SystemSurfaces.isCritical(packageName)) return false
+        if (!SessionManager.isEnforcing(this)) return false
+        val extras = sbn.notification?.extras ?: return false
+        if (extras.containsKey(android.app.Notification.EXTRA_PICTURE)) return true
+        if (Build.VERSION.SDK_INT >= 31 && extras.containsKey(android.app.Notification.EXTRA_PICTURE_ICON)) return true
+        val messages = extras.getParcelableArray(android.app.Notification.EXTRA_MESSAGES) ?: return false
+        return messages.any { (it as? android.os.Bundle)?.get("uri") != null }
+    }
+
+    private fun foldPicture(sbn: StatusBarNotification) {
+        val extras = sbn.notification?.extras
+        val who = extras?.getCharSequence(android.app.Notification.EXTRA_TITLE)?.toString()
+            ?: try { packageManager.getApplicationLabel(packageManager.getApplicationInfo(sbn.packageName, 0)).toString() } catch (_: Exception) { sbn.packageName }
+        dismiss(sbn)
+        try {
+            val nm = getSystemService(android.app.NotificationManager::class.java) ?: return
+            if (Build.VERSION.SDK_INT >= 26) {
+                nm.createNotificationChannel(android.app.NotificationChannel("folded_pictures", getString(R.string.folded_picture_channel), android.app.NotificationManager.IMPORTANCE_DEFAULT))
+            }
+            val open = packageManager.getLaunchIntentForPackage(sbn.packageName)
+            val pi = open?.let { android.app.PendingIntent.getActivity(this, sbn.key.hashCode(), it, android.app.PendingIntent.FLAG_IMMUTABLE or android.app.PendingIntent.FLAG_UPDATE_CURRENT) }
+            val n = androidx.core.app.NotificationCompat.Builder(this, "folded_pictures")
+                .setSmallIcon(android.R.drawable.ic_lock_idle_lock)
+                .setContentTitle(getString(R.string.folded_picture_title, who))
+                .setContentText(getString(R.string.folded_picture_body))
+                .setAutoCancel(true)
+                .apply { pi?.let { setContentIntent(it) } }
+                .build()
+            nm.notify(sbn.key.hashCode(), n)
+        } catch (_: Exception) {
+        }
     }
 
     override fun onNotificationRemoved(sbn: StatusBarNotification?) {

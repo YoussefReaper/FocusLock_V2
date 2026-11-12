@@ -339,6 +339,18 @@ object RuleEngine {
 
         if (AppRules.isAlwaysAllowed(context, packageName)) return allow("alwaysAllowed")
 
+        // The side doors (other browsers, galleries, the Google app, app stores,
+        // theme stores) close as a group while a promise runs. Only what the
+        // person put on their always-allowed list, checked just above, gets past.
+        if (SideDoors.isClosed(context, packageName)) {
+            return GuardDecision(
+                packageName, GuardOutcome.BLOCK,
+                context.getString(R.string.side_door_headline),
+                context.getString(R.string.side_door_detail),
+                "sideDoor", offersBreak = false
+            )
+        }
+
         // Outside a session every blocker below - schedule windows, bedtime,
         // places, limits, budgets and custom rules - waits on the one master
         // switch "Let blockers work outside a session" (default off). Inside

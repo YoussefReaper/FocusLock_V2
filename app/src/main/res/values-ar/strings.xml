@@ -137,4 +137,7 @@
     <string name="keeper_search_list_empty">لا شيء بعد.</string>
     <string name="keeper_search_remove">إزالة</string>
     <string name="keeper_search_hint">اضغط مطولًا على أي نتيجة في تبويب الحارس لتفتحها دائمًا أو لا تظهر أبدًا. المواقع التي تُفتح دائمًا موجودة في قائمة المتصفح الآمن.</string>
+    <string name="folded_picture_title">صورة من %1$s</string>
+    <string name="folded_picture_body">تبقى الصور مطوية أثناء وعدك. افتح المحادثة لرؤية الرسالة.</string>
+    <string name="folded_picture_channel">صور مطوية</string>
 </resources>

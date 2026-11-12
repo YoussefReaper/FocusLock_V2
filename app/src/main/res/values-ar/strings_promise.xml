@@ -72,4 +72,6 @@
     <string name="partner_err_wrong">هذا ليس الرمز.</string>
     <string name="partner_err_expired">انتهت صلاحية الرمز. اطلب رمزًا جديدًا.</string>
     <string name="partner_err_network">لم يتمكن Pinehold من الوصول إلى خادمه، لذلك لم يُرسل رمز.</string>
+    <string name="side_door_headline">ليس أثناء وعدك</string>
+    <string name="side_door_detail">المتصفحات الأخرى والمعرض ومتاجر التطبيقات وتطبيق جوجل تبقى مغلقة حتى ينتهي. ابحث من خلال الحارس بدلًا من ذلك.</string>
 </resources>
