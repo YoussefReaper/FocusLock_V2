@@ -152,6 +152,7 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
 
     private fun buildGreeting(): View {
         if (UiPrefs.isBlossom(activity)) return buildBlossomGreeting()
+        if (tokens.moon) return buildMoonTopBar()
         val column = FocusUi.column(activity)
         column.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
@@ -185,6 +186,23 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
             column.addView(subView)
         }
         return column
+    }
+
+    /** Moon (OrbPhone): the lowercase serif wordmark and a round You button, nothing else. */
+    private fun buildMoonTopBar(): View {
+        val bar = FocusUi.row(activity)
+        bar.gravity = android.view.Gravity.CENTER_VERTICAL
+        bar.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            .apply { bottomMargin = FocusUi.dp(activity, 8) }
+        val mark = android.widget.TextView(activity)
+        mark.text = "pinehold"
+        mark.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 22f)
+        mark.setTextColor(tokens.textPrimary)
+        mark.typeface = tokens.displayTypeface
+        mark.layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+        bar.addView(mark)
+        bar.addView(FocusUi.roundButton(activity, tokens, "", activity.getString(R.string.tab_you), iconRes = R.drawable.ic_tab_you) { activity.selectTab(MainActivity.TAB_YOU) })
+        return bar
     }
 
     /**

@@ -39,7 +39,18 @@ class YouTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activity
             added.add(view)
         }
 
-        add(FocusUi.pageHeader(activity, tokens, activity.getString(R.string.tab_you), activity.getString(R.string.youtab_subtitle), art = R.drawable.art_you))
+        add(FocusUi.pageHeader(activity, tokens, activity.getString(R.string.tab_you), activity.getString(R.string.youtab_subtitle), art = R.drawable.art_you,
+            onBack = if (tokens.moon) ({ activity.selectTab(MainActivity.TAB_FOCUS) }) else null))
+
+        // Moon has no bottom bar: the circle (Rules) is reached from here, as on the canvas.
+        if (tokens.moon) {
+            val circle = FocusUi.card(activity, tokens)
+            circle.addView(FocusUi.listRow(activity, tokens, activity.getString(R.string.rules_title), activity.getString(R.string.rules_subtitle),
+                trailing = FocusUi.chevron(activity, tokens),
+                leading = MoonArt.painting(activity, R.drawable.art_rules, 44),
+                onClick = { activity.selectTab(MainActivity.TAB_RULES) }))
+            add(circle)
+        }
 
         add(buildProgressCard())
 

@@ -41,7 +41,8 @@ class RulesTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activi
                 tokens,
                 activity.getString(R.string.rules_title),
                 activity.getString(R.string.rules_subtitle),
-                art = R.drawable.art_rules
+                art = R.drawable.art_rules,
+                onBack = if (tokens.moon) ({ activity.selectTab(MainActivity.TAB_FOCUS) }) else null
             )
         )
 

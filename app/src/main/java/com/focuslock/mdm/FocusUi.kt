@@ -338,18 +338,33 @@ object FocusUi {
     ): LinearLayout {
         val layout = LinearLayout(context)
         layout.orientation = LinearLayout.VERTICAL
-        val padding = dp(context, tokens.density.cardPaddingDp)
+        if (tokens.moon && !elevated) {
+            // Moon: no box. A group is its serif heading and hairline rows on the night itself.
+            layout.setPadding(0, dp(context, 4), 0, dp(context, 4))
+            if (onClick != null) {
+                layout.background = withRipple(context, roundedShape(context, UiPrefs.withAlpha(tokens.surface, 0), 16), tokens)
+                layout.isClickable = true
+                layout.isFocusable = true
+                layout.setOnClickListener { onClick() }
+            }
+            layout.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply { bottomMargin = dp(context, 30) }
+            return layout
+        }
+        val padding = dp(context, if (tokens.moon) 18 else tokens.density.cardPaddingDp)
         layout.setPadding(padding, padding, padding, padding)
 
-        val fill = if (elevated) tokens.surfaceAlt else tokens.surface
+        val fill = if (tokens.moon) tokens.surface else if (elevated) tokens.surfaceAlt else tokens.surface
         // Quiet Pine: cards sit on the stone ground with no border or shadow;
         // the colour step alone separates them. Dark themes keep a hairline,
         // where a 6% lightness step is too faint to see on some screens.
         val shape = roundedShape(
             context,
             fill,
-            tokens.cardRadiusDp,
-            if (tokens.isLight) null else tokens.divider
+            if (tokens.moon) 22 else tokens.cardRadiusDp,
+            if (tokens.isLight || tokens.moon) null else tokens.divider
         )
 
         if (onClick != null) {
@@ -449,12 +464,14 @@ object FocusUi {
     }
 
     fun title(context: Context, tokens: UiPrefs.Tokens, value: CharSequence): TextView =
-        text(context, tokens, value, 30f, tokens.textPrimary, 650, letterSpacing = -0.015f).also {
+        text(context, tokens, value, if (tokens.moon) 40f else 30f, tokens.textPrimary, 650, letterSpacing = -0.015f).also {
             applyDisplayFont(it, tokens)
+            if (tokens.moon) it.setLineSpacing(0f, 1f)
         }
 
     fun heading(context: Context, tokens: UiPrefs.Tokens, value: CharSequence): TextView =
-        text(context, tokens, value, 17f, tokens.textPrimary, 650)
+        if (tokens.moon) text(context, tokens, value, 24f, tokens.textPrimary, 400).also { applyDisplayFont(it, tokens) }
+        else text(context, tokens, value, 17f, tokens.textPrimary, 650)
 
     fun body(context: Context, tokens: UiPrefs.Tokens, value: CharSequence): TextView =
         text(context, tokens, value, 15f, tokens.textPrimary, 400)
@@ -472,7 +489,11 @@ object FocusUi {
     /** Small all-caps label that opens a group of cards. Mono, per the "mono retreats to structure" rule. */
     fun sectionLabel(context: Context, tokens: UiPrefs.Tokens, value: String): TextView {
         // Sentence case in the prose face: a quiet group title, not a shout.
-        val view = text(
+        // Moon: the canvas's tracked kicker - small, wide-spaced capitals in the faint ink.
+        val view = if (tokens.moon) text(
+            context, tokens, if (UiPrefs.isArabicLocale(context)) value else value.uppercase(), 11f, tokens.textMuted, 500,
+            letterSpacing = if (UiPrefs.isArabicLocale(context)) 0f else 0.4f
+        ) else text(
             context,
             tokens,
             value,
@@ -518,10 +539,13 @@ object FocusUi {
         view.isClickable = true
         view.isFocusable = true
 
+        val radius = if (tokens.moon) 999 else tokens.buttonRadiusDp
+        val moonFill = if (tokens.moon && fill == tokens.surface) UiPrefs.withAlpha(tokens.surface, 0) else fill
+        val moonStroke = if (tokens.moon && strokeColor != null) android.graphics.Color.parseColor("#2C2840") else strokeColor
         val shape = if (gradient) {
-            gradientShape(context, fill, tokens.accentDeep, tokens.buttonRadiusDp)
+            gradientShape(context, fill, tokens.accentDeep, radius)
         } else {
-            roundedShape(context, fill, tokens.buttonRadiusDp, strokeColor)
+            roundedShape(context, moonFill, radius, moonStroke)
         }
         view.background = withRipple(context, shape, tokens)
         view.setOnClickListener {
@@ -530,8 +554,9 @@ object FocusUi {
         }
         view.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
-            dp(context, tokens.density.buttonHeightDp + 2)
+            dp(context, if (tokens.moon) 54 else tokens.density.buttonHeightDp + 2)
         )
+        if (tokens.moon) applyFont(view, tokens, weight = 500)
         return view
     }
 
@@ -716,14 +741,30 @@ object FocusUi {
             rowView.addView(trailing)
         }
 
+        if (tokens.moon) {
+            titleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, tokens.scaled(16f))
+            applyFont(titleView, tokens, weight = 400)
+        }
         if (onClick != null) {
-            val shape = roundedShape(context, UiPrefs.withAlpha(tokens.surface, 0), tokens.rowRadiusDp)
+            val shape: Drawable = if (tokens.moon) hairlineBottom(context, tokens) else roundedShape(context, UiPrefs.withAlpha(tokens.surface, 0), tokens.rowRadiusDp)
             rowView.background = withRipple(context, shape, tokens)
             rowView.isClickable = true
             rowView.isFocusable = true
             rowView.setOnClickListener { onClick() }
+        } else if (tokens.moon) {
+            rowView.background = hairlineBottom(context, tokens)
         }
         return rowView
+    }
+
+    /** Moon rows: no box, one hairline under each, as on the canvas. */
+    fun hairlineBottom(context: Context, tokens: UiPrefs.Tokens): Drawable {
+        val line = android.graphics.drawable.ColorDrawable(android.graphics.Color.parseColor("#1C1930"))
+        val clear = android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT)
+        return LayerDrawable(arrayOf(clear, line)).apply {
+            setLayerGravity(1, Gravity.BOTTOM)
+            setLayerHeight(1, dp(context, 1))
+        }
     }
 
     fun spacerH(context: Context, widthDp: Int): View {
@@ -1638,6 +1679,41 @@ object FocusUi {
      * Consistent top of every sub-screen: a back affordance with a real label,
      * because a bare arrow is one of the icons people most often misread.
      */
+    /** Moon: the canvas's 44dp outlined round button (back, You): a glyph or a tinted icon. */
+    fun roundButton(
+        context: Context, tokens: UiPrefs.Tokens, glyph: String, description: String,
+        @androidx.annotation.DrawableRes iconRes: Int? = null, onClick: () -> Unit
+    ): View {
+        val ink = android.graphics.Color.parseColor("#CFC8DC")
+        val holder = FrameLayout(context)
+        holder.contentDescription = description
+        holder.background = withRipple(context, GradientDrawable().apply {
+            shape = GradientDrawable.OVAL
+            setColor(android.graphics.Color.TRANSPARENT)
+            setStroke(dp(context, 1), android.graphics.Color.parseColor("#3A3550"))
+        }, tokens)
+        holder.isClickable = true
+        holder.isFocusable = true
+        holder.setOnClickListener { onClick() }
+        holder.layoutParams = LinearLayout.LayoutParams(dp(context, 44), dp(context, 44))
+        if (iconRes != null) {
+            val icon = ImageView(context)
+            icon.setImageResource(iconRes)
+            icon.setColorFilter(ink)
+            icon.layoutParams = FrameLayout.LayoutParams(dp(context, 20), dp(context, 20), Gravity.CENTER)
+            holder.addView(icon)
+        } else {
+            val view = TextView(context)
+            view.text = glyph
+            view.gravity = Gravity.CENTER
+            view.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+            view.setTextColor(ink)
+            view.layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
+            holder.addView(view)
+        }
+        return holder
+    }
+
     fun pageHeader(
         context: Context,
         tokens: UiPrefs.Tokens,
@@ -1653,7 +1729,9 @@ object FocusUi {
             LinearLayout.LayoutParams.WRAP_CONTENT
         ).apply { bottomMargin = dp(context, tokens.density.gapDp) }
 
-        if (onBack != null) {
+        if (onBack != null && moon) {
+            container.addView(roundButton(context, tokens, "\u2190", context.getString(R.string.dialog_back), onClick = onBack))
+        } else if (onBack != null) {
             val back = TextView(context)
             back.text = context.getString(R.string.dialog_back)
             back.setTextSize(TypedValue.COMPLEX_UNIT_SP, tokens.scaled(14f))
@@ -1668,7 +1746,7 @@ object FocusUi {
         }
 
         if (moon && art != null) {
-            container.addView(MoonArt.painting(context, art, 240))
+            container.addView(MoonArt.painting(context, art, 260))
         }
         val titleView = title(context, tokens, titleText)
         if (moon && art != null) {

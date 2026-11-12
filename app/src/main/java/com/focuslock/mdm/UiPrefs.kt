@@ -127,7 +127,9 @@ object UiPrefs {
         @DrawableRes val wallpaperRes: Int,
         val dimPercent: Int,
         /** Moon: the display face is Instrument Serif, which has one weight and must never be faux-bolded. */
-        val serifDisplay: Boolean = false
+        val serifDisplay: Boolean = false,
+        /** Moon: flat painted-night layout (no boxes, hairline rows, tracked labels, apricot pills). */
+        val moon: Boolean = false
     ) {
         fun scaled(sp: Float): Float = sp * textScale
 
@@ -687,7 +689,8 @@ object UiPrefs {
             reducedMotion = reducedMotion(context),
             wallpaperRes = getWallpaper(context).drawableRes,
             dimPercent = if (Standalone.mayActNow(context) && Bedtime.isActive(context)) Bedtime.dimPercent(context) else 0,
-            serifDisplay = base.id == MOON_THEME_ID && !isArabicLocale(context)
+            serifDisplay = base.id == MOON_THEME_ID && !isArabicLocale(context),
+            moon = base.id == MOON_THEME_ID
         )
     }
 
@@ -706,7 +709,7 @@ object UiPrefs {
      * configured anywhere in the app, so Arabic text needs its own bundled
      * font regardless of which Latin font the user picked.
      */
-    private fun isArabicLocale(context: Context): Boolean {
+    fun isArabicLocale(context: Context): Boolean {
         val locales = context.resources.configuration.locales
         return !locales.isEmpty && locales[0].language == "ar"
     }

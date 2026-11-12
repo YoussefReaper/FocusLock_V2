@@ -54,6 +54,12 @@ class AdbCommandReceiver : BroadcastReceiver() {
                 )
             }
 
+            // Appearance only (QA screenshots): never loosens anything.
+            "set_theme" -> withValue(value) {
+                UiPrefs.setThemeId(context, value)
+                result(context, true, "Theme " + value)
+            }
+
             // Legacy names from the previous build, kept so old scripts still run.
             "add_app" -> withValue(value) { setPolicy(context, value, AppPolicy.ALLOW) }
             "remove_app" -> withValue(value) { setPolicy(context, value, AppPolicy.BLOCK) }

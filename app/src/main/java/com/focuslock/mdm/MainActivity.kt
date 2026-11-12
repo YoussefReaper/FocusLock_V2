@@ -461,7 +461,8 @@ class MainActivity : AppCompatActivity() {
 
         tab.onShow()
         updateNavState()
-        navBar.visibility = if (shouldHideNav()) View.GONE else View.VISIBLE
+        // Moon has no bottom bar: Home carries a You button, You leads to the circle.
+        navBar.visibility = if (shouldHideNav() || tokens.moon) View.GONE else View.VISIBLE
     }
 
     private fun createTab(index: Int): FocusTab = when (index) {
