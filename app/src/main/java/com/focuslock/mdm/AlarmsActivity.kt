@@ -35,7 +35,11 @@ class AlarmsActivity : FocusScreenActivity() {
             card.addView(FocusUi.toggleRow(this, tokens, getString(R.string.alarm_fajr_title),
                 if (Salah.isOn(this)) getString(R.string.alarm_fajr_subtitle) else getString(R.string.alarm_fajr_needs_salah),
                 WakeAlarm.wakesForFajr(this), enabled = Salah.isOn(this)) { v -> WakeAlarm.setWakesForFajr(this, v); refresh() })
-            if (WakeAlarm.wakesForFajr(this)) {
+            card.addView(FocusUi.spacer(this, 6))
+            card.addView(FocusUi.toggleRow(this, tokens, getString(R.string.alarm_prayers_title),
+                getString(R.string.alarm_prayers_subtitle, WakeAlarm.ASLEEP_MIN),
+                WakeAlarm.wakesForPrayersIfAsleep(this), enabled = Salah.isOn(this)) { v -> WakeAlarm.setWakesForPrayersIfAsleep(this, v); refresh() })
+            if (WakeAlarm.wakesForFajr(this) || WakeAlarm.wakesForPrayersIfAsleep(this)) {
                 card.addView(FocusUi.spacer(this, 8))
                 card.addView(soundPicker(WakeAlarm.fajrSound(this)) { WakeAlarm.setFajrSound(this, it); refresh() })
             }

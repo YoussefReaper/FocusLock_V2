@@ -241,4 +241,7 @@
     <string name="places_add_server">إضافة خادم</string>
     <string name="places_server_hint">رابط discord.com/channels/… أو رقم الخادم</string>
     <string name="places_note">الصفحة الرئيسية وPopular وAll في ريديت مغلقة والتعليقات مطوية. رسائل ديسكورد الخاصة مفتوحة؛ الاستكشاف والدعوات مغلقة.</string>
+    <string name="alarm_prayer_label">حان وقت الصلاة</string>
+    <string name="alarm_prayers_title">أيقظني لباقي الصلوات إن كنت نائمًا</string>
+    <string name="alarm_prayers_subtitle">عند الظهر والعصر والمغرب والعشاء يرن فقط إذا كانت الشاشة مطفأة %1$d دقيقة ولا يُستخدم الحاسوب.</string>
 </resources>

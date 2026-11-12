@@ -67,6 +67,8 @@ object WakeAlarm {
     const val EXTRA_SECOND = "wake_alarm_second"
     const val ACTION_CHECK = "com.focuslock.mdm.WAKE_CHECK"
     const val ACTION_AWAKE = "com.focuslock.mdm.WAKE_AWAKE"
+    const val ACTION_PRAYER = "com.focuslock.mdm.WAKE_PRAYER"
+    const val PRAYER_ID = "prayer"
 
     private const val K_ALARMS = "wake_alarms"
     private const val K_FAJR = "wake_fajr"
@@ -77,6 +79,11 @@ object WakeAlarm {
     private const val RC_SECOND = 7101
     private const val RC_CHECK = 7102
     private const val RC_SNOOZE = 7103
+    private const val RC_PRAYER = 7104
+    private const val RC_PRAYER_RING = 7105
+    private const val K_PRAYERS_ASLEEP = "wake_prayers_if_asleep"
+    /** Asleep means the screen has been dark at least this long and no other device is in use. */
+    const val ASLEEP_MIN = 30
     private const val NOTE_CHECK = 7110
 
     const val RECHECK_MIN = 5
@@ -106,6 +113,7 @@ object WakeAlarm {
     fun find(c: Context, id: String?): Alarm? = when (id) {
         null -> null
         FAJR_ID -> Alarm(FAJR_ID, 0, 0, emptySet(), Priority.MUST, fajrSound(c), c.getString(R.string.salah_fajr))
+        PRAYER_ID -> Alarm(PRAYER_ID, 0, 0, emptySet(), Priority.SHOULD, fajrSound(c), c.getString(R.string.alarm_prayer_label))
         else -> all(c).firstOrNull { it.id == id }
     }
 
@@ -152,8 +160,53 @@ object WakeAlarm {
 
     /** Puts the next ring on the system clock. Safe to call any time (boot, edits, after a ring). */
     fun scheduleNext(c: Context) {
+        schedulePrayerCheck(c)
         val (id, at) = next(c) ?: run { am(c).cancel(ringIntent(c, "", false, RC_NEXT)); return }
         setClock(c, at, ringIntent(c, id, false, RC_NEXT))
+    }
+
+    // ── The other prayers: ring only if you're asleep ────────────
+
+    fun wakesForPrayersIfAsleep(c: Context): Boolean = FocusStore.getBool(c, K_PRAYERS_ASLEEP, false)
+    fun setWakesForPrayersIfAsleep(c: Context, v: Boolean) { FocusStore.setBool(c, K_PRAYERS_ASLEEP, v); scheduleNext(c) }
+
+    private fun prayerCheckIntent(c: Context) = PendingIntent.getBroadcast(c, RC_PRAYER,
+        Intent(c, WakeReceiver::class.java).setAction(ACTION_PRAYER), PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
+
+    /** A quiet check at the next Dhuhr, Asr, Maghrib or Isha; it rings only if you're asleep then. */
+    private fun schedulePrayerCheck(c: Context) {
+        am(c).cancel(prayerCheckIntent(c))
+        if (!wakesForPrayersIfAsleep(c) || !Salah.isOn(c) || !canSchedule(c)) return
+        var t = System.currentTimeMillis()
+        repeat(6) {
+            val (name, at) = Salah.next(c, t) ?: return
+            if (name != "Fajr") {
+                try { am(c).setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, at, prayerCheckIntent(c)) } catch (_: SecurityException) { }
+                return
+            }
+            t = at + 1000
+        }
+    }
+
+    /** Blocking. Screen dark for [ASLEEP_MIN] and nothing else in use: ring as a Should alarm. */
+    fun prayerCheck(c: Context) {
+        try {
+            if (isAsleep(c) && !awakeElsewhere(c)) setClock(c, System.currentTimeMillis() + 1000, ringIntent(c, PRAYER_ID, false, RC_PRAYER_RING))
+        } finally { schedulePrayerCheck(c) }
+    }
+
+    private fun isAsleep(c: Context): Boolean {
+        if (c.getSystemService(PowerManager::class.java).isInteractive) return false
+        val now = System.currentTimeMillis()
+        val usm = c.getSystemService(android.app.usage.UsageStatsManager::class.java) ?: return false
+        val events = try { usm.queryEvents(now - ASLEEP_MIN * 60_000L, now) } catch (_: Exception) { return false }
+        val e = android.app.usage.UsageEvents.Event()
+        while (events.hasNextEvent()) {
+            events.getNextEvent(e)
+            // SCREEN_INTERACTIVE (15), or any app coming to the front, means someone was using it.
+            if (e.eventType == 15 || e.eventType == android.app.usage.UsageEvents.Event.ACTIVITY_RESUMED) return false
+        }
+        return true
     }
 
     fun snooze(c: Context, id: String) {
@@ -184,6 +237,7 @@ object WakeAlarm {
         val pm = c.getSystemService(PowerManager::class.java)
         val km = c.getSystemService(android.app.KeyguardManager::class.java)
         if (pm.isInteractive && !km.isKeyguardLocked) return
+        if (awakeElsewhere(c)) return
         setClock(c, System.currentTimeMillis() + ANSWER_MIN * 60_000L, ringIntent(c, id, true, RC_SECOND))
         val nm = c.getSystemService(NotificationManager::class.java)
         if (nm.getNotificationChannel("wake_check") == null) {
@@ -201,6 +255,13 @@ object WakeAlarm {
             .setContentIntent(awake)
             .addAction(0, c.getString(R.string.alarm_im_up), awake)
             .setAutoCancel(true).build())
+    }
+
+    /** Blocking. True when the laptop (or another device) was in use in the last five minutes. */
+    fun awakeElsewhere(c: Context): Boolean {
+        val token = Account.sessionToken(c) ?: return false
+        val r = Account.call("GET", "/presence?except=phone", null, token, readTimeoutMs = 6000)
+        return r.ok && r.json.optBoolean("awake", false)
     }
 
     fun confirmAwake(c: Context) {
@@ -252,8 +313,16 @@ object WakeAlarm {
 class WakeReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         when (intent.action) {
-            WakeAlarm.ACTION_CHECK -> WakeAlarm.check(context, intent.getStringExtra(WakeAlarm.EXTRA_ID) ?: return)
+            WakeAlarm.ACTION_CHECK -> {
+                val id = intent.getStringExtra(WakeAlarm.EXTRA_ID) ?: return
+                val pending = goAsync()
+                Thread { try { WakeAlarm.check(context.applicationContext, id) } finally { pending.finish() } }.start()
+            }
             WakeAlarm.ACTION_AWAKE -> WakeAlarm.confirmAwake(context)
+            WakeAlarm.ACTION_PRAYER -> {
+                val pending = goAsync()
+                Thread { try { WakeAlarm.prayerCheck(context.applicationContext) } finally { pending.finish() } }.start()
+            }
             Intent.ACTION_BOOT_COMPLETED, Intent.ACTION_TIME_CHANGED, Intent.ACTION_TIMEZONE_CHANGED,
             AlarmManager.ACTION_SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED -> WakeAlarm.scheduleNext(context)
         }

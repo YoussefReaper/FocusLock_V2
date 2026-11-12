@@ -66,6 +66,9 @@ object PromiseSync {
         Thread {
             val token = Account.sessionToken(app) ?: return@Thread
             try { SettingsSync.syncBlocking(app, token) } catch (_: Exception) { /* offline: try next minute */ }
+            // Presence: only a flag and a time, so an alarm on another device can tell you're up.
+            val interactive = app.getSystemService(android.os.PowerManager::class.java)?.isInteractive == true
+            Account.call("POST", "/presence", JSONObject().put("device", "phone").put("active", interactive), token)
             val r = Account.call("GET", "/promise", null, token)
             val p = r.json.optJSONObject("promise") ?: return@Thread
             val id = p.optString("id")

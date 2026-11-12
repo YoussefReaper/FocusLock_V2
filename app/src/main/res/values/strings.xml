@@ -243,4 +243,7 @@
     <string name="places_add_server">Add a server</string>
     <string name="places_server_hint">A discord.com/channels/… link or the server id</string>
     <string name="places_note">Reddit\'s Home, Popular and All stay closed and comments start folded. Discord DMs stay open; Discovery and invites stay closed.</string>
+    <string name="alarm_prayer_label">Time to pray</string>
+    <string name="alarm_prayers_title">Wake me for the other prayers if I\'m asleep</string>
+    <string name="alarm_prayers_subtitle">At Dhuhr, Asr, Maghrib and Isha it rings only if the phone has been dark for %1$d minutes and your laptop isn\'t in use.</string>
 </resources>
