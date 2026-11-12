@@ -307,17 +307,14 @@ object RuleEngine {
         }
         if (SystemSurfaces.isCritical(packageName)) return allow("system")
 
-        // The owner's own rule (personal build only): around every prayer only calls and the Quran open.
-        if (Personal.on) {
-            Personal.salahWindow()?.let { (name, at) ->
-                if (!Personal.allowedInSalah(packageName)) {
-                    val back = java.text.SimpleDateFormat("h:mm a", java.util.Locale.getDefault())
-                        .format(java.util.Date(at + Personal.AFTER_MIN * 60_000L))
-                    return GuardDecision(packageName, GuardOutcome.BLOCK, "Time for $name",
-                        "The phone opens again at $back. Calls and the Quran stay available.", "personalSalah", offersBreak = false)
-                }
-            }
+        // A ringing alarm owns the phone until its task is done.
+        if (WakeAlarm.isRinging(context) && !SystemSurfaces.isCritical(packageName)) {
+            return GuardDecision(packageName, GuardOutcome.BLOCK, context.getString(R.string.alarm_layer_line),
+                context.getString(R.string.alarm_block_detail), WakeAlarm.SOURCE, offersBreak = false)
         }
+
+        // Salah is its own layer: around each prayer only calls, the Quran, the Qibla and the clock.
+        Salah.decide(context, packageName)?.let { return it }
 
         // Settings pages the user opened from inside FocusLock, plus the USB
         // page, stay reachable: locking someone out of their own USB settings

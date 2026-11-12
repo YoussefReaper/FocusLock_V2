@@ -111,6 +111,19 @@ class RulesTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activi
                 ),
                 RuleRow(
                     R.drawable.ic_glyph_bedtime,
+                    activity.getString(R.string.alarm_title),
+                    WakeAlarm.next(activity)?.let { TimeText.dateTime(activity, it.second, withWeekday = true) }
+                        ?: activity.getString(R.string.common_off),
+                    Intent(activity, AlarmsActivity::class.java)
+                ),
+                RuleRow(
+                    R.drawable.ic_glyph_schedules,
+                    activity.getString(R.string.salah_title),
+                    Salah.next(activity)?.let { Salah.prayerName(activity, it.first) } ?: activity.getString(R.string.common_off),
+                    Intent(activity, SalahActivity::class.java)
+                ),
+                RuleRow(
+                    R.drawable.ic_glyph_bedtime,
                     activity.getString(R.string.rules_editor_bedtime_title),
                     if (CapabilityRegistry.isEnabled(activity, Capabilities.BEDTIME_MODE)) Bedtime.formatWindow(activity)
                     else activity.getString(R.string.common_off),

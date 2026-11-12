@@ -152,8 +152,11 @@ class InterceptActivity : AppCompatActivity() {
         // The gate speaks in the person's own words: their picture and their reason come first.
         val promiseWords = Promise.words(this)
         val moon = UiPrefs.isMoon(this)
-        val promiseMedia = Promise.mediaView(this, if (moon) 240 else 170, round = moon)
-        if (promiseMedia != null) {
+        val promiseMedia = if (source == Salah.SOURCE) null else Promise.mediaView(this, if (moon) 240 else 170, round = moon)
+        if (source == Salah.SOURCE) {
+            top.addView(MoonArt.painting(this, R.drawable.art_salah, 260))
+            top.addView(FocusUi.spacer(this, 8))
+        } else if (promiseMedia != null) {
             top.addView(promiseMedia)
             top.addView(FocusUi.spacer(this, 16))
         } else if (moon) {
@@ -163,7 +166,7 @@ class InterceptActivity : AppCompatActivity() {
             top.addView(buildMark())
             top.addView(FocusUi.spacer(this, 22))
         }
-        if (promiseWords.isNotBlank()) {
+        if (promiseWords.isNotBlank() && source != Salah.SOURCE) {
             val said = FocusUi.title(this, tokens, "\u201C" + promiseWords + "\u201D")
             said.gravity = Gravity.CENTER
             if (moon) {
@@ -373,6 +376,24 @@ class InterceptActivity : AppCompatActivity() {
                     getString(R.string.intercept_earn_pool_subtitle)
                 ) { openEarnTasks() }
             )
+            hasCardRow = true
+        }
+
+        if (source == WakeAlarm.SOURCE) {
+            column.addView(buildWayRow(R.drawable.ic_glyph_bedtime, getString(R.string.alarm_back), null) {
+                startActivity(android.content.Intent(this, AlarmActivity::class.java).addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK))
+                finish()
+            })
+            hasCardRow = true
+        }
+        if (source == Salah.SOURCE) {
+            if (Salah.canMarkPrayed(this)) {
+                column.addView(buildWayRow(R.drawable.ic_glyph_focus, getString(R.string.salah_prayed), null) {
+                    if (Salah.markPrayed(this)) leave()
+                })
+            } else {
+                column.addView(buildQuietRow(getString(R.string.salah_prayed_wait, Salah.PRAYED_MIN)))
+            }
             hasCardRow = true
         }
 

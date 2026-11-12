@@ -1306,10 +1306,7 @@ class AppBlockerService : Service() {
                 SessionManager.formatDuration(EarnPool.balanceMs(this))
             )
         }
-        if (SessionManager.isActive(this)) {
-            val mode = SessionManager.mode(this)
-            return getString(R.string.mode_notification_line, mode.label(this), SessionManager.formatRemaining(this))
-        }
+        Layers.statusLine(this)?.let { return it }
         ScheduleManager.activeWindowIfEnabled(this)?.let { window ->
             return getString(R.string.status_scheduled_until, ScheduleManager.formatTime(this, window.endMinutes))
         }

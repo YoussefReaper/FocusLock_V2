@@ -183,7 +183,7 @@ object SessionManager {
      */
     fun isGuardActive(context: Context, activeOverride: Boolean? = null): Boolean {
         if (isEnforcing(context, activeOverride)) return true
-        if (Personal.on) return true
+        if (Personal.on || Salah.isOn(context)) return true
         if (ScheduleManager.activeWindowIfEnabled(context) != null) return true
         if (Bedtime.isActive(context)) return true
         if (PlaceRules.activePlaces(context).isNotEmpty()) return true
@@ -208,7 +208,7 @@ object SessionManager {
      * needs [AppBlockerService] watching in the background.
      */
     fun hasAlwaysOnRules(context: Context): Boolean {
-        if (Personal.on) return true
+        if (Personal.on || Salah.isOn(context) || WakeAlarm.next(context) != null) return true
         // With no session and the master switch off, none of these rules acts.
         if (!Standalone.mayActNow(context)) return false
         if (CapabilityRegistry.isEnabled(context, Capabilities.SCHEDULES) &&
