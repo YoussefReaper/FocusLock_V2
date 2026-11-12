@@ -58,7 +58,7 @@ class AlarmActivity : AppCompatActivity() {
         sumsLeft = sums
         phrase = if (words > 0) WakeAlarm.phrase(words) else ""
         snooze = canSnooze
-        WakeAlarm.startRinging(this)
+        WakeAlarm.startRinging(this, alarm?.label.orEmpty())
         playSound()
         render()
     }

@@ -34,7 +34,7 @@ class FocusNotificationService : NotificationListenerService() {
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
         val notification = sbn ?: return
         if (shouldSuppress(notification)) { dismiss(notification); return }
-        if (shouldFoldPicture(notification)) foldPicture(notification)
+        if (SideDoors.isOn(this, SideDoors.Group.PICTURE_NOTIFICATIONS) && shouldFoldPicture(notification)) foldPicture(notification)
     }
 
     /**

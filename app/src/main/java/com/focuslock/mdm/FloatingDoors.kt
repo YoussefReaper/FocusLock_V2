@@ -39,7 +39,7 @@ object FloatingDoors {
         for (w in windows) {
             when {
                 w.isInPictureInPictureMode -> closePip(service, w)
-                w.type == AccessibilityWindowInfo.TYPE_INPUT_METHOD -> if (gifTabSelected(w)) service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK)
+                w.type == AccessibilityWindowInfo.TYPE_INPUT_METHOD -> if (SideDoors.isOn(service, SideDoors.Group.KEYBOARD_GIFS) && gifTabSelected(w)) service.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK)
             }
         }
     }

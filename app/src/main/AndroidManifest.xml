@@ -228,6 +228,11 @@
         </receiver>
 
         <activity
+            android:name=".SideDoorsActivity"
+            android:exported="false"
+            android:launchMode="singleTop" />
+
+        <activity
             android:name=".SalahActivity"
             android:exported="false"
             android:launchMode="singleTop" />

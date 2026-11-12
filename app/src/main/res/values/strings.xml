@@ -260,4 +260,22 @@
     <string name="keeper_gate_thumbs_checking">The Keeper is looking at the pictures…</string>
     <string name="telegram_cover_title">Cover pictures in allowed chats (experiment)</string>
     <string name="telegram_cover_subtitle">While a layer holds the phone, photos, videos, GIFs and stickers in Telegram are covered with dark cards. If a Telegram update changes how it labels them, covering quietly stops.</string>
+    <string name="side_doors_title">Side doors</string>
+    <string name="side_doors_subtitle">Everyday apps that can also be a way around a promise. All open unless you close them.</string>
+    <string name="side_doors_count">%1$d closed in a layer</string>
+    <string name="side_doors_browsers">Other browsers</string>
+    <string name="side_doors_browsers_line">Chrome, Samsung Internet, Mi Browser… Pinehold\'s Safe Browser stays open.</string>
+    <string name="side_doors_gallery">Gallery and video players</string>
+    <string name="side_doors_gallery_line">Photos and videos already on the phone.</string>
+    <string name="side_doors_google">Google app, Lens and Gemini</string>
+    <string name="side_doors_google_line">Image search and Discover.</string>
+    <string name="side_doors_stores">App stores</string>
+    <string name="side_doors_stores_line">Play Store and the phone maker\'s store.</string>
+    <string name="side_doors_themes">Theme and wallpaper stores</string>
+    <string name="side_doors_themes_line">Themes, wallpapers and their previews.</string>
+    <string name="side_doors_pictures">Pictures in notifications</string>
+    <string name="side_doors_pictures_line">A notification carrying a picture is shown as text instead.</string>
+    <string name="side_doors_gifs">Keyboard GIF and sticker search</string>
+    <string name="side_doors_gifs_line">The GIF panel closes when it opens.</string>
+    <string name="side_doors_always">Always closed during a layer, because they never get in the way of daily use: hidden spaces (Private Space, new users) and installing apps from outside the store.</string>
 </resources>

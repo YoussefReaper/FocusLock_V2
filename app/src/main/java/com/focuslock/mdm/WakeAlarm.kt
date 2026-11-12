@@ -218,11 +218,24 @@ object WakeAlarm {
 
     fun isRinging(c: Context): Boolean = System.currentTimeMillis() < FocusStore.getLong(c, K_RINGING_UNTIL, 0L)
 
-    fun startRinging(c: Context) = FocusStore.setLong(c, K_RINGING_UNTIL, System.currentTimeMillis() + 15 * 60_000L)
+    fun startRinging(c: Context, label: String = "") {
+        FocusStore.setLong(c, K_RINGING_UNTIL, System.currentTimeMillis() + 15 * 60_000L)
+        relay(c, true, label)
+    }
+
+    /** Tells the account's other devices (the laptop) that an alarm is ringing, or stopped. */
+    fun relay(c: Context, ringing: Boolean, label: String = "") {
+        val app = c.applicationContext
+        Thread {
+            val token = Account.sessionToken(app) ?: return@Thread
+            Account.call("POST", "/alarm", org.json.JSONObject().put("ringing", ringing).put("label", label), token)
+        }.start()
+    }
 
     /** Called when the ring is solved. Must and Should come back in five minutes to check. */
     fun stopped(c: Context, alarm: Alarm?, second: Boolean) {
         FocusStore.setLong(c, K_RINGING_UNTIL, 0L)
+        relay(c, false)
         if (alarm != null && !second && (alarm.priority == Priority.MUST || alarm.priority == Priority.SHOULD)) {
             val op = PendingIntent.getBroadcast(c, RC_CHECK,
                 Intent(c, WakeReceiver::class.java).setAction(ACTION_CHECK).putExtra(EXTRA_ID, alarm.id),

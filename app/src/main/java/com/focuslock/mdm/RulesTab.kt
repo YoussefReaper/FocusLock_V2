@@ -110,6 +110,14 @@ class RulesTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activi
                     Intent(activity, ScheduleActivity::class.java)
                 ),
                 RuleRow(
+                    R.drawable.ic_glyph_guard,
+                    activity.getString(R.string.side_doors_title),
+                    SideDoors.Group.values().count { SideDoors.isOn(activity, it) }.let {
+                        if (it == 0) activity.getString(R.string.common_off) else activity.getString(R.string.side_doors_count, it)
+                    },
+                    Intent(activity, SideDoorsActivity::class.java)
+                ),
+                RuleRow(
                     R.drawable.ic_glyph_bedtime,
                     activity.getString(R.string.alarm_title),
                     WakeAlarm.next(activity)?.let { TimeText.dateTime(activity, it.second, withWeekday = true) }

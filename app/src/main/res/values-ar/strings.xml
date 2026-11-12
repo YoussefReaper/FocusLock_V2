@@ -258,4 +258,22 @@
     <string name="keeper_gate_thumbs_checking">الحارس ينظر إلى الصور…</string>
     <string name="telegram_cover_title">غطِّ الصور في المحادثات المسموحة (تجربة)</string>
     <string name="telegram_cover_subtitle">ما دامت طبقة تمسك الهاتف تُغطّى الصور والفيديو وGIF والملصقات في تيليجرام ببطاقات داكنة. إن غيّر تحديث لتيليجرام تسمياتها يتوقف التغطية بهدوء.</string>
+    <string name="side_doors_title">الأبواب الجانبية</string>
+    <string name="side_doors_subtitle">تطبيقات يومية قد تكون طريقًا حول الوعد. كلها مفتوحة إلا ما تغلقه بنفسك.</string>
+    <string name="side_doors_count">%1$d مغلقة أثناء الطبقة</string>
+    <string name="side_doors_browsers">المتصفحات الأخرى</string>
+    <string name="side_doors_browsers_line">كروم وسامسونج وMi… المتصفح الآمن يبقى مفتوحًا.</string>
+    <string name="side_doors_gallery">المعرض ومشغلات الفيديو</string>
+    <string name="side_doors_gallery_line">الصور والفيديو الموجودة على الهاتف.</string>
+    <string name="side_doors_google">تطبيق جوجل وLens وGemini</string>
+    <string name="side_doors_google_line">البحث بالصور وDiscover.</string>
+    <string name="side_doors_stores">متاجر التطبيقات</string>
+    <string name="side_doors_stores_line">متجر Play ومتجر الشركة المصنعة.</string>
+    <string name="side_doors_themes">متاجر الثيمات والخلفيات</string>
+    <string name="side_doors_themes_line">الثيمات والخلفيات ومعايناتها.</string>
+    <string name="side_doors_pictures">الصور في الإشعارات</string>
+    <string name="side_doors_pictures_line">الإشعار الذي يحمل صورة يظهر نصًا فقط.</string>
+    <string name="side_doors_gifs">بحث GIF والملصقات في لوحة المفاتيح</string>
+    <string name="side_doors_gifs_line">تُغلق لوحة GIF عند فتحها.</string>
+    <string name="side_doors_always">مغلق دائمًا أثناء الطبقة لأنه لا يعيق الاستخدام اليومي: المساحات المخفية (Private Space والمستخدمون الجدد) وتثبيت التطبيقات من خارج المتجر.</string>
 </resources>
