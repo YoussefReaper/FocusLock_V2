@@ -41,7 +41,12 @@ class LibraryTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(acti
             added.add(view)
         }
 
-        add(
+        // Moon: the canvas's round back button, like every other page.
+        if (tokens.moon) {
+            add(FocusUi.roundButton(activity, tokens, "\u2190", activity.getString(R.string.nav_back_to_focus)) {
+                activity.selectTab(MainActivity.TAB_FOCUS)
+            })
+        } else add(
             FocusUi.smallButton(activity, tokens, activity.getString(R.string.nav_back_to_focus)) {
                 activity.selectTab(MainActivity.TAB_FOCUS)
             }.apply {
