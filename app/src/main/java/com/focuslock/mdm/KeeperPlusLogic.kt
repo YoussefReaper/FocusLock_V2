@@ -154,7 +154,10 @@ object AccountRules {
     fun redeemable(raw: String?): String? {
         subscriptionId(raw)?.let { return it }
         val t = raw?.trim()?.uppercase() ?: return null
-        return t.takeIf { it.startsWith("FLP") && it.replace(Regex("[^A-Z0-9]"), "").length >= 12 }
+        val compact = t.replace(Regex("[^A-Z0-9]"), "")
+        // KP-: Keeper Plus paid once (a month or a year), as the access page shows it.
+        if (compact.startsWith("KP") && compact.length in 12..42) return "KP-" + compact.substring(2)
+        return t.takeIf { it.startsWith("FLP") && compact.length >= 12 }
     }
 
     /** The server's own minimum (auth.js); checked here first so a short one never leaves the phone. */

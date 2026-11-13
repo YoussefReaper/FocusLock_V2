@@ -45,7 +45,7 @@
     </plurals>
     <string name="keeper_free_upgrade">Upgrade to Keeper Plus</string>
     <string name="keeper_plus_subscribe">Subscribe</string>
-    <string name="keeper_plus_redeem_prompt">Already subscribed, or bought Everywhere? Paste your PayPal subscription ID (I-…) or your PC code (FLP-…)</string>
+    <string name="keeper_plus_redeem_prompt">Already subscribed, or bought Keeper Plus or Everywhere? Paste your PayPal subscription ID (I-…), your Keeper code (KP-…) or your PC code (FLP-…)</string>
     <string name="keeper_plus_activate">Activate</string>
     <string name="keeper_plus_sign_in_first">Sign in first.</string>
     <string name="keeper_plus_activated">Keeper Plus is on.</string>

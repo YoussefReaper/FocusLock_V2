@@ -97,6 +97,9 @@ class KeeperPlusLogicTest {
         assertEquals("FLP-ABCD-EFGH-IJKL", AccountRules.redeemable(" flp-abcd-efgh-ijkl "))
         assertEquals("I-ABC123DEF", AccountRules.redeemable("i-abc123def"))
         assertNull(AccountRules.redeemable("FL2-ABCD-EFGH-IJKL"))
+        // Keeper Plus paid once: KP- and the payment id, however it was pasted.
+        assertEquals("KP-5AB12345CD6789012", AccountRules.redeemable(" kp 5ab12345cd6789012 "))
+        assertNull(AccountRules.redeemable("KP-123"))
         assertNull(AccountRules.redeemable("FLP-1"))
     }
 }

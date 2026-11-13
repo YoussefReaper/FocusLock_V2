@@ -52,7 +52,7 @@
     </plurals>
     <string name="keeper_free_upgrade">الترقية إلى Keeper Plus</string>
     <string name="keeper_plus_subscribe">اشترك</string>
-    <string name="keeper_plus_redeem_prompt">مشترك بالفعل أو اشتريت Everywhere؟ الصق رقم اشتراك PayPal (I-…) أو رمز الكمبيوتر (FLP-…)</string>
+    <string name="keeper_plus_redeem_prompt">مشترك بالفعل، أو اشتريت Keeper Plus أو Everywhere؟ الصق رقم اشتراك PayPal ‏(I-…)، أو رمز Keeper ‏(KP-…)، أو رمز الحاسوب ‏(FLP-…)</string>
     <string name="keeper_plus_activate">تفعيل</string>
     <string name="keeper_plus_sign_in_first">سجّل الدخول أولًا.</string>
     <string name="keeper_plus_activated">Keeper Plus مفعّل الآن.</string>
