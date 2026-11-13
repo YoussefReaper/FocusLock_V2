@@ -557,6 +557,8 @@ object FocusDialog {
         val shown = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
         val field = FocusUi.input(context, tokens, hint)
         field.inputType = hidden
+        // A password type switches the box to monospace; keep the app's own face.
+        FocusUi.applyFont(field, tokens, mono = false, weight = 400)
         field.setPaddingRelative(field.paddingStart, field.paddingTop, FocusUi.dp(context, 52), field.paddingBottom)
         val frame = android.widget.FrameLayout(context)
         frame.layoutParams = LinearLayout.LayoutParams(
