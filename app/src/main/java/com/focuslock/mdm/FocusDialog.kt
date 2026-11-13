@@ -71,6 +71,17 @@ object FocusDialog {
             attributes = attributes.apply {
                 windowAnimations = android.R.style.Animation_InputMethod // slides from the bottom, no platform dialog fade
             }
+            // The sheet rides above the keyboard: it draws edge to edge and lifts its own
+            // content by the keyboard's height, so a field and its Save never hide behind it.
+            androidx.core.view.WindowCompat.setDecorFitsSystemWindows(this, false)
+            setSoftInputMode(android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        }
+        val baseBottom = card.paddingBottom
+        androidx.core.view.ViewCompat.setOnApplyWindowInsetsListener(card) { v, insets ->
+            val types = androidx.core.view.WindowInsetsCompat.Type.ime() or
+                androidx.core.view.WindowInsetsCompat.Type.navigationBars()
+            v.setPadding(v.paddingLeft, v.paddingTop, v.paddingRight, baseBottom + insets.getInsets(types).bottom)
+            insets
         }
         return dialog to card
     }
@@ -454,13 +465,19 @@ object FocusDialog {
         addTitle(context, tokens, card, title)
         if (!subtitle.isNullOrBlank()) addMessage(context, tokens, card, subtitle)
 
-        val field = FocusUi.input(context, tokens, hint, value, multiline, numeric)
-        if (password) field.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
-        field.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        ).apply { topMargin = FocusUi.dp(context, 14) }
-        card.addView(field)
+        val field = if (password) passwordField(context, tokens, card, hint, 14) else
+            FocusUi.input(context, tokens, hint, value, multiline, numeric).also {
+                it.layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).apply { topMargin = FocusUi.dp(context, 14) }
+                card.addView(it)
+            }
+        field.requestFocus()
+        dialog.window?.setSoftInputMode(
+            android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE or
+                android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
+        )
 
         addActions(
             context, tokens, card, confirmLabel, context.getString(R.string.common_cancel), false,
@@ -468,6 +485,105 @@ object FocusDialog {
         )
         dialog.show()
         return dialog
+    }
+
+    /**
+     * A new password, made carefully: typed twice, an eye to see it, and the rules shown
+     * while typing (each one lights up as it is met), so Save only works once all are.
+     */
+    fun newPassword(
+        context: Context,
+        title: String,
+        subtitle: String?,
+        hint: String,
+        repeatHint: String,
+        rules: List<Pair<String, (String) -> Boolean>>,
+        matchRule: String,
+        onSave: (String) -> Unit
+    ): Dialog {
+        val tokens = UiPrefs.resolve(context)
+        val (dialog, card) = shell(context, tokens)
+        addTitle(context, tokens, card, title)
+        if (!subtitle.isNullOrBlank()) addMessage(context, tokens, card, subtitle)
+
+        val first = passwordField(context, tokens, card, hint, 14)
+        val second = passwordField(context, tokens, card, repeatHint, 10)
+
+        val all = rules + (matchRule to { _: String -> first.text.toString() == second.text.toString() && second.text.isNotEmpty() })
+        val lines = all.map { (label, _) ->
+            FocusUi.secondary(context, tokens, label).also { line ->
+                line.layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+                ).apply { topMargin = FocusUi.dp(context, 6) }
+                card.addView(line)
+            }
+        }
+        val confirm = addActions(
+            context, tokens, card, context.getString(R.string.common_save), context.getString(R.string.common_cancel), false,
+            { onSave(first.text.toString()) }, null, dialog
+        )
+        fun refresh() {
+            val typed = first.text.toString()
+            var ok = true
+            all.forEachIndexed { i, (label, test) ->
+                val met = test(typed)
+                ok = ok && met
+                lines[i].text = (if (met) "\u2713  " else "\u2022  ") + label
+                lines[i].setTextColor(if (met) tokens.accent else tokens.textMuted)
+            }
+            confirm?.isEnabled = ok
+            confirm?.alpha = if (ok) 1f else 0.4f
+        }
+        val watcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) = refresh()
+        }
+        first.addTextChangedListener(watcher)
+        second.addTextChangedListener(watcher)
+        refresh()
+        dialog.window?.setSoftInputMode(
+            android.view.WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE or
+                android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
+        )
+        first.requestFocus()
+        dialog.show()
+        return dialog
+    }
+
+    /** A password box with an eye on its end that shows or hides what was typed. */
+    private fun passwordField(context: Context, tokens: UiPrefs.Tokens, card: LinearLayout, hint: String, topDp: Int): android.widget.EditText {
+        val hidden = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+        val shown = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+        val field = FocusUi.input(context, tokens, hint)
+        field.inputType = hidden
+        field.setPaddingRelative(field.paddingStart, field.paddingTop, FocusUi.dp(context, 52), field.paddingBottom)
+        val frame = android.widget.FrameLayout(context)
+        frame.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+        ).apply { topMargin = FocusUi.dp(context, topDp) }
+        frame.addView(field, android.widget.FrameLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT))
+        val eye = android.widget.ImageView(context)
+        val pad = FocusUi.dp(context, 12)
+        eye.setPadding(pad, pad, pad, pad)
+        eye.setImageResource(R.drawable.ic_eye)
+        eye.imageTintList = android.content.res.ColorStateList.valueOf(tokens.textMuted)
+        eye.contentDescription = context.getString(R.string.password_show)
+        eye.setOnClickListener {
+            val showing = field.inputType == shown
+            val at = field.selectionEnd
+            field.inputType = if (showing) hidden else shown
+            // Changing the input type resets the typeface; keep the app's own.
+            FocusUi.applyFont(field, tokens, mono = false, weight = 400)
+            field.setSelection(at.coerceIn(0, field.text.length))
+            eye.setImageResource(if (showing) R.drawable.ic_eye else R.drawable.ic_eye_off)
+            eye.contentDescription = context.getString(if (showing) R.string.password_show else R.string.password_hide)
+        }
+        frame.addView(eye, android.widget.FrameLayout.LayoutParams(
+            FocusUi.dp(context, 48), FocusUi.dp(context, 48), Gravity.END or Gravity.CENTER_VERTICAL))
+        card.addView(frame)
+        return field
     }
 
     /**

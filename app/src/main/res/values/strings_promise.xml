@@ -74,4 +74,10 @@
     <string name="partner_err_network">Pinehold couldn\'t reach its server, so no code was sent.</string>
     <string name="side_door_headline">Not while your promise runs</string>
     <string name="side_door_detail">You chose to close this side door during a promise. It opens when the promise ends, or change it in Rules, Side doors.</string>
+    <string name="session_password_help_short">There is no recovery: forget it and you wait the promise out. It\'s best if someone you trust sets it.</string>
+    <string name="session_password_repeat_hint">Type it again</string>
+    <string name="session_password_rule_length">At least 8 characters</string>
+    <string name="session_password_rule_match">Both are the same</string>
+    <string name="password_show">Show password</string>
+    <string name="password_hide">Hide password</string>
 </resources>

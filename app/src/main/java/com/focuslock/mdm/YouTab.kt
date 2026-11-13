@@ -777,10 +777,12 @@ class YouTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activity
 
     /** Set or change the session password. Changing needs the current one first. */
     private fun askSessionPassword() {
-        fun askNew(current: String?) = FocusDialog.textInput(
+        fun askNew(current: String?) = FocusDialog.newPassword(
             activity, activity.getString(R.string.session_password_title),
-            activity.getString(R.string.session_password_help), activity.getString(R.string.session_password_new_hint),
-            password = true
+            activity.getString(R.string.session_password_help_short), activity.getString(R.string.session_password_new_hint),
+            activity.getString(R.string.session_password_repeat_hint),
+            listOf(activity.getString(R.string.session_password_rule_length) to { t: String -> t.length >= SessionPassword.MIN_LENGTH }),
+            activity.getString(R.string.session_password_rule_match)
         ) { next ->
             val ok = SessionPassword.set(activity, current, next)
             FocusDialog.toast(activity, activity.getString(if (ok) R.string.session_password_saved else R.string.session_password_too_short))

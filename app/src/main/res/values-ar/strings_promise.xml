@@ -74,4 +74,10 @@
     <string name="partner_err_network">لم يتمكن Pinehold من الوصول إلى خادمه، لذلك لم يُرسل رمز.</string>
     <string name="side_door_headline">ليس أثناء وعدك</string>
     <string name="side_door_detail">اخترت إغلاق هذا الباب الجانبي أثناء الوعد. يُفتح عند انتهائه، أو غيّره من القواعد ثم الأبواب الجانبية.</string>
+    <string name="session_password_help_short">لا يوجد استرجاع: إن نسيتها ستنتظر حتى ينتهي الوعد. الأفضل أن يضعها شخص تثق به.</string>
+    <string name="session_password_repeat_hint">اكتبها مرة أخرى</string>
+    <string name="session_password_rule_length">٨ أحرف على الأقل</string>
+    <string name="session_password_rule_match">الاثنتان متطابقتان</string>
+    <string name="password_show">إظهار كلمة المرور</string>
+    <string name="password_hide">إخفاء كلمة المرور</string>
 </resources>
