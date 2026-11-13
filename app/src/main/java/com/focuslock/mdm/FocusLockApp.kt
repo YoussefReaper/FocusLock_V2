@@ -29,6 +29,7 @@ class FocusLockApp : Application() {
         // see Diagnostics.
         Diagnostics.install(this)
         registerActivityLifecycleCallbacks(DimAttacher())
+        registerActivityLifecycleCallbacks(KeyboardLift())
         // Pro and Keeper Plus on the account: refreshed once per start, cached between.
         Account.refreshAsync(this)
     }
