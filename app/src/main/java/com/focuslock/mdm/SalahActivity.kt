@@ -54,7 +54,7 @@ class SalahActivity : FocusScreenActivity() {
 
         column.addView(sectionLabel(getString(R.string.salah_section_window)))
         column.addView(card { card ->
-            val options = listOf(15, 20, 30, 45)
+            val options = listOf(15, 20, 30, 35, 45)
             val current = Salah.windowMinutes(this)
             card.addView(FocusUi.chipStrip(this, tokens, options.map { getString(R.string.salah_minutes, it) }, options.indexOf(current)) { i ->
                 guarded(if (options[i] >= current) EditDirection.TIGHTEN else EditDirection.LOOSEN) { Salah.setWindowMinutes(this, options[i]) }
