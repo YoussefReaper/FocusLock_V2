@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="moon_how_long">How long</string>
+    <string name="moon_why">Why, in your own words</string>
+    <string name="moon_media_note">They show when something is held back.</string>
+    <string name="moon_ends_at">Ends at %1$s</string>
+    <string name="moon_ends_on">Ends %1$s</string>
+    <string name="moon_apps_allowed">Apps still allowed</string>
+    <string name="moon_apps_allowed_sub">Always open, even while you hold</string>
+    <string name="moon_kiosk">Kiosk</string>
+    <string name="moon_kiosk_sub">Pin the phone to one full screen until it ends</string>
+    <string name="moon_laptop_holds">Your laptop will hold it with you</string>
+    <string name="moon_unit_min">min</string>
+    <string name="moon_unit_hours">hours</string>
+    <string name="moon_unit_days">days</string>
+    <string name="moon_unit_switch">Switch between minutes, hours and days</string>
+    <string name="moon_amount">How long, as a number</string>
+    <string name="moon_less">Less time</string>
+    <string name="moon_more">More time</string>
+</resources>

@@ -230,7 +230,7 @@ class YouTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusTab(activity
                 activity,
                 tokens,
                 activity.getString(R.string.youtab_type_and_spacing),
-                UiPrefs.getFont(activity).label(activity) + " · " + UiPrefs.getDensity(activity).label(activity) +
+                UiPrefs.getDensity(activity).label(activity) +
                     " · " + (UiPrefs.getTextScale(activity) * 100).toInt() + "%",
                 trailing = FocusUi.chevron(activity, tokens)
             ) { activity.startActivity(Intent(activity, PersonalizationActivity::class.java)) }

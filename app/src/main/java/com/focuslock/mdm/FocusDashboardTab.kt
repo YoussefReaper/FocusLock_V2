@@ -877,6 +877,7 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
     }
 
     private fun buildStarter(): View {
+        if (tokens.moon) return buildMoonStarter()
         val card = FocusUi.card(activity, pt)
         card.background = SlabDrawable(activity)
         val slabPad = FocusUi.dp(activity, 24)
@@ -966,6 +967,262 @@ class FocusDashboardTab(activity: MainActivity, tokens: UiPrefs.Tokens) : FocusT
             ) { makePromise() }
         )
         return card
+    }
+
+    // ---- Moon · Make a promise (the canvas's "Start" board) -----------------------------
+
+    private var moonUnit: String? = null // null: follow the length
+
+    private fun unitMs(unit: String): Long = when (unit) { "days" -> 86_400_000L; "hours" -> 3_600_000L; else -> 60_000L }
+
+    private fun autoUnit(ms: Long): String = when {
+        ms >= 86_400_000L && ms % 86_400_000L == 0L -> "days"
+        ms >= 3_600_000L && ms % 3_600_000L == 0L -> "hours"
+        else -> "min"
+    }
+
+    private fun unitLabel(unit: String): String = activity.getString(when (unit) {
+        "days" -> R.string.moon_unit_days
+        "hours" -> R.string.moon_unit_hours
+        else -> R.string.moon_unit_min
+    })
+
+    /** The −/+ step grows with the length: 5 min, 15 min, an hour, then a day. */
+    private fun moonStep(ms: Long, up: Boolean): Long {
+        val m = (if (up) ms else ms - 1) / 60_000L
+        return 60_000L * when { m < 60 -> 5; m < 240 -> 15; m < 1440 -> 60; else -> 1440 }
+    }
+
+    private fun clampLength(ms: Long): Long = ms.coerceIn(5 * 60_000L, 365L * 86_400_000L)
+
+    private fun moonHeading(res: Int): View {
+        val h = FocusUi.heading(activity, tokens, activity.getString(res))
+        h.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            .apply { topMargin = FocusUi.dp(activity, 30); bottomMargin = FocusUi.dp(activity, 14) }
+        return h
+    }
+
+    private fun buildMoonStarter(): View {
+        val col = FocusUi.column(activity)
+        col.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+
+        // A promise to yourself / What are you protecting?
+        val kicker = FocusUi.sectionLabel(activity, tokens, activity.getString(R.string.promise_kicker))
+        (kicker as? android.widget.TextView)?.gravity = android.view.Gravity.CENTER
+        kicker.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        col.addView(kicker)
+        val title = FocusUi.title(activity, tokens, activity.getString(R.string.promise_title))
+        title.textSize = 38f
+        title.gravity = android.view.Gravity.CENTER
+        title.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        col.addView(title)
+
+        // How long: − [typed number][unit] +
+        col.addView(moonHeading(R.string.moon_how_long))
+        val row = FocusUi.row(activity)
+        row.gravity = android.view.Gravity.CENTER
+        row.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        row.addView(FocusUi.roundButton(activity, tokens, "−", activity.getString(R.string.moon_less)) {
+            moonUnit = null
+            selectedDurationMs = clampLength(selectedDurationMs - moonStep(selectedDurationMs, false))
+            render()
+        })
+        val unit = moonUnit ?: autoUnit(selectedDurationMs)
+        val per = unitMs(unit)
+        val amount = android.widget.EditText(activity)
+        amount.setText((selectedDurationMs / per).toString())
+        amount.inputType = android.text.InputType.TYPE_CLASS_NUMBER
+        amount.imeOptions = android.view.inputmethod.EditorInfo.IME_ACTION_DONE
+        amount.filters = arrayOf(android.text.InputFilter.LengthFilter(4))
+        amount.typeface = tokens.displayTypeface
+        amount.textSize = 72f
+        amount.setTextColor(tokens.textPrimary)
+        amount.background = null
+        amount.setPadding(0, 0, 0, 0)
+        amount.includeFontPadding = false
+        amount.gravity = android.view.Gravity.CENTER
+        amount.contentDescription = activity.getString(R.string.moon_amount)
+        amount.minWidth = FocusUi.dp(activity, 40)
+        fun commitAmount() {
+            val n = amount.text.toString().toLongOrNull() ?: return
+            if (n < 1) return
+            moonUnit = unit
+            selectedDurationMs = clampLength(n * per)
+        }
+        amount.setOnEditorActionListener { _, _, _ -> commitAmount(); render(); false }
+        amount.setOnFocusChangeListener { _, has -> if (!has) commitAmount() }
+        amount.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            .apply { marginStart = FocusUi.dp(activity, 22) }
+        row.addView(amount)
+        val unitView = FocusUi.text(activity, tokens, " " + unitLabel(unit), 24f, tokens.textMuted, 400)
+        unitView.typeface = tokens.displayTypeface
+        unitView.contentDescription = activity.getString(R.string.moon_unit_switch)
+        unitView.setPadding(FocusUi.dp(activity, 4), FocusUi.dp(activity, 8), FocusUi.dp(activity, 6), FocusUi.dp(activity, 8))
+        unitView.isClickable = true
+        unitView.isFocusable = true
+        unitView.setOnClickListener {
+            commitAmount()
+            val n = maxOf(1L, selectedDurationMs / unitMs(moonUnit ?: autoUnit(selectedDurationMs)))
+            val next = when (moonUnit ?: autoUnit(selectedDurationMs)) { "min" -> "hours"; "hours" -> "days"; else -> "min" }
+            moonUnit = next
+            selectedDurationMs = clampLength(n * unitMs(next))
+            render()
+        }
+        unitView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            .apply { marginEnd = FocusUi.dp(activity, 22); gravity = android.view.Gravity.BOTTOM }
+        row.addView(unitView)
+        row.addView(FocusUi.roundButton(activity, tokens, "+", activity.getString(R.string.moon_more)) {
+            moonUnit = null
+            selectedDurationMs = clampLength(selectedDurationMs + moonStep(selectedDurationMs, true))
+            render()
+        })
+        col.addView(row)
+
+        // Shortcuts, as on the board: 1 day, 1 week, 30 days, 90 days (25 min first, for a quick one).
+        val presets = android.widget.LinearLayout(activity)
+        presets.orientation = LinearLayout.HORIZONTAL
+        presets.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            .apply { topMargin = FocusUi.dp(activity, 16) }
+        listOf(25L * 60_000L, 86_400_000L, 7L * 86_400_000L, 30L * 86_400_000L, 90L * 86_400_000L).forEach { ms ->
+            val pill = FocusUi.chip(activity, tokens, SessionManager.formatDuration(ms), selectedDurationMs == ms) {
+                moonUnit = null
+                selectedDurationMs = ms
+                render()
+            }
+            pill.layoutParams = LinearLayout.LayoutParams(0, FocusUi.dp(activity, 40), 1f).apply { marginEnd = FocusUi.dp(activity, 6) }
+            (pill as? android.widget.TextView)?.let { it.gravity = android.view.Gravity.CENTER; it.setPadding(0, 0, 0, 0); it.maxLines = 1 }
+            presets.addView(pill)
+        }
+        col.addView(presets)
+        val ends = System.currentTimeMillis() + selectedDurationMs
+        val endsText = if (selectedDurationMs < 86_400_000L)
+            activity.getString(R.string.moon_ends_at, java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT).format(java.util.Date(ends)))
+        else activity.getString(R.string.moon_ends_on, java.text.DateFormat.getDateInstance(java.text.DateFormat.MEDIUM).format(java.util.Date(ends)))
+        val endsView = FocusUi.caption(activity, tokens, endsText)
+        endsView.gravity = android.view.Gravity.CENTER
+        endsView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            .apply { topMargin = FocusUi.dp(activity, 12) }
+        col.addView(endsView)
+
+        // How firm? three stones
+        col.addView(moonHeading(R.string.promise_how_firm))
+        val stones = FocusUi.row(activity)
+        stones.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        val art = mapOf(Promise.Strength.SOFT to R.drawable.art_stone0, Promise.Strength.FIRM to R.drawable.art_stone1, Promise.Strength.SEALED to R.drawable.art_stone2)
+        Promise.Strength.values().forEach { strength ->
+            val selected = strength == selectedStrength
+            val locked = DemoMode.isModeLocked(activity, strength.mode)
+            val cell = FocusUi.column(activity)
+            cell.gravity = android.view.Gravity.CENTER_HORIZONTAL
+            cell.layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+            val stone = MoonArt.painting(activity, art.getValue(strength), 50)
+            stone.alpha = if (selected) 1f else 0.6f
+            if (selected) {
+                val ring = android.widget.FrameLayout(activity)
+                val ringSize = FocusUi.dp(activity, 60)
+                ring.layoutParams = LinearLayout.LayoutParams(ringSize, ringSize)
+                ring.background = android.graphics.drawable.GradientDrawable().apply {
+                    shape = android.graphics.drawable.GradientDrawable.OVAL
+                    setStroke(FocusUi.dp(activity, 2), tokens.accent)
+                }
+                stone.layoutParams = android.widget.FrameLayout.LayoutParams(FocusUi.dp(activity, 50), FocusUi.dp(activity, 50), android.view.Gravity.CENTER)
+                ring.addView(stone)
+                cell.addView(ring)
+            } else {
+                stone.layoutParams = LinearLayout.LayoutParams(FocusUi.dp(activity, 50), FocusUi.dp(activity, 50)).apply {
+                    topMargin = FocusUi.dp(activity, 5); bottomMargin = FocusUi.dp(activity, 5)
+                }
+                cell.addView(stone)
+            }
+            val name = FocusUi.text(activity, tokens,
+                activity.getString(strength.labelRes) + if (locked) "  " + activity.getString(R.string.pro_badge) else "",
+                14f, if (selected) tokens.textPrimary else tokens.textMuted, 400)
+            name.gravity = android.view.Gravity.CENTER
+            name.setPadding(0, FocusUi.dp(activity, 8), 0, 0)
+            cell.addView(name)
+            cell.isClickable = true
+            cell.isFocusable = true
+            cell.contentDescription = activity.getString(strength.labelRes) + ". " + activity.getString(strength.lineRes) +
+                if (selected) ", " + activity.getString(R.string.common_selected) else ""
+            cell.setOnClickListener {
+                if (locked) DemoMode.showUpgradeDialog(activity, activity.getString(strength.labelRes)) { selectedStrength = strength; render() }
+                else { selectedStrength = strength; render() }
+            }
+            stones.addView(cell)
+        }
+        col.addView(stones)
+        val line = FocusUi.text(activity, tokens, activity.getString(selectedStrength.lineRes), 17f, tokens.textSecondary, 400)
+        line.typeface = android.graphics.Typeface.create(tokens.displayTypeface, android.graphics.Typeface.ITALIC)
+        line.gravity = android.view.Gravity.CENTER
+        line.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            .apply { topMargin = FocusUi.dp(activity, 14) }
+        col.addView(line)
+
+        // Why, in your own words
+        col.addView(moonHeading(R.string.moon_why))
+        val words = android.widget.EditText(activity)
+        words.setText(draftWords)
+        words.hint = activity.getString(R.string.promise_words_hint)
+        words.filters = arrayOf(android.text.InputFilter.LengthFilter(Promise.MAX_WORDS))
+        words.typeface = android.graphics.Typeface.create(tokens.displayTypeface, android.graphics.Typeface.ITALIC)
+        words.textSize = 21f
+        words.setTextColor(tokens.textPrimary)
+        words.setHintTextColor(tokens.textMuted)
+        words.background = FocusUi.hairlineBottom(activity, tokens)
+        words.setPadding(0, FocusUi.dp(activity, 6), 0, FocusUi.dp(activity, 10))
+        words.addTextChangedListener(object : android.text.TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) = Unit
+            override fun onTextChanged(s: CharSequence?, a: Int, b: Int, c: Int) = Unit
+            override fun afterTextChanged(s: android.text.Editable?) { draftWords = s?.toString().orEmpty() }
+        })
+        col.addView(words)
+        Promise.mediaView(activity, 150)?.let { col.addView(FocusUi.spacer(activity, 12)); col.addView(it) }
+        val media = FocusUi.row(activity)
+        media.gravity = android.view.Gravity.CENTER_VERTICAL
+        media.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            .apply { topMargin = FocusUi.dp(activity, 14) }
+        val plus = FocusUi.text(activity, tokens, "+", 22f, tokens.textMuted, 400)
+        plus.gravity = android.view.Gravity.CENTER
+        plus.background = android.graphics.drawable.GradientDrawable().apply {
+            cornerRadius = FocusUi.dp(activity, 14).toFloat()
+            setStroke(FocusUi.dp(activity, 1), android.graphics.Color.parseColor("#4A4466"), FocusUi.dp(activity, 4).toFloat(), FocusUi.dp(activity, 3).toFloat())
+        }
+        plus.layoutParams = LinearLayout.LayoutParams(FocusUi.dp(activity, 56), FocusUi.dp(activity, 56)).apply { marginEnd = FocusUi.dp(activity, 12) }
+        media.addView(plus)
+        media.addView(FocusUi.text(activity, tokens,
+            activity.getString(if (Promise.hasMedia(activity)) R.string.promise_change_media else R.string.promise_add_media), 14f, tokens.textPrimary, 400))
+        media.isClickable = true
+        media.isFocusable = true
+        media.setOnClickListener { activity.startActivity(Intent(activity, PromisePickActivity::class.java)) }
+        col.addView(media)
+        if (Promise.hasMedia(activity)) {
+            col.addView(FocusUi.ghostButton(activity, tokens, activity.getString(R.string.promise_remove_media)) { Promise.clearMedia(activity); render() })
+        }
+        val note = FocusUi.caption(activity, tokens, activity.getString(R.string.moon_media_note))
+        note.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            .apply { topMargin = FocusUi.dp(activity, 8) }
+        col.addView(note)
+
+        // Apps still allowed · Kiosk
+        col.addView(FocusUi.spacer(activity, 26))
+        col.addView(FocusUi.listRow(activity, tokens, activity.getString(R.string.moon_apps_allowed), activity.getString(R.string.moon_apps_allowed_sub),
+            trailing = FocusUi.chevron(activity, tokens)) { activity.startActivity(Intent(activity, AlwaysAllowedActivity::class.java)) })
+        col.addView(FocusUi.listRow(activity, tokens, activity.getString(R.string.moon_kiosk), activity.getString(R.string.moon_kiosk_sub),
+            trailing = FocusUi.chevron(activity, tokens)) { openKioskOptionsSheet() })
+
+        // Make the promise
+        col.addView(FocusUi.spacer(activity, 30))
+        val canStart = DemoMode.hasSessionLeft(activity)
+        col.addView(FocusUi.primaryButton(activity, tokens,
+            activity.getString(if (canStart) R.string.promise_make else R.string.demo_start_used_up)) { makePromise() })
+        if (Account.signedIn(activity)) {
+            val holds = FocusUi.caption(activity, tokens, activity.getString(R.string.moon_laptop_holds))
+            holds.gravity = android.view.Gravity.CENTER
+            holds.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                .apply { topMargin = FocusUi.dp(activity, 10) }
+            col.addView(holds)
+        }
+        return col
     }
 
     private fun buildStrengthOption(strength: Promise.Strength): View {

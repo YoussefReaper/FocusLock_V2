@@ -414,7 +414,7 @@ object FocusUi {
         if (tokens.serifDisplay) view.letterSpacing = 0f
     }
 
-    private fun text(
+    fun text(
         context: Context,
         tokens: UiPrefs.Tokens,
         value: CharSequence,

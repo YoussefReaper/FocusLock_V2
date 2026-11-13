@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="moon_how_long">المدة</string>
+    <string name="moon_why">لماذا، بكلماتك</string>
+    <string name="moon_media_note">تظهر حين يُمنع شيء.</string>
+    <string name="moon_ends_at">ينتهي الساعة %1$s</string>
+    <string name="moon_ends_on">ينتهي %1$s</string>
+    <string name="moon_apps_allowed">تطبيقات تبقى مسموحة</string>
+    <string name="moon_apps_allowed_sub">مفتوحة دائمًا حتى أثناء الوعد</string>
+    <string name="moon_kiosk">وضع الكشك</string>
+    <string name="moon_kiosk_sub">تثبيت الهاتف على شاشة واحدة حتى النهاية</string>
+    <string name="moon_laptop_holds">سيحفظه حاسوبك معك</string>
+    <string name="moon_unit_min">دقيقة</string>
+    <string name="moon_unit_hours">ساعات</string>
+    <string name="moon_unit_days">أيام</string>
+    <string name="moon_unit_switch">التبديل بين الدقائق والساعات والأيام</string>
+    <string name="moon_amount">المدة كرقم</string>
+    <string name="moon_less">وقت أقل</string>
+    <string name="moon_more">وقت أكثر</string>
+</resources>

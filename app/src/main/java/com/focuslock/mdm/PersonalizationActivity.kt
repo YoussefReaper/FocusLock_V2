@@ -200,20 +200,7 @@ class PersonalizationActivity : FocusScreenActivity() {
     }
 
     private fun buildTypeCard(): View = card { card ->
-        card.addView(FocusUi.caption(this, tokens, getString(R.string.appearance_typeface)))
-        card.addView(
-            FocusUi.chipStrip(
-                this,
-                tokens,
-                UiPrefs.fonts.map { it.label(this) },
-                UiPrefs.fonts.indexOfFirst { it.id == UiPrefs.getFont(this).id }
-            ) { index ->
-                UiPrefs.setFontId(this, UiPrefs.fonts[index].id)
-                refresh()
-            }
-        )
-
-        card.addView(FocusUi.spacer(this, 12))
+        // One typeface (Figtree) in Moon: only spacing and size are yours to change.
         card.addView(FocusUi.caption(this, tokens, getString(R.string.appearance_spacing)))
         card.addView(
             FocusUi.chipStrip(

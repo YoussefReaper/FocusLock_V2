@@ -415,10 +415,8 @@ object UiPrefs {
         prefs(context).edit().putString(Constants.KEY_UI_THEME, id).apply()
     }
 
-    fun getFont(context: Context): UiFont {
-        val id = prefs(context).getString(Constants.KEY_UI_FONT, DEFAULT_FONT_ID) ?: DEFAULT_FONT_ID
-        return fonts.firstOrNull { it.id == id } ?: fonts.first()
-    }
+    /** Moon has one UI face, Figtree; an older saved font choice opens as Figtree too. */
+    fun getFont(context: Context): UiFont = fonts.firstOrNull { it.id == DEFAULT_FONT_ID } ?: fonts.first()
 
     fun setFontId(context: Context, id: String) {
         prefs(context).edit().putString(Constants.KEY_UI_FONT, id).apply()
